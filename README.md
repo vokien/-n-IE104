@@ -67,27 +67,11 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 │   └── app.js               # Module theme Dark/Light & menu di động (TV5)
 ├── data/
 │   └── venues_sample.json   # Hợp đồng dữ liệu mẫu (Data Contract) 5 items chuẩn
-├── docs/                    # Tài liệu kế hoạch, phân công công việc chi tiết
-│   ├── KE_HOACH_PHAN_CONG_DO_AN.md
-│   └── BANG_PHAN_CONG_MINI_TASKS_IE104.xlsx
 └── images/                  # Thư mục hình ảnh, logo, icons
 ```
 
 ---
 
-## 👥 PHÂN CÔNG NHIỆM VỤ NHÓM (20% ĐÓNG GÓP / THÀNH VIÊN)
-
-| STT | Thành viên | Vai trò phụ trách | File code chính | Báo cáo / Deliverable phụ trách |
-| :---: | :--- | :--- | :--- | :--- |
-| **1** | **Võ Kiên (Trưởng nhóm)** | Core Architecture & Storage | `index.html`, `js/storage.js`, `.gitignore`, `README.md` | Quản trị repo Git/Trello, Nộp `GroupX.docx`, Báo cáo PDF Phần 1 |
-| **2** | **Thành viên 2** | NLP Recommender Engine Dev | `recommend.html`, `js/recommender.js`, `css/recommend.css` | Viết Chương Giải thuật gợi ý Okapi BM25 trong Báo cáo PDF |
-| **3** | **Thành viên 3** | Data Engineering & Filter | `data/venues.json`, `venues.html`, `js/filter.js` | Viết Chương Cơ sở dữ liệu và Bộ lọc tra cứu trong Báo cáo PDF |
-| **4** | **Thành viên 4** | Countdown & Timeline Dev | `timeline.html`, `js/countdown.js`, `css/timeline.css` | **Quay Video Demo sản phẩm, lồng tiếng & upload YouTube (Unlisted)** |
-| **5** | **Thành viên 5** | UI/UX & Semantic Layout | `variables.css`, `main.css`, `about.html`, `sitemap.html`, `app.js` | **Vẽ Wireframe Figma, Thiết kế Slide thuyết trình 10-15 phút** |
-
-*Chi tiết 25 mini-tasks kèm deadline và phương án dự phòng xem tại [docs/BANG_PHAN_CONG_MINI_TASKS_IE104.xlsx](docs/BANG_PHAN_CONG_MINI_TASKS_IE104.xlsx).*
-
----
 
 ## 📝 QUY ĐỊNH COMMIT GIT CHO CÁC THÀNH VIÊN
 Để đảm bảo minh chứng đóng góp rõ ràng phục vụ chấm điểm môn học, tất cả các commit phải tuân theo cú pháp:

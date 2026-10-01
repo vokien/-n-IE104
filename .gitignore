@@ -53,3 +53,14 @@ api_keys.json
 .cache/
 .tmp/
 temp/
+
+# =============================================================
+# TÀI LIỆU NỘI BỘ & PHÂN CÔNG CÔNG VIỆC (KHÔNG UPLOAD GITHUB)
+# =============================================================
+docs/
+*.xlsx
+*.xls
+*PHAN_CONG*
+*phan_cong*
+*KE_HOACH*
+*ke_hoach*
