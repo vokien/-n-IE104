@@ -17,7 +17,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
    - Lọc theo chuyên ngành nghiên cứu (Khoa học máy tính, Trí tuệ nhân tạo, Mạng máy tính,...).
    - Phân trang (Pagination) mượt mà.
 2. **🎯 Khuyến Nghị Bài Báo Thông Minh (`recommend.html`)**:
-   - Thuật toán **TF-IDF & Cosine Similarity** thuần JavaScript phía client.
+   - Thuật toán **Okapi BM25** thuần JavaScript phía client.
    - So khớp Tiêu đề, Tóm tắt (Abstract) và Từ khóa (Keywords) của bài báo với Scope/Aims của các venue.
    - Trả về Top-K venue phù hợp nhất kèm thanh điểm tương đồng Match Score (%) và từ khóa trùng khớp.
 3. **⏳ Dòng Thời Gian CFP & Đếm Ngược Realtime (`timeline.html`)**:
@@ -61,7 +61,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 │   └── timeline.css         # Style dòng thời gian và countdown (TV4)
 ├── js/
 │   ├── storage.js           # Module LocalStorage & Bookmarks (TV1)
-│   ├── recommender.js       # Module thuật toán TF-IDF & Cosine Similarity (TV2)
+│   ├── recommender.js       # Module thuật toán Okapi BM25 (TV2)
 │   ├── filter.js            # Module nạp dữ liệu Fetch API & bộ lọc đa tiêu chí (TV3)
 │   ├── countdown.js         # Module đồng hồ đếm ngược múi giờ UTC/AoE (TV4)
 │   └── app.js               # Module theme Dark/Light & menu di động (TV5)
@@ -80,7 +80,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 | STT | Thành viên | Vai trò phụ trách | File code chính | Báo cáo / Deliverable phụ trách |
 | :---: | :--- | :--- | :--- | :--- |
 | **1** | **Võ Kiên (Trưởng nhóm)** | Core Architecture & Storage | `index.html`, `js/storage.js`, `.gitignore`, `README.md` | Quản trị repo Git/Trello, Nộp `GroupX.docx`, Báo cáo PDF Phần 1 |
-| **2** | **Thành viên 2** | NLP Recommender Engine Dev | `recommend.html`, `js/recommender.js`, `css/recommend.css` | Viết Chương Giải thuật gợi ý TF-IDF trong Báo cáo PDF |
+| **2** | **Thành viên 2** | NLP Recommender Engine Dev | `recommend.html`, `js/recommender.js`, `css/recommend.css` | Viết Chương Giải thuật gợi ý Okapi BM25 trong Báo cáo PDF |
 | **3** | **Thành viên 3** | Data Engineering & Filter | `data/venues.json`, `venues.html`, `js/filter.js` | Viết Chương Cơ sở dữ liệu và Bộ lọc tra cứu trong Báo cáo PDF |
 | **4** | **Thành viên 4** | Countdown & Timeline Dev | `timeline.html`, `js/countdown.js`, `css/timeline.css` | **Quay Video Demo sản phẩm, lồng tiếng & upload YouTube (Unlisted)** |
 | **5** | **Thành viên 5** | UI/UX & Semantic Layout | `variables.css`, `main.css`, `about.html`, `sitemap.html`, `app.js` | **Vẽ Wireframe Figma, Thiết kế Slide thuyết trình 10-15 phút** |

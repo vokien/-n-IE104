@@ -72,7 +72,7 @@ project/
 │   └── timeline.css         # Style riêng cho dòng thời gian và đồng hồ đếm ngược
 ├── js/
 │   ├── storage.js           # Quản lý Bookmark, LocalStorage, lịch sử tìm kiếm (TV1)
-│   ├── recommender.js       # Thuật toán NLP TF-IDF & Cosine Similarity thuần (TV2)
+│   ├── recommender.js       # Thuật toán NLP Okapi BM25 thuần (TV2)
 │   ├── filter.js            # Xử lý Fetch dữ liệu, tìm kiếm và lọc đa tiêu chí (TV3)
 │   ├── countdown.js         # Thuật toán đếm ngược thời gian thực theo múi giờ UTC/AoE (TV4)
 │   └── app.js               # Logic điều hướng chung, Dark/Light toggle, Mobile menu (TV5)
@@ -133,7 +133,7 @@ project/
    * Lập trình **100% bằng Vanilla JavaScript thuần**, không dùng thư viện ngoài.
    * **Bước 1 (Tiền xử lý văn bản)**: Viết hàm tách từ (Tokenize), chuyển chữ thường, loại bỏ ký tự đặc biệt.
    * **Bước 2 (Lọc từ dừng - Stopwords)**: Tích hợp danh sách ~150 từ dừng tiếng Anh thông dụng + từ dừng học thuật (`paper`, `propose`, `method`, `approach`, `results`,...).
-   * **Bước 3 (TF-IDF Vectorization)**:
+   * **Bước 3 (Okapi BM25 Vectorization)**:
      * Tính tần suất từ (Term Frequency - TF) trong đoạn văn bản người dùng nhập.
      * Tính nghịch đảo tần suất tài liệu (Inverse Document Frequency - IDF) dựa trên kho Scope/Keywords của các venue.
    * **Bước 4 (Cosine Similarity)**:
@@ -145,10 +145,10 @@ project/
    * Giao diện Kết quả gợi ý: Danh sách Top-5 hoặc Top-10 venue phù hợp nhất, thanh đo điểm phần trăm tương đồng (Progress bar), hiển thị các từ khóa trùng lặp làm căn cứ giải thích.
 
 #### Nhiệm vụ Báo cáo:
-* Viết chi tiết **Chương Giải thuật và Cơ chế khuyến nghị** trong Báo cáo PDF (trình bày công thức toán học TF-IDF, Cosine Similarity, lưu đồ giải thuật, phân tích độ phức tạp).
+* Viết chi tiết **Chương Giải thuật và Cơ chế khuyến nghị** trong Báo cáo PDF (trình bày công thức toán học Okapi BM25, Cosine Similarity, lưu đồ giải thuật, phân tích độ phức tạp).
 
 #### Chỉ tiêu Git:
-* Tối thiểu 10-15 commits về tiền xử lý văn bản, hàm ma trận TF-IDF, giao diện trang recommend.
+* Tối thiểu 10-15 commits về tiền xử lý văn bản, hàm ma trận Okapi BM25, giao diện trang recommend.
 
 ---
 
@@ -276,7 +276,7 @@ project/
 | **T1.5** | TV1 (Leader) | Nộp GroupX.docx & Viết Phần 1 Báo cáo PDF | 04/11 | **07/11** | T4.4 (Link video YouTube) | Soạn sẵn toàn bộ văn bản, chỉ chờ link video là chèn vào xuất file nộp. |
 | **T2.1** | TV2 (NLP) | Dựng HTML/CSS Trang recommend.html | 09/10 | **16/10** | T5.1 (variables.css) | Dùng CSS thuần cơ bản, đồng bộ biến màu sau. |
 | **T2.2** | TV2 (NLP) | Viết Tokenizer & Lọc Stopwords học thuật | 17/10 | **22/10** | Không có (Độc lập 100%) | Logic xử lý chuỗi JS thuần túy, test trực tiếp qua console.log. |
-| **T2.3** | TV2 (NLP) | Thuật toán TF-IDF & Cosine Similarity thuần | 23/10 | **28/10** | T3.1 (Trường scope_keywords) | **Dùng Mock Corpus**: Tự tạo mảng 3 đoạn abstract mẫu để test thuật toán. |
+| **T2.3** | TV2 (NLP) | Thuật toán Okapi BM25 thuần | 23/10 | **28/10** | T3.1 (Trường scope_keywords) | **Dùng Mock Corpus**: Tự tạo mảng 3 đoạn abstract mẫu để test thuật toán. |
 | **T2.4** | TV2 (NLP) | Tích hợp gợi ý với dữ liệu và recommend.html | 29/10 | **02/11** | T3.2 (File venues.json hoàn chỉnh) | Nếu data lớn chưa xong, dùng venues_sample.json (30 items) chạy trước. |
 | **T2.5** | TV2 (NLP) | Viết Chương Giải thuật trong Báo cáo PDF | 03/11 | **06/11** | T2.3 (Thuật toán đã chạy) | Viết lý thuyết và công thức toán trước, bổ sung số liệu kiểm thử sau. |
 | **T3.1** | TV3 (Data) | Chốt Schema & venues_sample.json (5 items) | 01/10 | **05/10** | Không có (ƯU TIÊN SỐ 1) | **CRITICAL**: Nếu trễ, TV1 phát hành file mẫu 5 trường cơ bản cho nhóm. |
@@ -322,7 +322,7 @@ Tuần 1-2 ──► Tuần 3-6 ──► Tuần 7-9 ──► Tuần 10 (Sơ kh
 
 ### Giai đoạn 3: Lập trình JavaScript Tương tác (Tuần 7 - Tuần 9)
 * **TV3**: Hoàn thiện file `data/venues.json`, viết `js/filter.js` nạp Fetch API và xử lý bộ lọc đa chiều.
-* **TV2**: Viết `js/recommender.js`, kiểm thử giải thuật TF-IDF và Cosine Similarity trên dữ liệu mẫu.
+* **TV2**: Viết `js/recommender.js`, kiểm thử giải thuật Okapi BM25 trên dữ liệu mẫu.
 * **TV4**: Viết `js/countdown.js`, tích hợp đồng hồ đếm ngược vào thẻ venue và trang timeline.
 * **TV1**: Viết `js/storage.js`, hoàn thiện chức năng Bookmark và danh sách đã lưu.
 * **TV5**: Viết `js/app.js`, hoàn thiện Dark/Light mode và mobile menu toggle.
@@ -340,7 +340,7 @@ Tuần 1-2 ──► Tuần 3-6 ──► Tuần 7-9 ──► Tuần 10 (Sơ kh
   * Phần 1: Mở đầu & Cơ sở lý thuyết (TV1)
   * Phần 2: Kiến trúc hệ thống & Thiết kế giao diện Semantic (TV5)
   * Phần 3: Cơ sở dữ liệu học thuật & Chức năng tra cứu (TV3)
-  * Phần 4: Thuật toán khuyến nghị NLP TF-IDF (TV2)
+  * Phần 4: Thuật toán khuyến nghị NLP Okapi BM25 (TV2)
   * Phần 5: Tính năng đếm ngược thời gian thực & Kết quả kiểm thử (TV4)
   * Phần 6: Đánh giá, Hướng phát triển & Kết luận (TV1)
 * **TV5**: Hoàn thiện Slide báo cáo (10-15 phút thuyết trình).
@@ -369,10 +369,10 @@ Dưới đây là các tài nguyên đã được trinh sát qua ReuseForge đ�
   secrets.*
   ```
 
-### Dành cho TV2 (Thuật toán NLP TF-IDF thuần JS):
+### Dành cho TV2 (Thuật toán NLP Okapi BM25 thuần JS):
 * **Công thức tính Cosine Similarity**:
   $$\text{Cosine Similarity}(\vec{A}, \vec{B}) = \frac{\vec{A} \cdot \vec{B}}{\|\vec{A}\| \|\vec{B}\|} = \frac{\sum_{i=1}^n A_i B_i}{\sqrt{\sum_{i=1}^n A_i^2} \sqrt{\sum_{i=1}^n B_i^2}}$$
-* **Mã nguồn tham khảo**: [Vanilla JS TF-IDF & Cosine Similarity Implementation](https://alexop.dev/posts/cosine-similarity-tfidf-javascript/)
+* **Mã nguồn tham khảo**: [Vanilla JS Okapi BM25 Implementation](https://alexop.dev/posts/cosine-similarity-tfidf-javascript/)
 
 ### Dành cho TV3 (Dataset Scopus & CORE):
 * **Dữ liệu Scopus SJR**: [SCImagoJournalRankIndicators trên GitHub](https://github.com/Michael-E-Rose/SCImagoJournalRankIndicators) (tải file CSV lọc lấy tạp chí ngành Computer Science).
