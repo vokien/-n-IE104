@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website tra cứu và khuyến nghị hội nghị / tạp chí Scopus & CORE cho đề tài nghiên cứu khoa học - Đồ án IE104">
+  <title>Scopus & CORE Venue Recommender | Trang Chủ</title>
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+  <!-- HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus Recommender">
+        🎓 Scopus<span>Venue</span>
+      </a>
+
+      <!-- Thanh điều hướng mô hình bánh xe (Trang chủ là Hub kết nối nan hoa) -->
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+        <ul>
+          <li><a href="index.html" class="active">Trang Chủ</a></li>
+          <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
+          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="timeline.html">Lịch Trình CFP</a></li>
+          <li><a href="about.html">Giới Thiệu</a></li>
+          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nút chức năng: Xem Bookmarks & Đổi Theme -->
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách đã lưu">
+          <span>❤️</span>
+          <span class="bookmark-count" style="display: none;">0</span>
+        </button>
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Sáng / Tối">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH (SEMANTIC <main>) -->
+  <main id="main-content" role="main">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 id="hero-title" class="hero-title">Tra Cứu & Gợi Ý Hội Nghị / Tạp Chí Chuẩn Scopus</h1>
+        <p class="hero-subtitle">
+          Tìm kiếm nơi công bố tối ưu cho bản thảo nghiên cứu của bạn dựa trên thuật toán so khớp nội dung thông minh và hệ thống phân hạng Scopus Q1-Q4 & CORE A*-C.
+        </p>
+        <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+          <a href="recommend.html" class="btn-primary">✨ Khuyến Nghị Theo Bản Thảo</a>
+          <a href="venues.html" class="btn-primary" style="background-color: var(--color-bg-surface); color: var(--color-primary); border: 1px solid var(--color-primary);">🔍 Khám Phá Danh Bạ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thống kê nhanh (Stats Counter Section) -->
+    <section class="container" style="margin-top: var(--spacing-xl);" aria-label="Thống kê cơ sở dữ liệu">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-md); text-align: center;">
+        <article class="card" style="padding: var(--spacing-md);">
+          <h2 style="color: var(--color-primary); font-size: var(--font-size-3xl); font-weight: 800;">500+</h2>
+          <p style="color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: 600;">HỘI NGHỊ & TẠP CHÍ</p>
+        </article>
+        <article class="card" style="padding: var(--spacing-md);">
+          <h2 style="color: var(--badge-q1); font-size: var(--font-size-3xl); font-weight: 800;">Q1 - Q4</h2>
+          <p style="color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: 600;">THỨ HẠNG SCOPUS / SJR</p>
+        </article>
+        <article class="card" style="padding: var(--spacing-md);">
+          <h2 style="color: var(--color-secondary); font-size: var(--font-size-3xl); font-weight: 800;">A* - C</h2>
+          <p style="color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: 600;">CHUẨN HỘI NGHỊ CORE 2026</p>
+        </article>
+        <article class="card" style="padding: var(--spacing-md);">
+          <h2 style="color: var(--color-accent); font-size: var(--font-size-3xl); font-weight: 800;">Realtime</h2>
+          <p style="color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: 600;">ĐẾM NGƯỢC DEADLINE CFP</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Khối Nan Hoa Điều Hướng (Wheel Hub Features) -->
+    <section class="container" style="margin-top: var(--spacing-2xl);" aria-labelledby="features-heading">
+      <h2 id="features-heading" style="text-align: center; font-size: var(--font-size-2xl); margin-bottom: var(--spacing-md); color: var(--color-text-main);">
+        Các Trục Tính Năng Chính
+      </h2>
+      <div class="grid-cards">
+        
+        <article class="card">
+          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">🎯</div>
+          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Khuyến Nghị Thông Minh</h3>
+          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm);">
+            Dán tiêu đề và tóm tắt bài báo, thuật toán TF-IDF & Cosine Similarity sẽ tự động phân tích và tính toán điểm tương đồng (Match Score %) để đưa ra gợi ý chuẩn xác nhất.
+          </p>
+          <a href="recommend.html" style="color: var(--color-primary); font-weight: 600; text-decoration: none;">Thử nghiệm ngay &rarr;</a>
+        </article>
+
+        <article class="card">
+          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📚</div>
+          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Tra Cứu Danh Bạ Đa Tiêu Chí</h3>
+          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm);">
+            Bộ lọc đa chiều cho phép tra cứu theo thứ hạng Scopus (Q1-Q4), xếp hạng CORE (A*, A, B, C), lĩnh vực chuyên ngành (AI, Mạng, Dữ liệu,...) và năm nộp bài.
+          </p>
+          <a href="venues.html" style="color: var(--color-primary); font-weight: 600; text-decoration: none;">Tra cứu danh bạ &rarr;</a>
+        </article>
+
+        <article class="card">
+          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">⏳</div>
+          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Lịch Trình CFP & Đếm Ngược</h3>
+          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm);">
+            Theo dõi dòng thời gian các mốc Call-for-Papers với đồng hồ đếm ngược từng giây chuẩn múi giờ quốc tế (UTC / AoE), không bao giờ bỏ lỡ deadline quan trọng.
+          </p>
+          <a href="timeline.html" style="color: var(--color-primary); font-weight: 600; text-decoration: none;">Xem lịch deadline &rarr;</a>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (SEMANTIC <footer role="contentinfo">) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <nav class="footer-nav" aria-label="Liên kết chân trang">
+        <a href="index.html">Trang Chủ</a>
+        <a href="venues.html">Danh Bạ Venues</a>
+        <a href="recommend.html">Khuyến Nghị Bài Báo</a>
+        <a href="timeline.html">Lịch CFP</a>
+        <a href="about.html">Về Nhóm Tác Giả</a>
+        <a href="sitemap.html">Sơ Đồ Site (Mô Hình Bánh Xe)</a>
+        <a href="contact.html">Liên Hệ & Góp Ý</a>
+      </nav>
+      <div class="footer-bottom">
+        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên phụ trách: <strong>ThS. Võ Tấn Khoa</strong></p>
+        <p style="margin-top: 4px; font-size: 0.8rem;">Toàn bộ giao diện và chức năng được lập trình bằng 100% Vanilla HTML5, CSS3, JavaScript thuần.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/storage.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

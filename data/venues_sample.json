@@ -1,0 +1,190 @@
+[
+  {
+    "id": "CONF-001",
+    "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    "acronym": "CVPR",
+    "type": "conference",
+    "publisher": "IEEE / Computer Vision Foundation",
+    "scopus_rank": "Q1",
+    "core_rank": "A*",
+    "citescore": 18.5,
+    "sjr": 7.42,
+    "h_index": 420,
+    "open_access": true,
+    "subject_area": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Computer Vision and Pattern Recognition"
+    ],
+    "scope_keywords": [
+      "computer vision",
+      "deep learning",
+      "image recognition",
+      "object detection",
+      "generative adversarial networks",
+      "semantic segmentation",
+      "neural radiance fields",
+      "transformer",
+      "pattern analysis",
+      "visual learning"
+    ],
+    "submission_deadlines": {
+      "timezone": "AoE",
+      "abstract_registration": "2026-11-10T23:59:59Z",
+      "full_paper_submission": "2026-11-17T23:59:59Z",
+      "notification": "2027-02-26T23:59:59Z",
+      "conference_dates": "2027-06-18 to 2027-06-22"
+    },
+    "location": "Seattle, WA, USA",
+    "homepage_url": "https://cvpr.thecvf.com/"
+  },
+  {
+    "id": "JOUR-001",
+    "name": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+    "acronym": "TPAMI",
+    "type": "journal",
+    "publisher": "IEEE Computer Society",
+    "scopus_rank": "Q1",
+    "core_rank": null,
+    "citescore": 34.2,
+    "sjr": 9.85,
+    "h_index": 385,
+    "open_access": false,
+    "subject_area": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Signal Processing",
+      "Pattern Recognition"
+    ],
+    "scope_keywords": [
+      "machine learning",
+      "pattern analysis",
+      "deep neural networks",
+      "probabilistic reasoning",
+      "statistical learning",
+      "computational vision",
+      "biometrics",
+      "feature representation",
+      "reinforcement learning"
+    ],
+    "submission_deadlines": {
+      "timezone": "UTC",
+      "status": "rolling_submission",
+      "full_paper_submission": "2026-12-31T23:59:59Z",
+      "review_speed_weeks": 12
+    },
+    "location": "Online / International",
+    "homepage_url": "https://www.computer.org/csdl/journal/tp"
+  },
+  {
+    "id": "CONF-002",
+    "name": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining",
+    "acronym": "KDD",
+    "type": "conference",
+    "publisher": "ACM",
+    "scopus_rank": "Q1",
+    "core_rank": "A*",
+    "citescore": 12.8,
+    "sjr": 4.15,
+    "h_index": 210,
+    "open_access": true,
+    "subject_area": [
+      "Computer Science",
+      "Data Mining",
+      "Big Data",
+      "Machine Learning"
+    ],
+    "scope_keywords": [
+      "data mining",
+      "knowledge discovery",
+      "graph neural networks",
+      "recommender systems",
+      "predictive modeling",
+      "large language models",
+      "data science",
+      "unsupervised learning",
+      "stream processing"
+    ],
+    "submission_deadlines": {
+      "timezone": "AoE",
+      "abstract_registration": "2026-12-01T23:59:59Z",
+      "full_paper_submission": "2026-12-08T23:59:59Z",
+      "notification": "2027-03-15T23:59:59Z",
+      "conference_dates": "2027-08-08 to 2027-08-12"
+    },
+    "location": "Toronto, Canada",
+    "homepage_url": "https://kdd.org/"
+  },
+  {
+    "id": "JOUR-002",
+    "name": "Artificial Intelligence",
+    "acronym": "ARTINT",
+    "type": "journal",
+    "publisher": "Elsevier",
+    "scopus_rank": "Q1",
+    "core_rank": null,
+    "citescore": 16.9,
+    "sjr": 3.78,
+    "h_index": 195,
+    "open_access": true,
+    "subject_area": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Knowledge-Based Systems"
+    ],
+    "scope_keywords": [
+      "artificial intelligence",
+      "automated reasoning",
+      "knowledge representation",
+      "heuristics",
+      "multi-agent systems",
+      "natural language processing",
+      "symbolic AI",
+      "planning and scheduling"
+    ],
+    "submission_deadlines": {
+      "timezone": "UTC",
+      "status": "rolling_submission",
+      "full_paper_submission": "2026-12-31T23:59:59Z",
+      "review_speed_weeks": 14
+    },
+    "location": "Amsterdam, Netherlands",
+    "homepage_url": "https://www.sciencedirect.com/journal/artificial-intelligence"
+  },
+  {
+    "id": "CONF-003",
+    "name": "International Conference on Advanced Computing and Applications",
+    "acronym": "ACOMP",
+    "type": "conference",
+    "publisher": "IEEE",
+    "scopus_rank": "Q3",
+    "core_rank": "C",
+    "citescore": 1.8,
+    "sjr": 0.28,
+    "h_index": 22,
+    "open_access": false,
+    "subject_area": [
+      "Computer Science",
+      "Information Systems",
+      "Software Engineering"
+    ],
+    "scope_keywords": [
+      "cloud computing",
+      "internet of things",
+      "web technologies",
+      "distributed systems",
+      "cybersecurity",
+      "software engineering",
+      "applied machine learning"
+    ],
+    "submission_deadlines": {
+      "timezone": "UTC",
+      "abstract_registration": "2026-10-20T23:59:59Z",
+      "full_paper_submission": "2026-10-27T23:59:59Z",
+      "notification": "2026-11-20T23:59:59Z",
+      "conference_dates": "2026-12-15 to 2026-12-17"
+    },
+    "location": "Ho Chi Minh City, Vietnam",
+    "homepage_url": "http://acomp.org.vn/"
+  }
+]

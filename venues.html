@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Bạ Hội Nghị & Tạp Chí Scopus / CORE | ScopusVenue</title>
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="venues.html" class="active">Tra Cứu Danh Bạ</a></li>
+          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="timeline.html">Lịch Trình CFP</a></li>
+          <li><a href="about.html">Giới Thiệu</a></li>
+          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container" role="main">
+    <header style="margin-bottom: var(--spacing-lg);">
+      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Danh Bạ Hội Nghị & Tạp Chí Học Thuật</h1>
+      <p style="color: var(--color-text-muted);">Tra cứu và lọc theo chuẩn Scopus (Q1-Q4), CORE (A*-C) và chuyên ngành nghiên cứu.</p>
+    </header>
+
+    <!-- Placeholder Khu Vực Phụ Trách: Thành viên 3 (Data & Filter) -->
+    <!-- TV3 sẽ hoàn thiện Sidebar bộ lọc bên trái và Lưới Venue Cards bên phải -->
+    <div style="display: grid; grid-template-columns: 280px 1fr; gap: var(--spacing-xl); align-items: start;">
+      
+      <!-- Cột trái: Sidebar Bộ lọc đa tiêu chí -->
+      <aside class="card" aria-label="Bộ lọc tiêu chí" style="position: sticky; top: 90px;">
+        <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-xs);">
+          Bộ Lọc Tiêu Chí
+        </h2>
+        
+        <div style="margin-bottom: var(--spacing-md);">
+          <label for="search-input" style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Tìm kiếm từ khóa:</label>
+          <input type="text" id="search-input" placeholder="Tên venue, acronym..." style="width: 100%; padding: var(--spacing-xs) var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+        </div>
+
+        <div style="margin-bottom: var(--spacing-md);">
+          <span style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Thứ hạng Scopus:</span>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q1" checked> Scopus Q1</label>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q2"> Scopus Q2</label>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q3"> Scopus Q3</label>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q4"> Scopus Q4</label>
+        </div>
+
+        <div style="margin-bottom: var(--spacing-md);">
+          <span style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Thứ hạng Hội nghị CORE:</span>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="A*"> CORE A*</label>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="A"> CORE A</label>
+          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="B"> CORE B</label>
+        </div>
+      </aside>
+
+      <!-- Cột phải: Lưới danh sách các Venue Cards -->
+      <section aria-label="Danh sách kết quả">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+          <span style="color: var(--color-text-muted); font-size: var(--font-size-sm);">Hiển thị kết quả mẫu từ <code>data/venues_sample.json</code></span>
+          <select style="padding: var(--spacing-xs); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <option>Sắp xếp: Mặc định</option>
+            <option>CiteScore cao nhất</option>
+            <option>Hạn nộp bài gần nhất</option>
+          </select>
+        </div>
+
+        <!-- Container nơi JS của TV3 sẽ render thẻ card -->
+        <div id="venues-list-container" class="grid-cards" style="margin-top: 0;">
+          <!-- Thẻ mẫu CVPR -->
+          <article class="card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-xs);">
+              <span class="badge badge-q1">Scopus Q1</span>
+              <span class="badge" style="background-color: var(--color-primary-light); color: var(--color-primary);">CORE A*</span>
+            </div>
+            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">CVPR 2027</h3>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">IEEE/CVF Conference on Computer Vision and Pattern Recognition</p>
+            <p style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);"><strong>Hạn nộp:</strong> 17/11/2026 (AoE)</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: var(--spacing-sm);">
+              <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);">CiteScore: 18.5 | SJR: 7.42</span>
+              <button class="btn-icon" style="font-size: var(--font-size-xs);">❤️ Lưu</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/storage.js"></script>
+  <script src="./js/app.js"></script>
+  <!-- <script src="./js/filter.js"></script> (TV3 sẽ hoàn thiện) -->
+</body>
+</html>

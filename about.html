@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới Thiệu Đề Tài & Nhóm Tác Giả | ScopusVenue</title>
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
+          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="timeline.html">Lịch Trình CFP</a></li>
+          <li><a href="about.html" class="active">Giới Thiệu</a></li>
+          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
+        <button type="button" class="mobile-menu-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN: Dành cho Thành viên 5 (UI/UX Architect & About Page) -->
+  <main class="container" role="main">
+    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
+      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Về Đề Tài & Nhóm Phát Triển</h1>
+      <p style="color: var(--color-text-muted); max-width: 700px; margin: 0 auto;">
+        Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Trường Đại học Công nghệ Thông tin (UIT)
+      </p>
+    </header>
+
+    <div style="display: grid; grid-template-columns: 1fr; gap: var(--spacing-xl);">
+      
+      <!-- Mục tiêu đề tài -->
+      <section class="card" aria-labelledby="goal-heading">
+        <h2 id="goal-heading" style="color: var(--color-primary); margin-bottom: var(--spacing-sm);">Mục Tiêu Đề Tài</h2>
+        <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+          Hệ thống được xây dựng nhằm hỗ trợ cộng đồng sinh viên, giảng viên và nghiên cứu viên dễ dàng tìm kiếm nơi xuất bản bài báo khoa học chuẩn xác, nhanh chóng theo thứ hạng Scopus (Q1-Q4) và CORE Rankings (A*-C).
+        </p>
+        <p style="color: var(--color-text-muted);">
+          Toàn bộ sản phẩm được phát triển bằng <strong>100% Vanilla HTML5, CSS3, JavaScript thuần</strong>, cam kết không sử dụng bất kỳ thư viện hoặc template có sẵn nào.
+        </p>
+      </section>
+
+      <!-- Danh sách thành viên nhóm -->
+      <section class="card" aria-labelledby="team-heading">
+        <h2 id="team-heading" style="color: var(--color-primary); margin-bottom: var(--spacing-md);">Đội Ngũ Phát Triển (Nhóm 5 Sinh Viên)</h2>
+        <div class="grid-cards" style="margin-top: 0;">
+          <article class="card" style="background: var(--color-bg-subtle);">
+            <h3>Thành viên 1</h3>
+            <p style="font-weight: 600; color: var(--color-primary); font-size: var(--font-size-sm);">Trưởng nhóm & Kiến trúc hệ thống</p>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Phụ trách Trang chủ index.html, LocalStorage storage.js, quản trị Git</p>
+          </article>
+          <article class="card" style="background: var(--color-bg-subtle);">
+            <h3>Thành viên 2</h3>
+            <p style="font-weight: 600; color: var(--color-secondary); font-size: var(--font-size-sm);">Kỹ sư Thuật toán NLP</p>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Phụ trách Trang recommend.html, thuật toán TF-IDF & Cosine Similarity</p>
+          </article>
+          <article class="card" style="background: var(--color-bg-subtle);">
+            <h3>Thành viên 3</h3>
+            <p style="font-weight: 600; color: var(--color-primary); font-size: var(--font-size-sm);">Kỹ sư Dữ liệu & Bộ lọc</p>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Phụ trách Dataset Scopus/CORE venues.json, Trang venues.html & filter.js</p>
+          </article>
+          <article class="card" style="background: var(--color-bg-subtle);">
+            <h3>Thành viên 4</h3>
+            <p style="font-weight: 600; color: var(--color-accent); font-size: var(--font-size-sm);">Kỹ sư Tương tác & Truyền thông</p>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Phụ trách Trang timeline.html, đồng hồ countdown.js & Video Demo YouTube</p>
+          </article>
+          <article class="card" style="background: var(--color-bg-subtle);">
+            <h3>Thành viên 5</h3>
+            <p style="font-weight: 600; color: var(--color-secondary); font-size: var(--font-size-sm);">Kiến trúc sư Giao diện UI/UX</p>
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Phụ trách Design Tokens variables.css, main.css, Figma & Slide báo cáo</p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/storage.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sơ Đồ Website (Mô Hình Bánh Xe) | ScopusVenue</title>
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <style>
+    .wheel-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--spacing-xl) 0;
+    }
+    .wheel-hub {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-radius: var(--radius-lg);
+      font-weight: 700;
+      font-size: var(--font-size-xl);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+      position: relative;
+    }
+    .wheel-spokes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-lg);
+      width: 100%;
+    }
+    .spoke-item {
+      background-color: var(--color-bg-surface);
+      border: 2px dashed var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      text-align: center;
+      transition: all var(--transition-fast);
+    }
+    .spoke-item:hover {
+      border-style: solid;
+      background-color: var(--color-primary-light);
+      transform: translateY(-3px);
+    }
+    .spoke-item a {
+      color: var(--color-text-main);
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
+          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="timeline.html">Lịch Trình CFP</a></li>
+          <li><a href="about.html">Giới Thiệu</a></li>
+          <li><a href="sitemap.html" class="active">Sơ Đồ Site</a></li>
+          <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
+        <button type="button" class="mobile-menu-btn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN: Sitemap theo mô hình bánh xe (Ràng buộc bắt buộc của môn học) -->
+  <main class="container" role="main">
+    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
+      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Sơ Đồ Website — Kiến Trúc Mô Hình Bánh Xe</h1>
+      <p style="color: var(--color-text-muted); max-width: 700px; margin: 0 auto;">
+        Cấu trúc điều hướng Hub-and-Spoke (Bánh xe) với Trang chủ làm tâm kết nối hai chiều với các trang nội dung vệ tinh.
+      </p>
+    </header>
+
+    <section class="card wheel-diagram" aria-label="Sơ đồ mô hình bánh xe">
+      <!-- Trục tâm bánh xe (Hub) -->
+      <div class="wheel-hub">
+        🏠 TRỤC TÂM (HUB)<br>
+        <a href="index.html" style="color: #fff; text-decoration: underline; font-size: var(--font-size-md);">index.html (Trang Chủ)</a>
+      </div>
+
+      <!-- Các nan hoa bánh xe (Spokes) -->
+      <div class="wheel-spokes">
+        <div class="spoke-item">
+          <span style="font-size: 1.5rem;">🔍</span>
+          <a href="venues.html">venues.html<br><small style="color: var(--color-text-muted);">Tra Cứu Danh Bạ</small></a>
+        </div>
+        <div class="spoke-item">
+          <span style="font-size: 1.5rem;">🎯</span>
+          <a href="recommend.html">recommend.html<br><small style="color: var(--color-text-muted);">Khuyến Nghị Bài Báo</small></a>
+        </div>
+        <div class="spoke-item">
+          <span style="font-size: 1.5rem;">⏳</span>
+          <a href="timeline.html">timeline.html<br><small style="color: var(--color-text-muted);">Lịch Trình & Countdown</small></a>
+        </div>
+        <div class="spoke-item">
+          <span style="font-size: 1.5rem;">👥</span>
+          <a href="about.html">about.html<br><small style="color: var(--color-text-muted);">Giới Thiệu Nhóm & Đề Tài</small></a>
+        </div>
+        <div class="spoke-item">
+          <span style="font-size: 1.5rem;">✉️</span>
+          <a href="contact.html">contact.html<br><small style="color: var(--color-text-muted);">Liên Hệ & Góp Ý</small></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/storage.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
