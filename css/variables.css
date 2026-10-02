@@ -1,96 +1,325 @@
 /* =============================================================
+
    VARIABLES.CSS - Design Tokens & Theme System (Vanilla CSS)
+
    Đồ án IE104 - Internet và Công nghệ Web
+
    ============================================================= */
 
 :root {
-  /* Typography */
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* ----------------------------------------------------------------------------
+     1. TYPOGRAPHY TOKENS (Phông chữ chuẩn hệ thống & tỷ lệ phân cấp chuẩn)
+     -------------------------------------------------------------------------- */
+  --font-family-base:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-family-heading: "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-mono:    SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* Font Sizes */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-md: 1rem;       /* 16px - Base */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 2rem;      /* 32px */
-  --font-size-4xl: 2.5rem;    /* 40px */
+  /* Font Sizes (Modular Scale - Kế thừa từ Demo) */
+  --font-size-xs:  0.75rem;    /* 12px - Chú thích phụ, metadata, badge text */
+  --font-size-sm:  0.875rem;   /* 14px - Nhãn bộ lọc, text phụ, breadcrumbs */
+  --font-size-md:  1rem;       /* 16px - Base body text chuẩn trình duyệt */
+  --font-size-lg:  1.125rem;   /* 18px - Đoạn dẫn, phụ đề card */
+  --font-size-xl:  1.25rem;    /* 20px - Tiêu đề card, h4 */
+  --font-size-2xl: 1.5rem;     /* 24px - Tiêu đề mục nội dung, h3 */
+  --font-size-3xl: 2rem;       /* 32px - Tiêu đề trang, h2 */
+  --font-size-4xl: 2.5rem;     /* 40px - Tiêu đề Hero Banner chính, h1 */
 
-  /* Spacing Scale */
-  --spacing-xs: 0.25rem;  /* 4px */
-  --spacing-sm: 0.5rem;   /* 8px */
-  --spacing-md: 1rem;     /* 16px */
-  --spacing-lg: 1.5rem;   /* 24px */
-  --spacing-xl: 2rem;     /* 32px */
+  /* Font Weights */
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+  --font-weight-extrabold: 800;
+
+  /* Line Heights */
+  --line-height-tight:   1.25;
+  --line-height-normal:  1.5;
+  --line-height-relaxed: 1.65;
+
+  /* ----------------------------------------------------------------------------
+     2. SPACING SCALE (Mô hình khoảng cách 4px / 8px chuẩn công nghiệp)
+     -------------------------------------------------------------------------- */
+  --spacing-xs:  0.25rem; /*  4px */
+  --spacing-sm:  0.5rem;  /*  8px */
+  --spacing-md:  1rem;    /* 16px */
+  --spacing-lg:  1.5rem;  /* 24px */
+  --spacing-xl:  2rem;    /* 32px */
   --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px - Khoảng cách phân cách giữa các Section lớn */
 
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-pill: 9999px;
+  /* ----------------------------------------------------------------------------
+     3. BORDER RADIUS (Độ bo góc cho nút bấm, thẻ Card, hộp thoại Modal, Badge)
+     -------------------------------------------------------------------------- */
+  --radius-sm:   4px;     /* Nhãn tag nhỏ, checkbox, input border */
+  --radius-md:   8px;     /* Nút bấm, Dropdown menu, thẻ con */
+  --radius-lg:   12px;    /* Thẻ Card hội nghị/tạp chí, Container */
+  --radius-xl:   16px;    /* Modal dialog, Hero Banner card */
+  --radius-pill: 9999px;  /* Huy hiệu dạng con nhộng (Pill badge), nút tròn */
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
+  /* ----------------------------------------------------------------------------
+     4. TRANSITIONS & TIMING (Chuyển cảnh mượt mà 60fps)
+     -------------------------------------------------------------------------- */
+  --transition-fast:   0.15s ease;
   --transition-normal: 0.25s ease;
-  --transition-slow: 0.4s ease;
+  --transition-slow:   0.4s ease;
+  --transition-theme:  background-color 0.25s ease, 
+                       color 0.25s ease, 
+                       border-color 0.25s ease, 
+                       box-shadow 0.25s ease;
 
-  /* Container Width */
-  --container-max-width: 1200px;
-  --header-height: 70px;
+  /* ----------------------------------------------------------------------------
+     5. CONTAINER & LAYOUT DIMENSIONS (Mô hình Bánh xe - Hub and Spoke)
+     -------------------------------------------------------------------------- */
+  --container-max-width:    1200px; /* Chiều rộng khung chuẩn màn hình Desktop */
+  --container-narrow-width: 840px;  /* Chiều rộng tối ưu cho trang About, Contact */
+  --header-height:          70px;   /* Chiều cao thanh điều hướng cố định */
+  --sidebar-width:          290px;  /* Chiều rộng cột bộ lọc Facet Filter (TV3) */
 
-  /* --- LIGHT THEME (Mặc định) --- */
-  --color-primary: hsl(215, 80%, 50%);         /* Xanh học thuật chuẩn */
-  --color-primary-hover: hsl(215, 85%, 42%);
-  --color-primary-light: hsl(215, 80%, 94%);
-  --color-secondary: hsl(165, 75%, 40%);       /* Xanh ngọc gợi ý */
-  --color-accent: hsl(15, 90%, 55%);           /* Cam cảnh báo deadline */
+  /* Z-Index Scale (Chống lỗi hiển thị đè lớp giao diện) */
+  --z-base:     1;
+  --z-elevated: 10;
+  --z-sticky:   100;
+  --z-header:   500;   /* Header cố định */
+  --z-drawer:   800;   /* Mobile Drawer menu */
+  --z-backdrop: 900;   /* Màn che mờ phía sau modal */
+  --z-modal:    1000;  /* Hộp thoại xem Bookmark / popup */
+  --z-toast:    1100;  /* Thông báo nổi góc màn hình */
 
-  --color-bg-body: hsl(210, 20%, 98%);         /* Nền trang sáng */
-  --color-bg-surface: hsl(0, 0%, 100%);        /* Nền thẻ card */
-  --color-bg-subtle: hsl(210, 20%, 94%);       /* Nền khối con */
-  
-  --color-text-main: hsl(220, 25%, 15%);       /* Chữ chính */
-  --color-text-muted: hsl(220, 15%, 45%);      /* Chữ phụ */
-  --color-text-inverse: hsl(0, 0%, 100%);      /* Chữ tương phản */
+  /* ----------------------------------------------------------------------------
+     6. LIGHT THEME (GIAO DIỆN SÁNG - MẶC ĐỊNH)
+     -------------------------------------------------------------------------- */
+  /* Màu nhận diện thương hiệu (Brand Colors) */
+  --color-primary:           hsl(215, 80%, 55%);         /* Xanh học thuật tin cậy */
+  --color-primary-hover:     hsl(215, 85%, 42%);
+  --color-primary-light:     hsl(215, 80%, 94%);
+  --color-primary-contrast:  hsl(0, 0%, 100%);
 
-  --color-border: hsl(215, 20%, 88%);          /* Viền */
-  --color-border-focus: hsl(215, 80%, 50%);
+  --color-secondary:         hsl(165, 75%, 45%);         /* Xanh ngọc gợi ý thành công */
+  --color-secondary-hover:   hsl(165, 75%, 34%);
+  --color-secondary-light:   hsl(165, 65%, 92%);
+  --color-secondary-contrast:hsl(0, 0%, 100%);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --color-accent:            hsl(15, 90%, 60%);           /* Cam cảnh báo deadline gấp */
+  --color-accent-hover:      hsl(15, 90%, 48%);
+  --color-accent-light:      hsl(15, 90%, 94%);
+  --color-accent-contrast:   hsl(0, 0%, 100%);
 
-  /* Status Badges */
-  --badge-q1: hsl(145, 65%, 42%);
-  --badge-q2: hsl(200, 75%, 48%);
-  --badge-q3: hsl(38, 90%, 50%);
-  --badge-q4: hsl(0, 70%, 55%);
+  /* Màu nền (Background Colors) */
+  --color-bg-body:           hsl(210, 20%, 98%);         /* Nền tổng thể trang web */
+  --color-bg-surface:        hsl(0, 0%, 100%);          /* Nền thẻ card, form, modal */
+  --color-bg-subtle:         hsl(210, 20%, 94%);         /* Nền khối con, sidebar, filter */
+
+  /* Màu chữ (Text & Content Colors) */
+  --color-text-main:         hsl(220, 25%, 15%);         /* Tiêu đề & nội dung chính */
+  --color-text-muted:        hsl(220, 15%, 45%);         /* Nội dung phụ, chú thích */
+  --color-text-inverse:      hsl(0, 0%, 100%);          /* Chữ tương phản trên nền đậm */
+
+  /* Đường viền (Borders & Dividers) */
+  --color-border:            hsl(215, 20%, 88%);          /* Viền card, phân cách */
+  --color-border-focus:      hsl(215, 80%, 50%);         /* Viền khi focus ô tìm kiếm */
+
+  /* Bóng đổ (Box Shadow Elevations) */
+  --shadow-sm:               0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:               0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg:               0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow-urgent:      0 0 0 3px hsla(15, 90%, 55%, 0.35);
+
+  /* Phản hồi trạng thái biểu mẫu (Form Feedback - contact.html) */
+  --color-success:           hsl(145, 65%, 40%);
+  --color-warning:           hsl(38, 90%, 48%);
+  --color-danger:            hsl(0, 75%, 52%);
+  --color-info:              hsl(205, 85%, 48%);
+
+  /* ----------------------------------------------------------------------------
+     7. ACADEMIC RANKINGS & STATUS BADGES (DÀNH CHO TV2, TV3, TV4)
+     -------------------------------------------------------------------------- */
+  /* Scopus Quartiles (Dành cho TV3 - Danh bạ venues.html) */
+  --badge-q1:                hsl(145, 65%, 42%);         /* Q1: Xanh lá thẫm uy tín */
+  --badge-q1-bg:             hsl(145, 60%, 93%);
+  --badge-q2:                hsl(200, 75%, 48%);         /* Q2: Xanh lam */
+  --badge-q2-bg:             hsl(200, 70%, 93%);
+  --badge-q3:                hsl(38, 90%, 50%);          /* Q3: Vàng hổ phách */
+  --badge-q3-bg:             hsl(38, 85%, 93%);
+  --badge-q4:                hsl(0, 70%, 55%);           /* Q4: Đỏ cam nhạt / xám */
+  --badge-q4-bg:             hsl(0, 70%, 94%);
+
+  /* CORE Conference Rankings (Dành cho TV3 - Danh bạ venues.html) */
+  --badge-core-astar:        hsl(270, 75%, 55%);         /* Flagship A*: Tím hoàng gia */
+  --badge-core-astar-bg:     hsl(270, 65%, 94%);
+  --badge-core-a:            hsl(215, 85%, 52%);         /* Hạng A: Xanh sapphire */
+  --badge-core-a-bg:         hsl(215, 75%, 93%);
+  --badge-core-b:            hsl(180, 70%, 40%);         /* Hạng B: Xanh mòng két */
+  --badge-core-b-bg:         hsl(180, 60%, 93%);
+  --badge-core-c:            hsl(220, 20%, 55%);         /* Hạng C: Xám xanh */
+  --badge-core-c-bg:         hsl(220, 20%, 93%);
+  --badge-core-unranked:     hsl(220, 10%, 60%);
+  --badge-core-unranked-bg:  hsl(220, 10%, 94%);
+
+  /* CFP Timeline & Countdown Statuses (Dành cho TV4 - countdown.js & timeline.html) */
+  --badge-open:              hsl(145, 65%, 42%);         /* Đang mở (> 7 ngày) */
+  --badge-open-bg:           hsl(145, 60%, 93%);
+  --badge-urgent:            hsl(15, 90%, 55%);          /* Khẩn cấp (≤ 7 ngày AoE) */
+  --badge-urgent-bg:         hsl(15, 90%, 94%);
+  --badge-closed:            hsl(0, 70%, 55%);           /* Đã đóng / Hết hạn nộp */
+  --badge-closed-bg:         hsl(0, 70%, 94%);
+
+  /* NLP Okapi BM25 Match Scores (Dành cho TV2 - recommender.js & recommend.html) */
+  --match-high:              hsl(145, 65%, 42%);         /* Tương thích rất cao (≥ 80%) */
+  --match-medium:            hsl(38, 90%, 50%);          /* Tương thích khá (50% - 79%) */
+  --match-low:               hsl(220, 15%, 55%);         /* Tương thích thấp (< 50%) */
+  --match-bar-gradient:      linear-gradient(90deg, var(--color-primary), var(--color-secondary));
 }
 
-/* --- DARK THEME --- */
+/* ==============================================================================
+   8. DARK THEME (GIAO DIỆN TỐI - CHỐNG MỎI MẮT KHI ĐỌC TÀI LIỆU)
+   Kích hoạt qua thuộc tính [data-theme="dark"] trên thẻ <html> bằng JavaScript
+   ============================================================================== */
 [data-theme="dark"] {
-  --color-primary: hsl(215, 90%, 62%);
-  --color-primary-hover: hsl(215, 95%, 70%);
-  --color-primary-light: hsl(215, 40%, 20%);
-  --color-secondary: hsl(165, 70%, 50%);
-  --color-accent: hsl(15, 95%, 65%);
+  /* Brand Tints & Shades điều chỉnh độ sáng để giữ độ tương phản chuẩn WCAG */
+  --color-primary:           hsl(215, 90%, 62%);
+  --color-primary-hover:     hsl(215, 95%, 70%);
+  --color-primary-light:     hsl(215, 40%, 20%);
+  --color-primary-contrast:  hsl(220, 25%, 10%);
 
-  --color-bg-body: hsl(220, 25%, 10%);         /* Nền tối sâu */
-  --color-bg-surface: hsl(220, 25%, 14%);      /* Thẻ card tối */
-  --color-bg-subtle: hsl(220, 25%, 18%);
-  
-  --color-text-main: hsl(210, 20%, 95%);
-  --color-text-muted: hsl(215, 15%, 65%);
-  --color-text-inverse: hsl(220, 25%, 10%);
+  --color-secondary:         hsl(165, 70%, 50%);
+  --color-secondary-hover:   hsl(165, 75%, 60%);
+  --color-secondary-light:   hsl(165, 40%, 18%);
+  --color-secondary-contrast:hsl(220, 25%, 10%);
 
-  --color-border: hsl(220, 20%, 24%);
-  --color-border-focus: hsl(215, 90%, 62%);
+  --color-accent:            hsl(15, 95%, 65%);
+  --color-accent-hover:      hsl(15, 95%, 72%);
+  --color-accent-light:      hsl(15, 45%, 20%);
+  --color-accent-contrast:   hsl(220, 25%, 10%);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.55);
+  /* Nền tối sâu (Deep Slate / Charcoal) */
+  --color-bg-body:           hsl(220, 25%, 10%);         /* Nền tối sâu thẳm */
+  --color-bg-surface:        hsl(220, 25%, 14%);         /* Nền card, container tối */
+  --color-bg-subtle:         hsl(220, 25%, 18%);         /* Nền khối con, filter */
+
+  /* Chữ sáng bạc dễ chịu */
+  --color-text-main:         hsl(210, 20%, 95%);
+  --color-text-muted:        hsl(215, 15%, 65%);
+  --color-text-inverse:      hsl(220, 25%, 10%);
+
+  /* Viền tương phản nhẹ */
+  --color-border:            hsl(220, 20%, 24%);
+  --color-border-focus:      hsl(215, 90%, 62%);
+
+  /* Bóng đổ trong Dark Mode */
+  --shadow-sm:               0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md:               0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg:               0 8px 28px rgba(0, 0, 0, 0.55);
+  --shadow-glow-urgent:      0 0 0 3px hsla(15, 95%, 65%, 0.45);
+
+  /* Nền nhạt cho Badges trong Dark Mode (Tránh lóa mắt) */
+  --badge-q1-bg:             hsl(145, 50%, 16%);
+  --badge-q2-bg:             hsl(200, 55%, 16%);
+  --badge-q3-bg:             hsl(38, 60%, 16%);
+  --badge-q4-bg:             hsl(0, 50%, 18%);
+
+  --badge-core-astar-bg:     hsl(270, 50%, 18%);
+  --badge-core-a-bg:         hsl(215, 55%, 18%);
+  --badge-core-b-bg:         hsl(180, 50%, 16%);
+  --badge-core-c-bg:         hsl(220, 20%, 18%);
+  --badge-core-unranked-bg:  hsl(220, 10%, 18%);
+
+  --badge-open-bg:           hsl(145, 50%, 16%);
+  --badge-urgent-bg:         hsl(15, 50%, 18%);
+  --badge-closed-bg:         hsl(0, 50%, 18%);
+}
+
+/* ==============================================================================
+   9. TỰ ĐỘNG THEO MÀU HỆ ĐIỀU HÀNH (SYSTEM PREFERENCE FALLBACK)
+   Nếu người dùng chưa chọn thủ công qua JS, tự áp dụng Dark theme của OS
+   ============================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-primary:           hsl(215, 90%, 62%);
+    --color-primary-hover:     hsl(215, 95%, 70%);
+    --color-primary-light:     hsl(215, 40%, 20%);
+    --color-primary-contrast:  hsl(220, 25%, 10%);
+
+    --color-secondary:         hsl(165, 70%, 50%);
+    --color-secondary-hover:   hsl(165, 75%, 60%);
+    --color-secondary-light:   hsl(165, 40%, 18%);
+    --color-secondary-contrast:hsl(220, 25%, 10%);
+
+    --color-accent:            hsl(15, 95%, 65%);
+    --color-accent-hover:      hsl(15, 95%, 72%);
+    --color-accent-light:      hsl(15, 45%, 20%);
+    --color-accent-contrast:   hsl(220, 25%, 10%);
+
+    --color-bg-body:           hsl(220, 25%, 10%);
+    --color-bg-surface:        hsl(220, 25%, 14%);
+    --color-bg-subtle:         hsl(220, 25%, 18%);
+    
+    --color-text-main:         hsl(210, 20%, 95%);
+    --color-text-muted:        hsl(215, 15%, 65%);
+    --color-text-inverse:      hsl(220, 25%, 10%);
+
+    --color-border:            hsl(220, 20%, 24%);
+    --color-border-focus:      hsl(215, 90%, 62%);
+
+    --shadow-sm:               0 1px 3px rgba(0, 0, 0, 0.35);
+    --shadow-md:               0 4px 14px rgba(0, 0, 0, 0.45);
+    --shadow-lg:               0 8px 28px rgba(0, 0, 0, 0.55);
+    --shadow-glow-urgent:      0 0 0 3px hsla(15, 95%, 65%, 0.45);
+
+    --badge-q1-bg:             hsl(145, 50%, 16%);
+    --badge-q2-bg:             hsl(200, 55%, 16%);
+    --badge-q3-bg:             hsl(38, 60%, 16%);
+    --badge-q4-bg:             hsl(0, 50%, 18%);
+
+    --badge-core-astar-bg:     hsl(270, 50%, 18%);
+    --badge-core-a-bg:         hsl(215, 55%, 18%);
+    --badge-core-b-bg:         hsl(180, 50%, 16%);
+    --badge-core-c-bg:         hsl(220, 20%, 18%);
+    --badge-core-unranked-bg:  hsl(220, 10%, 18%);
+
+    --badge-open-bg:           hsl(145, 50%, 16%);
+    --badge-urgent-bg:         hsl(15, 50%, 18%);
+    --badge-closed-bg:         hsl(0, 50%, 18%);
+  }
+}
+
+/* ==============================================================================
+   10. KEYFRAME ANIMATIONS DÙNG CHUNG (CHO TV4, TV3, TV5)
+   ============================================================================== */
+
+/* Hiệu ứng nhấp nháy thu hút sự chú ý khi deadline dưới 7 ngày AoE (TV4) */
+@keyframes pulse-urgent {
+  0% {
+    box-shadow: 0 0 0 0 hsla(15, 90%, 55%, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 8px hsla(15, 90%, 55%, 0);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 0 hsla(15, 90%, 55%, 0);
+    transform: scale(1);
+  }
+}
+
+/* Hiệu ứng Skeleton Loading cho dữ liệu nạp từ JSON tĩnh qua Fetch API (TV3) */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Hiệu ứng trượt menu Mobile Drawer từ phải sang (TV5) */
+@keyframes slide-in-drawer {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
