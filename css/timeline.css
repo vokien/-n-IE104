@@ -1,0 +1,124 @@
+/* ==========================================================
+   TIMELINE STYLES (Thành viên 4 - T4.1)
+   ================================================---------- */
+
+.timeline-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 0;
+}
+
+/* Đường kẻ dọc trục chính của timeline */
+.timeline-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px; /* Mặc định cho mobile (dọc bên trái) */
+  width: 3px;
+  background-color: var(--color-border);
+}
+
+/* Mỗi item trong timeline */
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+  padding-left: 50px; /* Khoảng cách cho đường kẻ và chấm tròn */
+}
+
+/* Chấm tròn mốc thời gian */
+.timeline-dot {
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  width: 15px;
+  height: 15px;
+  background-color: var(--color-bg-surface);
+  border: 3px solid var(--color-accent);
+  border-radius: 50%;
+  z-index: 2;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.25);
+  background-color: var(--color-accent);
+}
+
+/* Nội dung bên trong thẻ card của mốc thời gian */
+.timeline-content {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-content:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timeline-date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.timeline-title {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive cho Desktop (Màn hình từ 768px trở lên) 
+   Chuyển trục timeline ra chính giữa (kiểu so le trái/phải nếu muốn, hoặc giữ giao diện dọc hiện đại) */
+@media (min-width: 768px) {
+  .timeline-wrapper::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    width: 50%;
+    padding-left: 0;
+    padding-right: 40px;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  /* Đẩy các item chẵn sang bên phải */
+  .timeline-item:nth-child(even) {
+    margin-left: 50%;
+    padding-right: 0;
+    padding-left: 40px;
+  }
+
+  /* Canh chỉnh vị trí chấm tròn ra giữa trục */
+  .timeline-dot {
+    left: auto;
+    right: -8px; /* Cho item nằm bên trái */
+  }
+
+  .timeline-item:nth-child(even) .timeline-dot {
+    right: auto;
+    left: -7px; /* Cho item nằm bên phải */
+  }
+}
