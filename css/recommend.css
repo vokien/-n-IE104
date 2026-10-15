@@ -1,0 +1,631 @@
+
+/* ---------------------------------------------------------------
+   1. LAYOUT TRANG CHÍNH (2 cột trên Desktop, 1 cột trên Mobile)
+   --------------------------------------------------------------- */
+.recommend-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+  margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 900px) {
+  .recommend-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------------
+   2. HERO / INTRO SECTION
+   --------------------------------------------------------------- */
+.recommend-hero {
+  text-align: center;
+  padding: var(--spacing-2xl) 0 var(--spacing-lg);
+  position: relative;
+}
+
+.recommend-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, var(--color-primary-light) 0%, transparent 65%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.recommend-hero > * { position: relative; z-index: 1; }
+
+.recommend-hero h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  line-height: var(--line-height-tight);
+}
+
+.recommend-hero p {
+  color: var(--color-text-muted);
+  max-width: 680px;
+  margin: 0 auto var(--spacing-md);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Thanh badges tóm tắt kỹ thuật */
+.algo-badges {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-sm);
+}
+
+.algo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.algo-badge--blue {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.algo-badge--green {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.algo-badge--orange {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------
+   3. FORM NHAP BAN THAO (Cot trai)
+   --------------------------------------------------------------- */
+.form-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: calc(var(--header-height) + var(--spacing-md));
+  transition: box-shadow var(--transition-normal);
+}
+
+.form-card:focus-within {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-focus);
+}
+
+.form-card__title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: var(--spacing-md);
+}
+
+/* Field Groups */
+.field-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: 0.01em;
+}
+
+.field-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* Input / Textarea styling */
+.field-input,
+.field-textarea {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-body);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+              background-color var(--transition-normal);
+  outline: none;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px hsla(215, 80%, 55%, 0.15);
+  background-color: var(--color-bg-surface);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Bo loc bo sung (Venue type + Min rank) */
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.field-select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-body);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+  padding-right: 2.5rem;
+}
+
+.field-select:focus {
+  border-color: var(--color-border-focus);
+  outline: none;
+}
+
+/* Nut phan tich */
+.btn-analyze {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  font-family: var(--font-family-base);
+  background: linear-gradient(135deg, var(--color-primary), hsl(215, 80%, 40%));
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  margin-top: var(--spacing-lg);
+  letter-spacing: 0.02em;
+}
+
+.btn-analyze:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px hsla(215, 80%, 55%, 0.4);
+}
+
+.btn-analyze:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-analyze:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Spinner loading */
+.btn-analyze .spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.btn-analyze.loading .spinner { display: inline-block; }
+.btn-analyze.loading .btn-icon-emoji { display: none; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------------------
+   4. COT KET QUA (Cot phai)
+   --------------------------------------------------------------- */
+.results-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  /* Cuộn riêng trong thẻ kết quả khi con trỏ nằm trên thẻ.
+     Chặn cuộn lan ra trang khi đã chạm đầu/cuối danh sách. */
+  min-height: min(420px, 75vh);
+  max-height: 75vh;
+  max-height: 75dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  transition: box-shadow var(--transition-normal);
+}
+
+/* Trên desktop, chiều cao hàng do form quyết định.
+   Nội dung kết quả không làm hàng dài thêm, nhưng vẫn cuộn bên trong. */
+@media (min-width: 901px) {
+  .results-card {
+    align-self: stretch;
+    contain: size;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+.results-card__title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-primary-light);
+  padding-bottom: var(--spacing-md);
+}
+
+/* Trang thai placeholder cho */
+.results-placeholder {
+  text-align: center;
+  padding: var(--spacing-3xl) 0;
+  color: var(--color-text-muted);
+}
+
+.results-placeholder__icon {
+  font-size: 3.5rem;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
+}
+
+.results-placeholder p {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Skeleton - dang phan tich */
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.skeleton-item {
+  border-radius: var(--radius-md);
+  height: 100px;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-subtle) 25%,
+    var(--color-bg-body) 50%,
+    var(--color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite linear;
+}
+
+.skeleton-item:nth-child(2) { opacity: 0.75; }
+.skeleton-item:nth-child(3) { opacity: 0.55; }
+
+/* The ket qua venue */
+.result-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.result-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-bg-body);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+              border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-primary);
+  border-radius: 4px 0 0 4px;
+}
+
+.result-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+/* Rank badge tren the ket qua */
+.result-rank {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+}
+
+.result-item:nth-child(1) .result-rank { background-color: hsl(38, 90%, 50%); }
+.result-item:nth-child(2) .result-rank { background-color: hsl(220, 20%, 65%); }
+.result-item:nth-child(3) .result-rank { background-color: hsl(20, 70%, 55%); }
+
+/* Header cua tung the ket qua */
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  padding-right: 36px;
+}
+
+.result-name {
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--color-text-main);
+  line-height: var(--line-height-tight);
+}
+
+.result-acronym {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Badges xep hang */
+.result-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Scopus Q badges */
+.rank-badge--q1 { background-color: var(--badge-q1-bg); color: var(--badge-q1); }
+.rank-badge--q2 { background-color: var(--badge-q2-bg); color: var(--badge-q2); }
+.rank-badge--q3 { background-color: var(--badge-q3-bg); color: var(--badge-q3); }
+.rank-badge--q4 { background-color: var(--badge-q4-bg); color: var(--badge-q4); }
+
+/* CORE badges */
+.rank-badge--astar { background-color: var(--badge-core-astar-bg); color: var(--badge-core-astar); }
+.rank-badge--a     { background-color: var(--badge-core-a-bg); color: var(--badge-core-a); }
+.rank-badge--b     { background-color: var(--badge-core-b-bg); color: var(--badge-core-b); }
+.rank-badge--c     { background-color: var(--badge-core-c-bg); color: var(--badge-core-c); }
+
+/* Type badge */
+.rank-badge--conf {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.rank-badge--jour {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+}
+
+/* ---------------------------------------------------------------
+   5. THANH DO DIEM TUONG DONG (Match Score Progress Bar)
+   --------------------------------------------------------------- */
+.match-score-section {
+  margin-bottom: var(--spacing-sm);
+}
+
+.match-score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.match-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.match-percent {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+}
+
+.match-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-bg-subtle);
+  overflow: hidden;
+}
+
+.match-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--match-bar-gradient);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0%;
+}
+
+/* Mau diem tuong dong */
+.result-item[data-level="high"]  .match-percent { color: var(--match-high); }
+.result-item[data-level="high"]  .match-bar-fill {
+  background: linear-gradient(90deg, var(--match-high), hsl(165, 75%, 55%));
+}
+.result-item[data-level="medium"] .match-percent { color: var(--match-medium); }
+.result-item[data-level="medium"] .match-bar-fill {
+  background: linear-gradient(90deg, var(--match-medium), hsl(38, 90%, 60%));
+}
+.result-item[data-level="low"]  .match-percent { color: var(--match-low); }
+.result-item[data-level="low"]  .match-bar-fill {
+  background: linear-gradient(90deg, var(--match-low), hsl(220, 15%, 65%));
+}
+
+/* ---------------------------------------------------------------
+   6. KHUNG TU KHOA TRUNG KHOP (Matched Keywords)
+   --------------------------------------------------------------- */
+.matched-keywords {
+  margin-top: var(--spacing-sm);
+}
+
+.matched-keywords__label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.keyword-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border: 1px solid currentColor;
+  opacity: 0.85;
+  transition: opacity var(--transition-fast);
+}
+
+.keyword-tag:hover { opacity: 1; }
+
+.result-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.result-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+/* ---------------------------------------------------------------
+   7. TRANG THAI THONG BAO LOI / KHONG CO KET QUA
+   --------------------------------------------------------------- */
+.results-empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-muted);
+}
+
+.results-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background-color: hsl(0, 70%, 96%);
+  border: 1px solid hsl(0, 70%, 88%);
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-md);
+}
+
+[data-theme="dark"] .results-error {
+  background-color: hsl(0, 40%, 16%);
+  border-color: hsl(0, 40%, 28%);
+}
+
+/* ---------------------------------------------------------------
+   8. THANH THONG KE META PHAN TICH
+   --------------------------------------------------------------- */
+.analysis-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.analysis-meta strong {
+  color: var(--color-text-main);
+}
+
+/* ---------------------------------------------------------------
+   9. RESPONSIVE
+   --------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .recommend-hero h1 { font-size: var(--font-size-2xl); }
+  .form-card,
+  .results-card { padding: var(--spacing-md); }
+  .filter-row { grid-template-columns: 1fr; }
+  .result-item { padding: var(--spacing-sm) var(--spacing-md); }
+  .algo-badges { justify-content: flex-start; }
+}
