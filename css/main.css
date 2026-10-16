@@ -675,3 +675,376 @@ main {
   border-top: 1px solid var(--color-border);
   background-color: var(--color-bg-subtle);
 }
+
+
+/* =============================================================
+   9. BESPOKE COMPONENTS & ACCESSIBILITY EXTENSIONS (Task T1.2)
+   ============================================================= */
+
+/* 9.1. Skip to Content (Accessibility - a11y) */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: var(--spacing-sm);
+}
+
+/* 9.2. Brand Icon */
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* 9.3. Hero Badge & CTA Buttons */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 14px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  border: 1px solid hsla(215, 80%, 55%, 0.2);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--spacing-md);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: inline-block;
+  box-shadow: 0 0 6px var(--color-secondary);
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-surface);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-main);
+  border: 1.5px solid var(--color-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-bg-surface);
+}
+
+.btn-white {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.btn-white:hover {
+  background-color: hsla(0, 0%, 100%, 0.9);
+}
+
+.btn-ghost-white {
+  background-color: transparent;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
+}
+
+.btn-ghost-white:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 9.4. Stat Cards Color Modifiers */
+.stat-primary { color: var(--color-primary); }
+.stat-q1 { color: var(--badge-q1); }
+.stat-secondary { color: var(--color-secondary); }
+.stat-accent { color: var(--color-accent); }
+
+.stat-subtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* 9.5. Wheel Model Feature Spokes (Nan Hoa Điều Hướng) */
+.spoke-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.spoke-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.spoke-icon-wrapper svg {
+  width: 26px;
+  height: 26px;
+}
+
+.spoke-icon-recommender {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.spoke-icon-directory {
+  background-color: hsla(145, 65%, 42%, 0.12);
+  color: var(--badge-q1);
+}
+
+.spoke-icon-timeline {
+  background-color: hsla(15, 90%, 55%, 0.12);
+  color: var(--color-accent);
+}
+
+.spoke-icon-watchlist {
+  background-color: hsla(280, 75%, 55%, 0.12);
+  color: hsl(280, 75%, 55%);
+}
+
+.spoke-badge {
+  margin-bottom: var(--spacing-xs);
+  align-self: flex-start;
+}
+
+.spoke-title {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-xl);
+  font-family: var(--font-family-heading);
+}
+
+.spoke-desc {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.spoke-link {
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* 9.6. Featured Venues Enhancements */
+.badge-core-astar {
+  background-color: hsla(280, 80%, 55%, 0.15);
+  color: hsl(280, 80%, 55%);
+}
+
+.venue-details-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: gap var(--transition-fast);
+}
+
+.venue-details-link:hover {
+  gap: var(--spacing-sm);
+  text-decoration: underline;
+}
+
+.venue-meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.venue-meta-tag svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-muted);
+}
+
+.bookmark-trigger-btn.bookmarked {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: hsla(15, 90%, 55%, 0.08);
+}
+
+/* 9.7. Workflow Step Cards */
+.step-num {
+  font-family: var(--font-family-mono);
+  font-weight: 800;
+  font-size: var(--font-size-sm);
+}
+
+.step-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-family-heading);
+}
+
+.step-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* 9.8. Semantic FAQ Details / Summary */
+.faq-details {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.faq-details[open] {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-summary {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-main);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  user-select: none;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: '+';
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.faq-details[open] .faq-summary::after {
+  content: '−';
+}
+
+.faq-content {
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* 9.9. Watchlist Modal Elements */
+.modal-empty-state {
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-md);
+  color: var(--color-text-muted);
+}
+
+.empty-icon {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-border);
+}
+
+.empty-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.empty-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.watchlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.watchlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-body);
+  transition: border-color var(--transition-fast);
+}
+
+.watchlist-item:hover {
+  border-color: var(--color-border-focus);
+}
+
+.watchlist-item-title {
+  color: var(--color-text-main);
+  font-size: var(--font-size-sm);
+  margin-bottom: 2px;
+}
+
+.watchlist-item-meta {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.watchlist-type-tag, .watchlist-rank-tag {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.section-spacer {
+  margin-top: var(--spacing-2xl);
+}

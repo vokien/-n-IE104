@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Website tra cứu và khuyến nghị hội nghị / tạp chí xếp hạng Scopus & CORE cho đề tài nghiên cứu khoa học - Đồ án môn học IE104">
-  <meta name="keywords" content="Scopus, CORE 2026, SJR, CiteScore, Hội nghị khoa học, Tạp chí khoa học, Khuyến nghị bài báo, Okapi BM25">
+  <meta name="description" content="Website tra cứu và khuyến nghị hội nghị / tạp chí xếp hạng Scopus & CORE cho đề tài nghiên cứu khoa học - Đồ án môn học IE104 (100% Vanilla HTML5, CSS3, JavaScript ESM)">
+  <meta name="keywords" content="Scopus, CORE 2026, SJR, CiteScore, Hội nghị khoa học, Tạp chí khoa học, Khuyến nghị bài báo, Okapi BM25, AoE, Vanilla JS">
   <meta name="author" content="Nhóm đồ án IE104 - UIT">
-  <title>Scopus & CORE Venue Recommender | Trang Chủ</title>
+  <title>Scopus &amp; CORE Venue Recommender | Trang Chủ</title>
   
   <!-- CSS Design Tokens & Semantic Styles (100% Vanilla CSS) -->
   <link rel="stylesheet" href="./css/variables.css">
@@ -14,13 +14,20 @@
 </head>
 <body>
 
+  <!-- Khả năng tiếp cận: Phím tắt chuyển nhanh tới nội dung chính -->
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+
   <!-- ============================================================
        1. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (WHEEL NAVIGATION HUB)
        ============================================================ -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus Venue Recommender">
-        🎓 Scopus<span>Venue</span>
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus &amp; CORE Venue Recommender">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>Scopus<span>Venue</span></span>
       </a>
 
       <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với 6 trang vệ tinh -->
@@ -38,18 +45,28 @@
 
       <!-- Các nút chức năng tiện ích trên Header -->
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách đã lưu">
-          <span aria-hidden="true">❤️</span>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
           <span>Mục Tiêu</span>
-          <span class="bookmark-count badge" style="display: none; background-color: var(--color-accent); color: #fff; padding: 2px 6px;">0</span>
+          <span class="bookmark-count badge" style="display: none;">0</span>
         </button>
 
-        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Đổi giao diện">
-          <span class="theme-icon" aria-hidden="true">🌙</span>
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
         </button>
 
         <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
-          ☰
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -63,11 +80,12 @@
     <!-- 2.1. Hero Banner & Quick Search Section -->
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="container">
-        <span class="badge" style="background-color: var(--color-primary-light); color: var(--color-primary); margin-bottom: var(--spacing-sm); font-size: 0.8rem; padding: 4px 12px;">
-          🚀 HỆ THỐNG HỖ TRỢ XUẤT BẢN NGHIÊN CỨU KHOA HỌC
-        </span>
+        <div class="hero-badge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          <span>Hệ Thống Hỗ Trợ Xuất Bản Nghiên Cứu Khoa Học</span>
+        </div>
         <h1 id="hero-title" class="hero-title">
-          Tra Cứu & Gợi Ý Hội Nghị / Tạp Chí Chuẩn Scopus & CORE
+          Tra Cứu &amp; Gợi Ý Hội Nghị / Tạp Chí Chuẩn Scopus &amp; CORE
         </h1>
         <p class="hero-subtitle">
           Tìm kiếm nơi công bố tối ưu cho bản thảo nghiên cứu của bạn bằng thuật toán so khớp học thuật <strong>Okapi BM25</strong> kết hợp hệ thống chỉ số phân hạng Scopus Q1-Q4 và chuẩn hội nghị quốc tế CORE A*-C.
@@ -86,7 +104,10 @@
               autocomplete="off"
             >
             <button type="submit" class="hero-search-btn" aria-label="Thực hiện tìm kiếm">
-              <span>🔍</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
               <span>Tìm Kiếm</span>
             </button>
           </form>
@@ -97,26 +118,34 @@
             <a href="venues.html?q=CVPR" class="tag-item">CVPR</a>
             <a href="venues.html?q=TPAMI" class="tag-item">TPAMI</a>
             <a href="venues.html?q=KDD" class="tag-item">KDD</a>
-            <a href="venues.html?type=journal&rank=Q1" class="tag-item">Scopus Q1</a>
-            <a href="venues.html?type=conference&rank=A*" class="tag-item">CORE A*</a>
+            <a href="venues.html?type=journal&amp;rank=Q1" class="tag-item">Scopus Q1</a>
+            <a href="venues.html?type=conference&amp;rank=A*" class="tag-item">CORE A*</a>
             <a href="venues.html?q=Artificial+Intelligence" class="tag-item">Trí Tuệ Nhân Tạo</a>
             <a href="venues.html?q=Data+Science" class="tag-item">Khoa Học Dữ Liệu</a>
           </div>
         </div>
 
         <!-- Các nút Call to Action chính -->
-        <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-lg);">
-          <a href="recommend.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: var(--spacing-xs);">
-            <span>✨</span>
+        <div class="hero-cta-group">
+          <a href="recommend.html" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
             <span>Khuyến Nghị Theo Bản Thảo (Okapi BM25)</span>
           </a>
-          <a href="venues.html" class="btn-primary" style="background-color: var(--color-bg-surface); color: var(--color-primary); border: 1.5px solid var(--color-primary); display: inline-flex; align-items: center; gap: var(--spacing-xs);">
-            <span>🔍</span>
+          <a href="venues.html" class="btn-primary btn-secondary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
             <span>Khám Phá Toàn Bộ Danh Bạ</span>
           </a>
-          <a href="timeline.html" class="btn-primary" style="background-color: transparent; color: var(--color-text-muted); border: 1.5px solid var(--color-border); display: inline-flex; align-items: center; gap: var(--spacing-xs);">
-            <span>⏳</span>
-            <span>Xem Lịch Trình CFP & Countdown</span>
+          <a href="timeline.html" class="btn-primary btn-outline">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>Lịch Trình CFP &amp; Countdown (AoE)</span>
           </a>
         </div>
       </div>
@@ -126,33 +155,33 @@
     <section class="container" aria-label="Thống kê cơ sở dữ liệu học thuật">
       <div class="stat-grid">
         <article class="stat-card">
-          <div class="stat-num" style="color: var(--color-primary);">10.293+</div>
-          <div class="stat-label">HỘI NGHỊ & TẠP CHÍ QUỐC TẾ</div>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">Dữ liệu chuẩn Scopus SJR & CORE</p>
+          <div class="stat-num stat-primary">10.293+</div>
+          <div class="stat-label">HỘI NGHỊ &amp; TẠP CHÍ QUỐC TẾ</div>
+          <p class="stat-subtext">Dữ liệu chuẩn Scopus SJR &amp; CORE</p>
         </article>
         
         <article class="stat-card">
-          <div class="stat-num" style="color: var(--badge-q1);">9.203</div>
+          <div class="stat-num stat-q1">9.203</div>
           <div class="stat-label">TẠP CHÍ SCOPUS Q1 - Q4</div>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">Điểm CiteScore & SJR 2025</p>
+          <p class="stat-subtext">Điểm CiteScore &amp; SJR cập nhật</p>
         </article>
 
         <article class="stat-card">
-          <div class="stat-num" style="color: var(--color-secondary);">969</div>
+          <div class="stat-num stat-secondary">969</div>
           <div class="stat-label">HỘI NGHỊ CHUẨN CORE 2026</div>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">Phân hạng A*, A, B, C uy tín</p>
+          <p class="stat-subtext">Phân hạng A*, A, B, C uy tín</p>
         </article>
 
         <article class="stat-card">
-          <div class="stat-num" style="color: var(--color-accent);">802</div>
+          <div class="stat-num stat-accent">802</div>
           <div class="stat-label">MỐC DEADLINE CFP THỜI GIAN THỰC</div>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">Đếm ngược múi giờ quốc tế AoE</p>
+          <p class="stat-subtext">Đếm ngược múi giờ quốc tế AoE (UTC-12)</p>
         </article>
       </div>
     </section>
 
     <!-- 2.3. Khối 4 Nan Hoa Điều Hướng (Wheel Hub Feature Highlights) -->
-    <section class="container" style="margin-top: var(--spacing-2xl);" aria-labelledby="features-heading">
+    <section class="container section-spacer" aria-labelledby="features-heading">
       <header class="section-header">
         <h2 id="features-heading" class="section-title">Các Trục Tính Năng Cốt Lõi (Mô Hình Bánh Xe)</h2>
         <p class="section-desc">Hệ thống được thiết kế hướng nghiên cứu sinh và tác giả bài báo khoa học, giải quyết trọn vẹn từ khâu lựa chọn venue đến quản lý hạn nộp bài.</p>
@@ -161,54 +190,81 @@
       <div class="grid-cards">
         
         <!-- Nan hoa 1: Recommender Engine -->
-        <article class="card">
-          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);" aria-hidden="true">🎯</div>
-          <span class="badge" style="background-color: var(--color-primary-light); color: var(--color-primary); margin-bottom: var(--spacing-xs);">GIẢI THUẬT NLP THUẦN</span>
-          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Khuyến Nghị Thông Minh Okapi BM25</h3>
-          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm); line-height: 1.6;">
-            Dán tiêu đề và tóm tắt (Abstract) bài báo của bạn. Động cơ phân tích văn bản học thuật sẽ đo lường mức độ tương quan từ vựng, tính toán <strong>Relevance Match Score (%)</strong> và đề xuất top các hội nghị/tạp chí có phạm vi nghiên cứu (Scope) phù hợp nhất.
+        <article class="card spoke-card">
+          <div class="spoke-icon-wrapper spoke-icon-recommender" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <span class="badge badge-q2 spoke-badge">GIẢI THUẬT NLP THUẦN</span>
+          <h3 class="spoke-title">Khuyến Nghị Thông Minh Okapi BM25</h3>
+          <p class="spoke-desc">
+            Dán tiêu đề và tóm tắt (Abstract) bài báo của bạn. Động cơ phân tích văn bản học thuật sẽ đo lường mức độ tương quan từ vựng, tính toán <strong>Relevance Match Score (%)</strong> và đề xuất top các hội nghị/tạp chí có phạm vi nghiên cứu phù hợp nhất.
           </p>
-          <a href="recommend.html" class="btn-primary" style="display: inline-block; padding: 6px 14px; font-size: var(--font-size-sm);">
-            Trải nghiệm gợi ý &rarr;
+          <a href="recommend.html" class="btn-primary spoke-link">
+            <span>Trải nghiệm gợi ý</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </article>
 
         <!-- Nan hoa 2: Faceted Directory Search -->
-        <article class="card">
-          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);" aria-hidden="true">📚</div>
-          <span class="badge" style="background-color: hsla(145, 65%, 42%, 0.15); color: var(--badge-q1); margin-bottom: var(--spacing-xs);">TRA CỨU TOÀN DIỆN</span>
-          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Danh Bạ & Bộ Lọc Đa Chiều</h3>
-          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm); line-height: 1.6;">
+        <article class="card spoke-card">
+          <div class="spoke-icon-wrapper spoke-icon-directory" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <span class="badge badge-q1 spoke-badge">TRA CỨU TOÀN DIỆN</span>
+          <h3 class="spoke-title">Danh Bạ &amp; Bộ Lọc Đa Chiều</h3>
+          <p class="spoke-desc">
             Tra cứu nhanh trên kho dữ liệu hơn 10.000 venues. Hỗ trợ lọc tức thời theo phân hạng Tạp chí Scopus (Q1, Q2, Q3, Q4), phân hạng Hội nghị CORE (A*, A, B, C), Chuyên ngành đào tạo, Chỉ số CiteScore/SJR và mã định danh quốc tế ISSN/eISSN.
           </p>
-          <a href="venues.html" class="btn-primary" style="display: inline-block; padding: 6px 14px; font-size: var(--font-size-sm);">
-            Mở bộ lọc danh bạ &rarr;
+          <a href="venues.html" class="btn-primary spoke-link">
+            <span>Mở bộ lọc danh bạ</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </article>
 
         <!-- Nan hoa 3: Realtime Timeline Countdown -->
-        <article class="card">
-          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);" aria-hidden="true">⏳</div>
-          <span class="badge" style="background-color: hsla(15, 90%, 55%, 0.15); color: var(--color-accent); margin-bottom: var(--spacing-xs);">MÚI GIỜ QUỐC TẾ AOE</span>
-          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Lịch Trình Call-for-Papers (CFP)</h3>
-          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm); line-height: 1.6;">
+        <article class="card spoke-card">
+          <div class="spoke-icon-wrapper spoke-icon-timeline" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <span class="badge badge-q3 spoke-badge">MÚI GIỜ QUỐC TẾ AOE</span>
+          <h3 class="spoke-title">Lịch Trình Call-for-Papers (CFP)</h3>
+          <p class="spoke-desc">
             Theo dõi trực quan toàn bộ các mốc quan trọng: Abstract Registration, Full Paper Submission, Notification of Acceptance và Camera-ready. Đồng hồ đếm ngược từng giây theo chuẩn quốc tế <strong>Anywhere on Earth (AoE - UTC-12)</strong>.
           </p>
-          <a href="timeline.html" class="btn-primary" style="display: inline-block; padding: 6px 14px; font-size: var(--font-size-sm);">
-            Xem timeline deadline &rarr;
+          <a href="timeline.html" class="btn-primary spoke-link">
+            <span>Xem timeline deadline</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </article>
 
         <!-- Nan hoa 4: User-Scoped Watchlist -->
-        <article class="card">
-          <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);" aria-hidden="true">🎯</div>
-          <span class="badge" style="background-color: hsla(280, 75%, 55%, 0.15); color: hsl(280, 75%, 55%); margin-bottom: var(--spacing-xs);">MỤC TIÊU CÁ NHÂN</span>
-          <h3 style="margin-bottom: var(--spacing-xs); font-size: var(--font-size-xl);">Danh Sách Tiềm Năng & Ghi Chú</h3>
-          <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-md); font-size: var(--font-size-sm); line-height: 1.6;">
-            Lưu giữ danh sách các hội nghị và tạp chí mục tiêu vào bộ nhớ cục bộ an toàn. Ghi chú tiến độ viết bản thảo nghiên cứu, đánh dấu đợt nộp bài và quản lý danh mục mục tiêu riêng biệt cho từng tác giả.
+        <article class="card spoke-card">
+          <div class="spoke-icon-wrapper spoke-icon-watchlist" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+          </div>
+          <span class="badge badge-core-astar spoke-badge">MÔ HÌNH BÁNH XE</span>
+          <h3 class="spoke-title">Sơ Đồ Site &amp; Quản Lý Mục Tiêu</h3>
+          <p class="spoke-desc">
+            Khám phá toàn bộ mạng lưới cấu trúc điều hướng Hub-and-Spoke. Quản lý danh sách các hội nghị và tạp chí mục tiêu đã lưu, theo dõi tiến độ hoàn thiện bản thảo nghiên cứu và truy cập nhanh các trang chức năng.
           </p>
-          <a href="sitemap.html" class="btn-primary" style="display: inline-block; padding: 6px 14px; font-size: var(--font-size-sm); background-color: var(--color-secondary);">
-            Xem sơ đồ site &rarr;
+          <a href="sitemap.html" class="btn-primary spoke-link">
+            <span>Khám phá sơ đồ site</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </article>
 
@@ -216,9 +272,9 @@
     </section>
 
     <!-- 2.4. Danh Bạ Tiêu Biểu (Featured Top Ranked Venues Showcase) -->
-    <section class="container" style="margin-top: var(--spacing-2xl);" aria-labelledby="featured-heading">
+    <section class="container section-spacer" aria-labelledby="featured-heading">
       <header class="section-header">
-        <h2 id="featured-heading" class="section-title">Hội Nghị & Tạp Chí Tiêu Biểu Trong Ngành</h2>
+        <h2 id="featured-heading" class="section-title">Hội Nghị &amp; Tạp Chí Tiêu Biểu Trong Ngành</h2>
         <p class="section-desc">Một số địa chỉ công bố uy tín hàng đầu trong lĩnh vực Khoa học Máy tính, Trí tuệ Nhân tạo và Kỹ thuật Phần mềm.</p>
       </header>
 
@@ -228,15 +284,21 @@
         <article class="featured-venue-card">
           <div>
             <div class="featured-venue-header">
-              <span class="featured-venue-type">📖 Tạp chí (Journal)</span>
+              <span class="featured-venue-type">Tạp chí (Journal)</span>
               <span class="badge badge-q1">Scopus Q1</span>
             </div>
             <h3 class="featured-venue-name">IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</h3>
             <div class="featured-venue-meta">
-              <span>🏛️ Nhà xuất bản: IEEE</span>
-              <span>🔢 ISSN: 0162-8828</span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                <span>Nhà xuất bản: IEEE</span>
+              </span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="12" y2="16"/></svg>
+                <span>ISSN: 0162-8828</span>
+              </span>
             </div>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+            <p class="spoke-desc">
               Chuyên ngành: Computer Vision, Pattern Recognition, Machine Intelligence.
             </p>
             <div class="featured-venue-metrics">
@@ -255,9 +317,15 @@
             </div>
           </div>
           <div class="featured-venue-footer">
-            <a href="venues.html?q=TPAMI" style="color: var(--color-primary); font-weight: 600; text-decoration: none; font-size: var(--font-size-sm);">Chi tiết hồ sơ &rarr;</a>
-            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="JOUR-0001" data-name="IEEE TPAMI" data-rank="Q1" title="Lưu vào danh sách mục tiêu">
-              ❤️ Lưu
+            <a href="venues.html?q=TPAMI" class="venue-details-link">
+              <span>Chi tiết hồ sơ</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="JOUR-0001" data-name="IEEE TPAMI" data-rank="Q1" title="Lưu vào danh sách mục tiêu" aria-label="Lưu IEEE TPAMI">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <span>Lưu</span>
             </button>
           </div>
         </article>
@@ -266,15 +334,21 @@
         <article class="featured-venue-card">
           <div>
             <div class="featured-venue-header">
-              <span class="featured-venue-type">🏛️ Hội nghị (Conference)</span>
-              <span class="badge" style="background-color: hsla(280, 80%, 55%, 0.15); color: hsl(280, 80%, 55%);">CORE A*</span>
+              <span class="featured-venue-type">Hội nghị (Conference)</span>
+              <span class="badge badge-core-astar">CORE A*</span>
             </div>
             <h3 class="featured-venue-name">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2027)</h3>
             <div class="featured-venue-meta">
-              <span>🏷️ Viết tắt: CVPR</span>
-              <span>📅 Hạn nộp: 17/11/2026 (AoE)</span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span>Viết tắt: CVPR</span>
+              </span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>Hạn nộp: <time datetime="2026-11-17T23:59:59-12:00">17/11/2026 (AoE)</time></span>
+              </span>
             </div>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+            <p class="spoke-desc">
               Hội nghị thường niên hàng đầu thế giới về Thị giác máy tính và Học sâu.
             </p>
             <div class="featured-venue-metrics">
@@ -287,15 +361,21 @@
                 <span class="metric-label">H-Index</span>
               </div>
               <div class="metric-item">
-                <span class="metric-value" style="color: var(--color-accent);">AoE</span>
+                <span class="metric-value stat-accent">AoE</span>
                 <span class="metric-label">Múi giờ</span>
               </div>
             </div>
           </div>
           <div class="featured-venue-footer">
-            <a href="timeline.html" style="color: var(--color-primary); font-weight: 600; text-decoration: none; font-size: var(--font-size-sm);">Xem đồng hồ CFP &rarr;</a>
-            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="CONF-001" data-name="CVPR 2027" data-rank="A*" title="Lưu vào danh sách mục tiêu">
-              ❤️ Lưu
+            <a href="timeline.html" class="venue-details-link">
+              <span>Xem đồng hồ CFP</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="CONF-001" data-name="CVPR 2027" data-rank="A*" title="Lưu vào danh sách mục tiêu" aria-label="Lưu CVPR 2027">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <span>Lưu</span>
             </button>
           </div>
         </article>
@@ -304,15 +384,21 @@
         <article class="featured-venue-card">
           <div>
             <div class="featured-venue-header">
-              <span class="featured-venue-type">🏛️ Hội nghị (Conference)</span>
-              <span class="badge" style="background-color: hsla(280, 80%, 55%, 0.15); color: hsl(280, 80%, 55%);">CORE A*</span>
+              <span class="featured-venue-type">Hội nghị (Conference)</span>
+              <span class="badge badge-core-astar">CORE A*</span>
             </div>
             <h3 class="featured-venue-name">ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD 2027)</h3>
             <div class="featured-venue-meta">
-              <span>🏷️ Viết tắt: KDD</span>
-              <span>🏛️ Tổ chức: ACM</span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span>Viết tắt: KDD</span>
+              </span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                <span>Tổ chức: ACM</span>
+              </span>
             </div>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+            <p class="spoke-desc">
               Hội nghị quy mô lớn nhất về Khai phá dữ liệu, Học máy ứng dụng và Big Data.
             </p>
             <div class="featured-venue-metrics">
@@ -331,9 +417,15 @@
             </div>
           </div>
           <div class="featured-venue-footer">
-            <a href="venues.html?q=KDD" style="color: var(--color-primary); font-weight: 600; text-decoration: none; font-size: var(--font-size-sm);">Chi tiết hồ sơ &rarr;</a>
-            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="CONF-003" data-name="ACM KDD 2027" data-rank="A*" title="Lưu vào danh sách mục tiêu">
-              ❤️ Lưu
+            <a href="venues.html?q=KDD" class="venue-details-link">
+              <span>Chi tiết hồ sơ</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="CONF-003" data-name="ACM KDD 2027" data-rank="A*" title="Lưu vào danh sách mục tiêu" aria-label="Lưu ACM KDD 2027">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <span>Lưu</span>
             </button>
           </div>
         </article>
@@ -342,15 +434,21 @@
         <article class="featured-venue-card">
           <div>
             <div class="featured-venue-header">
-              <span class="featured-venue-type">📖 Tạp chí (Journal)</span>
+              <span class="featured-venue-type">Tạp chí (Journal)</span>
               <span class="badge badge-q1">Scopus Q1</span>
             </div>
             <h3 class="featured-venue-name">Artificial Intelligence (Elsevier)</h3>
             <div class="featured-venue-meta">
-              <span>🏛️ Nhà xuất bản: Elsevier</span>
-              <span>🔢 ISSN: 0004-3702</span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+                <span>Nhà xuất bản: Elsevier</span>
+              </span>
+              <span class="venue-meta-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="12" y2="16"/></svg>
+                <span>ISSN: 0004-3702</span>
+              </span>
             </div>
-            <p style="font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">
+            <p class="spoke-desc">
               Tạp chí tiên phong lâu đời và danh giá nhất của ngành Trí tuệ nhân tạo thế giới.
             </p>
             <div class="featured-venue-metrics">
@@ -369,9 +467,15 @@
             </div>
           </div>
           <div class="featured-venue-footer">
-            <a href="venues.html?q=Artificial+Intelligence" style="color: var(--color-primary); font-weight: 600; text-decoration: none; font-size: var(--font-size-sm);">Chi tiết hồ sơ &rarr;</a>
-            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="JOUR-0004" data-name="Artificial Intelligence" data-rank="Q1" title="Lưu vào danh sách mục tiêu">
-              ❤️ Lưu
+            <a href="venues.html?q=Artificial+Intelligence" class="venue-details-link">
+              <span>Chi tiết hồ sơ</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <button type="button" class="btn-icon bookmark-trigger-btn" data-id="JOUR-0004" data-name="Artificial Intelligence" data-rank="Q1" title="Lưu vào danh sách mục tiêu" aria-label="Lưu Artificial Intelligence Journal">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <span>Lưu</span>
             </button>
           </div>
         </article>
@@ -380,88 +484,103 @@
     </section>
 
     <!-- 2.5. Quy trình 3 bước Nghiên cứu xuất bản (Workflow Steps) -->
-    <section class="container" style="margin-top: var(--spacing-2xl);" aria-labelledby="workflow-heading">
+    <section class="container section-spacer" aria-labelledby="workflow-heading">
       <header class="section-header">
-        <h2 id="workflow-heading" class="section-title">Quy Trình 3 Bước Tìm Kiếm & Xuất Bản</h2>
+        <h2 id="workflow-heading" class="section-title">Quy Trình 3 Bước Tìm Kiếm &amp; Xuất Bản</h2>
         <p class="section-desc">Cách thức nhanh nhất để tìm ra hội nghị hoặc tạp chí phù hợp nhất cho công trình của bạn.</p>
       </header>
 
       <div class="workflow-grid">
-        <div class="step-card">
-          <div class="step-badge">1</div>
-          <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-xs);">Nhập Tiêu Đề & Abstract</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">01</span>
+          </div>
+          <h3 class="step-title">Nhập Tiêu Đề &amp; Abstract</h3>
+          <p class="step-desc">
             Chuẩn bị bản thảo nghiên cứu của bạn. Chỉ cần sao chép Tiêu đề (Title) và Tóm tắt (Abstract) cùng từ khóa quan trọng vào form khuyến nghị.
           </p>
-        </div>
+        </article>
 
-        <div class="step-card">
-          <div class="step-badge">2</div>
-          <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-xs);">So Khớp Thuật Toán BM25</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">02</span>
+          </div>
+          <h3 class="step-title">So Khớp Thuật Toán BM25</h3>
+          <p class="step-desc">
             Thuật toán Okapi BM25 chuẩn hóa độ dài văn bản, bão hòa tần suất từ khóa học thuật và lọc ra danh sách venues có Scope tương đồng cao nhất.
           </p>
-        </div>
+        </article>
 
-        <div class="step-card">
-          <div class="step-badge">3</div>
-          <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-xs);">Đánh Dấu & Canh Deadline</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-muted);">
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">03</span>
+          </div>
+          <h3 class="step-title">Đánh Dấu &amp; Canh Deadline</h3>
+          <p class="step-desc">
             Lưu venue vào danh sách mục tiêu (Watchlist), kích hoạt đồng hồ đếm ngược CFP theo giờ AoE và hoàn thiện bản thảo trước hạn nộp bài.
           </p>
-        </div>
+        </article>
       </div>
     </section>
 
-    <!-- 2.6. Cẩm nang Hướng dẫn & Câu hỏi Thường gặp (FAQ & Scientific Methodology) -->
-    <section class="container" style="margin-top: var(--spacing-2xl);" aria-labelledby="faq-heading">
+    <!-- 2.6. Cẩm nang Hướng dẫn & Câu hỏi Thường gặp (Semantic FAQ using <details> & <summary>) -->
+    <section class="container section-spacer" aria-labelledby="faq-heading">
       <header class="section-header">
         <h2 id="faq-heading" class="section-title">Cẩm Nang Chuẩn Xếp Hạng Quốc Tế</h2>
-        <p class="section-desc">Hiểu rõ các thuật ngữ và hệ thống đo lường chất lượng xuất bản khoa học.</p>
+        <p class="section-desc">Hiểu rõ các thuật ngữ và hệ thống đo lường chất lượng xuất bản khoa học (nhấp vào tiêu đề để mở rộng).</p>
       </header>
 
-      <div class="faq-grid">
-        <article class="faq-card">
-          <h3>📌 Scopus SJR & Phân Hạng Q1 - Q4 Là Gì?</h3>
-          <p>
+      <div>
+        <details class="faq-details" open>
+          <summary class="faq-summary">
+            <span>Scopus SJR &amp; Phân Hạng Q1 - Q4 Là Gì?</span>
+          </summary>
+          <div class="faq-content">
             Scopus là cơ sở dữ liệu thư mục lớn nhất thế giới của Elsevier. SCImago Journal Rank (SJR) phân loại các tạp chí theo 4 tứ phân vị: <strong>Q1</strong> (Top 25% uy tín nhất), <strong>Q2</strong> (25-50%), <strong>Q3</strong> (50-75%) và <strong>Q4</strong> (25% cuối), dựa trên trọng số uy tín của các trích dẫn nhận được.
-          </p>
-        </article>
+          </div>
+        </details>
 
-        <article class="faq-card">
-          <h3>🏆 Chuẩn Xếp Hạng Hội Nghị CORE Là Gì?</h3>
-          <p>
+        <details class="faq-details">
+          <summary class="faq-summary">
+            <span>Chuẩn Xếp Hạng Hội Nghị CORE (A*, A, B, C) Là Gì?</span>
+          </summary>
+          <div class="faq-content">
             CORE (Computing Research and Education Association of Australasia) là chuẩn mực toàn cầu để đánh giá hội nghị ngành CNTT. Phân hạng gồm: <strong>A*</strong> (Hội nghị đỉnh cao thế giới), <strong>A</strong> (Xuất sắc), <strong>B</strong> (Tốt) và <strong>C</strong> (Hội nghị khu vực/quốc tế được công nhận).
-          </p>
-        </article>
+          </div>
+        </details>
 
-        <article class="faq-card">
-          <h3>🌍 Múi Giờ AoE (Anywhere on Earth) Có Ý Nghĩa Gì?</h3>
-          <p>
-            AoE tương ứng với múi giờ <strong>UTC-12:00</strong>. Hạn nộp "23:59 AoE" nghĩa là miễn là ở bất kỳ nơi nào trên Trái Đất chưa qua ngày đó (ví dụ tại đảo Baker/Howland) thì tác giả vẫn có quyền nộp bài hợp lệ.
-          </p>
-        </article>
+        <details class="faq-details">
+          <summary class="faq-summary">
+            <span>Múi Giờ AoE (Anywhere on Earth) Có Ý Nghĩa Gì?</span>
+          </summary>
+          <div class="faq-content">
+            AoE tương ứng với múi giờ <strong>UTC-12:00</strong>. Hạn nộp "23:59 AoE" nghĩa là miễn là ở bất kỳ nơi nào trên Trái Đất chưa qua ngày đó (ví dụ tại đảo Baker/Howland) thì tác giả vẫn có quyền nộp bài hợp lệ. Toàn bộ đồng hồ đếm ngược CFP trên website đều tuân thủ chuẩn này.
+          </div>
+        </details>
 
-        <article class="faq-card">
-          <h3>💡 Thuật Toán Okapi BM25 Hoạt Động Thế Nào?</h3>
-          <p>
-            Okapi BM25 là thuật toán xếp hạng thông tin hiện đại thay thế cho TF-IDF. Thuật toán khắc phục triệt để nhược điểm bài báo quá dài hoặc lặp từ bằng cơ chế bão hòa tần suất từ ($k_1 \approx 1.2$) và chuẩn hóa độ dài ($b \approx 0.75$).
-          </p>
-        </article>
+        <details class="faq-details">
+          <summary class="faq-summary">
+            <span>Thuật Toán Okapi BM25 Hoạt Động Thế Nào?</span>
+          </summary>
+          <div class="faq-content">
+            Okapi BM25 là thuật toán xếp hạng thông tin hiện đại thay thế cho TF-IDF truyền thống. Thuật toán khắc phục triệt để nhược điểm bài báo quá dài hoặc lặp từ bằng cơ chế bão hòa tần suất từ ($k_1 \approx 1.2$) và chuẩn hóa độ dài ($b \approx 0.75$), chạy hoàn toàn trên client bằng Vanilla JS.
+          </div>
+        </details>
       </div>
     </section>
 
     <!-- 2.7. Call to Action Banner -->
-    <aside class="container" style="margin-top: var(--spacing-2xl);" aria-label="Kêu gọi hành động">
+    <aside class="container section-spacer" aria-label="Kêu gọi hành động">
       <div class="cta-banner">
         <h2>Bạn Đã Sẵn Sàng Công Bố Bài Báo Của Mình?</h2>
         <p>Bắt đầu tìm kiếm địa chỉ công bố lý tưởng ngay bây giờ với kho dữ liệu đồ sộ và thuật toán gợi ý chính xác.</p>
-        <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
-          <a href="recommend.html" class="btn-primary" style="background-color: #ffffff; color: var(--color-primary); font-weight: 700;">
-            Bắt đầu phân tích bài báo ngay &rarr;
+        <div class="hero-cta-group">
+          <a href="recommend.html" class="btn-primary btn-white">
+            <span>Bắt đầu phân tích bài báo ngay</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
-          <a href="venues.html" class="btn-primary" style="background-color: transparent; border: 1.5px solid #ffffff; color: #ffffff;">
-            Duyệt danh bạ Scopus / CORE
+          <a href="venues.html" class="btn-primary btn-ghost-white">
+            <span>Duyệt danh bạ Scopus / CORE</span>
           </a>
         </div>
       </div>
@@ -472,27 +591,32 @@
   <!-- ============================================================
        3. MODAL XEM NHANH DANH SÁCH MỤC TIÊU (WATCHLIST MODAL)
        ============================================================ -->
-  <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="bookmark-modal-title">
+  <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">
     <div class="bookmark-modal">
       <div class="modal-header">
         <h3 id="bookmark-modal-title" style="margin: 0; display: flex; align-items: center; gap: var(--spacing-xs);">
-          <span>❤️</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="color: var(--color-accent);" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
           <span>Danh Sách Mục Tiêu Đã Lưu</span>
         </h3>
-        <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">✕</button>
+        <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="6"/>
+          </svg>
+        </button>
       </div>
       <div class="modal-body" id="bookmark-modal-body">
-        <!-- Render danh sách bookmark qua JavaScript từ localStorage -->
-        <p style="text-align: center; color: var(--color-text-muted); padding: var(--spacing-xl) 0;">
-          Chưa có hội nghị hoặc tạp chí nào được lưu. Hãy bấm vào biểu tượng ❤️ trên các thẻ venue để đưa vào danh sách mục tiêu.
-        </p>
+        <!-- Danh sách được render tự động qua ESM module js/modules/bookmark-modal.js -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn-icon" id="bookmark-modal-clear-btn" style="color: var(--color-danger); border-color: var(--color-danger);">
           Xóa tất cả
         </button>
-        <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 12px;">
-          Xem trong danh bạ &rarr;
+        <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
+          <span>Xem trong danh bạ</span>
+          <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>
@@ -504,156 +628,26 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
-        <a href="index.html" class="active">Trang Chủ (Hub)</a>
+        <a href="index.html" class="active" aria-current="page">Trang Chủ (Hub)</a>
         <a href="venues.html">Danh Bạ Venues</a>
         <a href="recommend.html">Khuyến Nghị Bài Báo</a>
         <a href="timeline.html">Lịch Trình CFP</a>
         <a href="about.html">Về Nhóm Tác Giả</a>
         <a href="sitemap.html">Sơ Đồ Site</a>
-        <a href="contact.html">Liên Hệ & Góp Ý</a>
+        <a href="contact.html">Liên Hệ &amp; Góp Ý</a>
       </nav>
       <div class="footer-bottom">
         <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
         <p style="margin-top: 4px; font-size: 0.8rem; color: var(--color-text-muted);">
-          Thành viên thực hiện Task 1.2: <strong>Trưởng nhóm (TV1)</strong> | Kiến trúc: <strong>Mô hình Bánh xe (Wheel Model)</strong> | 100% Vanilla HTML5, CSS3, JavaScript.
+          Thành viên thực hiện Task 1.2: <strong>Trưởng nhóm (TV1)</strong> | Kiến trúc: <strong>Mô hình Bánh xe (Wheel Model)</strong> | 100% Vanilla HTML5, CSS3, JavaScript ESM.
         </p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts: Module Quản lý Lưu trữ (TV1) & Logic điều hướng chung (TV5) -->
-  <script src="./js/storage.js"></script>
-  <script src="./js/app.js"></script>
-
-  <!-- Script tương tác bổ trợ cho Trang chủ: Quick Bookmark Modal & Trigger -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Quản lý Modal Popup Bookmark
-      const bookmarkHeaderBtn = document.getElementById("bookmark-header-btn");
-      const modalBackdrop = document.getElementById("bookmark-modal-backdrop");
-      const modalCloseBtn = document.getElementById("bookmark-modal-close-btn");
-      const modalBody = document.getElementById("bookmark-modal-body");
-      const modalClearBtn = document.getElementById("bookmark-modal-clear-btn");
-
-      function openBookmarkModal() {
-        renderBookmarksList();
-        modalBackdrop.classList.add("active");
-      }
-
-      function closeBookmarkModal() {
-        modalBackdrop.classList.remove("active");
-      }
-
-      if (bookmarkHeaderBtn) bookmarkHeaderBtn.addEventListener("click", openBookmarkModal);
-      if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeBookmarkModal);
-      if (modalBackdrop) {
-        modalBackdrop.addEventListener("click", (e) => {
-          if (e.target === modalBackdrop) closeBookmarkModal();
-        });
-      }
-
-      function renderBookmarksList() {
-        if (!modalBody || typeof AppStorage === "undefined") return;
-        const list = AppStorage.getBookmarks();
-        if (list.length === 0) {
-          modalBody.innerHTML = `
-            <div style="text-align: center; padding: var(--spacing-xl) 0; color: var(--color-text-muted);">
-              <div style="font-size: 2.5rem; margin-bottom: var(--spacing-xs);">📂</div>
-              <p>Chưa có venue nào trong danh sách mục tiêu.</p>
-              <p style="font-size: var(--font-size-xs); margin-top: 4px;">Bấm nút ❤️ trên các thẻ venue để theo dõi.</p>
-            </div>
-          `;
-          return;
-        }
-
-        let html = '<div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">';
-        list.forEach(v => {
-          html += `
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-md); background-color: var(--color-bg-body);">
-              <div>
-                <strong style="color: var(--color-primary); font-size: var(--font-size-md);">${v.acronym ? v.acronym + ' - ' : ''}${v.name}</strong>
-                <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 2px;">
-                  <span>${v.type === 'journal' ? 'Tạp chí' : 'Hội nghị'}</span> | 
-                  <span>Rank: ${v.scopus_rank || v.core_rank || 'N/A'}</span>
-                </div>
-              </div>
-              <button type="button" class="btn-icon remove-item-btn" data-id="${v.id}" title="Xóa khỏi danh sách" style="color: var(--color-danger); border-color: transparent;">
-                ✕
-              </button>
-            </div>
-          `;
-        });
-        html += '</div>';
-        modalBody.innerHTML = html;
-
-        // Gán sự kiện xóa từng item
-        modalBody.querySelectorAll(".remove-item-btn").forEach(btn => {
-          btn.addEventListener("click", (e) => {
-            const id = e.currentTarget.getAttribute("data-id");
-            AppStorage.removeBookmark(id);
-            renderBookmarksList();
-            updateTriggerButtons();
-          });
-        });
-      }
-
-      if (modalClearBtn) {
-        modalClearBtn.addEventListener("click", () => {
-          if (confirm("ĐẠI CA có chắc muốn xóa toàn bộ danh sách mục tiêu đã lưu?")) {
-            localStorage.removeItem(AppStorage.KEYS.BOOKMARKS);
-            AppStorage._updateBadgeCounter();
-            renderBookmarksList();
-            updateTriggerButtons();
-          }
-        });
-      }
-
-      // 2. Gán sự kiện Bookmark cho các thẻ Venue tiêu biểu trên Trang chủ
-      function updateTriggerButtons() {
-        if (typeof AppStorage === "undefined") return;
-        document.querySelectorAll(".bookmark-trigger-btn").forEach(btn => {
-          const id = btn.getAttribute("data-id");
-          const isSaved = AppStorage.isBookmarked(id);
-          if (isSaved) {
-            btn.innerHTML = "💖 Đã lưu";
-            btn.style.borderColor = "var(--color-accent)";
-            btn.style.color = "var(--color-accent)";
-          } else {
-            btn.innerHTML = "❤️ Lưu";
-            btn.style.borderColor = "var(--color-border)";
-            btn.style.color = "var(--color-text-main)";
-          }
-        });
-      }
-
-      document.querySelectorAll(".bookmark-trigger-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const target = e.currentTarget;
-          const id = target.getAttribute("data-id");
-          const name = target.getAttribute("data-name");
-          const rank = target.getAttribute("data-rank");
-          const type = id.startsWith("CONF") ? "conference" : "journal";
-
-          AppStorage.toggleBookmark({
-            id: id,
-            name: name,
-            acronym: id.startsWith("CONF") ? name.split(" ")[0] : null,
-            type: type,
-            scopus_rank: type === "journal" ? rank : null,
-            core_rank: type === "conference" ? rank : null
-          });
-
-          updateTriggerButtons();
-        });
-      });
-
-      updateTriggerButtons();
-
-      // Lắng nghe sự kiện toàn cục khi bookmark thay đổi
-      window.addEventListener("venueBookmarkChanged", () => {
-        updateTriggerButtons();
-      });
-    });
-  </script>
+  <!-- Scripts: Vanilla JS ES Modules theo chuẩn SRP (Single Responsibility Principle) -->
+  <script type="module" src="./js/main.js"></script>
+  <!-- Fallback tương thích cho môi trường legacy -->
+  <script defer src="./js/storage.js"></script>
 </body>
 </html>
