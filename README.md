@@ -46,13 +46,18 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 .
 ├── .gitignore               # Loại bỏ file rác, file .env, file hệ điều hành
 ├── README.md                # Tài liệu tổng quan dự án và hướng dẫn chạy
-├── index.html               # Trang chủ (Hub tâm của mô hình bánh xe)
-├── venues.html              # Trang danh bạ tra cứu hội nghị & tạp chí (TV3)
-├── recommend.html           # Trang gợi ý bài báo theo thuật toán NLP (TV2)
-├── timeline.html            # Trang dòng thời gian CFP & đếm ngược deadline (TV4)
-├── about.html               # Trang giới thiệu đề tài và nhóm sinh viên (TV5)
-├── contact.html             # Trang form liên hệ & góp ý (TV5)
-├── sitemap.html             # Trang sơ đồ site theo mô hình bánh xe (TV5)
+├── docs/                    # Tài liệu và báo cáo đồ án
+│   ├── KE_HOACH_PHAN_CONG_DO_AN.md    # Kế hoạch phân công nhiệm vụ đồ án
+│   ├── CHUONG_4_GIAI_THUAT_NLP_BM25.md # Thuyết minh chi tiết thuật toán NLP Okapi BM25
+│   └── Phân công đồ án IE104.xlsx     # Bảng phân công tiến độ nhóm
+├── html/                    # Giao diện người dùng (Mô hình điều hướng bánh xe)
+│   ├── index.html           # Trang chủ (Hub tâm của mô hình bánh xe)
+│   ├── venues.html          # Trang danh bạ tra cứu hội nghị & tạp chí (TV3)
+│   ├── recommend.html       # Trang gợi ý bài báo theo thuật toán NLP (TV2)
+│   ├── timeline.html        # Trang dòng thời gian CFP & đếm ngược deadline (TV4)
+│   ├── about.html           # Trang giới thiệu đề tài và nhóm sinh viên (TV5)
+│   ├── contact.html         # Trang form liên hệ & góp ý (TV5)
+│   └── sitemap.html         # Trang sơ đồ site theo mô hình bánh xe (TV5)
 ├── css/
 │   ├── variables.css        # Hệ thống Design Tokens (:root, bảng màu HSL, Dark/Light)
 │   ├── main.css             # Style khung dùng chung (Header, Footer, Wheel Nav)
@@ -66,12 +71,12 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 │   ├── countdown.js         # Module đồng hồ đếm ngược múi giờ UTC/AoE (TV4)
 │   └── app.js               # Module theme Dark/Light & menu di động (TV5)
 ├── data/
+│   ├── venues.json          # Cơ sở dữ liệu Scopus & CORE đầy đủ
 │   └── venues_sample.json   # Hợp đồng dữ liệu mẫu (Data Contract) 5 items chuẩn
 └── images/                  # Thư mục hình ảnh, logo, icons
 ```
 
 ---
-
 
 ## 📝 QUY ĐỊNH COMMIT GIT CHO CÁC THÀNH VIÊN
 Để đảm bảo minh chứng đóng góp rõ ràng phục vụ chấm điểm môn học, tất cả các commit phải tuân theo cú pháp:
@@ -96,6 +101,10 @@ cd -n-IE104
 ```
 
 ### 2. Chạy ứng dụng trên trình duyệt:
-* Do dự án sử dụng 100% Vanilla HTML, CSS, JavaScript thuần, bạn có thể:
-  * **Cách 1**: Mở thư mục bằng **VS Code**, cài extension **Live Server** và nhấn **Go Live** tại file `index.html`.
-  * **Cách 2**: Nhấp đúp chuột trực tiếp vào file `index.html` để mở trên Google Chrome / Firefox / Edge.
+* Do dự án sử dụng Fetch API để nạp dữ liệu JSON, nên chạy qua máy chủ web cục bộ:
+  * **Cách 1**: Mở thư mục bằng **VS Code**, cài extension **Live Server**, chuột phải vào [`html/index.html`](file:///d:/VS%20CODE/IE104/-n-IE104/html/index.html) hoặc [`html/recommend.html`](file:///d:/VS%20CODE/IE104/-n-IE104/html/recommend.html) và chọn **Open with Live Server**.
+  * **Cách 2**: Chạy bằng Python:
+    ```bash
+    python -m http.server 8080
+    ```
+    Sau đó mở trình duyệt truy cập: `http://localhost:8080/html/index.html` (hoặc `http://localhost:8080/html/recommend.html`).
