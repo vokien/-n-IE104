@@ -1,161 +1,244 @@
+/**
+ * ==========================================================
+ * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4 - T4.1, T4.2)
+ * Múi giờ: Anywhere on Earth (AoE / UTC-12)
+ * Tương thích 100%: Chạy trực tiếp (file://) lẫn Local Server
+ * ==========================================================
+ */
 
-document.addEventListener("DOMContentLoaded", () => {
-  initCountdown();
-  loadTimelineEvents();
-});
+(function () {
+  "use strict";
 
-function initCountdown() {
-  const targetTime = new Date("2026-11-17T23:59:59-12:00").getTime();
-  const units = ["days", "hours", "minutes", "seconds"].map((id) =>
-    document.getElementById(id)
-  );
+  // Hằng số thời gian
+  const MS_SECOND = 1000;
+  const MS_MINUTE = 60 * MS_SECOND;
+  const MS_HOUR = 60 * MS_MINUTE;
+  const MS_DAY = 24 * MS_HOUR;
 
-  if (units.some((element) => !element)) return;
+  // Icon SVG Calendar
+  const CALENDAR_ICON_SVG = `
+    <svg class="timeline-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block; vertical-align:-2px; margin-right:5px;">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="16" y1="2" x2="16" y2="6"></line>
+      <line x1="8" y1="2" x2="8" y2="6"></line>
+      <line x1="3" y1="10" x2="21" y2="10"></line>
+    </svg>
+  `;
 
-  let timerInterval = null;
+  /**
+   * 1. Tiện ích chuẩn hóa chuỗi thời gian về chuẩn AoE (UTC-12)
+   */
+  function parseAoEDate(dateString) {
+    if (!dateString) return NaN;
+    let normalized = String(dateString).trim();
+    if (!normalized.includes("T")) {
+      normalized = `${normalized}T23:59:59-12:00`;
+    } else if (!normalized.match(/([+-]\d{2}:\d{2}|Z)$/)) {
+      normalized = `${normalized}-12:00`;
+    }
+    return new Date(normalized).getTime();
+  }
 
-  const render = (values) => {
-    values.forEach((value, index) => {
-      units[index].textContent = String(value).padStart(2, "0");
-    });
-  };
+  /**
+   * 2. Phân loại trạng thái deadline thông minh
+   */
+  function getSmartStatus(dateString) {
+    const targetTime = parseAoEDate(dateString);
+    const remaining = targetTime - Date.now();
+    const diffDays = Math.ceil(remaining / MS_DAY);
 
-  function updateTimer() {
-    const distance = targetTime - Date.now();
-
-    if (distance <= 0) {
-      render([0, 0, 0, 0]);
-
-      if (timerInterval !== null) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-
-      return false;
+    if (isNaN(targetTime) || remaining <= 0) {
+      return {
+        type: "ended",
+        label: "Đã kết thúc",
+        className: "status-badge--ended",
+        diffDays: 0,
+        isEnded: true,
+      };
     }
 
-    render([
-      Math.floor(distance / 86_400_000),
-      Math.floor((distance % 86_400_000) / 3_600_000),
-      Math.floor((distance % 3_600_000) / 60_000),
-      Math.floor((distance % 60_000) / 1_000),
-    ]);
+    if (diffDays <= 7) {
+      return {
+        type: "urgent",
+        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        className: "status-badge--urgent",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
 
-    return true;
-  }
+    if (diffDays <= 30) {
+      return {
+        type: "warning",
+        label: `Sắp đến hạn (${diffDays} ngày)`,
+        className: "status-badge--warning",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
 
-  if (updateTimer()) {
-    timerInterval = setInterval(updateTimer, 1_000);
-  }
-}
-
-function getSmartStatus(dateString) {
-  const remaining = new Date(dateString).getTime() - Date.now();
-  const diffDays = Math.ceil(remaining / 86_400_000);
-
-  if (remaining <= 0) {
     return {
-      label: "ĐÃ KẾT THÚC",
-      bg: "rgba(128, 128, 128, 0.15)",
-      color: "#718096",
+      type: "open",
+      label: "Đang mở nhận bài",
+      className: "status-badge--open",
+      diffDays: diffDays,
+      isEnded: false,
     };
   }
 
-  if (diffDays <= 7) {
-    return {
-      label: `KHẨN CẤP (${diffDays} NGÀY)`,
-      bg: "rgba(235, 87, 87, 0.15)",
-      color: "#eb5757",
-    };
+  /**
+   * 3. Tạo chuỗi đếm ngược rút gọn cho thẻ Venue (Task 4.3)
+   */
+  function createCountdownBadge(targetDateStr) {
+    const targetTime = parseAoEDate(targetDateStr);
+    const distance = targetTime - Date.now();
+
+    if (isNaN(targetTime) || distance <= 0) {
+      return "Đã kết thúc";
+    }
+
+    const days = Math.floor(distance / MS_DAY);
+    const hours = Math.floor((distance % MS_DAY) / MS_HOUR);
+
+    if (days === 0) {
+      const minutes = Math.floor((distance % MS_HOUR) / MS_MINUTE);
+      return `Còn ${hours}h ${String(minutes).padStart(2, "0")}m`;
+    }
+
+    return `Còn ${days} ngày ${String(hours).padStart(2, "0")} giờ`;
   }
 
-  if (diffDays <= 30) {
-    return {
-      label: `SẮP ĐẾN HẠN (${diffDays} NGÀY)`,
-      bg: "rgba(242, 153, 74, 0.15)",
-      color: "#f2994a",
-    };
+  /**
+   * 4. Khởi tạo đồng hồ đếm ngược nổi bật (Banner Countdown)
+   * Tự động đếm theo deadline gần nhất thực tế (ICLR 2027: 25/10/2026)
+   */
+  function initCountdown() {
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // Deadline gần nhất thực tế: ICLR 2027 Abstract Deadline (25/10/2026 AoE)
+    const targetTime = parseAoEDate("2026-10-25T23:59:59-12:00");
+    let timerInterval = null;
+
+    function render(d, h, m, s) {
+      daysEl.textContent = String(d).padStart(2, "0");
+      hoursEl.textContent = String(h).padStart(2, "0");
+      minutesEl.textContent = String(m).padStart(2, "0");
+      secondsEl.textContent = String(s).padStart(2, "0");
+    }
+
+    function update() {
+      const distance = targetTime - Date.now();
+
+      if (distance <= 0) {
+        render(0, 0, 0, 0);
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        return false;
+      }
+
+      const d = Math.floor(distance / MS_DAY);
+      const h = Math.floor((distance % MS_DAY) / MS_HOUR);
+      const m = Math.floor((distance % MS_HOUR) / MS_MINUTE);
+      const s = Math.floor((distance % MS_MINUTE) / MS_SECOND);
+
+      render(d, h, m, s);
+      return true;
+    }
+
+    if (update()) {
+      timerInterval = setInterval(update, 1000);
+    }
   }
 
-  return {
-    label: "ĐANG MỞ",
-    bg: "rgba(39, 174, 96, 0.15)",
-    color: "#27ae60",
-  };
-}
+  /**
+   * 5. Tải và render mốc thời gian CFP dạng ziczac
+   * Sử dụng Etc/GMT+12 để hiển thị chuẩn xác ngày của múi giờ AoE
+   */
+  function loadTimelineEvents() {
+    const container = document.getElementById("timeline-events-container");
+    if (!container) return;
 
-function createCountdownBadge(targetDateStr) {
-  const distance = new Date(targetDateStr).getTime() - Date.now();
+    const events = [
+      {
+        date: "2026-10-25T23:59:59-12:00",
+        title: "ICLR 2027 — Abstract Deadline",
+        description: "Hạn chót đăng ký tiêu đề và tóm tắt bài báo lên hệ thống OpenReview.",
+      },
+      {
+        date: "2026-11-17T23:59:59-12:00",
+        title: "CVPR 2027 — Full Paper Submission",
+        description: "Hạn chót nộp toàn bộ bản thảo nghiên cứu hoàn chỉnh (Double-blind review).",
+      },
+      {
+        date: "2026-12-05T23:59:59-12:00",
+        title: "NeurIPS 2027 — Supplementary Material",
+        description: "Hạn nộp mã nguồn phần mềm, video minh họa và tài liệu bổ sung.",
+      },
+    ];
 
-  if (distance <= 0) return "Đã kết thúc";
+    container.innerHTML = `
+      <div class="timeline-wrapper">
+        ${events
+          .map((item) => {
+            const status = getSmartStatus(item.date);
+            
+            // Format ngày giữ nguyên chuẩn AoE (Etc/GMT+12)
+            const formattedDate = new Intl.DateTimeFormat("vi-VN", {
+              timeZone: "Etc/GMT+12",
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            }).format(new Date(parseAoEDate(item.date)));
 
-  const days = Math.floor(distance / 86_400_000);
-  const hours = Math.floor((distance % 86_400_000) / 3_600_000);
-
-  return `Còn ${days} ngày ${String(hours).padStart(2, "0")} giờ`;
-}
-
-function loadTimelineEvents() {
-  const container = document.getElementById("timeline-events-container");
-  if (!container) return;
-
-  const events = [
-    {
-      date: "2026-10-25T23:59:59-12:00",
-      title: "ICLR 2027 — Abstract Deadline",
-      description:
-        "Hạn chót đăng ký tiêu đề và tóm tắt bài báo lên hệ thống OpenReview.",
-    },
-    {
-      date: "2026-11-17T23:59:59-12:00",
-      title: "CVPR 2027 — Full Paper Submission",
-      description:
-        "Hạn chót nộp toàn bộ bản thảo nghiên cứu hoàn chỉnh (Double-blind review).",
-    },
-    {
-      date: "2026-12-05T23:59:59-12:00",
-      title: "NeurIPS 2027 — Supplementary Material",
-      description:
-        "Hạn nộp mã nguồn phần mềm, video minh họa và tài liệu bổ sung.",
-    },
-  ];
-
-  container.innerHTML = `
-    <div class="timeline-wrapper">
-      ${events
-        .map((item) => {
-          const status = getSmartStatus(item.date);
-          const date = new Intl.DateTimeFormat("vi-VN", {
-            timeZone: "Etc/GMT+12",
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-          }).format(new Date(item.date));
-
-          return `
-            <article class="timeline-item">
-              <div class="timeline-dot" style="border-color: ${status.color};"></div>
-
-              <div class="timeline-content">
-                <div class="timeline-header">
-                  <span class="timeline-date">📅 ${date} (AoE)</span>
-                  <span
-                    class="badge"
-                    style="background: ${status.bg}; color: ${status.color};"
-                  >
-                    ${status.label}
-                  </span>
+            return `
+              <article class="timeline-item" data-status="${status.type}">
+                <div class="timeline-dot" aria-hidden="true"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <time class="timeline-date" datetime="${item.date}">
+                      ${CALENDAR_ICON_SVG}
+                      <span>${formattedDate} (AoE)</span>
+                    </time>
+                    <span class="status-badge ${status.className}">
+                      <span class="status-dot" aria-hidden="true"></span>
+                      ${status.label}
+                    </span>
+                  </div>
+                  <h3 class="timeline-title">${item.title}</h3>
+                  <p class="timeline-desc">${item.description}</p>
                 </div>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    `;
+  }
 
-                <h3 class="timeline-title">${item.title}</h3>
-                <p class="timeline-desc">${item.description}</p>
-              </div>
-            </article>
-          `;
-        })
-        .join("")}
-    </div>
-  `;
-}
+  // Cung cấp dịch vụ cho trang venues.html (Task 4.3)
+  window.CountdownService = {
+    parseAoEDate,
+    getSmartStatus,
+    createCountdownBadge,
+    initCountdown,
+    loadTimelineEvents,
+  };
 
-window.createCountdownBadge = createCountdownBadge;
+  // Kích hoạt khi tải trang
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      initCountdown();
+      loadTimelineEvents();
+    });
+  } else {
+    initCountdown();
+    loadTimelineEvents();
+  }
+})();
