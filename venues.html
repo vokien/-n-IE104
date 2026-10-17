@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danh Bạ Hội Nghị & Tạp Chí Scopus / CORE | ScopusVenue</title>
+  <meta name="description" content="Tra cứu tạp chí và hội nghị theo chủ đề, hạng Q, CORE và hạn nộp bài.">
+  <title>Danh bạ tạp chí và hội nghị | ScopusVenue</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/venues.css">
 </head>
-<body>
-
-  <!-- HEADER -->
-  <header class="site-header" role="banner">
+<body class="directory-page">
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+<header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
-      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus &amp; CORE Venue Recommender">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>Scopus<span>Venue</span></span>
+      </a>
+
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
-          <li><a href="venues.html" class="active">Tra Cứu Danh Bạ</a></li>
+          <li><a href="venues.html" class="active" aria-current="page">Tra Cứu Danh Bạ</a></li>
           <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
           <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
@@ -24,95 +33,105 @@
           <li><a href="contact.html">Liên Hệ</a></li>
         </ul>
       </nav>
+
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
-        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động">☰</button>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
-
-  <!-- MAIN -->
-  <main class="container" role="main">
-    <header style="margin-bottom: var(--spacing-lg);">
-      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Danh Bạ Hội Nghị & Tạp Chí Học Thuật</h1>
-      <p style="color: var(--color-text-muted);">Tra cứu và lọc theo chuẩn Scopus (Q1-Q4), CORE (A*-C) và chuyên ngành nghiên cứu.</p>
+  <main id="main-content" class="container directory-main">
+    <nav class="directory-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span aria-hidden="true">/</span><span aria-current="page">Danh bạ</span></nav>
+    <header class="directory-heading">
+      <h1>Tìm nơi công bố nghiên cứu</h1>
+      <p>Tra cứu tạp chí và hội nghị theo lĩnh vực, thứ hạng và hạn nộp bài.</p>
     </header>
-
-    <!-- Placeholder Khu Vực Phụ Trách: Thành viên 3 (Data & Filter) -->
-    <!-- TV3 sẽ hoàn thiện Sidebar bộ lọc bên trái và Lưới Venue Cards bên phải -->
-    <div style="display: grid; grid-template-columns: 280px 1fr; gap: var(--spacing-xl); align-items: start;">
-      
-      <!-- Cột trái: Sidebar Bộ lọc đa tiêu chí -->
-      <aside class="card" aria-label="Bộ lọc tiêu chí" style="position: sticky; top: 90px;">
-        <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-xs);">
-          Bộ Lọc Tiêu Chí
-        </h2>
-        
-        <div style="margin-bottom: var(--spacing-md);">
-          <label for="search-input" style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Tìm kiếm từ khóa:</label>
-          <input type="text" id="search-input" placeholder="Tên venue, acronym..." style="width: 100%; padding: var(--spacing-xs) var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-        </div>
-
-        <div style="margin-bottom: var(--spacing-md);">
-          <span style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Thứ hạng Scopus:</span>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q1" checked> Scopus Q1</label>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q2"> Scopus Q2</label>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q3"> Scopus Q3</label>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="Q4"> Scopus Q4</label>
-        </div>
-
-        <div style="margin-bottom: var(--spacing-md);">
-          <span style="font-weight: 600; font-size: var(--font-size-sm); display: block; margin-bottom: var(--spacing-xs);">Thứ hạng Hội nghị CORE:</span>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="A*"> CORE A*</label>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="A"> CORE A</label>
-          <label style="display: block; font-size: var(--font-size-sm);"><input type="checkbox" value="B"> CORE B</label>
-        </div>
+    <form class="directory-search" id="directory-search" role="search">
+      <label for="search-input" class="visually-hidden">Tìm tên, chủ đề hoặc nhà xuất bản</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <input id="search-input" name="q" type="search" placeholder="Tên, tên viết tắt, chủ đề hoặc nhà xuất bản…" autocomplete="off">
+      <button class="directory-button primary" type="submit">Tìm kiếm</button>
+    </form>
+    <div class="directory-layout">
+      <aside class="directory-sidebar" aria-label="Bộ lọc danh bạ">
+        <details class="filter-panel" open>
+          <summary>Bộ lọc</summary>
+          <form id="filter-form">
+            <fieldset class="filter-group">
+              <legend>Loại hình</legend>
+              <label class="filter-choice"><input type="radio" name="kind" value="all" checked> Tất cả</label>
+              <label class="filter-choice"><input type="radio" name="kind" value="journal"> Tạp chí</label>
+              <label class="filter-choice"><input type="radio" name="kind" value="conference"> Hội nghị</label>
+            </fieldset>
+            <fieldset class="filter-group" id="quartile-filter">
+              <legend>Hạng Q của tạp chí</legend>
+              <div class="rank-choices">
+                <label><input type="checkbox" name="quartile" value="Q1"><span>Q1</span></label>
+                <label><input type="checkbox" name="quartile" value="Q2"><span>Q2</span></label>
+                <label><input type="checkbox" name="quartile" value="Q3"><span>Q3</span></label>
+                <label><input type="checkbox" name="quartile" value="Q4"><span>Q4</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="filter-group" id="core-filter">
+              <legend>Hạng CORE của hội nghị</legend>
+              <div class="rank-choices">
+                <label><input type="checkbox" name="core" value="A*"><span>A*</span></label>
+                <label><input type="checkbox" name="core" value="A"><span>A</span></label>
+                <label><input type="checkbox" name="core" value="B"><span>B</span></label>
+                <label><input type="checkbox" name="core" value="C"><span>C</span></label>
+              </div>
+              <label class="filter-choice"><input type="checkbox" name="core" value="other"> Nhãn khác</label>
+              <label class="filter-choice"><input type="checkbox" name="core" value="unranked"> Chưa có hạng</label>
+            </fieldset>
+            <fieldset class="filter-group">
+              <legend>Lĩnh vực nghiên cứu</legend>
+              <label for="subject-filter" class="visually-hidden">Chọn lĩnh vực nghiên cứu</label>
+              <select id="subject-filter" name="subject"><option value="">Tất cả lĩnh vực</option></select>
+              <p class="filter-note">Với mục chưa có ngành, hãy tìm chủ đề bằng ô tìm kiếm phía trên.</p>
+            </fieldset>
+            <button class="directory-button reset-filters" type="reset">Xóa bộ lọc</button>
+          </form>
+        </details>
       </aside>
-
-      <!-- Cột phải: Lưới danh sách các Venue Cards -->
-      <section aria-label="Danh sách kết quả">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
-          <span style="color: var(--color-text-muted); font-size: var(--font-size-sm);">Hiển thị kết quả mẫu từ <code>data/venues_sample.json</code></span>
-          <select style="padding: var(--spacing-xs); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-            <option>Sắp xếp: Mặc định</option>
-            <option>CiteScore cao nhất</option>
-            <option>Hạn nộp bài gần nhất</option>
-          </select>
-        </div>
-
-        <!-- Container nơi JS của TV3 sẽ render thẻ card -->
-        <div id="venues-list-container" class="grid-cards" style="margin-top: 0;">
-          <!-- Thẻ mẫu CVPR -->
-          <article class="card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-xs);">
-              <span class="badge badge-q1">Scopus Q1</span>
-              <span class="badge" style="background-color: var(--color-primary-light); color: var(--color-primary);">CORE A*</span>
-            </div>
-            <h3 style="font-size: var(--font-size-lg); margin-bottom: 4px;">CVPR 2027</h3>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">IEEE/CVF Conference on Computer Vision and Pattern Recognition</p>
-            <p style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-sm);"><strong>Hạn nộp:</strong> 17/11/2026 (AoE)</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: var(--spacing-sm);">
-              <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);">CiteScore: 18.5 | SJR: 7.42</span>
-              <button class="btn-icon" style="font-size: var(--font-size-xs);">❤️ Lưu</button>
-            </div>
-          </article>
-        </div>
+      <section class="directory-results" aria-labelledby="results-heading" aria-busy="true">
+        <header class="results-toolbar">
+          <div><h2 id="results-heading">Danh sách công bố</h2><p id="result-count" role="status" aria-live="polite">Đang tải danh bạ…</p></div>
+          <div class="sort-control"><label for="sort-select">Sắp xếp</label><select id="sort-select"><option value="name">Tên A–Z</option><option value="name_desc">Tên Z–A</option></select></div>
+        </header>
+        <div id="directory-status" class="directory-state" role="status"><p>Đang tải tạp chí và hội nghị…</p></div>
+        <div id="venues-list-container" class="venue-list"></div>
+        <nav id="directory-pagination" class="directory-pagination" aria-label="Phân trang danh bạ" hidden>
+          <button type="button" class="directory-button" id="previous-page">Trang trước</button>
+          <span id="page-label"></span>
+          <button type="button" class="directory-button" id="next-page">Trang sau</button>
+        </nav>
+        <noscript><p class="directory-state">Bật JavaScript để tải và tra cứu danh bạ. Bạn vẫn có thể trở về <a href="index.html">trang chủ</a>.</p></noscript>
       </section>
-
     </div>
   </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" role="contentinfo">
+  <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">
-        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
-      </div>
+      <nav class="footer-nav" aria-label="Liên kết chân trang">
+        <a href="index.html">Trang chủ</a><a href="venues.html" aria-current="page">Danh bạ</a><a href="recommend.html">Khuyến nghị</a><a href="timeline.html">Lịch CFP</a><a href="about.html">Giới thiệu</a><a href="sitemap.html">Sơ đồ site</a><a href="contact.html">Liên hệ</a>
+      </nav>
+      <div class="footer-bottom"><p>Đồ án IE104 · Internet và Công nghệ Web</p></div>
     </div>
   </footer>
-
-  <script src="./js/storage.js"></script>
-  <script src="./js/app.js"></script>
-  <!-- <script src="./js/filter.js"></script> (TV3 sẽ hoàn thiện) -->
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/venues.js?v=20261017-sort2"></script>
 </body>
 </html>
