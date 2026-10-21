@@ -2,7 +2,7 @@
  * ==========================================================
  * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4 - T4.1, T4.2)
  * Múi giờ: Anywhere on Earth (AoE / UTC-12)
- * Tương thích 100%: Chạy trực tiếp (file://) lẫn Local Server
+ * Chuẩn: 100% Vanilla JS, Không CSS Inline, An toàn bộ nhớ
  * ==========================================================
  */
 
@@ -15,9 +15,9 @@
   const MS_HOUR = 60 * MS_MINUTE;
   const MS_DAY = 24 * MS_HOUR;
 
-  // Icon SVG Calendar
+  // Icon SVG Calendar (Đã bỏ sạch inline style, dùng class .timeline-date-icon từ timeline.css)
   const CALENDAR_ICON_SVG = `
-    <svg class="timeline-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block; vertical-align:-2px; margin-right:5px;">
+    <svg class="timeline-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="16" y1="2" x2="16" y2="6"></line>
       <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -40,7 +40,7 @@
   }
 
   /**
-   * 2. Phân loại trạng thái deadline thông minh
+   * 2. Phân loại trạng thái deadline thông minh (Trả về CSS class)
    */
   function getSmartStatus(dateString) {
     const targetTime = parseAoEDate(dateString);
@@ -110,7 +110,7 @@
 
   /**
    * 4. Khởi tạo đồng hồ đếm ngược nổi bật (Banner Countdown)
-   * Tự động đếm theo deadline gần nhất thực tế (ICLR 2027: 25/10/2026)
+   * Đếm theo deadline gần nhất thực tế (ICLR 2027: 25/10/2026 AoE)
    */
   function initCountdown() {
     const daysEl = document.getElementById("days");
@@ -120,7 +120,6 @@
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    // Deadline gần nhất thực tế: ICLR 2027 Abstract Deadline (25/10/2026 AoE)
     const targetTime = parseAoEDate("2026-10-25T23:59:59-12:00");
     let timerInterval = null;
 
@@ -158,8 +157,7 @@
   }
 
   /**
-   * 5. Tải và render mốc thời gian CFP dạng ziczac
-   * Sử dụng Etc/GMT+12 để hiển thị chuẩn xác ngày của múi giờ AoE
+   * 5. Tải và render mốc thời gian CFP ra giao diện ziczac
    */
   function loadTimelineEvents() {
     const container = document.getElementById("timeline-events-container");
@@ -188,8 +186,6 @@
         ${events
           .map((item) => {
             const status = getSmartStatus(item.date);
-            
-            // Format ngày giữ nguyên chuẩn AoE (Etc/GMT+12)
             const formattedDate = new Intl.DateTimeFormat("vi-VN", {
               timeZone: "Etc/GMT+12",
               day: "2-digit",
@@ -222,7 +218,7 @@
     `;
   }
 
-  // Cung cấp dịch vụ cho trang venues.html (Task 4.3)
+  // Đóng gói dịch vụ cho trang venues.html (Task 4.3)
   window.CountdownService = {
     parseAoEDate,
     getSmartStatus,
@@ -231,7 +227,6 @@
     loadTimelineEvents,
   };
 
-  // Kích hoạt khi tải trang
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       initCountdown();
