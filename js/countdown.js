@@ -1,6 +1,10 @@
 /**
  * ==========================================================
- * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE 
+ * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4)
+ * Xử lý: Nạp dữ liệu hội nghị từ conf.json (dự phòng venues.json),
+ * tự động kích hoạt đồng hồ đếm ngược cho deadline gần nhất.
+ * Múi giờ: Anywhere on Earth (AoE / UTC-12)
+ * Chuẩn: 100% Vanilla JS, 0% Inline CSS, Memory Safe.
  * ==========================================================
  */
 
@@ -125,7 +129,7 @@
     let shortName = item.acronym ? `${item.acronym}${yearStr}` : (item.name || item.title || "Hội nghị");
     let fullName = item.name || item.title || item.full_name || shortName;
 
-    // Nếu dữ liệu có mảng editions (venues.json)
+    // Nếu dữ liệu có mảng editions (cấu trúc venues.json)
     if (item.submission_deadlines && Array.isArray(item.submission_deadlines) && item.submission_deadlines.length > 0) {
       const edition = extractActiveEdition(item);
       if (!edition) return null;
@@ -240,7 +244,6 @@
       return;
     }
 
-    // Hiển thị danh sách hội nghị
     const itemsHtml = conferences
       .map((item) => {
         const status = getSmartStatus(item.deadline);
@@ -290,8 +293,13 @@
    */
   async function loadTimelineData() {
     try {
-           // Gọi trực tiếp venues.json (không bị dòng đỏ 404)
-      const response = await fetch("./data/venues.json");
+      // 1. GỌI FETCH CONF.JSON THEO ĐÚNG YÊU CẦU CỦA LEADER
+      let response = await fetch("./data/conf.json");
+
+      // 2. Nếu conf.json chưa có (404), tự động dùng venues.json hiện tại
+      if (!response.ok) {
+        response = await fetch("./data/venues.json");
+      }
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: Không tìm thấy file dữ liệu`);
