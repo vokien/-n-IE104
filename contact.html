@@ -1,19 +1,31 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liên Hệ & Đóng Góp Ý Kiến | ScopusVenue</title>
+  <meta name="description" content="Liên hệ và đóng góp ý kiến cho hệ thống Scopus & CORE Venue Recommender - Đồ án IE104, Trường ĐH Công nghệ Thông tin (UIT)">
+  <title>Liên Hệ &amp; Đóng Góp Ý Kiến | ScopusVenue</title>
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
-      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ ScopusVenue - Trục tâm Hub">
+        <div class="brand-icon-box" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <span>Scopus</span>Venue
+        <span class="brand-hub-tag">HUB</span>
+      </a>
+
+      <!-- Thanh điều hướng bánh xe (Hub-and-Spoke Navigation) -->
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính theo mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
           <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
@@ -21,71 +33,313 @@
           <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
           <li><a href="sitemap.html">Sơ Đồ Site</a></li>
-          <li><a href="contact.html" class="active">Liên Hệ</a></li>
+          <li><a href="contact.html" class="active" aria-current="page">Liên Hệ</a></li>
         </ul>
       </nav>
+
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
-        <button type="button" class="mobile-menu-btn">☰</button>
+        <a href="venues.html" class="btn-icon" title="Xem mục đã lưu (Bookmarks)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+          </svg>
+          <span class="bookmark-count" id="header-saved-count">0</span>
+        </a>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển giao diện sáng tối">
+          <span class="theme-icon">☀️</span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở trình đơn di động" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="container" role="main">
-    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
-      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Liên Hệ & Góp Ý</h1>
-      <p style="color: var(--color-text-muted); max-width: 600px; margin: 0 auto;">
-        Đóng góp ý kiến cải tiến hệ thống hoặc báo cáo sai lệch thông tin hội nghị/tạp chí.
+  <!-- NỘI DUNG CHÍNH (SEMANTIC <main>) -->
+  <main class="container" role="main" id="main-content">
+    
+    <!-- Tiêu đề trang -->
+    <header class="page-header">
+      <div class="page-eyebrow">
+        <span class="dot"></span>
+        KẾT NỐI &amp; PHẢN HỒI Ý KIẾN
+      </div>
+      <h1 class="page-title">Liên Hệ &amp; Đóng Góp Học Thuật</h1>
+      <p class="page-description">
+        Mọi ý kiến đóng góp từ các nhà nghiên cứu, tác giả và cộng đồng sinh viên giúp cơ sở dữ liệu ScopusVenue ngày một hoàn thiện và chính xác hơn.
       </p>
     </header>
 
-    <div style="max-width: 600px; margin: 0 auto;">
-      <section class="card">
-        <form id="contact-form" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã gửi đóng góp ý kiến!'); this.reset();">
-          <div style="margin-bottom: var(--spacing-md);">
-            <label for="contact-name" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Họ và tên của bạn:</label>
-            <input type="text" id="contact-name" required placeholder="Nguyễn Văn A" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+    <!-- Bố cục 2 cột: Thông tin liên hệ bên trái & Biểu mẫu bên phải -->
+    <div class="contact-layout">
+      
+      <!-- Cột trái: Thông tin liên hệ & Kênh tiếp nhận -->
+      <aside class="contact-info-card" aria-label="Thông tin liên hệ">
+        <h2 style="font-size: var(--font-size-xl); color: var(--color-primary); margin-bottom: var(--spacing-sm);">
+          Kênh Tiếp Nhận
+        </h2>
+        <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); line-height: var(--line-height-relaxed);">
+          Chúng tôi trân trọng các đóng góp về việc cập nhật deadline hội nghị, bổ sung tạp chí mới chuẩn Scopus hoặc hiệu chỉnh thuật toán so khớp.
+        </p>
+
+        <!-- Kênh 1: Địa chỉ trường viện -->
+        <div class="contact-item">
+          <div class="contact-icon-box" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-item-title">Địa Chỉ Trực Tiếp</div>
+            <div class="contact-item-desc">
+              Khu phố 6, P. Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh.<br>
+              <strong>Trường Đại học Công nghệ Thông tin (UIT) - ĐHQG-HCM</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kênh 2: Email học thuật -->
+        <div class="contact-item">
+          <div class="contact-icon-box" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-item-title">Email Học Thuật</div>
+            <div class="contact-item-desc">
+              <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a> (GVHD)<br>
+              <a href="mailto:scopusvenue-ie104@uit.edu.vn">scopusvenue-ie104@uit.edu.vn</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kênh 3: Mã nguồn mở GitHub -->
+        <div class="contact-item">
+          <div class="contact-icon-box" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-item-title">Mã Nguồn Mở &amp; Issues</div>
+            <div class="contact-item-desc">
+              Tạo Issue hoặc Pull Request trực tiếp tại:<br>
+              <a href="https://github.com/vokien/-n-IE104" target="_blank" rel="noopener noreferrer">github.com/vokien/-n-IE104 ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hộp ghi chú thời gian xử lý -->
+        <div style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background-color: var(--color-bg-subtle); border-radius: var(--radius-md); border: 1px solid var(--color-border); font-size: 11px; color: var(--color-text-muted); line-height: var(--line-height-normal);">
+          <strong>Quy trình phản hồi:</strong> Các đề xuất bổ sung hội nghị / tạp chí sẽ được nhóm kiểm tra chéo trên cơ sở dữ liệu Scopus Preview và cổng CORE Portal trước khi cập nhật vào <code>venues_sample.json</code>.
+        </div>
+      </aside>
+
+      <!-- Cột phải: Biểu mẫu liên hệ chuẩn ngữ nghĩa HTML5 -->
+      <section class="card" aria-labelledby="form-heading">
+        <h2 id="form-heading" style="font-size: var(--font-size-xl); color: var(--color-primary); margin-bottom: var(--spacing-sm);">
+          Gửi Ý Kiến &amp; Đề Xuất
+        </h2>
+        <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-bottom: var(--spacing-xl);">
+          Vui lòng điền thông tin chi tiết vào biểu mẫu bên dưới. Các mục có dấu <span style="color: var(--color-accent);">*</span> là bắt buộc.
+        </p>
+
+        <form id="contact-form" action="#" method="post" novalidate>
+          
+          <!-- Họ và tên -->
+          <div class="form-group">
+            <label for="contact-name" class="form-label">
+              Họ và tên tác giả / người gửi <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="contact-name" 
+              name="fullname" 
+              class="form-control" 
+              required 
+              autocomplete="name" 
+              placeholder="Ví dụ: Nguyễn Văn A"
+            >
           </div>
 
-          <div style="margin-bottom: var(--spacing-md);">
-            <label for="contact-email" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Địa chỉ Email:</label>
-            <input type="email" id="contact-email" required placeholder="email@domain.com" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
+          <!-- Email liên hệ -->
+          <div class="form-group">
+            <label for="contact-email" class="form-label">
+              Địa chỉ Email học thuật / cơ quan <span class="required">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="contact-email" 
+              name="email" 
+              class="form-control" 
+              required 
+              autocomplete="email" 
+              placeholder="name@university.edu.vn"
+            >
+            <p class="form-hint">Ưu tiên sử dụng email có đuôi .edu.vn hoặc viện nghiên cứu.</p>
           </div>
 
-          <div style="margin-bottom: var(--spacing-md);">
-            <label for="contact-topic" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Chủ đề góp ý:</label>
-            <select id="contact-topic" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
-              <option>Báo cáo sai lệch hạn nộp bài (CFP)</option>
-              <option>Đề xuất bổ sung hội nghị / tạp chí mới</option>
-              <option>Góp ý về thuật toán gợi ý bài báo</option>
-              <option>Góp ý giao diện & trải nghiệm người dùng</option>
+          <!-- Chủ đề đóng góp -->
+          <div class="form-group">
+            <label for="contact-topic" class="form-label">
+              Chủ đề đóng góp ý kiến <span class="required">*</span>
+            </label>
+            <select id="contact-topic" name="topic" class="form-control" required>
+              <option value="" disabled selected>-- Chọn phân loại chủ đề --</option>
+              <option value="cfp-correction">Báo cáo sai lệch hạn nộp Call for Papers (CFP)</option>
+              <option value="add-venue">Đề xuất bổ sung Hội nghị / Tạp chí mới</option>
+              <option value="nlp-feedback">Góp ý về thuật toán khuyến nghị Okapi BM25</option>
+              <option value="ui-ux">Góp ý về giao diện UI/UX &amp; Trải nghiệm</option>
+              <option value="other">Ý kiến đóng góp khác</option>
             </select>
           </div>
 
-          <div style="margin-bottom: var(--spacing-lg);">
-            <label for="contact-message" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Nội dung tin nhắn:</label>
-            <textarea id="contact-message" rows="5" required placeholder="Nhập nội dung chi tiết tại đây..." style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit; resize: vertical;"></textarea>
+          <!-- Link minh chứng (nếu có) -->
+          <div class="form-group">
+            <label for="contact-link" class="form-label">
+              Đường dẫn liên kết minh chứng (Website chính thức / CFP)
+            </label>
+            <input 
+              type="url" 
+              id="contact-link" 
+              name="evidence_url" 
+              class="form-control" 
+              placeholder="https://example-conference-2026.org/cfp"
+            >
           </div>
 
-          <button type="submit" class="btn-primary" style="width: 100%; padding: var(--spacing-md);">
-            ✉️ Gửi Tin Nhắn
+          <!-- Nội dung chi tiết -->
+          <div class="form-group">
+            <label for="contact-message" class="form-label">
+              Nội dung chi tiết đóng góp <span class="required">*</span>
+            </label>
+            <textarea 
+              id="contact-message" 
+              name="message" 
+              class="form-control" 
+              rows="5" 
+              required 
+              placeholder="Mô tả cụ thể thông tin cần cập nhật, nguồn tham chiếu hoặc ý kiến cải tiến của bạn..."
+            ></textarea>
+          </div>
+
+          <!-- Nút gửi -->
+          <button type="submit" class="btn-primary" style="width: 100%; padding: 14px;">
+            Gửi Đóng Góp Ý Kiến
           </button>
+
+          <!-- Vùng hiển thị kết quả gửi (Client-side Demo Feedback) -->
+          <div id="contact-feedback" style="display: none;" role="status" aria-live="polite"></div>
         </form>
       </section>
+
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER MÔ HÌNH BÁNH XE (SEMANTIC <footer role="contentinfo">) -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+      <div class="footer-grid">
+        <!-- Cột 1: Thương hiệu & Sứ mệnh -->
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: var(--spacing-sm);">
+            <div class="brand-icon-box" style="width: 28px; height: 28px;" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <span>Scopus</span>Venue
+          </div>
+          <p class="footer-about-text">
+            Hệ thống hỗ trợ tra cứu danh bạ hội nghị &amp; tạp chí chuẩn Scopus / CORE. Định hướng nơi công bố và quản lý các mốc nộp bài khoa học tối ưu.
+          </p>
+        </div>
+
+        <!-- Cột 2: Nan hoa chức năng nghiên cứu (Research Spokes) -->
+        <div class="footer-col">
+          <h4>Chức Năng Chính</h4>
+          <ul class="footer-links-list">
+            <li><a href="venues.html">Tra cứu Danh bạ Venue</a></li>
+            <li><a href="recommend.html">Khuyến nghị theo Bản thảo</a></li>
+            <li><a href="timeline.html">Dòng thời gian &amp; Countdown</a></li>
+            <li><a href="index.html">Trang chủ (Hub Trung tâm)</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Nan hoa thông tin & hỗ trợ (Support Spokes) -->
+        <div class="footer-col">
+          <h4>Thông Tin Dự Án</h4>
+          <ul class="footer-links-list">
+            <li><a href="about.html">Về Đề tài &amp; Nhóm Tác giả</a></li>
+            <li><a href="contact.html">Liên hệ &amp; Góp ý</a></li>
+            <li><a href="sitemap.html">Sơ đồ Website Bánh xe</a></li>
+            <li><a href="https://github.com/vokien/-n-IE104" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Đơn vị chủ quản đồ án -->
+        <div class="footer-col">
+          <h4>Đơn Vị Chủ Quản</h4>
+          <p class="footer-about-text">
+            <strong>Trường ĐH Công nghệ Thông tin (UIT)</strong><br>
+            Đại học Quốc gia TP. Hồ Chí Minh<br>
+            Môn học: IE104 - Internet và Công nghệ Web<br>
+            GVHD: ThS. Võ Tấn Khoa
+          </p>
+        </div>
+      </div>
+
+      <!-- Đáy footer -->
       <div class="footer-bottom">
-        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+        <p>© 2026 ScopusVenue. Đồ án IE104 - Nhóm 5 sinh viên thực hiện bằng 100% Vanilla HTML5 / CSS3 / JavaScript.</p>
+        <span class="footer-uit-badge">UIT - VNU-HCM</span>
       </div>
     </div>
   </footer>
 
   <script src="./js/storage.js"></script>
   <script src="./js/app.js"></script>
+  <script>
+    // Xử lý gửi biểu mẫu thuần Vanilla JS phía client
+    const contactForm = document.getElementById('contact-form');
+    const feedbackBox = document.getElementById('contact-feedback');
+
+    if (contactForm && feedbackBox) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const nameVal = document.getElementById('contact-name').value.trim();
+        const emailVal = document.getElementById('contact-email').value.trim();
+        const messageVal = document.getElementById('contact-message').value.trim();
+
+        if (!nameVal || !emailVal || !messageVal) {
+          feedbackBox.className = 'contact-success-toast';
+          feedbackBox.style.backgroundColor = 'var(--badge-urgent-bg)';
+          feedbackBox.style.borderColor = 'var(--badge-urgent)';
+          feedbackBox.style.color = 'var(--badge-urgent)';
+          feedbackBox.style.display = 'flex';
+          feedbackBox.innerHTML = 'Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc.';
+          return;
+        }
+
+        // Mô phỏng gửi thành công
+        feedbackBox.className = 'contact-success-toast';
+        feedbackBox.style.display = 'flex';
+        feedbackBox.innerHTML = `Cảm ơn <strong>${nameVal}</strong>! Ý kiến đóng góp của bạn đã được ghi nhận thành công trong phiên làm việc. Nhóm sẽ đối soát và cập nhật dữ liệu.`;
+        
+        contactForm.reset();
+      });
+    }
+  </script>
 </body>
 </html>
