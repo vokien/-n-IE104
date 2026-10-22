@@ -140,13 +140,14 @@ const BM25_B  = 0.75; // Kiểm soát mức độ chuẩn hóa theo độ dài t
  */
 class BM25Engine {
   /**
-   * @param {Object[]} venues - Mảng các venue từ venues.json
+   * @param {Object[]} venues - Danh bạ từ loadVenues(): jour.json + conf.json
    */
   constructor(venues) {
-    this.venues = venues;
+    // kind là trường phân loại mới; type giữ tương thích dữ liệu/mock cũ.
+    this.venues = venues.map(venue => ({ ...venue, kind: venue.kind || venue.type }));
     this.N = venues.length; // Tổng số tài liệu trong corpus
 
-    // Hỗ trợ cả đoạn scope mẫu độc lập và dữ liệu venues.json hiện tại.
+    // Hỗ trợ scope mẫu và các trường của schema danh bạ mới.
     this.docs = venues.map(venue => {
       const venueText = [
         venue.scope || "",
@@ -280,7 +281,7 @@ class BM25Engine {
     scored = scored.filter(({ venue, rawScore }) => {
       if (rawScore <= 0) return false;
       // Lọc theo loại hình
-      if (typeFilter !== "all" && venue.type !== typeFilter) return false;
+      if (typeFilter !== "all" && venue.kind !== typeFilter) return false;
 
       // Lọc theo xếp hạng tối thiểu
       if (minRank !== "any") {
@@ -293,7 +294,7 @@ class BM25Engine {
           return venueRank <= reqRank;
         }
         if (["A*","A","B","C"].includes(minRank)) {
-          const venueRank = coreOrder[venue.core_rank] || 99;
+          const venueRank = coreOrder[normalizeCoreRank(venue.core_rank)] || 99;
           const reqRank   = coreOrder[minRank];
           return venueRank <= reqRank;
         }
@@ -414,9 +415,34 @@ function runRecommenderTests() {
   return { passed, elapsedMs, results: output.results };
 }
 
+// URL script được ghi nhận ngay khi tải, trước khi document.currentScript trở thành null.
+const RECOMMENDER_SCRIPT_URL = typeof document !== "undefined" ? document.currentScript?.src : null;
+
+/** Tải schema jour/conf trực tiếp tại đây; baseUrl hỗ trợ test Node.js độc lập. */
+async function loadVenues(baseUrl = RECOMMENDER_SCRIPT_URL) {
+  if (!baseUrl) throw new Error("Cần URL của recommender.js để tải dữ liệu.");
+  const sources = [["jour.json", "journal"], ["conf.json", "conference"]];
+  const groups = await Promise.all(sources.map(async ([file, kind]) => {
+    const response = await fetch(new URL(`../data/${file}`, baseUrl));
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${file}`);
+    const rows = await response.json();
+    if (!Array.isArray(rows) || rows.some(row => !row || !row.id || !row.name ||
+      (row.subject_area != null && !Array.isArray(row.subject_area)) ||
+      (row.scope_keywords != null && !Array.isArray(row.scope_keywords)))) {
+      throw new Error(`Invalid directory: ${file}`);
+    }
+    return rows.map(row => ({ ...row, kind,
+      searchText: [row.name, row.acronym, row.publisher,
+        ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(" ")
+        .normalize("NFC").toLowerCase().replace(/[^\p{L}\p{M}0-9\s]/gu, " ").replace(/\s+/g, " ").trim()
+    }));
+  }));
+  return groups.flat();
+}
+
 // Export để dùng trong Node.js; chỉ tự chạy test khi gọi trực tiếp file này.
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { tokenize, removeStopwords, preprocessText, BM25Engine, MOCK_SCOPE_CORPUS, runRecommenderTests };
+  module.exports = { tokenize, removeStopwords, preprocessText, BM25Engine, MOCK_SCOPE_CORPUS, runRecommenderTests, loadVenues };
   if (typeof require !== "undefined" && require.main === module) runRecommenderTests();
 }
 
@@ -431,20 +457,12 @@ let recommenderEngine = null;
 /**
  * initRecommender()
  *
- * Tải venues.json qua Fetch API và khởi tạo BM25Engine.
+ * Tải jour.json + conf.json và khởi tạo BM25Engine trong cùng file.
  * Được gọi 1 lần khi DOM sẵn sàng.
  */
 async function initRecommender() {
   try {
-    let res;
-    try {
-      res = await fetch("../data/venues.json");
-      if (!res.ok) throw new Error();
-    } catch {
-      res = await fetch("./data/venues.json");
-    }
-    if (!res.ok) throw new Error(`HTTP ${res.status}: Không thể tải venues.json`);
-    const venues = await res.json();
+    const venues = await loadVenues();
 
     recommenderEngine = new BM25Engine(venues);
     console.log(`[Recommender] Đã tải ${venues.length} venues. BM25 Engine sẵn sàng.`);
@@ -452,9 +470,13 @@ async function initRecommender() {
     // Kích hoạt nút phân tích
     const btn = document.getElementById("btn-analyze");
     if (btn) btn.disabled = false;
+    const status = document.getElementById("recommender-status");
+    if (status) status.textContent = `Sẵn sàng: ${venues.length.toLocaleString("vi-VN")} hội nghị và tạp chí.`;
 
   } catch (err) {
     console.error("[Recommender] Lỗi khởi tạo:", err);
+    const status = document.getElementById("recommender-status");
+    if (status) status.textContent = "Không tải được dữ liệu. Hãy kiểm tra kết nối và tải lại trang.";
     renderError(`Không thể tải cơ sở dữ liệu venues: ${err.message}`);
   }
 }
@@ -465,14 +487,23 @@ async function initRecommender() {
  * Tạo HTML các badge xếp hạng (Scopus Quartile + CORE + loại hình)
  * cho một venue.
  */
+function normalizeCoreRank(rank) {
+  const value = String(rank ?? "").trim();
+  return value.replace(/^Australasian\s+/i, "");
+}
+
+function getRecommenderIcon(name) {
+  return `<svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#${name}"></use></svg>`;
+}
+
 function getBadgeHTML(venue) {
   const badges = [];
 
   // Loại hình
-  if (venue.type === "conference") {
-    badges.push(`<span class="rank-badge rank-badge--conf">🏛️ Hội nghị</span>`);
-  } else if (venue.type === "journal") {
-    badges.push(`<span class="rank-badge rank-badge--jour">📰 Tạp chí</span>`);
+  if (venue.kind === "conference") {
+    badges.push(`<span class="rank-badge rank-badge--conf">${getRecommenderIcon("building")} Hội nghị</span>`);
+  } else if (venue.kind === "journal") {
+    badges.push(`<span class="rank-badge rank-badge--jour">${getRecommenderIcon("book")} Tạp chí</span>`);
   }
 
   // Scopus Quartile
@@ -483,9 +514,9 @@ function getBadgeHTML(venue) {
 
   // CORE Rank
   if (venue.core_rank) {
-    const coreClass = venue.core_rank === "A*" ? "rank-badge--astar"
-                    : `rank-badge--${venue.core_rank.toLowerCase()}`;
-    badges.push(`<span class="rank-badge ${coreClass}">CORE ${venue.core_rank}</span>`);
+    const rank = normalizeCoreRank(venue.core_rank);
+    const coreClass = { "A*": "rank-badge--astar", A: "rank-badge--a", B: "rank-badge--b", C: "rank-badge--c" }[rank] || "";
+    badges.push(`<span class="rank-badge ${coreClass}">CORE ${escapeHTML(venue.core_rank)}</span>`);
   }
 
   return badges.join("");
@@ -504,7 +535,7 @@ function renderResults(searchResult) {
   if (!container) return;
 
   // Ẩn placeholder
-  if (placeholder) placeholder.style.display = "none";
+  if (placeholder) placeholder.hidden = true;
 
   // Xử lý lỗi
   if (searchResult.error) {
@@ -513,12 +544,12 @@ function renderResults(searchResult) {
   }
 
   const { results, tokenCount, totalSearched } = searchResult;
-  container.style.display = "block";
+  container.hidden = false;
 
   if (results.length === 0) {
     container.innerHTML = `
       <div class="results-empty" role="status">
-        <p style="font-size:2rem;">🔍</p>
+        <p class="results-empty__icon">${getRecommenderIcon("search")}</p>
         <p>Không tìm thấy venue phù hợp với bộ lọc đã chọn.<br>
            Hãy thử mở rộng tiêu chí lọc hoặc nhập thêm từ khóa.</p>
       </div>
@@ -529,10 +560,11 @@ function renderResults(searchResult) {
   // Thanh meta thống kê phân tích
   const metaHTML = `
     <div class="analysis-meta" role="status" aria-live="polite">
-      <span>📊 <strong>${tokenCount}</strong> từ có nghĩa được phân tích</span>
-      <span>🗄️ Đã so khớp với <strong>${totalSearched}</strong> venues</span>
-      <span>✅ Tìm thấy <strong>${results.length}</strong> kết quả phù hợp</span>
+      <span>${getRecommenderIcon("chart")} <strong>${tokenCount}</strong> từ có nghĩa được phân tích</span>
+      <span>${getRecommenderIcon("database")} Đã so khớp với <strong>${totalSearched}</strong> venues</span>
+      <span>${getRecommenderIcon("check")} Tìm thấy <strong>${results.length}</strong> kết quả phù hợp</span>
     </div>
+    <p class="field-hint">Match Score là điểm tương đối so với kết quả cao nhất trong bộ lọc, không phải xác suất được nhận bài.</p>
   `;
 
   // Render từng thẻ kết quả
@@ -544,12 +576,12 @@ function renderResults(searchResult) {
       ? matchedKeywords.slice(0, 6).map(kw =>
           `<span class="keyword-tag">${escapeHTML(kw)}</span>`
         ).join("")
-      : `<span style="color:var(--color-text-muted);font-size:var(--font-size-xs)">Không có từ khóa trực tiếp trùng khớp</span>`;
+      : `<span class="matched-keywords__empty">Không có từ khóa trực tiếp trùng khớp</span>`;
 
     // Link tới trang chủ venue
     const linkHTML = venue.homepage_url
       ? `<a href="${escapeHTML(venue.homepage_url)}" target="_blank" rel="noopener" class="result-link">
-           🔗 Trang chủ venue ↗
+           ${getRecommenderIcon("external")} Trang chủ venue ${getRecommenderIcon("external")}
          </a>`
       : "";
 
@@ -574,12 +606,13 @@ function renderResults(searchResult) {
             <span class="match-percent">${matchScore}%</span>
           </div>
           <div class="match-bar-track" role="progressbar" aria-valuenow="${matchScore}" aria-valuemin="0" aria-valuemax="100" aria-label="Độ tương thích ${matchScore}%">
-            <div class="match-bar-fill" style="width: 0%" data-target-width="${matchScore}%"></div>
+            <div class="match-bar-fill" data-target-width="${matchScore}%"></div>
           </div>
         </div>
 
         <div class="matched-keywords">
-          <span class="matched-keywords__label">🔑 Từ khóa trùng khớp:</span>
+          <p class="result-reason">Venue được gợi ý vì có <strong>${matchedKeywords.length}</strong> từ khóa trùng với bản thảo trong tên, lĩnh vực hoặc scope. BM25 ưu tiên từ hiếm, có xét tần suất và độ dài văn bản.</p>
+          <span class="matched-keywords__label">${getRecommenderIcon("key")} Từ khóa trùng khớp:</span>
           <div class="keyword-tags">${keywordTagsHTML}</div>
         </div>
 
@@ -610,10 +643,10 @@ function renderResults(searchResult) {
 function renderSkeleton() {
   const placeholder = document.getElementById("recommend-placeholder");
   const container   = document.getElementById("recommend-results-container");
-  if (placeholder) placeholder.style.display = "none";
+  if (placeholder) placeholder.hidden = true;
   if (!container) return;
 
-  container.style.display = "block";
+  container.hidden = false;
   container.innerHTML = `
     <div class="skeleton-list" aria-label="Đang phân tích..." aria-busy="true">
       <div class="skeleton-item"></div>
@@ -628,12 +661,14 @@ function renderSkeleton() {
  * Hiển thị thông báo lỗi.
  */
 function renderError(message) {
+  const placeholder = document.getElementById("recommend-placeholder");
+  if (placeholder) placeholder.hidden = true;
   const container = document.getElementById("recommend-results-container");
   if (!container) return;
-  container.style.display = "block";
+  container.hidden = false;
   container.innerHTML = `
     <div class="results-error" role="alert">
-      <span style="font-size:1.2rem">⚠️</span>
+      <span class="results-error__icon">${getRecommenderIcon("warning")}</span>
       <span>${escapeHTML(message)}</span>
     </div>
   `;
