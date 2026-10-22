@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -39,22 +39,27 @@
 
       <!-- Action controls: Bookmark, Theme toggle, Mobile menu -->
       <div class="header-actions">
-        <a href="venues.html" class="btn-icon" title="Xem mục đã lưu (Bookmarks)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
-          <span class="bookmark-count" id="header-saved-count">0</span>
-        </a>
-
-        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển giao diện sáng tối">
-          <span class="theme-icon">☀️</span>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge">0</span>
         </button>
 
-        <button type="button" class="mobile-menu-btn" aria-label="Mở trình đơn di động" aria-expanded="false">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="4" y1="12" x2="20" y2="12"/>
-            <line x1="4" y1="6" x2="20" y2="6"/>
-            <line x1="4" y1="18" x2="20" y2="18"/>
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
       </div>
@@ -86,7 +91,7 @@
         <span class="badge badge-open">Học kỳ I / 2026</span>
       </div>
       <div class="card-body">
-        <p style="margin-bottom: var(--spacing-md);">
+        <p class="about-lead-text">
           <strong>Scopus &amp; CORE Academic Venue Recommender</strong> là nền tảng số hỗ trợ các nhà nghiên cứu, giảng viên, học viên cao học và sinh viên đại học trong quá trình định vị, tra cứu và lựa chọn nơi công bố kết quả nghiên cứu khoa học thích hợp nhất (Hội nghị quốc tế / Tạp chí chuyên ngành).
         </p>
         <p>
@@ -114,13 +119,13 @@
     </section>
 
     <!-- Khối 2: Đội ngũ phát triển (Nhóm 5 Sinh viên UIT) -->
-    <section class="card" aria-labelledby="team-heading" style="margin-bottom: var(--spacing-2xl);">
+    <section class="card about-team-section" aria-labelledby="team-heading">
       <div class="card-header">
         <div>
           <h2 id="team-heading" class="card-title">
             Đội Ngũ Thực Hiện (Nhóm 5 Sinh Viên)
           </h2>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">
+          <p class="card-subtitle">
             Mỗi thành viên chịu trách nhiệm chuyên trách một phân hệ độc lập và phối hợp qua Git Workflow chuẩn.
           </p>
         </div>
@@ -131,7 +136,8 @@
         <!-- Thành viên 1 -->
         <article class="member-card">
           <div class="member-avatar">01</div>
-          <h3 class="member-name">Thành Viên 1</h3>
+          <h3 class="member-name">Võ Đình Kiên</h3>
+          <span class="member-mssv">MSSV: 24520893</span>
           <p class="member-role">Trưởng Nhóm &amp; Kiến Trúc Hệ Thống</p>
           <p class="member-task">
             Phụ trách trang Hub <strong>index.html</strong>, cấu trúc dự án, module lưu trữ <strong>storage.js</strong> (Bookmarks &amp; Search History), quản trị Git &amp; GitHub Repository.
@@ -140,9 +146,10 @@
 
         <!-- Thành viên 2 -->
         <article class="member-card">
-          <div class="member-avatar" style="background-color: var(--badge-q1-bg); color: var(--badge-q1);">02</div>
-          <h3 class="member-name">Thành Viên 2</h3>
-          <p class="member-role" style="color: var(--badge-q1);">Kỹ Sư Thuật Toán NLP</p>
+          <div class="member-avatar member-avatar--q1">02</div>
+          <h3 class="member-name">Trần Duy Khánh</h3>
+          <span class="member-mssv">MSSV: 24520798</span>
+          <p class="member-role member-role--q1">Kỹ Sư Thuật Toán NLP</p>
           <p class="member-task">
             Phụ trách trang gợi ý <strong>recommend.html</strong>, thuật toán xếp hạng <strong>recommender.js</strong> (Okapi BM25, Tokenizer, Stopwords), tính toán Match Score %.
           </p>
@@ -150,19 +157,21 @@
 
         <!-- Thành viên 3 -->
         <article class="member-card">
-          <div class="member-avatar" style="background-color: var(--badge-core-astar-bg); color: var(--badge-core-astar);">03</div>
-          <h3 class="member-name">Thành Viên 3</h3>
-          <p class="member-role" style="color: var(--badge-core-astar);">Kỹ Sư Dữ Liệu &amp; Bộ Lọc</p>
+          <div class="member-avatar member-avatar--core-astar">03</div>
+          <h3 class="member-name">Huỳnh Văn Lên</h3>
+          <span class="member-mssv">MSSV: 24520948</span>
+          <p class="member-role member-role--core-astar">Kỹ Sư Dữ Liệu &amp; Bộ Lọc</p>
           <p class="member-task">
-            Phụ trách chuẩn hóa tập dữ liệu <strong>venues_sample.json</strong>, trang danh bạ <strong>venues.html</strong>, module bộ lọc đa tiêu chí <strong>filter.js</strong> và phân trang.
+            Phụ trách chuẩn hóa tập dữ liệu <strong>conf.json &amp; jour.json (8,752 venues)</strong>, trang danh bạ <strong>venues.html</strong>, module bộ lọc đa tiêu chí <strong>filter.js</strong> và phân trang.
           </p>
         </article>
 
         <!-- Thành viên 4 -->
         <article class="member-card">
-          <div class="member-avatar" style="background-color: var(--badge-urgent-bg); color: var(--badge-urgent);">04</div>
-          <h3 class="member-name">Thành Viên 4</h3>
-          <p class="member-role" style="color: var(--badge-urgent);">Kỹ Sư Tương Tác &amp; Media</p>
+          <div class="member-avatar member-avatar--urgent">04</div>
+          <h3 class="member-name">Trần Hồng Lĩnh</h3>
+          <span class="member-mssv">MSSV: 24520970</span>
+          <p class="member-role member-role--urgent">Kỹ Sư Tương Tác &amp; Media</p>
           <p class="member-task">
             Phụ trách trang dòng thời gian <strong>timeline.html</strong>, đồng hồ đếm ngược <strong>countdown.js</strong> (múi giờ AoE/UTC), nhãn trạng thái và dựng Video Demo.
           </p>
@@ -170,9 +179,10 @@
 
         <!-- Thành viên 5 -->
         <article class="member-card">
-          <div class="member-avatar" style="background-color: var(--color-accent-light); color: var(--color-accent);">05</div>
-          <h3 class="member-name">Thành Viên 5</h3>
-          <p class="member-role" style="color: var(--color-accent);">Kiến Trúc Sư Giao Diện UI/UX</p>
+          <div class="member-avatar member-avatar--accent">05</div>
+          <h3 class="member-name">Ngô Bảo Lâm</h3>
+          <span class="member-mssv">MSSV: 24520931</span>
+          <p class="member-role member-role--accent">Kiến Trúc Sư Giao Diện UI/UX</p>
           <p class="member-task">
             Phụ trách hệ thống Design Tokens <strong>variables.css</strong>, khung layout <strong>main.css</strong>, trang <strong>about.html</strong>, <strong>contact.html</strong>, <strong>sitemap.html</strong> và Slide thuyết trình.
           </p>
@@ -189,12 +199,12 @@
         <span class="badge badge-q1">Scopus &amp; CORE</span>
       </div>
 
-      <div class="grid-2" style="margin-top: var(--spacing-md);">
+      <div class="grid-2 standards-grid">
         <div>
-          <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-sm); color: var(--color-text-main);">
+          <h3 class="standards-col-title">
             Cơ Sở Dữ Liệu Tham Chiếu
           </h3>
-          <ul style="padding-left: var(--spacing-lg); color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-relaxed);">
+          <ul class="standards-list">
             <li><strong>Scopus / SCImago Journal Rank (SJR):</strong> Phân chia tạp chí thành 4 phân vị (Quartiles) Q1, Q2, Q3, Q4 dựa trên mức độ trích dẫn trung bình.</li>
             <li><strong>CORE Conference Rankings:</strong> Hệ thống xếp hạng hội nghị quốc tế uy tín do Hiệp hội Giáo dục và Nghiên cứu Điện toán Australasia (CORE) duy trì (A*, A, B, C).</li>
             <li><strong>AoE (Anywhere on Earth):</strong> Múi giờ chuẩn hóa (UTC-12) cho phép tác giả nộp bài muộn nhất khi bất kỳ nơi nào trên Trái Đất vẫn còn trong ngày hết hạn.</li>
@@ -202,10 +212,10 @@
         </div>
 
         <div>
-          <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-sm); color: var(--color-text-main);">
+          <h3 class="standards-col-title">
             Tiêu Chuẩn Lập Trình Web
           </h3>
-          <ul style="padding-left: var(--spacing-lg); color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-relaxed);">
+          <ul class="standards-list">
             <li><strong>Semantic HTML5:</strong> 100% sử dụng đúng thẻ ngữ nghĩa (&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;figure&gt;, &lt;footer&gt;).</li>
             <li><strong>CSS Custom Properties (Variables):</strong> Quản lý tập trung toàn bộ màu sắc, kích thước, khoảng cách và chuyển đổi theme Light/Dark mượt mà.</li>
             <li><strong>Client-Side Storage:</strong> Tận dụng Web Storage API (localStorage) lưu trữ dữ liệu cục bộ bảo mật, không phụ thuộc máy chủ.</li>
@@ -222,8 +232,8 @@
       <div class="footer-grid">
         <!-- Cột 1: Thương hiệu & Sứ mệnh -->
         <div class="footer-col">
-          <div class="brand-logo" style="margin-bottom: var(--spacing-sm);">
-            <div class="brand-icon-box" style="width: 28px; height: 28px;" aria-hidden="true">
+          <div class="brand-logo footer-brand-logo">
+            <div class="brand-icon-box brand-icon-box--footer" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>

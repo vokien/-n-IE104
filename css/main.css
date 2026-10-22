@@ -1,4 +1,4 @@
-﻿/* =============================================================
+/* =============================================================
    MAIN.CSS - Base Styles & Semantic Wheel Layout (Vanilla CSS)
    Đồ án IE104 - Internet và Công nghệ Web
    Khoa Kỹ thuật Phần mềm / CNTT - ĐH Công nghệ Thông tin (UIT)
@@ -228,6 +228,7 @@ svg {
 }
 
 .bookmark-count {
+  display: none;
   font-family: var(--font-family-mono);
   font-size: 11px;
   font-weight: var(--font-weight-bold);
@@ -1075,4 +1076,184 @@ textarea.form-control {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* ----------------------------------------------------------------------------
+   13. CÁC LỚP CHUYỂN ĐỔI TỪ CSS INLINE (ABOUT, CONTACT, SITEMAP)
+   -------------------------------------------------------------------------- */
+/* Header Bookmarks Button */
+#bookmark-header-btn svg {
+  flex-shrink: 0;
+}
+
+/* Footer elements */
+.footer-brand-logo {
+  margin-bottom: var(--spacing-sm);
+}
+
+.brand-icon-box--footer {
+  width: 28px;
+  height: 28px;
+}
+
+/* About page */
+.about-lead-text {
+  margin-bottom: var(--spacing-md);
+}
+
+.about-team-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.card-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.member-mssv {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+  font-weight: var(--font-weight-medium);
+}
+
+.member-avatar--q1 {
+  background-color: var(--badge-q1-bg);
+  color: var(--badge-q1);
+}
+
+.member-role--q1 {
+  color: var(--badge-q1);
+}
+
+.member-avatar--core-astar {
+  background-color: var(--badge-core-astar-bg);
+  color: var(--badge-core-astar);
+}
+
+.member-role--core-astar {
+  color: var(--badge-core-astar);
+}
+
+.member-avatar--urgent {
+  background-color: var(--badge-urgent-bg);
+  color: var(--badge-urgent);
+}
+
+.member-role--urgent {
+  color: var(--badge-urgent);
+}
+
+.member-avatar--accent {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.member-role--accent {
+  color: var(--color-accent);
+}
+
+.standards-grid {
+  margin-top: var(--spacing-md);
+}
+
+.standards-col-title {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-main);
+}
+
+.standards-list {
+  padding-left: var(--spacing-lg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Contact page */
+.contact-section-title {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.contact-section-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.contact-form-desc {
+  margin-bottom: var(--spacing-xl);
+}
+
+.contact-notice-box {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+}
+
+.btn-submit-contact {
+  width: 100%;
+  padding: 14px;
+}
+
+.contact-feedback-box {
+  display: none;
+}
+
+.contact-toast--error {
+  display: flex;
+  background-color: var(--badge-urgent-bg);
+  border: 1px solid var(--badge-urgent);
+  color: var(--badge-urgent);
+}
+
+.contact-toast--success {
+  display: flex;
+  background-color: var(--badge-q1-bg);
+  border: 1px solid var(--badge-q1);
+  color: var(--badge-q1);
+}
+
+/* Sitemap page */
+.spoke-btn {
+  padding: 6px 12px;
+  font-size: 11px;
+}
+
+.spoke-badge--q1 {
+  color: var(--badge-q1);
+  background-color: var(--badge-q1-bg);
+}
+
+.spoke-badge--urgent {
+  color: var(--badge-urgent);
+  background-color: var(--badge-urgent-bg);
+}
+
+.spoke-card--current {
+  border-color: var(--color-primary);
+}
+
+.spoke-badge--current {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.sitemap-matrix-section {
+  margin-top: var(--spacing-2xl);
+}
+
+.badge-hub {
+  background-color: var(--color-primary);
+  color: #ffffff;
 }

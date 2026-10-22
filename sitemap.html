@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -38,22 +38,27 @@
       </nav>
 
       <div class="header-actions">
-        <a href="venues.html" class="btn-icon" title="Xem mục đã lưu (Bookmarks)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
-          <span class="bookmark-count" id="header-saved-count">0</span>
-        </a>
-
-        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển giao diện sáng tối">
-          <span class="theme-icon">☀️</span>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge">0</span>
         </button>
 
-        <button type="button" class="mobile-menu-btn" aria-label="Mở trình đơn di động" aria-expanded="false">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="4" y1="12" x2="20" y2="12"/>
-            <line x1="4" y1="6" x2="20" y2="6"/>
-            <line x1="4" y1="18" x2="20" y2="18"/>
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
       </div>
@@ -113,21 +118,21 @@
         
         <!-- Nan hoa 1: Danh bạ -->
         <article class="spoke-card">
-          <span class="spoke-badge">SPOKE 01 · THÀNH VIÊN 3</span>
+          <span class="spoke-badge">SPOKE 01 · HUỲNH VĂN LÊN (24520948)</span>
           <div class="spoke-file">venues.html</div>
           <h3 class="spoke-name">Tra Cứu Danh Bạ Hội Nghị &amp; Tạp Chí</h3>
           <p class="spoke-desc">
             Phân hệ lọc đa chiều theo phân hạng Scopus Q1–Q4, phân hạng CORE A*–C, chuyên ngành nghiên cứu và tích hợp phân trang.
           </p>
           <div class="spoke-footer">
-            <span>Dữ liệu: venues_sample.json</span>
-            <a href="venues.html" class="btn-primary" style="padding: 6px 12px; font-size: 11px;">Mở Trang →</a>
+            <span>Dữ liệu: conf.json &amp; jour.json (8,752 venues)</span>
+            <a href="venues.html" class="btn-primary spoke-btn">Mở Trang →</a>
           </div>
         </article>
 
         <!-- Nan hoa 2: Khuyến nghị NLP -->
         <article class="spoke-card">
-          <span class="spoke-badge" style="color: var(--badge-q1); background-color: var(--badge-q1-bg);">SPOKE 02 · THÀNH VIÊN 2</span>
+          <span class="spoke-badge spoke-badge--q1">SPOKE 02 · TRẦN DUY KHÁNH (24520798)</span>
           <div class="spoke-file">recommend.html</div>
           <h3 class="spoke-name">Khuyến Nghị Nơi Công Bố Thông Minh</h3>
           <p class="spoke-desc">
@@ -135,13 +140,13 @@
           </p>
           <div class="spoke-footer">
             <span>Thuật toán: Okapi BM25</span>
-            <a href="recommend.html" class="btn-primary" style="padding: 6px 12px; font-size: 11px;">Mở Trang →</a>
+            <a href="recommend.html" class="btn-primary spoke-btn">Mở Trang →</a>
           </div>
         </article>
 
         <!-- Nan hoa 3: Timeline CFP -->
         <article class="spoke-card">
-          <span class="spoke-badge" style="color: var(--badge-urgent); background-color: var(--badge-urgent-bg);">SPOKE 03 · THÀNH VIÊN 4</span>
+          <span class="spoke-badge spoke-badge--urgent">SPOKE 03 · TRẦN HỒNG LĨNH (24520970)</span>
           <div class="spoke-file">timeline.html</div>
           <h3 class="spoke-name">Dòng Thời Gian CFP &amp; Countdown</h3>
           <p class="spoke-desc">
@@ -149,13 +154,13 @@
           </p>
           <div class="spoke-footer">
             <span>Múi giờ: AoE / UTC</span>
-            <a href="timeline.html" class="btn-primary" style="padding: 6px 12px; font-size: 11px;">Mở Trang →</a>
+            <a href="timeline.html" class="btn-primary spoke-btn">Mở Trang →</a>
           </div>
         </article>
 
         <!-- Nan hoa 4: Giới thiệu -->
         <article class="spoke-card">
-          <span class="spoke-badge">SPOKE 04 · THÀNH VIÊN 5</span>
+          <span class="spoke-badge">SPOKE 04 · NGÔ BẢO LÂM (24520931)</span>
           <div class="spoke-file">about.html</div>
           <h3 class="spoke-name">Giới Thiệu Đề Tài &amp; Nhóm Tác Giả</h3>
           <p class="spoke-desc">
@@ -163,13 +168,13 @@
           </p>
           <div class="spoke-footer">
             <span>Đồ án: IE104 - UIT</span>
-            <a href="about.html" class="btn-primary" style="padding: 6px 12px; font-size: 11px;">Mở Trang →</a>
+            <a href="about.html" class="btn-primary spoke-btn">Mở Trang →</a>
           </div>
         </article>
 
         <!-- Nan hoa 5: Liên hệ -->
         <article class="spoke-card">
-          <span class="spoke-badge">SPOKE 05 · THÀNH VIÊN 5</span>
+          <span class="spoke-badge">SPOKE 05 · NGÔ BẢO LÂM (24520931)</span>
           <div class="spoke-file">contact.html</div>
           <h3 class="spoke-name">Liên Hệ &amp; Đóng Góp Ý Kiến</h3>
           <p class="spoke-desc">
@@ -177,13 +182,13 @@
           </p>
           <div class="spoke-footer">
             <span>Kênh: Biểu mẫu &amp; Email</span>
-            <a href="contact.html" class="btn-primary" style="padding: 6px 12px; font-size: 11px;">Mở Trang →</a>
+            <a href="contact.html" class="btn-primary spoke-btn">Mở Trang →</a>
           </div>
         </article>
 
         <!-- Nan hoa 6: Sơ đồ site -->
-        <article class="spoke-card" style="border-color: var(--color-primary);">
-          <span class="spoke-badge" style="background-color: var(--color-primary-light); color: var(--color-primary);">SPOKE 06 · HIỆN TẠI</span>
+        <article class="spoke-card spoke-card--current">
+          <span class="spoke-badge spoke-badge--current">SPOKE 06 · HIỆN TẠI</span>
           <div class="spoke-file">sitemap.html</div>
           <h3 class="spoke-name">Sơ Đồ Website Kiến Trúc Bánh Xe</h3>
           <p class="spoke-desc">
@@ -199,13 +204,13 @@
     </section>
 
     <!-- BẢNG TRA CỨU DANH MỤC TRANG TOÀN DIỆN (SITEMAP MATRIX TABLE) -->
-    <section class="card" aria-labelledby="matrix-heading" style="margin-top: var(--spacing-2xl);">
+    <section class="card sitemap-matrix-section" aria-labelledby="matrix-heading">
       <div class="card-header">
         <div>
           <h2 id="matrix-heading" class="card-title">
             Bảng Phân Tích Cấu Trúc Website Toàn Hệ Thống
           </h2>
-          <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px;">
+          <p class="card-subtitle">
             Tổng hợp đường dẫn, phân loại vai trò bánh xe, thành viên phụ trách và chuẩn ngữ nghĩa HTML5 áp dụng.
           </p>
         </div>
@@ -228,8 +233,8 @@
             <tr>
               <td><code>index.html</code></td>
               <td><strong>Trang Chủ Hệ Thống</strong></td>
-              <td><span class="badge" style="background-color: var(--color-primary); color: #fff;">TRỤC TÂM (HUB)</span></td>
-              <td>Thành viên 1</td>
+              <td><span class="badge badge-hub">TRỤC TÂM (HUB)</span></td>
+              <td>Võ Đình Kiên (24520893)</td>
               <td>&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;footer&gt;</td>
               <td><a href="index.html">Truy cập ↗</a></td>
             </tr>
@@ -237,7 +242,7 @@
               <td><code>venues.html</code></td>
               <td>Tra Cứu Danh Bạ Hội Nghị &amp; Tạp Chí</td>
               <td><span class="badge">NAN HOA (SPOKE 1)</span></td>
-              <td>Thành viên 3</td>
+              <td>Huỳnh Văn Lên (24520948)</td>
               <td>&lt;aside&gt;, &lt;article&gt;, &lt;fieldset&gt;, &lt;section&gt;</td>
               <td><a href="venues.html">Truy cập ↗</a></td>
             </tr>
@@ -245,7 +250,7 @@
               <td><code>recommend.html</code></td>
               <td>Khuyến Nghị Bài Báo (Okapi BM25)</td>
               <td><span class="badge">NAN HOA (SPOKE 2)</span></td>
-              <td>Thành viên 2</td>
+              <td>Trần Duy Khánh (24520798)</td>
               <td>&lt;form&gt;, &lt;textarea&gt;, &lt;progress&gt;, &lt;article&gt;</td>
               <td><a href="recommend.html">Truy cập ↗</a></td>
             </tr>
@@ -253,7 +258,7 @@
               <td><code>timeline.html</code></td>
               <td>Dòng Thời Gian CFP &amp; Countdown Realtime</td>
               <td><span class="badge">NAN HOA (SPOKE 3)</span></td>
-              <td>Thành viên 4</td>
+              <td>Trần Hồng Lĩnh (24520970)</td>
               <td>&lt;time&gt;, &lt;article&gt;, &lt;section&gt;, &lt;span&gt;</td>
               <td><a href="timeline.html">Truy cập ↗</a></td>
             </tr>
@@ -261,7 +266,7 @@
               <td><code>about.html</code></td>
               <td>Giới Thiệu Đề Tài &amp; Nhóm Tác Giả</td>
               <td><span class="badge">NAN HOA (SPOKE 4)</span></td>
-              <td>Thành viên 5</td>
+              <td>Ngô Bảo Lâm (24520931)</td>
               <td>&lt;article&gt;, &lt;figure&gt;, &lt;section&gt;, &lt;header&gt;</td>
               <td><a href="about.html">Truy cập ↗</a></td>
             </tr>
@@ -269,7 +274,7 @@
               <td><code>sitemap.html</code></td>
               <td>Sơ Đồ Website Kiến Trúc Bánh Xe</td>
               <td><span class="badge">NAN HOA (SPOKE 5)</span></td>
-              <td>Thành viên 5</td>
+              <td>Ngô Bảo Lâm (24520931)</td>
               <td>&lt;table&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;article&gt;</td>
               <td><a href="sitemap.html">Truy cập ↗</a></td>
             </tr>
@@ -277,7 +282,7 @@
               <td><code>contact.html</code></td>
               <td>Liên Hệ &amp; Góp Ý Ý Kiến</td>
               <td><span class="badge">NAN HOA (SPOKE 6)</span></td>
-              <td>Thành viên 5</td>
+              <td>Ngô Bảo Lâm (24520931)</td>
               <td>&lt;form&gt;, &lt;label&gt;, &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt;</td>
               <td><a href="contact.html">Truy cập ↗</a></td>
             </tr>
@@ -294,8 +299,8 @@
       <div class="footer-grid">
         <!-- Cột 1: Thương hiệu & Sứ mệnh -->
         <div class="footer-col">
-          <div class="brand-logo" style="margin-bottom: var(--spacing-sm);">
-            <div class="brand-icon-box" style="width: 28px; height: 28px;" aria-hidden="true">
+          <div class="brand-logo footer-brand-logo">
+            <div class="brand-icon-box brand-icon-box--footer" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
