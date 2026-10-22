@@ -252,7 +252,7 @@
 }
 
 .btn-analyze.loading .spinner { display: inline-block; }
-.btn-analyze.loading .btn-icon-emoji { display: none; }
+.btn-analyze.loading .btn-analyze__icon { display: none; }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -536,6 +536,13 @@
   display: block;
 }
 
+.result-reason {
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
 .keyword-tags {
   display: flex;
   flex-wrap: wrap;
@@ -629,3 +636,33 @@
   .result-item { padding: var(--spacing-sm) var(--spacing-md); }
   .algo-badges { justify-content: flex-start; }
 }
+
+/* Trình bày trang khuyến nghị; thay thế CSS inline. */
+.recommend-icon {
+  width: 1.15em;
+  height: 1.15em;
+  display: inline-block;
+  vertical-align: -0.2em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.field-required { color: var(--color-danger); margin-left: 4px; }
+.recommend-filters { border: none; padding: 0; margin: 0; min-width: 0; }
+.recommend-filters__legend { margin-bottom: var(--spacing-sm); }
+.field-group--compact { margin-bottom: 0; }
+.recommender-status {
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+.results-placeholder__details { font-size: var(--font-size-sm); }
+.results-empty__icon { font-size: 2rem; }
+.matched-keywords__empty { color: var(--color-text-muted); font-size: var(--font-size-xs); }
+.results-error__icon { font-size: 1.2rem; }
+#recommend-results-container[hidden], #recommend-placeholder[hidden] { display: none; }
