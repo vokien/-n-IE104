@@ -3,105 +3,298 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hệ thống gợi ý hội nghị và tạp chí Scopus/CORE phù hợp với bản thảo nghiên cứu của bạn bằng thuật toán Okapi BM25 - ScopusVenue IE104.">
   <title>Khuyến Nghị Nơi Công Bố Theo Bản Thảo | ScopusVenue</title>
-  <link rel="stylesheet" href="./css/variables.css">
-  <link rel="stylesheet" href="./css/main.css">
+
+  <!-- Design Tokens & Shared Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- Page-specific Styles (TV2) -->
+  <link rel="stylesheet" href="css/recommend.css">
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- ============================================================
+       HEADER - Thanh điều hướng dùng chung (Wheel Model)
+       ============================================================ -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
+      <a href="index.html" class="brand-logo" aria-label="ScopusVenue - Trang chủ">
+        <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#graduate"></use></svg> Scopus<span>Venue</span>
+      </a>
+
       <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
           <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
-          <li><a href="recommend.html" class="active">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="recommend.html" class="active" aria-current="page">Khuyến Nghị Bài Báo</a></li>
           <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
           <li><a href="sitemap.html">Sơ Đồ Site</a></li>
           <li><a href="contact.html">Liên Hệ</a></li>
         </ul>
       </nav>
+
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
-        <button type="button" class="mobile-menu-btn">☰</button>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge">0</span>
+        </button>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTENT: Dành cho Thành viên 2 (NLP Recommender Dev) -->
-  <main class="container" role="main">
-    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
-      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Hệ Thống Gợi Ý Hội Nghị & Tạp Chí Thông Minh</h1>
-      <p style="color: var(--color-text-muted); max-width: 700px; margin: 0 auto;">
-        Dán tiêu đề và tóm tắt bản thảo nghiên cứu của bạn. Thuật toán Okapi BM25 sẽ phân tích và xếp hạng các venue phù hợp nhất.
-      </p>
-    </header>
+  <!-- ============================================================
+       MAIN CONTENT - Trang Khuyến nghị (TV2: NLP Recommender Dev)
+       ============================================================ -->
+  <main role="main">
+    <div class="container">
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); align-items: start;">
-      
-      <!-- Cột trái: Form nhập liệu bản thảo -->
-      <section class="card" aria-labelledby="form-heading">
-        <h2 id="form-heading" style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-md); color: var(--color-primary);">
-          📝 Thông Tin Bản Thảo
-        </h2>
-        
-        <form id="recommend-form" onsubmit="event.preventDefault();">
-          <div style="margin-bottom: var(--spacing-md);">
-            <label for="paper-title" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Tiêu đề bài báo (Title):</label>
-            <input type="text" id="paper-title" placeholder="VD: Deep Residual Learning for Image Recognition..." style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
-          </div>
+      <!-- Hero / Giới thiệu trang -->
+      <header class="recommend-hero" aria-labelledby="page-heading">
+        <h1 id="page-heading">Hệ Thống Gợi Ý Hội Nghị &amp; Tạp Chí Thông Minh</h1>
+        <p>
+          Dán tiêu đề và tóm tắt bản thảo nghiên cứu của bạn vào bên dưới.
+          Thuật toán <strong>Okapi BM25</strong> sẽ phân tích và xếp hạng các hội nghị / tạp chí
+          Scopus &amp; CORE phù hợp nhất để gửi bài.
+        </p>
 
-          <div style="margin-bottom: var(--spacing-md);">
-            <label for="paper-abstract" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Tóm tắt bài báo (Abstract):</label>
-            <textarea id="paper-abstract" rows="7" placeholder="Dán đoạn tóm tắt bài báo (tiếng Anh) vào đây để phân tích từ khóa và mục tiêu nghiên cứu..." style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit; resize: vertical;"></textarea>
-          </div>
-
-          <div style="margin-bottom: var(--spacing-lg);">
-            <label for="paper-keywords" style="display: block; font-weight: 600; margin-bottom: var(--spacing-xs);">Từ khóa (Keywords - cách nhau bằng dấu phẩy):</label>
-            <input type="text" id="paper-keywords" placeholder="VD: computer vision, deep learning, classification" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: inherit;">
-          </div>
-
-          <button type="submit" id="btn-submit-recommend" class="btn-primary" style="width: 100%; padding: var(--spacing-md); font-size: var(--font-size-md);">
-            🚀 Phân Tích & Đề Xuất Nơi Nộp
-          </button>
-        </form>
-      </section>
-
-      <!-- Cột phải: Khung hiển thị kết quả Top-K matching -->
-      <section class="card" aria-labelledby="results-heading">
-        <h2 id="results-heading" style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-md); color: var(--color-primary);">
-          🎯 Kết Quả Đề Xuất (Top-K Matches)
-        </h2>
-        
-        <!-- Placeholder khi chưa bấm phân tích -->
-        <div id="recommend-placeholder" style="text-align: center; padding: var(--spacing-2xl) 0; color: var(--color-text-muted);">
-          <div style="font-size: 3rem; margin-bottom: var(--spacing-sm);">💡</div>
-          <p>Nhập thông tin bản thảo ở cột bên trái và nhấn <strong>Phân Tích</strong> để xem bảng xếp hạng gợi ý.</p>
+        <!-- Badges kỹ thuật -->
+        <div class="algo-badges" role="list" aria-label="Công nghệ sử dụng">
+          <span class="algo-badge algo-badge--blue" role="listitem"><svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#chart"></use></svg> Okapi BM25</span>
+          <span class="algo-badge algo-badge--green" role="listitem"><svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#key"></use></svg> Từ khóa trùng khớp</span>
+          <span class="algo-badge algo-badge--orange" role="listitem"><svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#ban"></use></svg> Không dùng thư viện ngoài</span>
         </div>
+      </header>
 
-        <!-- Container nơi JS của TV2 sẽ render kết quả tính toán -->
-        <div id="recommend-results-container" style="display: none;">
-          <!-- Kết quả mẫu sẽ được TV2 render qua recommender.js -->
-        </div>
-      </section>
+      <!-- Layout 2 cột: Form trái | Kết quả phải -->
+      <div class="recommend-layout">
 
-    </div>
+        <!-- ========================
+             CỘT TRÁI: Form nhập liệu
+             ======================== -->
+        <section class="form-card" aria-labelledby="form-heading">
+          <h2 class="form-card__title" id="form-heading">
+            <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#edit"></use></svg> Thông Tin Bản Thảo
+          </h2>
+
+          <form id="recommend-form" novalidate>
+
+            <!-- Tiêu đề bài báo -->
+            <div class="field-group">
+              <label class="field-label" for="paper-title">
+                Tiêu đề bài báo <abbr title="Title">(Title)</abbr>
+              </label>
+              <input
+                type="text"
+                id="paper-title"
+                name="paper-title"
+                class="field-input"
+                placeholder="VD: Deep Residual Learning for Image Recognition..."
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <p class="field-hint">Không bắt buộc, nhưng cải thiện độ chính xác gợi ý.</p>
+            </div>
+
+            <!-- Abstract -->
+            <div class="field-group">
+              <label class="field-label" for="paper-abstract">
+                Tóm tắt bài báo <abbr title="Abstract">(Abstract)</abbr>
+                <span class="field-required" aria-label="Bắt buộc">*</span>
+              </label>
+              <textarea
+                id="paper-abstract"
+                name="paper-abstract"
+                class="field-textarea"
+                rows="8"
+                placeholder="Dán đoạn tóm tắt bài báo (tiếng Anh) vào đây. Ví dụ: We propose a novel method for object detection using deep convolutional neural networks with attention mechanisms..."
+                required
+                spellcheck="false"
+              ></textarea>
+              <p class="field-hint">Tốt nhất 100–300 từ tiếng Anh. BM25 so khớp từ khóa, không suy luận ngữ nghĩa.</p>
+            </div>
+
+            <!-- Keywords -->
+            <div class="field-group">
+              <label class="field-label" for="paper-keywords">
+                Từ khóa <abbr title="Keywords">(Keywords)</abbr>
+              </label>
+              <input
+                type="text"
+                id="paper-keywords"
+                name="paper-keywords"
+                class="field-input"
+                placeholder="VD: computer vision, deep learning, object detection"
+                autocomplete="off"
+              >
+              <p class="field-hint">Cách nhau bằng dấu phẩy. Bổ sung các thuật ngữ chuyên ngành để so khớp.</p>
+            </div>
+
+            <!-- Bộ lọc bổ sung -->
+            <fieldset class="recommend-filters">
+              <legend class="field-label recommend-filters__legend">
+                Bộ lọc bổ sung (tuỳ chọn)
+              </legend>
+              <div class="filter-row">
+                <!-- Loại hình -->
+                <div class="field-group field-group--compact">
+                  <label class="field-label" for="filter-type">Loại hình</label>
+                  <select id="filter-type" name="filter-type" class="field-select">
+                    <option value="all">Tất cả</option>
+                    <option value="conference">Hội nghị</option>
+                    <option value="journal">Tạp chí</option>
+                  </select>
+                </div>
+
+                <!-- Xếp hạng tối thiểu -->
+                <div class="field-group field-group--compact">
+                  <label class="field-label" for="filter-rank">Hạng tối thiểu</label>
+                  <select id="filter-rank" name="filter-rank" class="field-select">
+                    <option value="any">Không giới hạn</option>
+                    <optgroup label="Scopus Quartile">
+                      <option value="Q1">Q1 trở lên</option>
+                      <option value="Q2">Q2 trở lên</option>
+                    </optgroup>
+                    <optgroup label="CORE Rank">
+                      <option value="A*">CORE A* trở lên</option>
+                      <option value="A">CORE A trở lên</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Số kết quả -->
+              <div class="field-group">
+                <label class="field-label" for="filter-topk">Số kết quả hiển thị</label>
+                <select id="filter-topk" name="filter-topk" class="field-select">
+                  <option value="5">Top 5</option>
+                  <option value="10" selected>Top 10</option>
+                  <option value="15">Top 15</option>
+                  <option value="20">Top 20</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <!-- Nút phân tích -->
+            <button
+              type="submit"
+              id="btn-analyze"
+              class="btn-analyze"
+              disabled
+              aria-label="Phân tích bản thảo và đề xuất nơi nộp bài"
+            >
+              <span class="spinner" aria-hidden="true"></span>
+              <span class="btn-analyze__icon" aria-hidden="true"><svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#rocket"></use></svg></span>
+              Phân Tích &amp; Đề Xuất Nơi Nộp
+            </button>
+
+            <p id="recommender-status" role="status" class="recommender-status">
+              <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#clock"></use></svg> Đang tải dữ liệu... Nút sẽ kích hoạt khi sẵn sàng.
+            </p>
+          </form>
+        </section>
+
+        <!-- ========================
+             CỘT PHẢI: Kết quả gợi ý
+             ======================== -->
+        <section class="results-card" aria-labelledby="results-heading" aria-live="polite">
+          <h2 class="results-card__title" id="results-heading">
+            <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#target"></use></svg> Kết Quả Đề Xuất (Top-K Matches)
+          </h2>
+
+          <!-- Placeholder khi chưa phân tích -->
+          <div id="recommend-placeholder" class="results-placeholder" role="status">
+            <div class="results-placeholder__icon" aria-hidden="true"><svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#bulb"></use></svg></div>
+            <p>
+              Nhập thông tin bản thảo ở cột bên trái và nhấn
+              <strong>Phân Tích &amp; Đề Xuất Nơi Nộp</strong>
+              để xem danh sách gợi ý được xếp hạng theo thuật toán
+              <strong>Okapi BM25</strong>.
+            </p>
+            <br>
+            <p class="results-placeholder__details">
+              Mỗi kết quả hiển thị:<br>
+              <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#chart"></use></svg> Thanh đo điểm tương đồng (0–100%) &nbsp;|&nbsp;
+              <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#key"></use></svg> Từ khóa trùng khớp &nbsp;|&nbsp;
+              <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#award"></use></svg> Xếp hạng Scopus / CORE
+            </p>
+          </div>
+
+          <!-- Container JS sẽ render kết quả vào đây -->
+          <div id="recommend-results-container" hidden aria-label="Kết quả gợi ý venue"></div>
+        </section>
+
+      </div><!-- /.recommend-layout -->
+
+    </div><!-- /.container -->
   </main>
 
-  <!-- FOOTER -->
+  <!-- ============================================================
+       FOOTER - Dùng chung
+       ============================================================ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+      <nav class="footer-nav" aria-label="Liên kết footer">
+        <a href="index.html">Trang Chủ</a>
+        <a href="venues.html">Tra Cứu</a>
+        <a href="recommend.html">Khuyến Nghị</a>
+        <a href="timeline.html">Lịch CFP</a>
+        <a href="about.html">Giới Thiệu</a>
+        <a href="sitemap.html">Sơ Đồ Site</a>
+        <a href="contact.html">Liên Hệ</a>
+      </nav>
       <div class="footer-bottom">
-        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+        <p>Đồ án IE104 - Internet và Công nghệ Web &nbsp;|&nbsp; ThS. Võ Tấn Khoa &nbsp;|&nbsp; HK1 2026-2027</p>
       </div>
     </div>
   </footer>
 
-  <script src="./js/storage.js"></script>
-  <script src="./js/app.js"></script>
-  <!-- <script src="./js/recommender.js"></script> (TV2 sẽ hoàn thiện thuật toán) -->
+  <!-- Watchlist dùng chung với trang chủ và danh bạ -->
+  <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">
+    <div class="bookmark-modal">
+      <div class="modal-header">
+        <h3 id="bookmark-modal-title" class="recommend-modal__title">
+          <svg class="recommend-modal__icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Danh Sách Mục Tiêu Đã Lưu</span>
+        </h3>
+        <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="m18 6-12 12M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="bookmark-modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-icon recommend-modal__clear" id="bookmark-modal-clear-btn">Xóa tất cả</button>
+        <a href="venues.html" class="btn-primary recommend-modal__directory">Xem trong danh bạ</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Khởi tạo theme, navigation và bookmark một lần qua entrypoint chung -->
+  <script type="module" src="js/main.js"></script>
+  <script src="js/recommender.js"></script>
 </body>
 </html>
