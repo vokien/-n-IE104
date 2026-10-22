@@ -140,7 +140,13 @@ const AppStorage = {
   }
 };
 
+// Đảm bảo tương thích toàn cục cho các trang chưa chuyển sang ESM
+if (typeof window !== "undefined") {
+  window.AppStorage = AppStorage;
+}
+
 // Khởi chạy cập nhật số lượng bookmark khi nạp trang
 document.addEventListener("DOMContentLoaded", () => {
   AppStorage._updateBadgeCounter();
 });
+
