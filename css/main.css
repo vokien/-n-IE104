@@ -1078,6 +1078,761 @@ textarea.form-control {
   }
 }
 
+/* =============================================================
+   8. HOME PAGE & WHEEL HUB EXTENSIONS (Task T1.2 - TV1)
+   ============================================================= */
+
+/* Hero Search Bar */
+.hero-search-wrapper {
+  max-width: 680px;
+  margin: var(--spacing-lg) auto var(--spacing-md) auto;
+}
+
+.hero-search-form {
+  display: flex;
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hero-search-form:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-light);
+}
+
+.hero-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  color: var(--color-text-main);
+  outline: none;
+}
+
+.hero-search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.hero-search-btn {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero-search-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: scale(1.02);
+}
+
+/* Hero Suggestion Tags */
+.hero-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 2px 10px;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.tag-item:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+/* Stats Counter Grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+}
+
+.stat-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg) var(--spacing-md);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-focus);
+}
+
+.stat-num {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+/* Section Title & Subtitle */
+.section-header {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto var(--spacing-xl) auto;
+}
+
+.section-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.section-desc {
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+}
+
+/* Featured Venues Grid */
+.featured-venues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.featured-venue-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.featured-venue-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.featured-venue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.featured-venue-type {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.featured-venue-name {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.4;
+}
+
+.featured-venue-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.featured-venue-metrics {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px dashed var(--color-border);
+  border-bottom: 1px dashed var(--color-border);
+  margin-bottom: var(--spacing-md);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-value {
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--color-primary);
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.featured-venue-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Workflow Step Cards */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.step-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: 800;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-md);
+}
+
+/* FAQ / Guide Grid */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.faq-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.faq-card h3 {
+  font-size: var(--font-size-md);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.faq-card p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Call to Action Banner */
+.cta-banner {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  text-align: center;
+  margin: var(--spacing-2xl) 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.cta-banner h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-xs);
+  color: #ffffff;
+}
+
+.cta-banner p {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg) auto;
+  opacity: 0.9;
+}
+
+/* Modal Popup Bookmark (Quick View) */
+.bookmark-modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+}
+
+.bookmark-modal-backdrop.active {
+  display: flex;
+}
+
+.bookmark-modal {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 550px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-body {
+  padding: var(--spacing-md) var(--spacing-lg);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
+}
+
+
+/* =============================================================
+   9. BESPOKE COMPONENTS & ACCESSIBILITY EXTENSIONS (Task T1.2)
+   ============================================================= */
+
+/* 9.1. Skip to Content (Accessibility - a11y) */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: var(--spacing-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  z-index: 10000;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: var(--spacing-sm);
+}
+
+/* 9.2. Brand Icon */
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* 9.3. Hero Badge & CTA Buttons */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 4px 14px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  border: 1px solid hsla(215, 80%, 55%, 0.2);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--spacing-md);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: inline-block;
+  box-shadow: 0 0 6px var(--color-secondary);
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-surface);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-main);
+  border: 1.5px solid var(--color-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-bg-surface);
+}
+
+.btn-white {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.btn-white:hover {
+  background-color: hsla(0, 0%, 100%, 0.9);
+}
+
+.btn-ghost-white {
+  background-color: transparent;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
+}
+
+.btn-ghost-white:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 9.4. Stat Cards Color Modifiers */
+.stat-primary { color: var(--color-primary); }
+.stat-q1 { color: var(--badge-q1); }
+.stat-secondary { color: var(--color-secondary); }
+.stat-accent { color: var(--color-accent); }
+
+.stat-subtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* 9.5. Wheel Model Feature Spokes (Nan Hoa Điều Hướng) */
+.spoke-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.spoke-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.spoke-icon-wrapper svg {
+  width: 26px;
+  height: 26px;
+}
+
+.spoke-icon-recommender {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.spoke-icon-directory {
+  background-color: hsla(145, 65%, 42%, 0.12);
+  color: var(--badge-q1);
+}
+
+.spoke-icon-timeline {
+  background-color: hsla(15, 90%, 55%, 0.12);
+  color: var(--color-accent);
+}
+
+.spoke-icon-watchlist {
+  background-color: hsla(280, 75%, 55%, 0.12);
+  color: hsl(280, 75%, 55%);
+}
+
+.spoke-badge {
+  margin-bottom: var(--spacing-xs);
+  align-self: flex-start;
+}
+
+.spoke-title {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-xl);
+  font-family: var(--font-family-heading);
+}
+
+.spoke-desc {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.spoke-link {
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* 9.6. Featured Venues Enhancements */
+.badge-core-astar {
+  background-color: hsla(280, 80%, 55%, 0.15);
+  color: hsl(280, 80%, 55%);
+}
+
+.venue-details-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: gap var(--transition-fast);
+}
+
+.venue-details-link:hover {
+  gap: var(--spacing-sm);
+  text-decoration: underline;
+}
+
+.venue-meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.venue-meta-tag svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-muted);
+}
+
+.bookmark-trigger-btn.bookmarked {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: hsla(15, 90%, 55%, 0.08);
+}
+
+/* 9.7. Workflow Step Cards */
+.step-num {
+  font-family: var(--font-family-mono);
+  font-weight: 800;
+  font-size: var(--font-size-sm);
+}
+
+.step-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-family-heading);
+}
+
+.step-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* 9.8. Semantic FAQ Details / Summary */
+.faq-details {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.faq-details[open] {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-summary {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-main);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  user-select: none;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: '+';
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.faq-details[open] .faq-summary::after {
+  content: '−';
+}
+
+.faq-content {
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* 9.9. Watchlist Modal Elements */
+.modal-empty-state {
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-md);
+  color: var(--color-text-muted);
+}
+
+.empty-icon {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-border);
+}
+
+.empty-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.empty-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.watchlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.watchlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-body);
+  transition: border-color var(--transition-fast);
+}
+
+.watchlist-item:hover {
+  border-color: var(--color-border-focus);
+}
+
+.watchlist-item-title {
+  color: var(--color-text-main);
+  font-size: var(--font-size-sm);
+  margin-bottom: 2px;
+}
+
+.watchlist-item-meta {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.watchlist-type-tag, .watchlist-rank-tag {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.section-spacer {
+  margin-top: var(--spacing-2xl);
+}
+
 /* ----------------------------------------------------------------------------
    13. CÁC LỚP CHUYỂN ĐỔI TỪ CSS INLINE (ABOUT, CONTACT, SITEMAP)
    -------------------------------------------------------------------------- */
