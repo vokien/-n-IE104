@@ -35,6 +35,13 @@
       </nav>
 
       <div class="header-actions">
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge" style="display: none;">0</span>
+        </button>
 
         <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
           <span class="theme-icon" aria-hidden="true">
@@ -64,7 +71,7 @@
       <label for="search-input" class="visually-hidden">Tìm tên, chủ đề hoặc nhà xuất bản</label>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
       <input id="search-input" name="q" type="search" placeholder="Tên, tên viết tắt, chủ đề hoặc nhà xuất bản…" autocomplete="off">
-      <button class="directory-button primary" type="submit">Tìm kiếm</button>
+      <button class="directory-button pr imary" type="submit">Tìm kiếm</button>
     </form>
     <div class="directory-layout">
       <aside class="directory-sidebar" aria-label="Bộ lọc danh bạ">
@@ -131,7 +138,36 @@
       <div class="footer-bottom"><p>Đồ án IE104 · Internet và Công nghệ Web</p></div>
     </div>
   </footer>
+  <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">
+    <div class="bookmark-modal">
+      <div class="modal-header">
+        <h3 id="bookmark-modal-title" style="margin: 0; display: flex; align-items: center; gap: var(--spacing-xs);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="color: var(--color-accent);" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Danh Sách Mục Tiêu Đã Lưu</span>
+        </h3>
+        <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="bookmark-modal-body">
+        <!-- Danh sách được render tự động qua ESM module js/modules/bookmark-modal.js -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-icon" id="bookmark-modal-clear-btn" style="color: var(--color-danger); border-color: var(--color-danger);">
+          Xóa tất cả
+        </button>
+        <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
+          <span>Xem trong danh bạ</span>
+        </a>
+      </div>
+    </div>
+  </div>
   <script type="module" src="./js/main.js"></script>
-  <script type="module" src="./js/venues.js?v=20261017-sort2"></script>
+  <script type="module" src="./js/venues.js?v=20261022-bookmarks"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 [
   {
-    "id": "CONF-015",
+    "id": "CONF-001",
     "name": "Australasia Conference on Information Security and Privacy",
     "acronym": "ACISP",
     "issn": null,
@@ -116,7 +116,7 @@
     "homepage_url": "https://acisp.org/"
   },
   {
-    "id": "CONF-021",
+    "id": "CONF-002",
     "name": "Applied Cryptography and Network Security",
     "acronym": "ACNS",
     "issn": null,
@@ -219,7 +219,7 @@
     "homepage_url": "https://acns2027.isg.rhul.ac.uk/"
   },
   {
-    "id": "CONF-052",
+    "id": "CONF-003",
     "name": "International Conference on Ambient Systems, Networks and Technologies",
     "acronym": "ANT",
     "issn": null,
@@ -305,7 +305,7 @@
     "homepage_url": "https://cs-conferences.acadiau.ca/ant-27/"
   },
   {
-    "id": "CONF-077",
+    "id": "CONF-004",
     "name": "Automation of Software Test",
     "acronym": "AST",
     "issn": null,
@@ -400,7 +400,7 @@
     "homepage_url": "https://conf.researchr.org/home/ast-2027"
   },
   {
-    "id": "CONF-097",
+    "id": "CONF-005",
     "name": "The Conference on Automated Deduction",
     "acronym": "CADE",
     "issn": null,
@@ -447,7 +447,7 @@
     "homepage_url": "https://fscd-cade.science.ru.nl/"
   },
   {
-    "id": "CONF-101",
+    "id": "CONF-006",
     "name": "International Conference on Advanced Information Systems Engineering",
     "acronym": "CAiSE",
     "issn": null,
@@ -535,7 +535,7 @@
     "homepage_url": "https://deal.us.es/caise27/"
   },
   {
-    "id": "CONF-109",
+    "id": "CONF-007",
     "name": "International Conference on Computer-Aided Verification",
     "acronym": "CAV",
     "issn": null,
@@ -667,7 +667,7 @@
     "homepage_url": "https://conferences.i-cav.org/2027/"
   },
   {
-    "id": "CONF-116",
+    "id": "CONF-008",
     "name": "IEEE International Symposium on Cluster, Cloud and Internet Computing",
     "acronym": "CCGRID",
     "issn": null,
@@ -748,7 +748,7 @@
     "homepage_url": "https://hpcclab.org/ccgrid27/"
   },
   {
-    "id": "CONF-120",
+    "id": "CONF-009",
     "name": "IEEE Congress on Evolutionary Computation",
     "acronym": "IEEE CEC",
     "issn": null,
@@ -790,7 +790,7 @@
     "homepage_url": "https://ieeecec.org/2027"
   },
   {
-    "id": "CONF-122",
+    "id": "CONF-010",
     "name": "Computer Graphics International",
     "acronym": "CGI",
     "issn": null,
@@ -833,7 +833,7 @@
     "homepage_url": "https://cgs-network.org/cgi27/"
   },
   {
-    "id": "CONF-125",
+    "id": "CONF-011",
     "name": "International Conference on Cryptographic Hardware and Embedded Systems",
     "acronym": "CHES",
     "issn": null,
@@ -888,7 +888,7 @@
     "homepage_url": "https://ches.iacr.org/2027/"
   },
   {
-    "id": "CONF-148",
+    "id": "CONF-012",
     "name": "International Conference on Cloud Computing and Services Science",
     "acronym": "CLOSER",
     "issn": null,
@@ -941,7 +941,7 @@
     "homepage_url": "https://closer.scitevents.org/"
   },
   {
-    "id": "CONF-161",
+    "id": "CONF-013",
     "name": "International Conference on Computational Linguistics",
     "acronym": "COLING",
     "issn": "2951-2093",
@@ -1105,7 +1105,7 @@
     "homepage_url": "https://2027.coling-iccl.org/"
   },
   {
-    "id": "CONF-168",
+    "id": "CONF-014",
     "name": "International Computer Software and Applications Conference",
     "acronym": "COMPSAC",
     "issn": null,
@@ -1167,7 +1167,7 @@
     "homepage_url": "https://ieeecompsac.computer.org/2027/"
   },
   {
-    "id": "CONF-171",
+    "id": "CONF-015",
     "name": "International Conference on Emerging Networking Experiments and Technologies",
     "acronym": "CoNEXT",
     "issn": null,
@@ -1247,7 +1247,7 @@
     "homepage_url": "https://conferences.sigcomm.org/co-next/2027/#!/home"
   },
   {
-    "id": "CONF-185",
+    "id": "CONF-016",
     "name": "International Conference on Computer Supported Cooperative Work in Design",
     "acronym": "CSCWD",
     "issn": null,
@@ -1347,7 +1347,7 @@
     "homepage_url": "http://2027.cscwd.org"
   },
   {
-    "id": "CONF-186",
+    "id": "CONF-017",
     "name": "International Conference on Computer Supported Education",
     "acronym": "CSEDU",
     "issn": null,
@@ -1399,7 +1399,7 @@
     "homepage_url": "https://csedu.scitevents.org/"
   },
   {
-    "id": "CONF-188",
+    "id": "CONF-018",
     "name": "IEEE Computer Security Foundations Symposium",
     "acronym": "CSFW",
     "issn": "1940-1434",
@@ -1464,7 +1464,7 @@
     "homepage_url": "https://www.ieee-security.org/TC/CSF2027/"
   },
   {
-    "id": "CONF-195",
+    "id": "CONF-019",
     "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
     "acronym": "CVPR",
     "issn": null,
@@ -1562,7 +1562,7 @@
     "homepage_url": "https://cvpr.thecvf.com/Conferences/2027"
   },
   {
-    "id": "CONF-203",
+    "id": "CONF-020",
     "name": "Database Systems for Advanced Applications",
     "acronym": "DASFAA",
     "issn": null,
@@ -1743,7 +1743,7 @@
     "homepage_url": "https://dasfaa2027.github.io/"
   },
   {
-    "id": "CONF-221",
+    "id": "CONF-021",
     "name": "ACM Conference on Designing Interactive Systems",
     "acronym": "DIS",
     "issn": null,
@@ -1785,7 +1785,7 @@
     "homepage_url": "https://dis.acm.org/2027/"
   },
   {
-    "id": "CONF-234",
+    "id": "CONF-022",
     "name": "International Conference on Dependable Systems and Networks",
     "acronym": "DSN",
     "issn": null,
@@ -1845,7 +1845,7 @@
     "homepage_url": "https://dsn2027-berlin.github.io/"
   },
   {
-    "id": "CONF-240",
+    "id": "CONF-023",
     "name": "International Conference on Evaluation and Assessment in Software Engineering",
     "acronym": "EASE",
     "issn": null,
@@ -1891,7 +1891,7 @@
     "homepage_url": "https://conf.researchr.org/home/ease-2027"
   },
   {
-    "id": "CONF-244",
+    "id": "CONF-024",
     "name": "European Conference on Artificial Intelligence",
     "acronym": "ECAI",
     "issn": null,
@@ -1936,7 +1936,7 @@
     "homepage_url": "https://ecai2027.org/"
   },
   {
-    "id": "CONF-253",
+    "id": "CONF-025",
     "name": "European Conference on Object-Oriented Programming",
     "acronym": "ECOOP",
     "issn": null,
@@ -2004,7 +2004,7 @@
     "homepage_url": "https://2027.ecoop.org/"
   },
   {
-    "id": "CONF-260",
+    "id": "CONF-026",
     "name": "European Dependable Computing Conference",
     "acronym": "EDCC",
     "issn": null,
@@ -2063,7 +2063,7 @@
     "homepage_url": "https://edcc.dependability.org/"
   },
   {
-    "id": "CONF-274",
+    "id": "CONF-027",
     "name": "International Conference on Evaluation of Novel Approaches to Software Engineering",
     "acronym": "ENASE",
     "issn": null,
@@ -2120,7 +2120,7 @@
     "homepage_url": "https://enase.scitevents.org/"
   },
   {
-    "id": "CONF-280",
+    "id": "CONF-028",
     "name": "European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning",
     "acronym": "ESANN",
     "issn": null,
@@ -2164,7 +2164,7 @@
     "homepage_url": "https://www.esann.org/"
   },
   {
-    "id": "CONF-284",
+    "id": "CONF-029",
     "name": "European Semantic Web Conference",
     "acronym": "ESWC",
     "issn": null,
@@ -2219,7 +2219,7 @@
     "homepage_url": "https://2027.eswc-conferences.org/"
   },
   {
-    "id": "CONF-288",
+    "id": "CONF-030",
     "name": "IEEE European Test Symposium",
     "acronym": "ETS",
     "issn": null,
@@ -2264,7 +2264,7 @@
     "homepage_url": "https://www.ets2027.co.uk/"
   },
   {
-    "id": "CONF-296",
+    "id": "CONF-031",
     "name": "European Conference on Genetic Programming",
     "acronym": "EuroGP",
     "issn": null,
@@ -2359,7 +2359,7 @@
     "homepage_url": "https://www.evostar.org/2027/eurogp/"
   },
   {
-    "id": "CONF-300",
+    "id": "CONF-032",
     "name": "IEEE European Symposium on Security and Privacy",
     "acronym": "EuroS&P",
     "issn": null,
@@ -2445,7 +2445,7 @@
     "homepage_url": "https://eurosp2027.ieee-security.org/"
   },
   {
-    "id": "CONF-308",
+    "id": "CONF-033",
     "name": "European Conference on Evolutionary Computation in Combinatorial Optimisation",
     "acronym": "EvoCOP",
     "issn": null,
@@ -2519,7 +2519,7 @@
     "homepage_url": "https://www.evostar.org/2027/evocop/"
   },
   {
-    "id": "CONF-309",
+    "id": "CONF-034",
     "name": "International Conference on Artificial Intelligence in Music, Sound, Art and Design",
     "acronym": "EvoMUSART",
     "issn": null,
@@ -2581,7 +2581,7 @@
     "homepage_url": "https://www.evostar.org/2027/evomusart/"
   },
   {
-    "id": "CONF-339",
+    "id": "CONF-035",
     "name": "Flexible Query-Answering Systems",
     "acronym": "FQAS",
     "issn": null,
@@ -2648,7 +2648,7 @@
     "homepage_url": "https://fqas.org/fqas2027"
   },
   {
-    "id": "CONF-351",
+    "id": "CONF-036",
     "name": "Graphics Interface",
     "acronym": "GI",
     "issn": "0713-5424",
@@ -2735,7 +2735,7 @@
     "homepage_url": "https://conferences.graphicsinterface.org/2027"
   },
   {
-    "id": "CONF-388",
+    "id": "CONF-037",
     "name": "International Conference on Innovations for Community Services (was Innovative Internet Computer Systems IICS until 2014)",
     "acronym": "I4CS",
     "issn": null,
@@ -2841,7 +2841,7 @@
     "homepage_url": "https://www.eah-jena.de/i4cs-conference/"
   },
   {
-    "id": "CONF-404",
+    "id": "CONF-038",
     "name": "International Conference on Automated Planning and Scheduling",
     "acronym": "ICAPS",
     "issn": "2334-0835",
@@ -2949,7 +2949,7 @@
     "homepage_url": "https://icaps27.icaps-conference.org/"
   },
   {
-    "id": "CONF-407",
+    "id": "CONF-039",
     "name": "IEEE International Conference on Blockchain and Cryptocurrency",
     "acronym": "ICBC",
     "issn": null,
@@ -3000,7 +3000,7 @@
     "homepage_url": "https://icbc2027.ieee-icbc.org/"
   },
   {
-    "id": "CONF-425",
+    "id": "CONF-040",
     "name": "International Conference on Document Analysis and Recognition",
     "acronym": "ICDAR",
     "issn": "1520-5363",
@@ -3103,7 +3103,7 @@
     "homepage_url": "https://icdar2027.org/"
   },
   {
-    "id": "CONF-429",
+    "id": "CONF-041",
     "name": "IEEE International Conference on Data Engineering",
     "acronym": "ICDE",
     "issn": "1084-4627",
@@ -3154,7 +3154,7 @@
     "homepage_url": "https://icde2027.github.io/"
   },
   {
-    "id": "CONF-430",
+    "id": "CONF-042",
     "name": "IEEE International Conference on Data Mining",
     "acronym": "ICDM",
     "issn": "1550-4786",
@@ -3205,7 +3205,7 @@
     "homepage_url": "https://icdm2027-website.onrender.com/"
   },
   {
-    "id": "CONF-442",
+    "id": "CONF-043",
     "name": "International Conference on Function Programming",
     "acronym": "ICFP",
     "issn": null,
@@ -3247,7 +3247,7 @@
     "homepage_url": "https://icfp27.sigplan.org/"
   },
   {
-    "id": "CONF-451",
+    "id": "CONF-044",
     "name": "Conference on Innovation in Clouds, Internet and Networks",
     "acronym": "ICIN",
     "issn": null,
@@ -3357,7 +3357,7 @@
     "homepage_url": "https://www.icin-conference.org/"
   },
   {
-    "id": "CONF-453",
+    "id": "CONF-045",
     "name": "The IEEE International Conference on Image Processing",
     "acronym": "ICIP",
     "issn": "1522-4880",
@@ -3431,7 +3431,7 @@
     "homepage_url": "https://2027.ieeeicip.org/"
   },
   {
-    "id": "CONF-459",
+    "id": "CONF-046",
     "name": "International Conference on Information Technology and Applications",
     "acronym": "ICITA",
     "issn": null,
@@ -3523,7 +3523,7 @@
     "homepage_url": "https://www.icita.world/archive/2027"
   },
   {
-    "id": "CONF-468",
+    "id": "CONF-047",
     "name": "ACM SIGMM International Conference on Multimedia Retrieval",
     "acronym": "ICMR",
     "issn": null,
@@ -3671,7 +3671,7 @@
     "homepage_url": "https://www.icmr2027.org/"
   },
   {
-    "id": "CONF-478",
+    "id": "CONF-048",
     "name": "IEEE International Conference on Program Comprehension",
     "acronym": "ICPC",
     "issn": "2643-7147",
@@ -3762,7 +3762,7 @@
     "homepage_url": "https://conf.researchr.org/home/icpc-2027"
   },
   {
-    "id": "CONF-482",
+    "id": "CONF-049",
     "name": "International Conference on Pattern Recognition",
     "acronym": "ICPR",
     "issn": "1051-4651",
@@ -3820,7 +3820,7 @@
     "homepage_url": "https://www.icpr2027.com/"
   },
   {
-    "id": "CONF-486",
+    "id": "CONF-050",
     "name": "International Conference on Software Architecture (was previously WICSA)",
     "acronym": "ICSA",
     "issn": null,
@@ -3955,7 +3955,7 @@
     "homepage_url": "https://conf.researchr.org/track/icsa-2027/icsa-2027-papers"
   },
   {
-    "id": "CONF-490",
+    "id": "CONF-051",
     "name": "International Conference on Software Maintenance and Evolution",
     "acronym": "ICSME",
     "issn": null,
@@ -4029,7 +4029,7 @@
     "homepage_url": "https://conf.researchr.org/home/icsme-2027"
   },
   {
-    "id": "CONF-495",
+    "id": "CONF-052",
     "name": "IEEE International Conference on Software Testing, Verification and Validation",
     "acronym": "ICST",
     "issn": null,
@@ -4148,7 +4148,7 @@
     "homepage_url": "https://conf.researchr.org/home/icst-2027"
   },
   {
-    "id": "CONF-496",
+    "id": "CONF-053",
     "name": "International Conference on Information and Communication Technologies for Ageing Well and e-Health",
     "acronym": "ICT4AWE",
     "issn": null,
@@ -4199,7 +4199,7 @@
     "homepage_url": "https://ict4awe.scitevents.org/"
   },
   {
-    "id": "CONF-507",
+    "id": "CONF-054",
     "name": "The International AAAI Conference on Web and Social Media",
     "acronym": "ICWSM",
     "issn": null,
@@ -4239,7 +4239,7 @@
     "homepage_url": "https://www.icwsm.org/2027/"
   },
   {
-    "id": "CONF-510",
+    "id": "CONF-055",
     "name": "ACM Interaction Design and Children Conference",
     "acronym": "IDC",
     "issn": null,
@@ -4291,7 +4291,7 @@
     "homepage_url": "https://idc.acm.org/2027/"
   },
   {
-    "id": "CONF-515",
+    "id": "CONF-056",
     "name": "The International Conference on Intelligent Environments",
     "acronym": "IE",
     "issn": null,
@@ -4437,7 +4437,7 @@
     "homepage_url": "https://ie2027.mk"
   },
   {
-    "id": "CONF-539",
+    "id": "CONF-057",
     "name": "International Joint Conference on Artificial Intelligence",
     "acronym": "IJCAI",
     "issn": "1045-0823",
@@ -4481,7 +4481,7 @@
     "homepage_url": "https://2027.ijcai.org/"
   },
   {
-    "id": "CONF-544",
+    "id": "CONF-058",
     "name": "International Joint Conference on Neural Networks",
     "acronym": "IJCNN",
     "issn": "2161-4393",
@@ -4561,7 +4561,7 @@
     "homepage_url": "https://ijcnn.org/2027"
   },
   {
-    "id": "CONF-566",
+    "id": "CONF-059",
     "name": "IFIP TC13 International Conference on Human-Computer Interaction",
     "acronym": "INTERACT",
     "issn": null,
@@ -4603,7 +4603,7 @@
     "homepage_url": "https://interact2027.org/"
   },
   {
-    "id": "CONF-567",
+    "id": "CONF-060",
     "name": "Conference of the International Speech Communication Association",
     "acronym": "InterSpeech",
     "issn": "2308-457X",
@@ -4654,7 +4654,7 @@
     "homepage_url": "https://interspeech2027.org/"
   },
   {
-    "id": "CONF-569",
+    "id": "CONF-061",
     "name": "International Conference on Internet of Things, Big Data and Security",
     "acronym": "IoTBDS",
     "issn": null,
@@ -4704,7 +4704,7 @@
     "homepage_url": "https://iotbds.scitevents.org/"
   },
   {
-    "id": "CONF-578",
+    "id": "CONF-062",
     "name": "IEEE/RSJ International Conference on Intelligent Robots and Systems",
     "acronym": "IROS",
     "issn": null,
@@ -4744,7 +4744,7 @@
     "homepage_url": "https://2027.ieee-iros.org/"
   },
   {
-    "id": "CONF-587",
+    "id": "CONF-063",
     "name": "International Symposium on Computer Architecture",
     "acronym": "ISCA",
     "issn": "1063-6897",
@@ -4796,7 +4796,7 @@
     "homepage_url": "https://iscaconf.org/isca2027/"
   },
   {
-    "id": "CONF-588",
+    "id": "CONF-064",
     "name": "IEEE International Symposium on Circuits and Systems",
     "acronym": "ISCAS",
     "issn": "0271-4310",
@@ -4839,7 +4839,7 @@
     "homepage_url": "https://2027.ieee-iscas.org/"
   },
   {
-    "id": "CONF-594",
+    "id": "CONF-065",
     "name": "IEEE International Symposium on Information Theory",
     "acronym": "ISIT",
     "issn": "2157-8095",
@@ -4890,7 +4890,7 @@
     "homepage_url": "https://2027.ieee-isit.org/"
   },
   {
-    "id": "CONF-600",
+    "id": "CONF-066",
     "name": "International Conference on Intelligent Systems for Molecular Biology",
     "acronym": "ISMB",
     "issn": null,
@@ -4930,7 +4930,7 @@
     "homepage_url": "https://www.iscb.org/ismbeccb2027/"
   },
   {
-    "id": "CONF-609",
+    "id": "CONF-067",
     "name": "International Symposium on Parallel and Distributed Computing",
     "acronym": "ISPDC",
     "issn": null,
@@ -5063,7 +5063,7 @@
     "homepage_url": "https://cyprusconferences.org/ispdc2027/"
   },
   {
-    "id": "CONF-617",
+    "id": "CONF-068",
     "name": "ACM SIGSOFT International Symposium on Software Testing and Analysis",
     "acronym": "ISSTA",
     "issn": null,
@@ -5114,7 +5114,7 @@
     "homepage_url": "https://conf.researchr.org/home/issta-2027"
   },
   {
-    "id": "CONF-659",
+    "id": "CONF-069",
     "name": "International Conference on Principles of Knowledge Representation and Reasoning",
     "acronym": "KR",
     "issn": null,
@@ -5257,7 +5257,7 @@
     "homepage_url": "https://kr.org/KR2027/"
   },
   {
-    "id": "CONF-700",
+    "id": "CONF-070",
     "name": "ACM International Conference on Multimedia Systems",
     "acronym": "MMSys",
     "issn": null,
@@ -5324,7 +5324,7 @@
     "homepage_url": "https://2027.acmmmsys.org"
   },
   {
-    "id": "CONF-703",
+    "id": "CONF-071",
     "name": "ACM International Conference on Mobile Human-Computer Interaction",
     "acronym": "MobileHCI",
     "issn": null,
@@ -5402,7 +5402,7 @@
     "homepage_url": "https://mobilehci.acm.org/2027/"
   },
   {
-    "id": "CONF-714",
+    "id": "CONF-072",
     "name": "International Conference on Mining Software Repositories",
     "acronym": "MSR",
     "issn": "2160-1852",
@@ -5449,7 +5449,7 @@
     "homepage_url": "https://2027.msrconf.org/"
   },
   {
-    "id": "CONF-721",
+    "id": "CONF-073",
     "name": "Machine Vision Applications",
     "acronym": "MVA",
     "issn": null,
@@ -5497,7 +5497,7 @@
     "homepage_url": "https://www.mva-org.jp/mva2027/"
   },
   {
-    "id": "CONF-730",
+    "id": "CONF-074",
     "name": "IEEE/IFIP Network Operations and Management Symposium",
     "acronym": "NOMS",
     "issn": null,
@@ -5737,7 +5737,7 @@
     "homepage_url": "https://noms2027.ieee-noms.org/"
   },
   {
-    "id": "CONF-732",
+    "id": "CONF-075",
     "name": "International Workshop on Network and Operating System Support for Digital Audio and Video",
     "acronym": "NOSSDAV",
     "issn": null,
@@ -5794,7 +5794,7 @@
     "homepage_url": "https://nossdav.org/"
   },
   {
-    "id": "CONF-739",
+    "id": "CONF-076",
     "name": "Conference on Object-Oriented Programming Systems, Languages, and Applications",
     "acronym": "OOPSLA",
     "issn": null,
@@ -5842,7 +5842,7 @@
     "homepage_url": "https://2027.splashcon.org/track/splashoopsla2027"
   },
   {
-    "id": "CONF-743",
+    "id": "CONF-077",
     "name": "USENIX Symposium on Operating Systems Design and Implementation",
     "acronym": "OSDI",
     "issn": null,
@@ -5881,7 +5881,7 @@
     "homepage_url": "https://www.usenix.org/conference/osdi27"
   },
   {
-    "id": "CONF-747",
+    "id": "CONF-078",
     "name": "IEEE Pacific Visualization Symposium",
     "acronym": "PacificVis",
     "issn": "2165-8765",
@@ -5932,7 +5932,7 @@
     "homepage_url": "https://pacificvis2027.github.io/"
   },
   {
-    "id": "CONF-753",
+    "id": "CONF-079",
     "name": "Pacific-Asia Conference on Knowledge Discovery and Data Mining",
     "acronym": "PAKDD",
     "issn": null,
@@ -5978,7 +5978,7 @@
     "homepage_url": "https://www.pakdd2027.org/"
   },
   {
-    "id": "CONF-754",
+    "id": "CONF-080",
     "name": "Passive and Active Measurement Conference",
     "acronym": "PAM",
     "issn": null,
@@ -6047,7 +6047,7 @@
     "homepage_url": "https://pam2027.furg.br/cfp/"
   },
   {
-    "id": "CONF-757",
+    "id": "CONF-081",
     "name": "International Conference on Parallel and Distributed Computing, Applications and Technologies",
     "acronym": "PDCAT",
     "issn": null,
@@ -6095,7 +6095,7 @@
     "homepage_url": "https://www.pd-cat.org/2026/"
   },
   {
-    "id": "CONF-758",
+    "id": "CONF-082",
     "name": "Euromicro International Conference on Parallel, Distributed and Network Based Processing",
     "acronym": "PDP",
     "issn": null,
@@ -6168,7 +6168,7 @@
     "homepage_url": "https://www.pdp2027.org"
   },
   {
-    "id": "CONF-761",
+    "id": "CONF-083",
     "name": "ACM SIGPLAN Workshop on Partial Evaluation and Program Manipulation",
     "acronym": "PEPM",
     "issn": null,
@@ -6201,7 +6201,7 @@
     "homepage_url": "https://popl27.sigplan.org/home/pepm-2027"
   },
   {
-    "id": "CONF-766",
+    "id": "CONF-084",
     "name": "Privacy Enhancing Technologies Symposium",
     "acronym": "PETS",
     "issn": null,
@@ -6366,7 +6366,7 @@
     "homepage_url": "https://petsymposium.org/cfp27.php"
   },
   {
-    "id": "CONF-771",
+    "id": "CONF-085",
     "name": "ACM SIGPLAN Conference on Programming Language Design & Implementation",
     "acronym": "PLDI",
     "issn": "1531-7102",
@@ -6416,7 +6416,7 @@
     "homepage_url": "https://pldi27.sigplan.org/"
   },
   {
-    "id": "CONF-775",
+    "id": "CONF-086",
     "name": "ACM Symposium on Principles of Database Systems",
     "acronym": "PODS",
     "issn": null,
@@ -6462,7 +6462,7 @@
     "homepage_url": "https://2027.sigmod.org/"
   },
   {
-    "id": "CONF-804",
+    "id": "CONF-087",
     "name": "IEEE International Requirements Engineering Conference",
     "acronym": "RE",
     "issn": null,
@@ -6507,7 +6507,7 @@
     "homepage_url": "https://conf.researchr.org/home/RE-2027"
   },
   {
-    "id": "CONF-808",
+    "id": "CONF-088",
     "name": "Requirements Engineering: Foundation for Software Quality",
     "acronym": "REFSQ",
     "issn": null,
@@ -6552,7 +6552,7 @@
     "homepage_url": "https://2027.refsq.org/"
   },
   {
-    "id": "CONF-813",
+    "id": "CONF-089",
     "name": "IEEE Real-Time and Embedded Technology and Applications Symposium",
     "acronym": "RTAS",
     "issn": "1545-3421",
@@ -6618,7 +6618,7 @@
     "homepage_url": "https://2027.rtas.org/"
   },
   {
-    "id": "CONF-821",
+    "id": "CONF-090",
     "name": "International Symposium on Applied Computational Intelligence and Informatics",
     "acronym": "SACI",
     "issn": null,
@@ -6687,7 +6687,7 @@
     "homepage_url": "https://conf.uni-obuda.hu/saci2027/"
   },
   {
-    "id": "CONF-822",
+    "id": "CONF-091",
     "name": "ACM Symposium on Access Control Models and Technologies",
     "acronym": "SACMAT",
     "issn": null,
@@ -6825,7 +6825,7 @@
     "homepage_url": "https://www.sacmat.org/2027/"
   },
   {
-    "id": "CONF-824",
+    "id": "CONF-092",
     "name": "IFAC Symposium on Fault Detection, Supervision and Safety of Technical Processes",
     "acronym": "SAFEProcess",
     "issn": null,
@@ -6874,7 +6874,7 @@
     "homepage_url": "https://conferences.ifac-control.org/safeprocess2027/"
   },
   {
-    "id": "CONF-844",
+    "id": "CONF-093",
     "name": "IEEE International Conference on Sensing, Communication, and Networking",
     "acronym": "SECON",
     "issn": null,
@@ -6947,7 +6947,7 @@
     "homepage_url": "https://secon2027.ieee-secon.org/"
   },
   {
-    "id": "CONF-846",
+    "id": "CONF-094",
     "name": "International Conference on Security and Privacy in Communication Networks",
     "acronym": "SecureComm",
     "issn": null,
@@ -7045,7 +7045,7 @@
     "homepage_url": "https://securecomm.eai-conferences.org/2027/"
   },
   {
-    "id": "CONF-851",
+    "id": "CONF-095",
     "name": "ACM Conference on Embedded Networked Sensor Systems",
     "acronym": "SenSys",
     "issn": null,
@@ -7147,7 +7147,7 @@
     "homepage_url": "https://sensys.acm.org/2027/"
   },
   {
-    "id": "CONF-865",
+    "id": "CONF-096",
     "name": "International Conference on Research on Development in Information Retrieval",
     "acronym": "SIGIR",
     "issn": null,
@@ -7185,7 +7185,7 @@
     "homepage_url": "https://sigir2027.org/"
   },
   {
-    "id": "CONF-867",
+    "id": "CONF-097",
     "name": "ACM Special Interest Group on Measurement and Evaluation",
     "acronym": "SIGMETRICS",
     "issn": null,
@@ -7228,7 +7228,7 @@
     "homepage_url": "https://www.sigmetrics.org/sigmetrics2027/"
   },
   {
-    "id": "CONF-874",
+    "id": "CONF-098",
     "name": "International Colloquium on Structural Information and Communication Complexity",
     "acronym": "SIROCCO",
     "issn": null,
@@ -7308,7 +7308,7 @@
     "homepage_url": "https://cyprusconferences.org/sirocco2027"
   },
   {
-    "id": "CONF-890",
+    "id": "CONF-099",
     "name": "IEEE Symposium on Security and Privacy",
     "acronym": "S&P",
     "issn": "1081-6011",
@@ -7387,7 +7387,7 @@
     "homepage_url": "https://sp2027.ieee-security.org/index.html"
   },
   {
-    "id": "CONF-891",
+    "id": "CONF-100",
     "name": "ACM Symposium on Parallelism in Algorithms and Architectures",
     "acronym": "SPAA",
     "issn": "1548-6109",
@@ -7471,7 +7471,7 @@
     "homepage_url": "https://spaa.acm.org/"
   },
   {
-    "id": "CONF-906",
+    "id": "CONF-101",
     "name": "ACM Symposium on the Theory of Computing",
     "acronym": "STOC",
     "issn": "0737-8017",
@@ -7517,7 +7517,7 @@
     "homepage_url": "https://acm-stoc.org/stoc2027/"
   },
   {
-    "id": "CONF-936",
+    "id": "CONF-102",
     "name": "USENIX Security Symposium",
     "acronym": "USENIX Security",
     "issn": null,
@@ -7566,7 +7566,7 @@
     "homepage_url": "https://www.usenix.org/conference/usenixsecurity27"
   },
   {
-    "id": "CONF-941",
+    "id": "CONF-103",
     "name": "International Conference on Vehicle Technology and Intelligent Transport Systems",
     "acronym": "VEHITS",
     "issn": null,
@@ -7617,7 +7617,7 @@
     "homepage_url": "https://vehits.scitevents.org/"
   },
   {
-    "id": "CONF-947",
+    "id": "CONF-104",
     "name": "International Conference on Very Large Data Bases",
     "acronym": "VLDB",
     "issn": null,
@@ -7733,7 +7733,7 @@
     "homepage_url": "https://www.vldb.org/2027/"
   },
   {
-    "id": "CONF-970",
+    "id": "CONF-105",
     "name": "International Workshop on Graph-Theoretic Concepts in Computer Science",
     "acronym": "WG",
     "issn": null,
@@ -7774,7 +7774,7 @@
     "homepage_url": "https://www.uni-bamberg.de/en/science-education/news/artikel/wg-2027-15th-18th-june-2027/"
   },
   {
-    "id": "CONF-982",
+    "id": "CONF-106",
     "name": "IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks",
     "acronym": "WoWMoM",
     "issn": null,

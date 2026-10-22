@@ -121,7 +121,7 @@ export function initBookmarkModal() {
     toggleBookmark({
       id,
       name,
-      acronym: isConf ? name.split(" ")[0] : null,
+      acronym: isConf ? (triggerBtn.getAttribute("data-acronym") ?? name.split(" ")[0]) : null,
       type,
       scopus_rank: !isConf ? rank : null,
       core_rank: isConf ? rank : null
@@ -182,7 +182,7 @@ export function renderBookmarksList() {
         <button type="button" class="btn-icon remove-item-btn" data-id="${escapeHtml(v.id)}" title="Xóa khỏi danh sách" aria-label="Xóa ${escapeHtml(v.name)}">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="6"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>

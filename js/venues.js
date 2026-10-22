@@ -1,4 +1,6 @@
 import { loadVenues, selectVenues, nearestDeadline, safeUrl, sortOptions } from './modules/venue-data.js?v=20261017-sort2';
+import { isBookmarked } from './modules/storage.js';
+import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
 const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
@@ -36,6 +38,16 @@ function makeCard(row) {
     card.append(details);
   }
   const footer = element('footer', undefined, 'venue-entry-footer');
+  const saved = isBookmarked(row.id);
+  const bookmark = element('button', saved ? 'Đã lưu' : 'Lưu', 'directory-button bookmark-trigger-btn');
+  bookmark.type = 'button';
+  bookmark.dataset.id = row.id;
+  bookmark.dataset.name = row.name;
+  bookmark.dataset.acronym = row.acronym ?? '';
+  bookmark.dataset.rank = rank ?? '';
+  bookmark.classList.toggle('bookmarked', saved);
+  bookmark.setAttribute('aria-pressed', String(saved));
+  bookmark.setAttribute('aria-label', `Lưu ${row.acronym || row.name}`);
   let homepage = safeUrl(row.homepage_url);
   if (row.kind === 'journal') {
     const metrics = element('dl', undefined, 'venue-metrics');
@@ -66,6 +78,7 @@ function makeCard(row) {
     link.setAttribute('aria-label', `Website ${row.acronym || row.name} (mở tab mới)`);
     footer.append(link);
   }
+  footer.append(bookmark);
   card.append(footer);
   return card;
 }
@@ -107,6 +120,7 @@ async function initDirectory() {
     page = Math.min(page, pages);
     const start = (page - 1) * PAGE_SIZE;
     container.replaceChildren(...selected.slice(start, start + PAGE_SIZE).map(makeCard));
+    updateTriggerButtons();
     count.textContent = selected.length ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}` : '0 kết quả';
     status.hidden = selected.length > 0;
     if (!selected.length) {
