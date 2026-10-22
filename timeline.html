@@ -6,6 +6,7 @@
   <title>Lịch Trình Call-for-Papers & Đếm Ngược Deadline | ScopusVenue</title>
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/timeline.css">
 </head>
 <body>
 
@@ -25,62 +26,128 @@
         </ul>
       </nav>
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
-        <button type="button" class="mobile-menu-btn">☰</button>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge" style="display: none;">0</span>
+        </button>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- MAIN: Dành cho Thành viên 4 (Countdown Tracker & Timeline Dev) -->
-  <main class="container" role="main">
-    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
-      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Lịch Trình Nộp Bài & Đếm Ngược Thời Gian Thực</h1>
-      <p style="color: var(--color-text-muted); max-width: 700px; margin: 0 auto;">
+  <main class="container page-main" role="main">
+    <header class="timeline-page-header">
+      <h1 class="timeline-page-title">Lịch Trình Nộp Bài &amp; Đếm Ngược Thời Gian Thực</h1>
+      <p class="timeline-page-desc">
         Theo dõi các mốc quan trọng (Abstract, Full Paper, Notification) của các hội nghị quốc tế chuẩn múi giờ UTC / AoE (Anywhere on Earth).
       </p>
     </header>
 
     <!-- Khối đếm ngược nổi bật (Countdown Banner mẫu) -->
-    <section class="card" style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-bg-surface) 100%); margin-bottom: var(--spacing-2xl); border-left: 6px solid var(--color-accent);" aria-labelledby="featured-countdown">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-md);">
-        <div>
-          <span class="badge" style="background-color: hsla(15, 90%, 55%, 0.15); color: var(--color-accent); margin-bottom: var(--spacing-xs);">DEADLINE GẦN NHẤT</span>
-          <h2 id="featured-countdown" style="font-size: var(--font-size-xl); margin-bottom: 4px;">CVPR 2027 — Full Paper Submission</h2>
-          <p style="color: var(--color-text-muted); font-size: var(--font-size-sm);">Hạn nộp: 17 Tháng 11, 2026 (Múi giờ AoE - 23:59:59 UTC-12)</p>
+    <section class="card countdown-featured-card" aria-labelledby="featured-countdown">
+      <div class="countdown-featured-wrapper">
+        <div class="countdown-featured-info">
+          <span class="badge countdown-featured-badge">DEADLINE GẦN NHẤT</span>
+          <h2 id="featured-countdown" class="countdown-featured-title">ICLR 2027 — Abstract Deadline</h2>
+          <p class="countdown-featured-deadline">
+            Hạn nộp: <time datetime="2026-10-25T23:59:59-12:00">25 Tháng 10, 2026 (Múi giờ AoE - 23:59:59 UTC-12)</time>
+          </p>
         </div>
 
-        <!-- Đồng hồ đếm ngược (TV4 sẽ lập trình nhảy số theo giây) -->
-        <div id="sample-countdown-box" style="display: flex; gap: var(--spacing-sm); text-align: center;">
-          <div style="background-color: var(--color-bg-surface); padding: var(--spacing-sm); border-radius: var(--radius-md); border: 1px solid var(--color-border); min-width: 65px;">
-            <span style="font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-accent);" id="days">47</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase;">Ngày</span>
+        <!-- Đồng hồ đếm ngược -->
+        <div id="sample-countdown-box" class="countdown-timer-box" role="timer" aria-live="polite">
+          <div class="countdown-unit-box">
+            <span class="countdown-number" id="days">--</span>
+            <span class="countdown-unit-label">Ngày</span>
           </div>
-          <div style="background-color: var(--color-bg-surface); padding: var(--spacing-sm); border-radius: var(--radius-md); border: 1px solid var(--color-border); min-width: 65px;">
-            <span style="font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-accent);" id="hours">06</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase;">Giờ</span>
+          <div class="countdown-unit-box">
+            <span class="countdown-number" id="hours">--</span>
+            <span class="countdown-unit-label">Giờ</span>
           </div>
-          <div style="background-color: var(--color-bg-surface); padding: var(--spacing-sm); border-radius: var(--radius-md); border: 1px solid var(--color-border); min-width: 65px;">
-            <span style="font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-accent);" id="minutes">19</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase;">Phút</span>
+          <div class="countdown-unit-box">
+            <span class="countdown-number" id="minutes">--</span>
+            <span class="countdown-unit-label">Phút</span>
           </div>
-          <div style="background-color: var(--color-bg-surface); padding: var(--spacing-sm); border-radius: var(--radius-md); border: 1px solid var(--color-border); min-width: 65px;">
-            <span style="font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-accent);" id="seconds">42</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase;">Giây</span>
+          <div class="countdown-unit-box">
+            <span class="countdown-number" id="seconds">--</span>
+            <span class="countdown-unit-label">Giây</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Dòng thời gian CFP (Interactive Timeline Container để TV4 hoàn thiện) -->
-    <section aria-labelledby="timeline-heading">
-      <h2 id="timeline-heading" style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-md); color: var(--color-primary);">
+    <!-- TRỌNG TÂM TASK 4.1: Dòng thời gian CFP 3 mốc -->
+    <section class="cfp-flow-section" aria-labelledby="cfp-flow-heading">
+      <h2 id="cfp-flow-heading" class="timeline-section-title">
+        Quy Trình Các Mốc Nộp Bài CFP Tiêu Chuẩn
+      </h2>
+      <ol class="cfp-flow-stepper">
+        <!-- Mốc 1: Abstract Submission -->
+        <li class="cfp-flow-step cfp-flow-step--active">
+          <div class="cfp-flow-node">1</div>
+          <div class="cfp-flow-body">
+            <span class="badge badge--warning">Mốc 1</span>
+            <h3 class="cfp-flow-name">Abstract Submission</h3>
+            <time class="cfp-flow-date" datetime="2026-10-25T23:59:59-12:00">25/10/2026 (AoE)</time>
+            <p class="cfp-flow-text">Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện.</p>
+          </div>
+        </li>
+
+        <!-- Mốc 2: Full Paper Submission -->
+        <li class="cfp-flow-step">
+          <div class="cfp-flow-node">2</div>
+          <div class="cfp-flow-body">
+            <span class="badge badge--open">Mốc 2</span>
+            <h3 class="cfp-flow-name">Full Paper Submission</h3>
+            <time class="cfp-flow-date" datetime="2026-11-17T23:59:59-12:00">17/11/2026 (AoE)</time>
+            <p class="cfp-flow-text">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+          </div>
+        </li>
+
+        <!-- Mốc 3: Notification of Acceptance -->
+        <li class="cfp-flow-step">
+          <div class="cfp-flow-node">3</div>
+          <div class="cfp-flow-body">
+            <span class="badge badge--ended">Mốc 3</span>
+            <h3 class="cfp-flow-name">Notification</h3>
+            <time class="cfp-flow-date" datetime="2026-12-20T23:59:59-12:00">20/12/2026 (AoE)</time>
+            <p class="cfp-flow-text">Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Dòng thời gian CFP chi tiết các hội nghị trong năm -->
+    <section class="timeline-events-section" aria-labelledby="timeline-heading">
+      <h2 id="timeline-heading" class="timeline-section-title">
         Dòng Thời Gian Các Mốc Nộp Bài Trong Năm
       </h2>
-      <div id="timeline-events-container">
-        <!-- TV4 sẽ hoàn thiện CSS timeline và render các sự kiện từ venues.json -->
+      <div id="timeline-events-container" class="timeline-events-container">
+        <!-- Render tự động các mốc từ countdown.js -->
       </div>
     </section>
   </main>
+
+  <link rel="icon" href="data:,">
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
@@ -93,6 +160,6 @@
 
   <script src="./js/storage.js"></script>
   <script src="./js/app.js"></script>
-  <!-- <script src="./js/countdown.js"></script> (TV4 sẽ hoàn thiện) -->
+  <script src="./js/countdown.js"></script>
 </body>
 </html>

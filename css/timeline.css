@@ -1,0 +1,524 @@
+/* ==========================================================
+   SCOPUSVENUE - TIMELINE STYLES (Thành viên 4 - Task 4.1)
+   Quy chuẩn: 100% CSS thuần (Flexbox/Grid), KHÔNG inline CSS,
+   Tự động chuyển: Dạng ngang (PC) sang Dạng dọc (Mobile)
+   Có fallback đầy đủ tương thích với variables.css từ TV5.
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   1. HEADER TRANG & TIÊU ĐỀ
+   ---------------------------------------------------------- */
+.page-main {
+  padding-top: var(--spacing-lg, 1.5rem);
+  padding-bottom: var(--spacing-2xl, 3rem);
+}
+
+.timeline-page-header {
+  margin-bottom: var(--spacing-xl, 2rem);
+  text-align: center;
+}
+
+.timeline-page-title {
+  color: var(--color-primary, #0f172a);
+  font-size: var(--font-size-2xl, 1.875rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.timeline-page-desc {
+  color: var(--color-text-muted, #64748b);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-size: var(--font-size-md, 1rem);
+}
+
+.timeline-section-title {
+  font-size: var(--font-size-xl, 1.35rem);
+  color: var(--color-primary, #0f172a);
+  margin-bottom: var(--spacing-md, 1rem);
+  text-align: center;
+}
+
+/* ----------------------------------------------------------
+   2. KHỐI ĐẾM NGƯỢC NỔI BẬT (Countdown Banner Card)
+   (Chuyển đổi toàn bộ inline style của thẻ .card mẫu)
+   ---------------------------------------------------------- */
+.countdown-featured-card {
+  background: linear-gradient(135deg, var(--color-primary-light, #eff6ff) 0%, var(--color-bg-surface, #ffffff) 100%);
+  margin-bottom: var(--spacing-2xl, 2.5rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-left: 6px solid var(--color-accent, #2563eb);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--spacing-lg, 1.5rem);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.countdown-featured-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md, 1rem);
+}
+
+.countdown-featured-info {
+  flex: 1 1 280px;
+}
+
+.countdown-featured-badge {
+  display: inline-block;
+  background-color: hsla(15, 90%, 55%, 0.15);
+  color: var(--color-accent, #ea580c);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm, 4px);
+}
+
+.countdown-featured-title {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: 700;
+  color: var(--color-text-main, #0f172a);
+  margin: 0 0 4px 0;
+}
+
+.countdown-featured-deadline {
+  color: var(--color-text-muted, #64748b);
+  font-size: var(--font-size-sm, 0.875rem);
+  margin: 0;
+}
+
+.countdown-featured-deadline time {
+  font-weight: 600;
+  color: var(--color-text-main, #334155);
+}
+
+/* Đồng hồ đếm ngược */
+.countdown-timer-box {
+  display: flex;
+  gap: var(--spacing-sm, 0.75rem);
+  text-align: center;
+}
+
+.countdown-unit-box {
+  background-color: var(--color-bg-surface, #ffffff);
+  padding: var(--spacing-sm, 0.625rem);
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--color-border, #e2e8f0);
+  min-width: 65px;
+  box-sizing: border-box;
+}
+
+.countdown-number {
+  display: block;
+  font-size: var(--font-size-2xl, 1.75rem);
+  font-weight: 800;
+  color: var(--color-accent, #ea580c);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--color-text-muted, #64748b);
+  text-transform: uppercase;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* ----------------------------------------------------------
+   3. TRỌNG TÂM TASK 4.1: CFP FLOW STEPPER
+   (Mốc Abstract -> Full Paper -> Notification)
+   Tự động: DẠNG NGANG (PC) sang DẠNG DỌC (Mobile)
+   ---------------------------------------------------------- */
+.cfp-flow-section {
+  max-width: 900px;
+  margin: 0 auto var(--spacing-2xl, 3rem);
+}
+
+.cfp-flow-stepper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: var(--spacing-md, 1rem);
+  position: relative;
+}
+
+.cfp-flow-step {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.cfp-flow-node {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-bg-surface, #ffffff);
+  border: 2px solid var(--color-border, #cbd5e1);
+  color: var(--color-text-muted, #64748b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 2;
+  margin-bottom: var(--spacing-sm, 0.75rem);
+  transition: all 180ms ease-out;
+}
+
+.cfp-flow-step--active .cfp-flow-node {
+  border-color: var(--color-accent, #2563eb);
+  background-color: var(--color-accent, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 0 0 4px hsla(217, 91%, 60%, 0.2);
+}
+
+.cfp-flow-body {
+  background-color: var(--color-bg-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-md, 1.25rem);
+  flex-grow: 1;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  transition: border-color 140ms ease-out, transform 140ms ease-out;
+}
+
+.cfp-flow-step:hover .cfp-flow-body {
+  border-color: var(--color-accent, #2563eb);
+  transform: translateY(-2px);
+}
+
+.cfp-flow-name {
+  font-size: var(--font-size-md, 1.05rem);
+  font-weight: 700;
+  color: var(--color-primary, #0f172a);
+  margin: var(--spacing-xs, 0.5rem) 0 4px 0;
+}
+
+.cfp-flow-date {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent, #2563eb);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.cfp-flow-text {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, #64748b);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ĐẶC TẢ DESKTOP (>= 769px): DẠNG NGANG LIÊN HOÀN CÓ THANH NỐI */
+@media (min-width: 769px) {
+  .cfp-flow-stepper {
+    flex-direction: row;
+  }
+
+  .cfp-flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 36px;
+    width: calc(100% - 36px + var(--spacing-md, 1rem));
+    height: 2px;
+    background-color: var(--color-border, #cbd5e1);
+    z-index: 1;
+  }
+
+  .cfp-flow-step--active:not(:last-child)::after {
+    background-color: var(--color-accent, #2563eb);
+  }
+}
+
+/* ĐẶC TẢ MOBILE (<= 768px): TỰ ĐỘNG CHUYỂN THÀNH DẠNG DỌC */
+@media (max-width: 768px) {
+  .cfp-flow-stepper {
+    flex-direction: column;
+    padding-left: 20px;
+  }
+
+  .cfp-flow-step {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-md, 1rem);
+    padding-bottom: var(--spacing-xl, 1.5rem);
+  }
+
+  .cfp-flow-step:last-child {
+    padding-bottom: 0;
+  }
+
+  .cfp-flow-node {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .cfp-flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 17px;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-border, #cbd5e1);
+    z-index: 1;
+  }
+}
+
+/* ----------------------------------------------------------
+   4. DÒNG THỜI GIAN CHI TIẾT CÁC HỘI NGHỊ (Timeline Events)
+   ---------------------------------------------------------- */
+.timeline-events-section {
+  max-width: 900px;
+  margin: var(--spacing-2xl, 3rem) auto 0;
+}
+
+.timeline-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg, 1.5rem) 0;
+}
+
+/* Trục dọc chính */
+.timeline-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 3px;
+  background-color: var(--color-border, #cbd5e1);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--spacing-xl, 2rem);
+  padding-left: 50px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Chấm tròn mốc thời gian */
+.timeline-dot {
+  position: absolute;
+  left: 14px;
+  top: 18px;
+  width: 15px;
+  height: 15px;
+  box-sizing: border-box;
+  background-color: var(--color-bg-surface, #ffffff);
+  border: 3px solid var(--color-accent, #2563eb);
+  border-radius: 50%;
+  z-index: 2;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.3);
+  background-color: var(--color-accent, #2563eb);
+}
+
+/* Thẻ card mốc thời gian */
+.timeline-content {
+  background-color: var(--color-bg-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-md, 1.25rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.timeline-content:hover {
+  border-color: var(--color-accent, #2563eb);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs, 0.5rem);
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.timeline-date {
+  font-size: var(--font-size-sm, 0.8125rem);
+  color: var(--color-text-muted, #64748b);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timeline-title {
+  font-size: var(--font-size-lg, 1.125rem);
+  color: var(--color-primary, #0f172a);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text-muted, #64748b);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive Desktop (>= 769px): Trục giữa so le ziczac */
+@media (min-width: 769px) {
+  .timeline-wrapper::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    width: 50%;
+    padding-left: 0;
+    padding-right: 40px;
+    margin-bottom: var(--spacing-2xl, 2.5rem);
+    box-sizing: border-box;
+  }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 24px;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-border, #cbd5e1);
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    left: 100%;
+    top: 24px;
+    transform: translate(-50%, -50%);
+  }
+
+  .timeline-item:hover .timeline-dot {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+
+  .timeline-item:nth-child(even) {
+    margin-left: 50%;
+    padding-right: 0;
+    padding-left: 40px;
+  }
+
+  .timeline-item:nth-child(even)::after {
+    right: auto;
+    left: 0;
+  }
+
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: 0;
+    top: 24px;
+    transform: translate(-50%, -50%);
+  }
+
+  .timeline-item:nth-child(even):hover .timeline-dot {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+/* ----------------------------------------------------------
+   5. HUY HIỆU TRẠNG THÁI (Status Badges)
+   ---------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm, 4px);
+  line-height: 1;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge--warning, .status-badge--warning {
+  background-color: hsla(38, 92%, 50%, 0.15);
+  color: #d97706;
+  border: 1px solid hsla(38, 92%, 50%, 0.3);
+}
+.status-badge--warning .status-dot { background-color: #d97706; }
+
+.badge--open, .status-badge--open {
+  background-color: hsla(158, 64%, 40%, 0.15);
+  color: #059669;
+  border: 1px solid hsla(158, 64%, 40%, 0.3);
+}
+.status-badge--open .status-dot { background-color: #059669; }
+
+.badge--urgent, .status-badge--urgent {
+  background-color: hsla(0, 84%, 60%, 0.15);
+  color: #dc2626;
+  border: 1px solid hsla(0, 84%, 60%, 0.3);
+}
+.status-badge--urgent .status-dot { background-color: #dc2626; }
+
+.badge--ended, .status-badge--ended {
+  background-color: hsla(215, 16%, 47%, 0.15);
+  color: #64748b;
+  border: 1px solid hsla(215, 16%, 47%, 0.3);
+}
+.status-badge--ended .status-dot { background-color: #64748b; }
+
+/* ----------------------------------------------------------
+   6. HỖ TRỢ DARK THEME ([data-theme="dark"])
+   ---------------------------------------------------------- */
+[data-theme="dark"] .countdown-featured-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border-color: var(--color-border, #334155);
+}
+
+[data-theme="dark"] .countdown-unit-box,
+[data-theme="dark"] .cfp-flow-body,
+[data-theme="dark"] .timeline-content {
+  background-color: var(--color-bg-surface, #1e293b);
+  border-color: var(--color-border, #334155);
+}
+
+[data-theme="dark"] .cfp-flow-node {
+  background-color: var(--color-bg-surface, #1e293b);
+  border-color: var(--color-border, #475569);
+}
+
+[data-theme="dark"] .timeline-wrapper::before,
+[data-theme="dark"] .timeline-item::after,
+[data-theme="dark"] .cfp-flow-step::after {
+  background-color: var(--color-border, #475569);
+}
