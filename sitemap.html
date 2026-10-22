@@ -3,126 +3,354 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sơ Đồ Website (Mô Hình Bánh Xe) | ScopusVenue</title>
+  <meta name="description" content="Sơ đồ website theo kiến trúc mô hình bánh xe (Wheel Navigation Model / Hub-and-Spoke) - Đồ án môn học IE104, Trường ĐH Công nghệ Thông tin (UIT)">
+  <title>Sơ Đồ Website Kiến Trúc Bánh Xe | ScopusVenue</title>
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
-  <style>
-    .wheel-diagram {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: var(--spacing-xl) 0;
-    }
-    .wheel-hub {
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-      padding: var(--spacing-lg) var(--spacing-xl);
-      border-radius: var(--radius-lg);
-      font-weight: 700;
-      font-size: var(--font-size-xl);
-      box-shadow: var(--shadow-md);
-      text-align: center;
-      margin-bottom: var(--spacing-2xl);
-      position: relative;
-    }
-    .wheel-spokes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--spacing-lg);
-      width: 100%;
-    }
-    .spoke-item {
-      background-color: var(--color-bg-surface);
-      border: 2px dashed var(--color-primary);
-      border-radius: var(--radius-md);
-      padding: var(--spacing-md);
-      text-align: center;
-      transition: all var(--transition-fast);
-    }
-    .spoke-item:hover {
-      border-style: solid;
-      background-color: var(--color-primary-light);
-      transform: translateY(-3px);
-    }
-    .spoke-item a {
-      color: var(--color-text-main);
-      text-decoration: none;
-      font-weight: 600;
-      display: block;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo">🎓 Scopus<span>Venue</span></a>
-      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ ScopusVenue - Trục tâm Hub">
+        <div class="brand-icon-box" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <span>Scopus</span>Venue
+        <span class="brand-hub-tag">HUB</span>
+      </a>
+
+      <!-- Thanh điều hướng bánh xe (Hub-and-Spoke Navigation) -->
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính theo mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
           <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
           <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
           <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
-          <li><a href="sitemap.html" class="active">Sơ Đồ Site</a></li>
+          <li><a href="sitemap.html" class="active" aria-current="page">Sơ Đồ Site</a></li>
           <li><a href="contact.html">Liên Hệ</a></li>
         </ul>
       </nav>
+
       <div class="header-actions">
-        <button type="button" class="btn-icon" id="theme-toggle-btn"><span class="theme-icon">🌙</span></button>
-        <button type="button" class="mobile-menu-btn">☰</button>
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge">0</span>
+        </button>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN: Sitemap theo mô hình bánh xe (Ràng buộc bắt buộc của môn học) -->
-  <main class="container" role="main">
-    <header style="margin-bottom: var(--spacing-xl); text-align: center;">
-      <h1 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Sơ Đồ Website — Kiến Trúc Mô Hình Bánh Xe</h1>
-      <p style="color: var(--color-text-muted); max-width: 700px; margin: 0 auto;">
-        Cấu trúc điều hướng Hub-and-Spoke (Bánh xe) với Trang chủ làm tâm kết nối hai chiều với các trang nội dung vệ tinh.
+  <!-- NỘI DUNG CHÍNH (SEMANTIC <main>) -->
+  <main class="container" role="main" id="main-content">
+    
+    <!-- Tiêu đề trang -->
+    <header class="page-header">
+      <div class="page-eyebrow">
+        <span class="dot"></span>
+        KIẾN TRÚC THÔNG TIN &amp; ĐIỀU HƯỚNG
+      </div>
+      <h1 class="page-title">Sơ Đồ Website Mô Hình Bánh Xe</h1>
+      <p class="page-description">
+        Cấu trúc điều hướng <strong>Hub-and-Spoke (Mô hình Bánh xe)</strong>: Trang chủ đóng vai trò trục tâm kết nối hai chiều đến tất cả các trang vệ tinh chuyên biệt.
       </p>
     </header>
 
-    <section class="card wheel-diagram" aria-label="Sơ đồ mô hình bánh xe">
-      <!-- Trục tâm bánh xe (Hub) -->
-      <div class="wheel-hub">
-        🏠 TRỤC TÂM (HUB)<br>
-        <a href="index.html" style="color: #fff; text-decoration: underline; font-size: var(--font-size-md);">index.html (Trang Chủ)</a>
-      </div>
+    <!-- KHU VỰC TRỰC QUAN HÓA MÔ HÌNH BÁNH XE -->
+    <section class="card sitemap-wheel-container" aria-label="Sơ đồ trực quan mô hình bánh xe">
+      
+      <!-- 1. Trục tâm bánh xe (The Hub) -->
+      <article class="hub-card">
+        <div class="hub-icon-box" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
 
-      <!-- Các nan hoa bánh xe (Spokes) -->
-      <div class="wheel-spokes">
-        <div class="spoke-item">
-          <span style="font-size: 1.5rem;">🔍</span>
-          <a href="venues.html">venues.html<br><small style="color: var(--color-text-muted);">Tra Cứu Danh Bạ</small></a>
+        <div class="hub-content">
+          <div class="hub-eyebrow">TRUNG TÂM ĐIỀU HƯỚNG</div>
+          <div class="hub-title-row">
+            <h2 class="hub-title">Trang chủ</h2>
+            <code class="hub-badge-file">index.html</code>
+          </div>
+          <p class="hub-desc">
+            Bắt đầu tìm kiếm, khám phá điểm đến nổi bật và kết nối đến 6 trang chức năng.
+          </p>
         </div>
-        <div class="spoke-item">
-          <span style="font-size: 1.5rem;">🎯</span>
-          <a href="recommend.html">recommend.html<br><small style="color: var(--color-text-muted);">Khuyến Nghị Bài Báo</small></a>
+
+        <div class="hub-action">
+          <a href="index.html" class="hub-btn">
+            Về trang chủ →
+          </a>
         </div>
-        <div class="spoke-item">
-          <span style="font-size: 1.5rem;">⏳</span>
-          <a href="timeline.html">timeline.html<br><small style="color: var(--color-text-muted);">Lịch Trình & Countdown</small></a>
-        </div>
-        <div class="spoke-item">
-          <span style="font-size: 1.5rem;">👥</span>
-          <a href="about.html">about.html<br><small style="color: var(--color-text-muted);">Giới Thiệu Nhóm & Đề Tài</small></a>
-        </div>
-        <div class="spoke-item">
-          <span style="font-size: 1.5rem;">✉️</span>
-          <a href="contact.html">contact.html<br><small style="color: var(--color-text-muted);">Liên Hệ & Góp Ý</small></a>
-        </div>
+      </article>
+
+      <!-- Đường nối nan hoa trục tâm xuống lưới -->
+      <div class="hub-connector-line" aria-hidden="true"></div>
+
+      <!-- 2. Lưới các nan hoa bánh xe (The Spokes) -->
+      <div class="spokes-grid">
+        
+        <!-- Nan hoa 1: Danh bạ -->
+        <article class="spoke-card">
+          <span class="spoke-badge">SPOKE 01 · HUỲNH VĂN LÊN (24520948)</span>
+          <div class="spoke-file">venues.html</div>
+          <h3 class="spoke-name">Tra Cứu Danh Bạ Hội Nghị &amp; Tạp Chí</h3>
+          <p class="spoke-desc">
+            Phân hệ lọc đa chiều theo phân hạng Scopus Q1–Q4, phân hạng CORE A*–C, chuyên ngành nghiên cứu và tích hợp phân trang.
+          </p>
+          <div class="spoke-footer">
+            <span>Dữ liệu: conf.json &amp; jour.json (8,752 venues)</span>
+            <a href="venues.html" class="btn-primary spoke-btn">Mở Trang →</a>
+          </div>
+        </article>
+
+        <!-- Nan hoa 2: Khuyến nghị NLP -->
+        <article class="spoke-card">
+          <span class="spoke-badge spoke-badge--q1">SPOKE 02 · TRẦN DUY KHÁNH (24520798)</span>
+          <div class="spoke-file">recommend.html</div>
+          <h3 class="spoke-name">Khuyến Nghị Nơi Công Bố Thông Minh</h3>
+          <p class="spoke-desc">
+            Phân tích tự động nội dung Abstract và từ khóa qua thuật toán so khớp Okapi BM25 thuần JavaScript phía client.
+          </p>
+          <div class="spoke-footer">
+            <span>Thuật toán: Okapi BM25</span>
+            <a href="recommend.html" class="btn-primary spoke-btn">Mở Trang →</a>
+          </div>
+        </article>
+
+        <!-- Nan hoa 3: Timeline CFP -->
+        <article class="spoke-card">
+          <span class="spoke-badge spoke-badge--urgent">SPOKE 03 · TRẦN HỒNG LĨNH (24520970)</span>
+          <div class="spoke-file">timeline.html</div>
+          <h3 class="spoke-name">Dòng Thời Gian CFP &amp; Countdown</h3>
+          <p class="spoke-desc">
+            Lịch trình các mốc nộp bài khoa học với đồng hồ đếm ngược thời gian thực, hỗ trợ múi giờ học thuật quốc tế AoE và UTC.
+          </p>
+          <div class="spoke-footer">
+            <span>Múi giờ: AoE / UTC</span>
+            <a href="timeline.html" class="btn-primary spoke-btn">Mở Trang →</a>
+          </div>
+        </article>
+
+        <!-- Nan hoa 4: Giới thiệu -->
+        <article class="spoke-card">
+          <span class="spoke-badge">SPOKE 04 · NGÔ BẢO LÂM (24520931)</span>
+          <div class="spoke-file">about.html</div>
+          <h3 class="spoke-name">Giới Thiệu Đề Tài &amp; Nhóm Tác Giả</h3>
+          <p class="spoke-desc">
+            Thông tin đề tài môn học IE104, mục tiêu nghiên cứu, đội ngũ 5 thành viên thực hiện và các cam kết kỹ thuật 100% Vanilla Code.
+          </p>
+          <div class="spoke-footer">
+            <span>Đồ án: IE104 - UIT</span>
+            <a href="about.html" class="btn-primary spoke-btn">Mở Trang →</a>
+          </div>
+        </article>
+
+        <!-- Nan hoa 5: Liên hệ -->
+        <article class="spoke-card">
+          <span class="spoke-badge">SPOKE 05 · NGÔ BẢO LÂM (24520931)</span>
+          <div class="spoke-file">contact.html</div>
+          <h3 class="spoke-name">Liên Hệ &amp; Đóng Góp Ý Kiến</h3>
+          <p class="spoke-desc">
+            Biểu mẫu thu thập phản hồi, đóng góp báo cáo sai lệch hạn nộp CFP và đề xuất bổ sung các hội nghị/tạp chí chuyên ngành.
+          </p>
+          <div class="spoke-footer">
+            <span>Kênh: Biểu mẫu &amp; Email</span>
+            <a href="contact.html" class="btn-primary spoke-btn">Mở Trang →</a>
+          </div>
+        </article>
+
+        <!-- Nan hoa 6: Sơ đồ site -->
+        <article class="spoke-card spoke-card--current">
+          <span class="spoke-badge spoke-badge--current">SPOKE 06 · HIỆN TẠI</span>
+          <div class="spoke-file">sitemap.html</div>
+          <h3 class="spoke-name">Sơ Đồ Website Kiến Trúc Bánh Xe</h3>
+          <p class="spoke-desc">
+            Bản đồ cấu trúc toàn bộ liên kết hai chiều của hệ thống, minh họa trực quan mô hình Hub-and-Spoke bắt buộc của môn học.
+          </p>
+          <div class="spoke-footer">
+            <span>Cấu trúc: Hub-and-Spoke</span>
+            <span class="badge badge-open">Trang hiện tại</span>
+          </div>
+        </article>
+
       </div>
     </section>
+
+    <!-- BẢNG TRA CỨU DANH MỤC TRANG TOÀN DIỆN (SITEMAP MATRIX TABLE) -->
+    <section class="card sitemap-matrix-section" aria-labelledby="matrix-heading">
+      <div class="card-header">
+        <div>
+          <h2 id="matrix-heading" class="card-title">
+            Bảng Phân Tích Cấu Trúc Website Toàn Hệ Thống
+          </h2>
+          <p class="card-subtitle">
+            Tổng hợp đường dẫn, phân loại vai trò bánh xe, thành viên phụ trách và chuẩn ngữ nghĩa HTML5 áp dụng.
+          </p>
+        </div>
+        <span class="badge badge-core-astar">7 Trang Hoàn Chỉnh</span>
+      </div>
+
+      <div class="sitemap-table-container">
+        <table class="sitemap-table">
+          <thead>
+            <tr>
+              <th scope="col">Tên File</th>
+              <th scope="col">Tiêu Đề Trang</th>
+              <th scope="col">Vai Trò Bánh Xe</th>
+              <th scope="col">Thành Viên Phụ Trách</th>
+              <th scope="col">Thẻ Ngữ Nghĩa Chính</th>
+              <th scope="col">Hành Động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>index.html</code></td>
+              <td><strong>Trang Chủ Hệ Thống</strong></td>
+              <td><span class="badge badge-hub">TRỤC TÂM (HUB)</span></td>
+              <td>Võ Đình Kiên (24520893)</td>
+              <td>&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;footer&gt;</td>
+              <td><a href="index.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>venues.html</code></td>
+              <td>Tra Cứu Danh Bạ Hội Nghị &amp; Tạp Chí</td>
+              <td><span class="badge">NAN HOA (SPOKE 1)</span></td>
+              <td>Huỳnh Văn Lên (24520948)</td>
+              <td>&lt;aside&gt;, &lt;article&gt;, &lt;fieldset&gt;, &lt;section&gt;</td>
+              <td><a href="venues.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>recommend.html</code></td>
+              <td>Khuyến Nghị Bài Báo (Okapi BM25)</td>
+              <td><span class="badge">NAN HOA (SPOKE 2)</span></td>
+              <td>Trần Duy Khánh (24520798)</td>
+              <td>&lt;form&gt;, &lt;textarea&gt;, &lt;progress&gt;, &lt;article&gt;</td>
+              <td><a href="recommend.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>timeline.html</code></td>
+              <td>Dòng Thời Gian CFP &amp; Countdown Realtime</td>
+              <td><span class="badge">NAN HOA (SPOKE 3)</span></td>
+              <td>Trần Hồng Lĩnh (24520970)</td>
+              <td>&lt;time&gt;, &lt;article&gt;, &lt;section&gt;, &lt;span&gt;</td>
+              <td><a href="timeline.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>about.html</code></td>
+              <td>Giới Thiệu Đề Tài &amp; Nhóm Tác Giả</td>
+              <td><span class="badge">NAN HOA (SPOKE 4)</span></td>
+              <td>Ngô Bảo Lâm (24520931)</td>
+              <td>&lt;article&gt;, &lt;figure&gt;, &lt;section&gt;, &lt;header&gt;</td>
+              <td><a href="about.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>sitemap.html</code></td>
+              <td>Sơ Đồ Website Kiến Trúc Bánh Xe</td>
+              <td><span class="badge">NAN HOA (SPOKE 5)</span></td>
+              <td>Ngô Bảo Lâm (24520931)</td>
+              <td>&lt;table&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;article&gt;</td>
+              <td><a href="sitemap.html">Truy cập ↗</a></td>
+            </tr>
+            <tr>
+              <td><code>contact.html</code></td>
+              <td>Liên Hệ &amp; Góp Ý Ý Kiến</td>
+              <td><span class="badge">NAN HOA (SPOKE 6)</span></td>
+              <td>Ngô Bảo Lâm (24520931)</td>
+              <td>&lt;form&gt;, &lt;label&gt;, &lt;input&gt;, &lt;select&gt;, &lt;textarea&gt;</td>
+              <td><a href="contact.html">Truy cập ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER MÔ HÌNH BÁNH XE (SEMANTIC <footer role="contentinfo">) -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
+      <div class="footer-grid">
+        <!-- Cột 1: Thương hiệu & Sứ mệnh -->
+        <div class="footer-col">
+          <div class="brand-logo footer-brand-logo">
+            <div class="brand-icon-box brand-icon-box--footer" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <span>Scopus</span>Venue
+          </div>
+          <p class="footer-about-text">
+            Hệ thống hỗ trợ tra cứu danh bạ hội nghị &amp; tạp chí chuẩn Scopus / CORE. Định hướng nơi công bố và quản lý các mốc nộp bài khoa học tối ưu.
+          </p>
+        </div>
+
+        <!-- Cột 2: Nan hoa chức năng nghiên cứu (Research Spokes) -->
+        <div class="footer-col">
+          <h4>Chức Năng Chính</h4>
+          <ul class="footer-links-list">
+            <li><a href="venues.html">Tra cứu Danh bạ Venue</a></li>
+            <li><a href="recommend.html">Khuyến nghị theo Bản thảo</a></li>
+            <li><a href="timeline.html">Dòng thời gian &amp; Countdown</a></li>
+            <li><a href="index.html">Trang chủ (Hub Trung tâm)</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Nan hoa thông tin & hỗ trợ (Support Spokes) -->
+        <div class="footer-col">
+          <h4>Thông Tin Dự Án</h4>
+          <ul class="footer-links-list">
+            <li><a href="about.html">Về Đề tài &amp; Nhóm Tác giả</a></li>
+            <li><a href="contact.html">Liên hệ &amp; Góp ý</a></li>
+            <li><a href="sitemap.html">Sơ đồ Website Bánh xe</a></li>
+            <li><a href="https://github.com/vokien/-n-IE104" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Đơn vị chủ quản đồ án -->
+        <div class="footer-col">
+          <h4>Đơn Vị Chủ Quản</h4>
+          <p class="footer-about-text">
+            <strong>Trường ĐH Công nghệ Thông tin (UIT)</strong><br>
+            Đại học Quốc gia TP. Hồ Chí Minh<br>
+            Môn học: IE104 - Internet và Công nghệ Web<br>
+            GVHD: ThS. Võ Tấn Khoa
+          </p>
+        </div>
+      </div>
+
+      <!-- Đáy footer -->
       <div class="footer-bottom">
-        <p>Đồ án IE104 - Internet và Công nghệ Web | ThS. Võ Tấn Khoa</p>
+        <p>© 2026 ScopusVenue. Đồ án IE104 - Nhóm 5 sinh viên thực hiện bằng 100% Vanilla HTML5 / CSS3 / JavaScript.</p>
+        <span class="footer-uit-badge">UIT - VNU-HCM</span>
       </div>
     </div>
   </footer>
