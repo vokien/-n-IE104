@@ -1025,6 +1025,27 @@ main {
   border-color: var(--color-border-focus);
 }
 
+.watchlist-item-info {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.watchlist-item .remove-item-btn {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  margin-left: var(--spacing-sm);
+  justify-content: center;
+}
+
+.remove-item-btn svg {
+  display: block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
 .watchlist-item-title {
   color: var(--color-text-main);
   font-size: var(--font-size-sm);
