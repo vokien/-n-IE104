@@ -1,8 +1,8 @@
-import { loadVenues, selectVenues, nearestDeadline, safeUrl, sortOptions } from './modules/venue-data.js?v=20261017-sort2';
+import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js';
+import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
-const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' });
 
@@ -108,20 +108,23 @@ async function initDirectory() {
   function render(moveFocus = false) {
     const data = new FormData(filterForm);
     const kind = data.get('kind');
-    const options = sortOptions(kind);
-    const selectedSort = options.some(([value]) => value === sort.value) ? sort.value : 'name';
-    sort.replaceChildren(...options.map(([value, label]) => new Option(label, value)));
-    sort.value = selectedSort;
+    if (sort.dataset.kind !== kind) {
+      const options = sortOptions(kind);
+      const selectedSort = options.some(([value]) => value === sort.value) ? sort.value : 'name';
+      sort.replaceChildren(...options.map(([value, label]) => new Option(label, value)));
+      sort.value = selectedSort;
+      sort.dataset.kind = kind;
+    }
     document.getElementById('quartile-filter').hidden = kind === 'conference';
     document.getElementById('core-filter').hidden = kind === 'journal';
     const selected = selectVenues(rows, { query: search.value, kind, subject: subject.value,
       quartiles: data.getAll('quartile'), core: data.getAll('core'), sort: sort.value });
-    const pages = Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
-    page = Math.min(page, pages);
-    const start = (page - 1) * PAGE_SIZE;
-    container.replaceChildren(...selected.slice(start, start + PAGE_SIZE).map(makeCard));
+    const paginationResult = paginateVenues(selected, page);
+    const { items, pages, start } = paginationResult;
+    page = paginationResult.page;
+    container.replaceChildren(...items.map(makeCard));
     updateTriggerButtons();
-    count.textContent = selected.length ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}` : '0 kết quả';
+    count.textContent = selected.length ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(start + items.length)}` : '0 kết quả';
     status.hidden = selected.length > 0;
     if (!selected.length) {
       status.replaceChildren(element('h3', 'Không tìm thấy kết quả'), element('p', 'Thử từ khóa khác hoặc bỏ bớt điều kiện lọc.'));
@@ -143,6 +146,7 @@ async function initDirectory() {
   }
   const update = () => { page = 1; render(); };
   searchForm.addEventListener('submit', event => { event.preventDefault(); update(); });
+  search.addEventListener('input', update);
   filterForm.addEventListener('submit', event => event.preventDefault());
   filterForm.addEventListener('change', update);
   filterForm.addEventListener('reset', event => {
