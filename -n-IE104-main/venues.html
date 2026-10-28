@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tra cứu tạp chí và hội nghị theo chủ đề, hạng Q, CORE và hạn nộp bài.">
+  <title>Danh bạ tạp chí và hội nghị | ScopusVenue</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/venues.css">
+</head>
+<body class="directory-page">
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+<header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus &amp; CORE Venue Recommender">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>Scopus<span>Venue</span></span>
+      </a>
+
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
+        <ul>
+          <li><a href="index.html">Trang Chủ</a></li>
+          <li><a href="venues.html" class="active" aria-current="page">Tra Cứu Danh Bạ</a></li>
+          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
+          <li><a href="timeline.html">Lịch Trình CFP</a></li>
+          <li><a href="about.html">Giới Thiệu</a></li>
+          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="contact.html">Liên Hệ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Mục Tiêu</span>
+          <span class="bookmark-count badge" style="display: none;">0</span>
+        </button>
+
+        <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
+          <span class="theme-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" aria-label="Mở menu di động" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main id="main-content" class="container directory-main">
+    <nav class="directory-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span aria-hidden="true">/</span><span aria-current="page">Danh bạ</span></nav>
+    <header class="directory-heading">
+      <h1>Tìm nơi công bố nghiên cứu</h1>
+      <p>Tra cứu tạp chí và hội nghị theo lĩnh vực, thứ hạng và hạn nộp bài.</p>
+    </header>
+    <form class="directory-search" id="directory-search" role="search">
+      <label for="search-input" class="visually-hidden">Tìm tên, chủ đề hoặc nhà xuất bản</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <input id="search-input" name="q" type="search" placeholder="Tên, tên viết tắt, chủ đề hoặc nhà xuất bản…" autocomplete="off">
+      <button class="directory-button pr imary" type="submit">Tìm kiếm</button>
+    </form>
+    <div class="directory-layout">
+      <aside class="directory-sidebar" aria-label="Bộ lọc danh bạ">
+        <details class="filter-panel" open>
+          <summary>Bộ lọc</summary>
+          <form id="filter-form">
+            <fieldset class="filter-group">
+              <legend>Loại hình</legend>
+              <label class="filter-choice"><input type="radio" name="kind" value="all" checked> Tất cả</label>
+              <label class="filter-choice"><input type="radio" name="kind" value="journal"> Tạp chí</label>
+              <label class="filter-choice"><input type="radio" name="kind" value="conference"> Hội nghị</label>
+            </fieldset>
+            <fieldset class="filter-group" id="quartile-filter">
+              <legend>Hạng Q của tạp chí</legend>
+              <div class="rank-choices">
+                <label><input type="checkbox" name="quartile" value="Q1"><span>Q1</span></label>
+                <label><input type="checkbox" name="quartile" value="Q2"><span>Q2</span></label>
+                <label><input type="checkbox" name="quartile" value="Q3"><span>Q3</span></label>
+                <label><input type="checkbox" name="quartile" value="Q4"><span>Q4</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="filter-group" id="core-filter">
+              <legend>Hạng CORE của hội nghị</legend>
+              <div class="rank-choices">
+                <label><input type="checkbox" name="core" value="A*"><span>A*</span></label>
+                <label><input type="checkbox" name="core" value="A"><span>A</span></label>
+                <label><input type="checkbox" name="core" value="B"><span>B</span></label>
+                <label><input type="checkbox" name="core" value="C"><span>C</span></label>
+              </div>
+              <label class="filter-choice"><input type="checkbox" name="core" value="other"> Nhãn khác</label>
+              <label class="filter-choice"><input type="checkbox" name="core" value="unranked"> Chưa có hạng</label>
+            </fieldset>
+            <fieldset class="filter-group">
+              <legend>Lĩnh vực nghiên cứu</legend>
+              <label for="subject-filter" class="visually-hidden">Chọn lĩnh vực nghiên cứu</label>
+              <select id="subject-filter" name="subject"><option value="">Tất cả lĩnh vực</option></select>
+              <p class="filter-note">Với mục chưa có ngành, hãy tìm chủ đề bằng ô tìm kiếm phía trên.</p>
+            </fieldset>
+            <button class="directory-button reset-filters" type="reset">Xóa bộ lọc</button>
+          </form>
+        </details>
+      </aside>
+      <section class="directory-results" aria-labelledby="results-heading" aria-busy="true">
+        <header class="results-toolbar">
+          <div><h2 id="results-heading">Danh sách công bố</h2><p id="result-count" role="status" aria-live="polite">Đang tải danh bạ…</p></div>
+          <div class="sort-control"><label for="sort-select">Sắp xếp</label><select id="sort-select"><option value="name">Tên A–Z</option><option value="name_desc">Tên Z–A</option></select></div>
+        </header>
+        <div id="directory-status" class="directory-state" role="status"><p>Đang tải tạp chí và hội nghị…</p></div>
+        <div id="venues-list-container" class="venue-list"></div>
+        <nav id="directory-pagination" class="directory-pagination" aria-label="Phân trang danh bạ" hidden>
+          <button type="button" class="directory-button" id="previous-page">Trang trước</button>
+          <span id="page-label"></span>
+          <button type="button" class="directory-button" id="next-page">Trang sau</button>
+        </nav>
+        <noscript><p class="directory-state">Bật JavaScript để tải và tra cứu danh bạ. Bạn vẫn có thể trở về <a href="index.html">trang chủ</a>.</p></noscript>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <nav class="footer-nav" aria-label="Liên kết chân trang">
+        <a href="index.html">Trang chủ</a><a href="venues.html" aria-current="page">Danh bạ</a><a href="recommend.html">Khuyến nghị</a><a href="timeline.html">Lịch CFP</a><a href="about.html">Giới thiệu</a><a href="sitemap.html">Sơ đồ site</a><a href="contact.html">Liên hệ</a>
+      </nav>
+      <div class="footer-bottom"><p>Đồ án IE104 · Internet và Công nghệ Web</p></div>
+    </div>
+  </footer>
+  <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">
+    <div class="bookmark-modal">
+      <div class="modal-header">
+        <h3 id="bookmark-modal-title" style="margin: 0; display: flex; align-items: center; gap: var(--spacing-xs);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="color: var(--color-accent);" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Danh Sách Mục Tiêu Đã Lưu</span>
+        </h3>
+        <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="bookmark-modal-body">
+        <!-- Danh sách được render tự động qua ESM module js/modules/bookmark-modal.js -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-icon" id="bookmark-modal-clear-btn" style="color: var(--color-danger); border-color: var(--color-danger);">
+          Xóa tất cả
+        </button>
+        <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
+          <span>Xem trong danh bạ</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/venues.js?v=20261022-bookmarks"></script>
+</body>
+</html>
+
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/venues.js?v=20261022-bookmarks"></script>
+  <!-- Nạp module Countdown của TV4 để phục vụ Task 4.3 -->
+  <script src="./js/countdown.js"></script>
+</body>
+</html>
