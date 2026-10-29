@@ -15,15 +15,20 @@
 <body>
 
   <!-- ============================================================
-       HEADER - Thanh điều hướng dùng chung (Wheel Model)
+       1. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (WHEEL NAVIGATION HUB)
        ============================================================ -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="index.html" class="brand-logo" aria-label="ScopusVenue - Trang chủ">
-        <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#graduate"></use></svg> Scopus<span>Venue</span>
+      <a href="index.html" class="brand-logo" aria-label="Trang chủ Scopus &amp; CORE Venue Recommender">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>Scopus<span>Venue</span></span>
       </a>
 
-      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính">
+      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với 6 trang vệ tinh -->
+      <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
           <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
@@ -35,13 +40,14 @@
         </ul>
       </nav>
 
+      <!-- Các nút chức năng tiện ích trên Header -->
       <div class="header-actions">
         <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span>Mục Tiêu</span>
-          <span class="bookmark-count badge">0</span>
+          <span class="bookmark-count badge" style="display: none;">0</span>
         </button>
 
         <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
@@ -269,32 +275,43 @@
     </div>
   </footer>
 
-  <!-- Watchlist dùng chung với trang chủ và danh bạ -->
+  <!-- ============================================================
+       MODAL XEM NHANH DANH SÁCH MỤC TIÊU (WATCHLIST MODAL)
+       ============================================================ -->
   <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">
     <div class="bookmark-modal">
       <div class="modal-header">
-        <h3 id="bookmark-modal-title" class="recommend-modal__title">
-          <svg class="recommend-modal__icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+        <h3 id="bookmark-modal-title" style="margin: 0; display: flex; align-items: center; gap: var(--spacing-xs);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="color: var(--color-accent);" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span>Danh Sách Mục Tiêu Đã Lưu</span>
         </h3>
         <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="m18 6-12 12M6 6l12 12"/>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
-      <div class="modal-body" id="bookmark-modal-body"></div>
+      <div class="modal-body" id="bookmark-modal-body">
+        <!-- Danh sách được render tự động qua ESM module js/modules/bookmark-modal.js -->
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn-icon recommend-modal__clear" id="bookmark-modal-clear-btn">Xóa tất cả</button>
-        <a href="venues.html" class="btn-primary recommend-modal__directory">Xem trong danh bạ</a>
+        <button type="button" class="btn-icon" id="bookmark-modal-clear-btn" style="color: var(--color-danger); border-color: var(--color-danger);">
+          Xóa tất cả
+        </button>
+        <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
+          <span>Xem trong danh bạ</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Khởi tạo theme, navigation và bookmark một lần qua entrypoint chung -->
-  <script type="module" src="js/main.js"></script>
-  <script src="js/recommender.js"></script>
+  <!-- Scripts: Vanilla JS ES Modules theo chuẩn SRP -->
+  <script type="module" src="./js/main.js"></script>
+  <script src="./js/recommender.js"></script>
+  <!-- Fallback tương thích cho môi trường legacy -->
+  <script defer src="./js/storage.js"></script>
 </body>
 </html>
