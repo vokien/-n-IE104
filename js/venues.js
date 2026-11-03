@@ -1,5 +1,4 @@
-import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
-import { selectVenues, sortOptions } from './filter.js';
+import { loadVenues, nearestDeadline, safeUrl, normalize } from './modules/venue-data.js?v=20261017-sort2';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
@@ -12,6 +11,55 @@ function element(tag, text, className) {
   if (text !== undefined) node.textContent = text;
   if (className) node.className = className;
   return node;
+}
+
+function sortOptions(kind) {
+  const common = [
+    ['name', 'Tên A–Z'],
+    ['name_desc', 'Tên Z–A'],
+  ];
+  if (kind === 'journal') {
+    return [
+      ...common,
+      ['citescore_desc', 'CiteScore cao đến thấp'],
+      ['sjr_desc', 'SJR cao đến thấp'],
+    ];
+  }
+  return common;
+}
+
+function selectVenues(rows, { query, kind, subject, quartiles, core, sort }) {
+  const normQuery = normalize(query);
+  return rows
+    .filter((row) => {
+      if (kind && kind !== 'all' && row.kind !== kind) return false;
+      if (subject && !(row.subject_area ?? []).includes(subject)) return false;
+
+      if (row.kind === 'journal' && quartiles.length > 0) {
+        if (!quartiles.includes(row.scopus_rank)) return false;
+      }
+
+      if (row.kind === 'conference' && core.length > 0) {
+        const rank = row.core_rank;
+        const matchRank = core.includes(rank);
+        const matchUnranked = core.includes('unranked') && (rank == null || rank === 'Unranked');
+        const matchOther = core.includes('other') && rank != null && !['A*', 'A', 'B', 'C', 'Unranked'].includes(rank);
+        if (!matchRank && !matchUnranked && !matchOther) return false;
+      }
+
+      if (normQuery) {
+        const text = row.searchText ?? normalize([row.name, row.acronym, row.publisher, ...(row.subject_area ?? [])].join(' '));
+        if (!text.includes(normQuery)) return false;
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      if (sort === 'name_desc') return b.name.localeCompare(a.name, 'vi');
+      if (sort === 'citescore_desc') return (b.citescore ?? 0) - (a.citescore ?? 0);
+      if (sort === 'sjr_desc') return (b.sjr ?? 0) - (a.sjr ?? 0);
+      return a.name.localeCompare(b.name, 'vi');
+    });
 }
 
 function makeCard(row) {
@@ -30,16 +78,14 @@ function makeCard(row) {
   const subjectLabel = row.kind === 'journal' ? 'Lĩnh vực của tạp chí: ' : 'Lĩnh vực của hội nghị: ';
   subjects.append(element('strong', subjectLabel), document.createTextNode(row.subject_area?.length ? row.subject_area.join(' / ') : 'Chưa có thông tin'));
   card.append(subjects);
-  
   if (row.scope_keywords?.length) {
     const details = element('details');
     details.append(element('summary', `Chủ đề nghiên cứu (${row.scope_keywords.length})`));
     const list = element('ul', undefined, 'venue-topics');
-    list.append(...row.scope_keywords.map(topic => element('li', topic)));
+    list.append(...row.scope_keywords.map((topic) => element('li', topic)));
     details.append(list);
     card.append(details);
   }
-  
   const footer = element('footer', undefined, 'venue-entry-footer');
   const saved = isBookmarked(row.id);
   const bookmark = element('button', saved ? 'Đã lưu' : 'Lưu', 'directory-button bookmark-trigger-btn');
@@ -52,7 +98,7 @@ function makeCard(row) {
   bookmark.setAttribute('aria-pressed', String(saved));
   bookmark.setAttribute('aria-label', `Lưu ${row.acronym || row.name}`);
   let homepage = safeUrl(row.homepage_url);
-  
+
   if (row.kind === 'journal') {
     const metrics = element('dl', undefined, 'venue-metrics');
     for (const [field, title, year] of [['citescore', 'CiteScore', row.citescore_year], ['sjr', 'SJR', row.sjr_year], ['h_index', 'H-index', null]]) {
@@ -64,16 +110,15 @@ function makeCard(row) {
   } else {
     const deadline = nearestDeadline(row);
     const block = element('div', undefined, 'venue-deadline-block');
-    
+
     if (deadline) {
       const deadlineInfo = element('p', undefined, 'venue-deadline');
       const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} UTC`);
       time.dateTime = deadline.raw;
       deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
-      if (deadline.dateOnly) deadlineInfo.append(element('small', 'Nguồn chỉ công bố ngày; múi giờ mặc định AoE'));
       block.append(deadlineInfo);
 
-      // Thẻ đếm ngược thời gian thực (Countdown Box)
+      // Thẻ countdown box tích hợp cho Task 4.3
       const countdownBox = element('div', undefined, 'countdown-box');
       countdownBox.dataset.deadline = deadline.raw;
       countdownBox.dataset.venueId = row.id;
@@ -97,7 +142,7 @@ function makeCard(row) {
     footer.append(link);
   }
 
-  // Kết nối sang timeline.html nếu là hội nghị
+  // Nút xem lịch trình CFP cho hội nghị
   if (row.kind === 'conference') {
     const timelineLink = element('a', 'Xem Lịch CFP', 'directory-button');
     timelineLink.href = `timeline.html?id=${encodeURIComponent(row.id)}`;
@@ -128,12 +173,8 @@ async function initDirectory() {
   let page = 1;
   const compact = window.matchMedia('(max-width: 768px)');
   const panel = document.querySelector('.filter-panel');
-  
-  if (panel) {
-    panel.open = !compact.matches;
-    compact.addEventListener('change', event => { panel.open = !event.matches; });
-  }
-  
+  panel.open = !compact.matches;
+  compact.addEventListener('change', (event) => { panel.open = !event.matches; });
   search.value = new URLSearchParams(location.search).get('q') ?? '';
 
   function render(moveFocus = false) {
@@ -143,26 +184,33 @@ async function initDirectory() {
     const selectedSort = options.some(([value]) => value === sort.value) ? sort.value : 'name';
     sort.replaceChildren(...options.map(([value, label]) => new Option(label, value)));
     sort.value = selectedSort;
-    
-    const quartileFilter = document.getElementById('quartile-filter');
-    const coreFilter = document.getElementById('core-filter');
-    if (quartileFilter) quartileFilter.hidden = kind === 'conference';
-    if (coreFilter) coreFilter.hidden = kind === 'journal';
-    
-    const selected = selectVenues(rows, { query: search.value, kind, subject: subject.value,
-      quartiles: data.getAll('quartile'), core: data.getAll('core'), sort: sort.value });
+    document.getElementById('quartile-filter').hidden = kind === 'conference';
+    document.getElementById('core-filter').hidden = kind === 'journal';
+
+    const selected = selectVenues(rows, {
+      query: search.value,
+      kind,
+      subject: subject.value,
+      quartiles: data.getAll('quartile'),
+      core: data.getAll('core'),
+      sort: sort.value,
+    });
+
     const pages = Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
     page = Math.min(page, pages);
     const start = (page - 1) * PAGE_SIZE;
+
     container.replaceChildren(...selected.slice(start, start + PAGE_SIZE).map(makeCard));
     updateTriggerButtons();
 
-    // Kích hoạt đếm ngược ngay sau khi render xong danh sách card
+    // Kích hoạt đồng hồ đếm ngược Task 4.3 cho các thẻ vừa render
     if (window.CountdownService && typeof window.CountdownService.initVenueCountdowns === 'function') {
       window.CountdownService.initVenueCountdowns('.countdown-box');
     }
 
-    count.textContent = selected.length ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}` : '0 kết quả';
+    count.textContent = selected.length
+      ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}`
+      : '0 kết quả';
     status.hidden = selected.length > 0;
     if (!selected.length) {
       status.replaceChildren(element('h3', 'Không tìm thấy kết quả'), element('p', 'Thử từ khóa khác hoặc bỏ bớt điều kiện lọc.'));
@@ -177,41 +225,44 @@ async function initDirectory() {
     document.getElementById('page-label').textContent = `Trang ${number.format(page)} / ${number.format(pages)}`;
     if (moveFocus) {
       const heading = document.getElementById('results-heading');
-      if (heading) {
-        heading.tabIndex = -1;
-        heading.focus({ preventScroll: true });
-        heading.scrollIntoView({ block: 'center' });
-      }
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+      heading.scrollIntoView({ block: 'center' });
     }
   }
+
   const update = () => { page = 1; render(); };
-  searchForm.addEventListener('submit', event => { event.preventDefault(); update(); });
-  filterForm.addEventListener('submit', event => event.preventDefault());
+  searchForm.addEventListener('submit', (event) => { event.preventDefault(); update(); });
+  filterForm.addEventListener('submit', (event) => event.preventDefault());
   filterForm.addEventListener('change', update);
-  filterForm.addEventListener('reset', event => {
+  filterForm.addEventListener('reset', (event) => {
     event.preventDefault();
-    filterForm.querySelectorAll('input').forEach(input => { input.checked = input.defaultChecked; });
+    filterForm.querySelectorAll('input').forEach((input) => { input.checked = input.defaultChecked; });
     subject.value = '';
     search.value = '';
     sort.value = 'name';
     update();
   });
   sort.addEventListener('change', update);
+
+  // GÕ LÀ TỰ LỌC TỨC THÌ (THEO ĐÚNG Ý BẠN LÊN)
+  search.addEventListener('input', update);
   search.addEventListener('search', update);
+
   previous.addEventListener('click', () => { page--; render(true); });
   next.addEventListener('click', () => { page++; render(true); });
 
   async function load() {
     const controls = [...document.querySelectorAll('#filter-form input, #filter-form select, #filter-form button, #directory-search input, #directory-search button, #sort-select')];
-    controls.forEach(control => { control.disabled = true; });
+    controls.forEach((control) => { control.disabled = true; });
     results.setAttribute('aria-busy', 'true');
     status.hidden = false;
     status.replaceChildren(element('p', 'Đang tải tạp chí và hội nghị…'));
     try {
       rows = await loadVenues();
-      const subjects = [...new Set(rows.flatMap(row => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
-      subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map(value => new Option(value, value)));
-      controls.forEach(control => { control.disabled = false; });
+      const subjects = [...new Set(rows.flatMap((row) => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
+      subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map((value) => new Option(value, value)));
+      controls.forEach((control) => { control.disabled = false; });
       render();
     } catch (error) {
       count.textContent = 'Chưa tải được danh bạ';
@@ -221,8 +272,11 @@ async function initDirectory() {
       retry.addEventListener('click', load);
       status.append(retry);
       console.error('[Directory]', error);
-    } finally { results.setAttribute('aria-busy', 'false'); }
+    } finally {
+      results.setAttribute('aria-busy', 'false');
+    }
   }
+
   await load();
 }
 
