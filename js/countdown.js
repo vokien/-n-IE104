@@ -1,7 +1,7 @@
-/**
+﻿/**
  * ==========================================================
  * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4)
- * Xử lý: Nạp dữ liệu hội nghị từ conf.json (dự phòng venues.json),
+ * Xử lý: Nạp dữ liệu hội nghị từ conf.json,
  * tự động kích hoạt đồng hồ đếm ngược cho deadline gần nhất.
  * Múi giờ: Anywhere on Earth (AoE / UTC-12)
  * Chuẩn: 100% Vanilla JS, 0% Inline CSS, Memory Safe.
@@ -148,7 +148,7 @@
     const deadlineEl = document.querySelector(".countdown-featured-deadline");
 
     if (titleEl) {
-      titleEl.textContent = `${conference.name} — Full Paper Submission`;
+      titleEl.textContent = `${conference.name} - Full Paper Submission`;
     }
 
     if (deadlineEl && conference.deadline) {
@@ -324,13 +324,12 @@
   }
 
   /**
-   * 7. Hàm chính: Tự động nạp dữ liệu (Ưu tiên conf.json, dự phòng venues.json)
+   * 7. Hàm chính: Tự động nạp dữ liệu hội nghị từ conf.json
    */
   async function loadTimelineData() {
     try {
-      let response = await fetch("./data/conf.json");
-      if (!response.ok) response = await fetch("./data/venues.json");
-      if (!response.ok) throw new Error(`HTTP ${response.status}: Không tìm thấy file dữ liệu`);
+      const response = await fetch("./data/conf.json");
+      if (!response.ok) throw new Error(`HTTP ${response.status}: Không tìm thấy file dữ liệu conf.json`);
 
       const rawData = await response.json();
       const list = Array.isArray(rawData) ? rawData : (rawData.conferences || rawData.venues || rawData.data || []);

@@ -522,3 +522,39 @@
 [data-theme="dark"] .cfp-flow-step::after {
   background-color: var(--color-border, #475569);
 }
+
+/* ----------------------------------------------------------
+   7. CÁC LỚP BỔ SUNG CHO COUNTDOWN RENDER (Task 2)
+   ---------------------------------------------------------- */
+.timeline-empty-message {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+  font-style: italic;
+}
+
+.timeline-date-icon {
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.badge--rank {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.cfp-flow-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.cfp-flow-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}

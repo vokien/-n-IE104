@@ -1,4 +1,4 @@
-/**
+﻿/**
  * =============================================================
  * RECOMMENDER.JS - Động cơ Khuyến nghị Học thuật (TV2)
  * Đồ án IE104 - Internet và Công nghệ Web
@@ -305,7 +305,7 @@ class BM25Engine {
     // Bước 4: Sắp xếp giảm dần theo BM25 score
     scored.sort((a, b) => b.rawScore - a.rawScore);
 
-    // Bước 5: Chuẩn hóa điểm về thang 0–100% (so với điểm cao nhất)
+    // Bước 5: Chuẩn hóa điểm về thang 0-100% (so với điểm cao nhất)
     const maxScore = scored.length > 0 ? scored[0].rawScore : 1;
     const results = scored.slice(0, topK).map(item => {
       const pct = maxScore > 0 ? Math.round((item.rawScore / maxScore) * 100) : 0;
@@ -316,7 +316,7 @@ class BM25Engine {
       return {
         venue:           item.venue,
         bm25Score:       item.rawScore,
-        matchScore:      pct,       // Phần trăm 0–100
+        matchScore:      pct,       // Phần trăm 0-100
         matchedKeywords: item.matchedKeywords,
         matchLevel:      level      // "high" | "medium" | "low"
       };
@@ -392,7 +392,7 @@ function runRecommenderTests() {
   check(ranked.length === 3 && ranked.every((r, i) => i === 0 || ranked[i - 1].bm25Score >= r.bm25Score),
     "Ba scope được xếp hạng giảm dần");
   check(ranked.every(r => Number.isFinite(r.matchScore) && r.matchScore >= 0 && r.matchScore <= 100),
-    "Match Score hữu hạn trong khoảng 0–100%");
+    "Match Score hữu hạn trong khoảng 0-100%");
   check(engine.search("volcanology").results.length === 0, "Không trả kết quả không trùng từ nào");
   check(engine.search("machine").results[0].matchedKeywords.join() === "machine",
     "Không báo trùng cả cụm machine learning khi chỉ có machine");
@@ -415,16 +415,21 @@ function runRecommenderTests() {
   return { passed, elapsedMs, results: output.results };
 }
 
-// URL script được ghi nhận ngay khi tải, trước khi document.currentScript trở thành null.
-const RECOMMENDER_SCRIPT_URL = typeof document !== "undefined" ? document.currentScript?.src : null;
-
-/** Tải schema jour/conf trực tiếp tại đây; baseUrl hỗ trợ test Node.js độc lập. */
-async function loadVenues(baseUrl = RECOMMENDER_SCRIPT_URL) {
-  if (!baseUrl) throw new Error("Cần URL của recommender.js để tải dữ liệu.");
+/**
+ * Tải cơ sở dữ liệu venues (jour.json + conf.json) cho thuật toán gợi ý BM25.
+ * Hỗ trợ đường dẫn chuẩn ./data/ trên trình duyệt và tự động fallback sang ../data/ nếu chạy từ test suite.
+ */
+async function loadVenues(baseDir = "./data") {
   const sources = [["jour.json", "journal"], ["conf.json", "conference"]];
   const groups = await Promise.all(sources.map(async ([file, kind]) => {
-    const response = await fetch(new URL(`../data/${file}`, baseUrl));
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${file}`);
+    let response;
+    try {
+      response = await fetch(`${baseDir}/${file}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    } catch {
+      response = await fetch(`../data/${file}`);
+    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}: Không tìm thấy file dữ liệu ${file}`);
     const rows = await response.json();
     if (!Array.isArray(rows) || rows.some(row => !row || !row.id || !row.name ||
       (row.subject_area != null && !Array.isArray(row.subject_area)) ||

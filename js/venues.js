@@ -1,4 +1,4 @@
-import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
+﻿import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
 import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
@@ -24,7 +24,7 @@ function makeCard(row) {
   const badge = element('p', rankText, 'venue-rank');
   badge.dataset.rank = rank ?? 'unranked';
   header.append(badge);
-  card.append(header, element('h3', row.acronym ? `${row.acronym} — ${row.name}` : row.name));
+  card.append(header, element('h3', row.acronym ? `${row.acronym} - ${row.name}` : row.name));
   if (row.publisher) card.append(element('p', row.publisher, 'venue-publisher'));
   const subjects = element('p', undefined, 'venue-subjects');
   const subjectLabel = row.kind === 'journal' ? 'Lĩnh vực của tạp chí: ' : 'Lĩnh vực của hội nghị: ';
@@ -164,7 +164,7 @@ async function initDirectory() {
     }
 
     count.textContent = selected.length
-      ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}`
+      ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}-${number.format(Math.min(start + PAGE_SIZE, selected.length))}`
       : '0 kết quả';
     status.hidden = selected.length > 0;
     if (!selected.length) {

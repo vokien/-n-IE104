@@ -78,6 +78,21 @@
 .venue-metrics dd { font-weight: var(--font-weight-semibold); }
 .venue-deadline { font-size: var(--font-size-sm); }
 .venue-deadline small { display: block; color: var(--color-text-muted); }
+.venue-deadline-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.countdown-box {
+  margin-top: 2px;
+}
+.countdown-text {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.5px;
+}
+
 .directory-pagination { display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-sm); padding-top: var(--spacing-lg); font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
 .directory-state { border: 1px dashed var(--color-border); border-radius: var(--radius-lg); padding: var(--spacing-xl); text-align: center; background: var(--color-bg-surface); }
 .directory-state h3 { margin-bottom: var(--spacing-sm); }
