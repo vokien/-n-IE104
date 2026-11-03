@@ -1,8 +1,9 @@
-import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js';
+import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
 import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
+const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' });
 
@@ -33,7 +34,7 @@ function makeCard(row) {
     const details = element('details');
     details.append(element('summary', `Chủ đề nghiên cứu (${row.scope_keywords.length})`));
     const list = element('ul', undefined, 'venue-topics');
-    list.append(...row.scope_keywords.map(topic => element('li', topic)));
+    list.append(...row.scope_keywords.map((topic) => element('li', topic)));
     details.append(list);
     card.append(details);
   }
@@ -49,6 +50,7 @@ function makeCard(row) {
   bookmark.setAttribute('aria-pressed', String(saved));
   bookmark.setAttribute('aria-label', `Lưu ${row.acronym || row.name}`);
   let homepage = safeUrl(row.homepage_url);
+
   if (row.kind === 'journal') {
     const metrics = element('dl', undefined, 'venue-metrics');
     for (const [field, title, year] of [['citescore', 'CiteScore', row.citescore_year], ['sjr', 'SJR', row.sjr_year], ['h_index', 'H-index', null]]) {
@@ -59,17 +61,30 @@ function makeCard(row) {
     footer.append(metrics);
   } else {
     const deadline = nearestDeadline(row);
-    const block = element('p', undefined, 'venue-deadline');
+    const block = element('div', undefined, 'venue-deadline-block');
+
     if (deadline) {
+      const deadlineInfo = element('p', undefined, 'venue-deadline');
       const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} UTC`);
       time.dateTime = deadline.raw;
-      block.append(element('small', 'Hạn nộp bài gần nhất'), time);
-      if (deadline.dateOnly) block.append(element('small', 'Nguồn chỉ công bố ngày; chưa có giờ và múi giờ'));
-      block.append(element('small', `${row.submission_deadlines.length} vòng có trong dữ liệu`));
-      homepage = safeUrl(deadline.timeline.link) ?? homepage;
-    } else block.append(element('small', 'Chưa có hạn nộp bài'));
+      deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
+      block.append(deadlineInfo);
+
+      // Thẻ countdown box tích hợp cho Task 4.3
+      const countdownBox = element('div', undefined, 'countdown-box');
+      countdownBox.dataset.deadline = deadline.raw;
+      countdownBox.dataset.venueId = row.id;
+      block.append(countdownBox);
+
+      homepage = safeUrl(deadline.timeline?.link) ?? homepage;
+    } else {
+      const blockEmpty = element('p', undefined, 'venue-deadline');
+      blockEmpty.append(element('small', 'Chưa có hạn nộp bài'));
+      block.append(blockEmpty);
+    }
     footer.append(block);
   }
+
   if (homepage) {
     const link = element('a', 'Website chính thức', 'directory-button');
     link.href = homepage;
@@ -78,6 +93,15 @@ function makeCard(row) {
     link.setAttribute('aria-label', `Website ${row.acronym || row.name} (mở tab mới)`);
     footer.append(link);
   }
+
+  // Nút xem lịch trình CFP cho hội nghị
+  if (row.kind === 'conference') {
+    const timelineLink = element('a', 'Xem Lịch CFP', 'directory-button');
+    timelineLink.href = `timeline.html?id=${encodeURIComponent(row.id)}`;
+    timelineLink.setAttribute('aria-label', `Xem lịch trình CFP của ${row.acronym || row.name}`);
+    footer.append(timelineLink);
+  }
+
   footer.append(bookmark);
   card.append(footer);
   return card;
@@ -102,29 +126,46 @@ async function initDirectory() {
   const compact = window.matchMedia('(max-width: 768px)');
   const panel = document.querySelector('.filter-panel');
   panel.open = !compact.matches;
-  compact.addEventListener('change', event => { panel.open = !event.matches; });
+  compact.addEventListener('change', (event) => { panel.open = !event.matches; });
   search.value = new URLSearchParams(location.search).get('q') ?? '';
 
   function render(moveFocus = false) {
     const data = new FormData(filterForm);
     const kind = data.get('kind');
-    if (sort.dataset.kind !== kind) {
-      const options = sortOptions(kind);
-      const selectedSort = options.some(([value]) => value === sort.value) ? sort.value : 'name';
-      sort.replaceChildren(...options.map(([value, label]) => new Option(label, value)));
-      sort.value = selectedSort;
-      sort.dataset.kind = kind;
-    }
+    const options = sortOptions(kind);
+    const selectedSort = options.some(([value]) => value === sort.value) ? sort.value : 'name';
+    sort.replaceChildren(...options.map(([value, label]) => new Option(label, value)));
+    sort.value = selectedSort;
     document.getElementById('quartile-filter').hidden = kind === 'conference';
     document.getElementById('core-filter').hidden = kind === 'journal';
-    const selected = selectVenues(rows, { query: search.value, kind, subject: subject.value,
-      quartiles: data.getAll('quartile'), core: data.getAll('core'), sort: sort.value });
-    const paginationResult = paginateVenues(selected, page);
-    const { items, pages, start } = paginationResult;
-    page = paginationResult.page;
+
+       const selected = selectVenues(rows, {
+      query: search.value,
+      kind,
+      subject: subject.value,
+      quartiles: data.getAll('quartile'),
+      core: data.getAll('core'),
+      sort: sort.value,
+    });
+
+    // DÙNG HÀM paginateVenues CỦA BẠN LÊN
+    const paged = paginateVenues(selected, page, PAGE_SIZE);
+    page = paged.page ?? page;
+    const pages = paged.totalPages ?? Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
+    const items = paged.items ?? selected.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    const start = (page - 1) * PAGE_SIZE;
+
     container.replaceChildren(...items.map(makeCard));
     updateTriggerButtons();
-    count.textContent = selected.length ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(start + items.length)}` : '0 kết quả';
+
+    // Kích hoạt đồng hồ đếm ngược Task 4.3 cho các thẻ vừa render
+    if (window.CountdownService && typeof window.CountdownService.initVenueCountdowns === 'function') {
+      window.CountdownService.initVenueCountdowns('.countdown-box');
+    }
+
+    count.textContent = selected.length
+      ? `${number.format(selected.length)} kết quả · Hiển thị ${number.format(start + 1)}–${number.format(Math.min(start + PAGE_SIZE, selected.length))}`
+      : '0 kết quả';
     status.hidden = selected.length > 0;
     if (!selected.length) {
       status.replaceChildren(element('h3', 'Không tìm thấy kết quả'), element('p', 'Thử từ khóa khác hoặc bỏ bớt điều kiện lọc.'));
@@ -144,35 +185,39 @@ async function initDirectory() {
       heading.scrollIntoView({ block: 'center' });
     }
   }
+
   const update = () => { page = 1; render(); };
-  searchForm.addEventListener('submit', event => { event.preventDefault(); update(); });
-  search.addEventListener('input', update);
-  filterForm.addEventListener('submit', event => event.preventDefault());
+  searchForm.addEventListener('submit', (event) => { event.preventDefault(); update(); });
+  filterForm.addEventListener('submit', (event) => event.preventDefault());
   filterForm.addEventListener('change', update);
-  filterForm.addEventListener('reset', event => {
+  filterForm.addEventListener('reset', (event) => {
     event.preventDefault();
-    filterForm.querySelectorAll('input').forEach(input => { input.checked = input.defaultChecked; });
+    filterForm.querySelectorAll('input').forEach((input) => { input.checked = input.defaultChecked; });
     subject.value = '';
     search.value = '';
     sort.value = 'name';
     update();
   });
   sort.addEventListener('change', update);
+
+  // GÕ LÀ TỰ LỌC TỨC THÌ (THEO ĐÚNG Ý BẠN LÊN)
+  search.addEventListener('input', update);
   search.addEventListener('search', update);
+
   previous.addEventListener('click', () => { page--; render(true); });
   next.addEventListener('click', () => { page++; render(true); });
 
   async function load() {
     const controls = [...document.querySelectorAll('#filter-form input, #filter-form select, #filter-form button, #directory-search input, #directory-search button, #sort-select')];
-    controls.forEach(control => { control.disabled = true; });
+    controls.forEach((control) => { control.disabled = true; });
     results.setAttribute('aria-busy', 'true');
     status.hidden = false;
     status.replaceChildren(element('p', 'Đang tải tạp chí và hội nghị…'));
     try {
       rows = await loadVenues();
-      const subjects = [...new Set(rows.flatMap(row => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
-      subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map(value => new Option(value, value)));
-      controls.forEach(control => { control.disabled = false; });
+      const subjects = [...new Set(rows.flatMap((row) => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
+      subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map((value) => new Option(value, value)));
+      controls.forEach((control) => { control.disabled = false; });
       render();
     } catch (error) {
       count.textContent = 'Chưa tải được danh bạ';
@@ -182,8 +227,11 @@ async function initDirectory() {
       retry.addEventListener('click', load);
       status.append(retry);
       console.error('[Directory]', error);
-    } finally { results.setAttribute('aria-busy', 'false'); }
+    } finally {
+      results.setAttribute('aria-busy', 'false');
+    }
   }
+
   await load();
 }
 
