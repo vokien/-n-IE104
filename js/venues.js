@@ -1,4 +1,5 @@
-import { loadVenues, nearestDeadline, safeUrl, normalize } from './modules/venue-data.js?v=20261017-sort2';
+import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
+import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
@@ -11,55 +12,6 @@ function element(tag, text, className) {
   if (text !== undefined) node.textContent = text;
   if (className) node.className = className;
   return node;
-}
-
-function sortOptions(kind) {
-  const common = [
-    ['name', 'Tên A–Z'],
-    ['name_desc', 'Tên Z–A'],
-  ];
-  if (kind === 'journal') {
-    return [
-      ...common,
-      ['citescore_desc', 'CiteScore cao đến thấp'],
-      ['sjr_desc', 'SJR cao đến thấp'],
-    ];
-  }
-  return common;
-}
-
-function selectVenues(rows, { query, kind, subject, quartiles, core, sort }) {
-  const normQuery = normalize(query);
-  return rows
-    .filter((row) => {
-      if (kind && kind !== 'all' && row.kind !== kind) return false;
-      if (subject && !(row.subject_area ?? []).includes(subject)) return false;
-
-      if (row.kind === 'journal' && quartiles.length > 0) {
-        if (!quartiles.includes(row.scopus_rank)) return false;
-      }
-
-      if (row.kind === 'conference' && core.length > 0) {
-        const rank = row.core_rank;
-        const matchRank = core.includes(rank);
-        const matchUnranked = core.includes('unranked') && (rank == null || rank === 'Unranked');
-        const matchOther = core.includes('other') && rank != null && !['A*', 'A', 'B', 'C', 'Unranked'].includes(rank);
-        if (!matchRank && !matchUnranked && !matchOther) return false;
-      }
-
-      if (normQuery) {
-        const text = row.searchText ?? normalize([row.name, row.acronym, row.publisher, ...(row.subject_area ?? [])].join(' '));
-        if (!text.includes(normQuery)) return false;
-      }
-
-      return true;
-    })
-    .sort((a, b) => {
-      if (sort === 'name_desc') return b.name.localeCompare(a.name, 'vi');
-      if (sort === 'citescore_desc') return (b.citescore ?? 0) - (a.citescore ?? 0);
-      if (sort === 'sjr_desc') return (b.sjr ?? 0) - (a.sjr ?? 0);
-      return a.name.localeCompare(b.name, 'vi');
-    });
 }
 
 function makeCard(row) {
@@ -187,7 +139,7 @@ async function initDirectory() {
     document.getElementById('quartile-filter').hidden = kind === 'conference';
     document.getElementById('core-filter').hidden = kind === 'journal';
 
-    const selected = selectVenues(rows, {
+       const selected = selectVenues(rows, {
       query: search.value,
       kind,
       subject: subject.value,
@@ -196,11 +148,14 @@ async function initDirectory() {
       sort: sort.value,
     });
 
-    const pages = Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
-    page = Math.min(page, pages);
+    // DÙNG HÀM paginateVenues CỦA BẠN LÊN
+    const paged = paginateVenues(selected, page, PAGE_SIZE);
+    page = paged.page ?? page;
+    const pages = paged.totalPages ?? Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
+    const items = paged.items ?? selected.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     const start = (page - 1) * PAGE_SIZE;
 
-    container.replaceChildren(...selected.slice(start, start + PAGE_SIZE).map(makeCard));
+    container.replaceChildren(...items.map(makeCard));
     updateTriggerButtons();
 
     // Kích hoạt đồng hồ đếm ngược Task 4.3 cho các thẻ vừa render
