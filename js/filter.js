@@ -1,10 +1,10 @@
-import { normalize, nearestDeadline } from './modules/venue-data.js';
+﻿import { normalize, nearestDeadline } from './modules/venue-data.js';
 
 const collator = new Intl.Collator('vi', { sensitivity: 'base', numeric: true });
 export const PAGE_SIZE = 10;
 
 export function sortOptions(kind) {
-  const options = [['name', 'Tên A–Z'], ['name_desc', 'Tên Z–A']];
+  const options = [['name', 'Tên A-Z'], ['name_desc', 'Tên Z-A']];
   if (kind === 'journal') options.push(['citescore', 'CiteScore cao nhất'], ['sjr', 'SJR cao nhất'], ['h_index', 'H-index cao nhất']);
   if (kind === 'conference') options.push(['deadline', 'Hạn nộp bài gần nhất'], ['deadline_desc', 'Hạn nộp bài xa nhất']);
   return options;

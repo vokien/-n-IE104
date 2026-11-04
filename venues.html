@@ -23,6 +23,7 @@
         <span>Scopus<span>Venue</span></span>
       </a>
 
+      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với 6 trang vệ tinh -->
       <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
@@ -35,6 +36,7 @@
         </ul>
       </nav>
 
+      <!-- Các nút chức năng tiện ích trên Header -->
       <div class="header-actions">
         <button type="button" class="btn-icon" id="bookmark-header-btn" title="Xem danh sách mục tiêu đã lưu (Watchlist)" aria-label="Xem danh sách mục tiêu đã lưu">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
@@ -118,7 +120,7 @@
       <section class="directory-results" aria-labelledby="results-heading" aria-busy="true">
         <header class="results-toolbar">
           <div><h2 id="results-heading">Danh sách công bố</h2><p id="result-count" role="status" aria-live="polite">Đang tải danh bạ…</p></div>
-          <div class="sort-control"><label for="sort-select">Sắp xếp</label><select id="sort-select"><option value="name">Tên A–Z</option><option value="name_desc">Tên Z–A</option></select></div>
+          <div class="sort-control"><label for="sort-select">Sắp xếp</label><select id="sort-select"><option value="name">Tên A-Z</option><option value="name_desc">Tên Z-A</option></select></div>
         </header>
         <div id="directory-status" class="directory-state" role="status"><p>Đang tải tạp chí và hội nghị…</p></div>
         <div id="venues-list-container" class="venue-list"></div>
@@ -131,12 +133,20 @@
       </section>
     </div>
   </main>
-  <footer class="site-footer">
+    <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <nav class="footer-nav" aria-label="Liên kết chân trang">
-        <a href="index.html">Trang chủ</a><a href="venues.html" aria-current="page">Danh bạ</a><a href="recommend.html">Khuyến nghị</a><a href="timeline.html">Lịch CFP</a><a href="about.html">Giới thiệu</a><a href="sitemap.html">Sơ đồ site</a><a href="contact.html">Liên hệ</a>
+      <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
+        <a href="index.html">Trang Chủ (Hub)</a>
+        <a href="venues.html" class="active" aria-current="page">Danh Bạ Venues</a>
+        <a href="recommend.html">Khuyến Nghị Bài Báo</a>
+        <a href="timeline.html">Lịch Trình CFP</a>
+        <a href="about.html">Về Nhóm Tác Giả</a>
+        <a href="sitemap.html">Sơ Đồ Site</a>
+        <a href="contact.html">Liên Hệ &amp; Góp Ý</a>
       </nav>
-      <div class="footer-bottom"><p>Đồ án IE104 · Internet và Công nghệ Web</p></div>
+      <div class="footer-bottom">
+        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
+      </div>
     </div>
   </footer>
   <div class="bookmark-modal-backdrop" id="bookmark-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bookmark-modal-title">

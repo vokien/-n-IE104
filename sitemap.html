@@ -122,7 +122,7 @@
           <div class="spoke-file">venues.html</div>
           <h3 class="spoke-name">Tra Cứu Danh Bạ Hội Nghị &amp; Tạp Chí</h3>
           <p class="spoke-desc">
-            Phân hệ lọc đa chiều theo phân hạng Scopus Q1–Q4, phân hạng CORE A*–C, chuyên ngành nghiên cứu và tích hợp phân trang.
+            Phân hệ lọc đa chiều theo phân hạng Scopus Q1-Q4, phân hạng CORE A*-C, chuyên ngành nghiên cứu và tích hợp phân trang.
           </p>
           <div class="spoke-footer">
             <span>Dữ liệu: conf.json &amp; jour.json (8,752 venues)</span>
@@ -294,63 +294,19 @@
   </main>
 
   <!-- FOOTER MÔ HÌNH BÁNH XE (SEMANTIC <footer role="contentinfo">) -->
-  <footer class="site-footer" role="contentinfo">
+    <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <div class="footer-grid">
-        <!-- Cột 1: Thương hiệu & Sứ mệnh -->
-        <div class="footer-col">
-          <div class="brand-logo footer-brand-logo">
-            <div class="brand-icon-box brand-icon-box--footer" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              </svg>
-            </div>
-            <span>Scopus</span>Venue
-          </div>
-          <p class="footer-about-text">
-            Hệ thống hỗ trợ tra cứu danh bạ hội nghị &amp; tạp chí chuẩn Scopus / CORE. Định hướng nơi công bố và quản lý các mốc nộp bài khoa học tối ưu.
-          </p>
-        </div>
-
-        <!-- Cột 2: Nan hoa chức năng nghiên cứu (Research Spokes) -->
-        <div class="footer-col">
-          <h4>Chức Năng Chính</h4>
-          <ul class="footer-links-list">
-            <li><a href="venues.html">Tra cứu Danh bạ Venue</a></li>
-            <li><a href="recommend.html">Khuyến nghị theo Bản thảo</a></li>
-            <li><a href="timeline.html">Dòng thời gian &amp; Countdown</a></li>
-            <li><a href="index.html">Trang chủ (Hub Trung tâm)</a></li>
-          </ul>
-        </div>
-
-        <!-- Cột 3: Nan hoa thông tin & hỗ trợ (Support Spokes) -->
-        <div class="footer-col">
-          <h4>Thông Tin Dự Án</h4>
-          <ul class="footer-links-list">
-            <li><a href="about.html">Về Đề tài &amp; Nhóm Tác giả</a></li>
-            <li><a href="contact.html">Liên hệ &amp; Góp ý</a></li>
-            <li><a href="sitemap.html">Sơ đồ Website Bánh xe</a></li>
-            <li><a href="https://github.com/vokien/-n-IE104" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
-          </ul>
-        </div>
-
-        <!-- Cột 4: Đơn vị chủ quản đồ án -->
-        <div class="footer-col">
-          <h4>Đơn Vị Chủ Quản</h4>
-          <p class="footer-about-text">
-            <strong>Trường ĐH Công nghệ Thông tin (UIT)</strong><br>
-            Đại học Quốc gia TP. Hồ Chí Minh<br>
-            Môn học: IE104 - Internet và Công nghệ Web<br>
-            GVHD: ThS. Võ Tấn Khoa
-          </p>
-        </div>
-      </div>
-
-      <!-- Đáy footer -->
+      <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
+        <a href="index.html">Trang Chủ (Hub)</a>
+        <a href="venues.html">Danh Bạ Venues</a>
+        <a href="recommend.html">Khuyến Nghị Bài Báo</a>
+        <a href="timeline.html">Lịch Trình CFP</a>
+        <a href="about.html">Về Nhóm Tác Giả</a>
+        <a href="sitemap.html" class="active" aria-current="page">Sơ Đồ Site</a>
+        <a href="contact.html">Liên Hệ &amp; Góp Ý</a>
+      </nav>
       <div class="footer-bottom">
-        <p>© 2026 ScopusVenue. Đồ án IE104 - Nhóm 5 sinh viên thực hiện bằng 100% Vanilla HTML5 / CSS3 / JavaScript.</p>
-        <span class="footer-uit-badge">UIT - VNU-HCM</span>
+        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
       </div>
     </div>
   </footer>
@@ -391,6 +347,5 @@
   <!-- Scripts: Vanilla JS ES Modules theo chuẩn SRP -->
   <script type="module" src="./js/main.js"></script>
   <!-- Fallback tương thích cho môi trường legacy -->
-  <script defer src="./js/storage.js"></script>
 </body>
 </html>
