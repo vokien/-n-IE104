@@ -70,7 +70,7 @@
   /* ----------------------------------------------------------------------------
      5. CONTAINER & LAYOUT DIMENSIONS (Mô hình Bánh xe - Hub and Spoke)
      -------------------------------------------------------------------------- */
-  --container-max-width:    1200px; /* Chiều rộng khung chuẩn màn hình Desktop */
+  --container-max-width:    1280px; /* Chiều rộng khung chuẩn mở rộng cho màn hình Desktop hiện đại */
   --container-narrow-width: 840px;  /* Chiều rộng tối ưu cho trang About, Contact */
   --header-height:          70px;   /* Chiều cao thanh điều hướng cố định */
   --sidebar-width:          290px;  /* Chiều rộng cột bộ lọc Facet Filter (TV3) */

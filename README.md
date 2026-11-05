@@ -28,7 +28,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
    - Đánh dấu yêu thích (Bookmarks), lưu lịch sử tìm kiếm vào `localStorage` của trình duyệt.
 5. **🎨 Kiến Trúc Giao Diện Chuẩn**:
    - **100% Thẻ ngữ nghĩa Semantic HTML5**: `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`, `<time>`, `<figure>`.
-   - **Mô hình bánh xe (Wheel Navigation Model)**: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang vệ tinh và có trang sơ đồ site (`sitemap.html`).
+   - **Mô hình bánh xe (Wheel Navigation Model)**: Trang chủ làm trục tâm (Hub), kết nối nan hoa trực tiếp 2 chiều với các trang chức năng vệ tinh.
    - **Chế độ Sáng / Tối (Dark / Light Mode)** chuyển đổi mượt mà bằng CSS Custom Properties.
 
 ---
@@ -52,7 +52,6 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 ├── timeline.html            # Trang dòng thời gian CFP & đếm ngược deadline (TV4)
 ├── about.html               # Trang giới thiệu đề tài và nhóm sinh viên (TV5)
 ├── contact.html             # Trang form liên hệ & góp ý (TV5)
-├── sitemap.html             # Trang sơ đồ site theo mô hình bánh xe (TV5)
 ├── css/
 │   ├── variables.css        # Hệ thống Design Tokens (:root, bảng màu HSL, Dark/Light)
 │   ├── main.css             # Style khung dùng chung (Header, Footer, Wheel Nav)
