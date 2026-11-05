@@ -1,4 +1,4 @@
-﻿/**
+/**
  * =============================================================
  * RECOMMENDER.JS - Động cơ Khuyến nghị Học thuật (TV2)
  * Đồ án IE104 - Internet và Công nghệ Web
@@ -140,14 +140,14 @@ const BM25_B  = 0.75; // Kiểm soát mức độ chuẩn hóa theo độ dài t
  */
 class BM25Engine {
   /**
-   * @param {Object[]} venues - Danh bạ từ loadVenues(): jour.json + conf.json
+   * @param {Object[]} venues - Danh sách hội nghị & tạp chí từ loadVenues(): jour.json + conf.json
    */
   constructor(venues) {
     // kind là trường phân loại mới; type giữ tương thích dữ liệu/mock cũ.
     this.venues = venues.map(venue => ({ ...venue, kind: venue.kind || venue.type }));
     this.N = venues.length; // Tổng số tài liệu trong corpus
 
-    // Hỗ trợ scope mẫu và các trường của schema danh bạ mới.
+    // Hỗ trợ scope mẫu và các trường của schema hội nghị & tạp chí mới.
     this.docs = venues.map(venue => {
       const venueText = [
         venue.scope || "",

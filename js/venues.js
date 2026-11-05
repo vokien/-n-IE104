@@ -230,7 +230,7 @@ async function initDirectory() {
       controls.forEach((control) => { control.disabled = false; });
       render();
     } catch (error) {
-      count.textContent = 'Chưa tải được danh bạ';
+      count.textContent = 'Chưa tải được dữ liệu hội nghị & tạp chí';
       status.replaceChildren(element('h3', 'Không tải được dữ liệu'), element('p', 'Kiểm tra kết nối rồi thử lại. Nếu đang mở file trực tiếp, hãy mở website qua máy chủ HTTP.'));
       const retry = element('button', 'Thử lại', 'directory-button primary');
       retry.type = 'button';
