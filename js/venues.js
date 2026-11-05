@@ -1,4 +1,4 @@
-﻿import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
+import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
 import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
@@ -139,7 +139,7 @@ async function initDirectory() {
     document.getElementById('quartile-filter').hidden = kind === 'conference';
     document.getElementById('core-filter').hidden = kind === 'journal';
 
-       const selected = selectVenues(rows, {
+    const selected = selectVenues(rows, {
       query: search.value,
       kind,
       subject: subject.value,
@@ -147,6 +147,16 @@ async function initDirectory() {
       core: data.getAll('core'),
       sort: sort.value,
     });
+
+    // Nếu có tham số ?id=... và tìm thấy trong kết quả, đưa venue mục tiêu lên đầu trang 1
+    const currentTargetId = new URLSearchParams(location.search).get('id');
+    if (currentTargetId && selected.length > 0) {
+      const targetIdx = selected.findIndex(r => r.id === currentTargetId || (r.acronym && r.acronym.toLowerCase() === currentTargetId.toLowerCase()));
+      if (targetIdx > 0) {
+        const [targetItem] = selected.splice(targetIdx, 1);
+        selected.unshift(targetItem);
+      }
+    }
 
     // DÙNG HÀM paginateVenues CỦA BẠN LÊN
     const paged = paginateVenues(selected, page, PAGE_SIZE);
@@ -232,7 +242,50 @@ async function initDirectory() {
     }
   }
 
+  function focusVenueById(targetId) {
+    if (!targetId || !rows.length) return false;
+    const cleanId = String(targetId).trim();
+    const target = rows.find(r => r.id === cleanId || (r.acronym && r.acronym.toLowerCase() === cleanId.toLowerCase()));
+    if (!target) return false;
+
+    // Reset bộ lọc rank & subject
+    filterForm.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+    subject.value = '';
+
+    // Chuyển loại hình tương ứng
+    const kindRadio = filterForm.querySelector(`input[name="kind"][value="${target.kind}"]`);
+    if (kindRadio) {
+      kindRadio.checked = true;
+    }
+
+    // Đặt từ khóa tìm kiếm
+    search.value = target.acronym || target.name;
+    page = 1;
+    render();
+
+    // Cuộn mượt và highlight card
+    requestAnimationFrame(() => {
+      const card = container.querySelector(`[data-venue-id="${target.id}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('highlight-target');
+        setTimeout(() => card.classList.remove('highlight-target'), 3500);
+      }
+    });
+
+    return true;
+  }
+
+  // Đăng ký toàn cục để bookmark-modal có thể điều hướng trực tiếp khi ở venues.html
+  window.focusVenueById = focusVenueById;
+
   await load();
+
+  // Tự động cuộn đến venue mục tiêu nếu có tham số ?id= trên URL
+  const initialTargetId = new URLSearchParams(location.search).get('id');
+  if (initialTargetId) {
+    focusVenueById(initialTargetId);
+  }
 }
 
 initDirectory();

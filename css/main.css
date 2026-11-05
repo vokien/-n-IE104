@@ -1861,16 +1861,66 @@ textarea.form-control {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-bg-body);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .watchlist-item:hover {
   border-color: var(--color-border-focus);
+  background-color: var(--color-bg-subtle);
 }
 
-.watchlist-item-info {
+.watchlist-item-link {
+  flex: 1;
   min-width: 0;
-  overflow-wrap: anywhere;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.watchlist-item-link:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.watchlist-item-title {
+  color: var(--color-text-main);
+  font-size: var(--font-size-sm);
+  margin-bottom: 4px;
+  transition: color var(--transition-fast);
+}
+
+.watchlist-item-link:hover .watchlist-item-title {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.watchlist-item-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.watchlist-action-hint {
+  margin-left: auto;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.85;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.watchlist-item-link:hover .watchlist-action-hint {
+  opacity: 1;
+  transform: translateX(3px);
 }
 
 .watchlist-item .remove-item-btn {
@@ -1880,26 +1930,6 @@ textarea.form-control {
   padding: 8px;
   margin-left: var(--spacing-sm);
   justify-content: center;
-}
-
-.remove-item-btn svg {
-  display: block;
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-}
-
-.watchlist-item-title {
-  color: var(--color-text-main);
-  font-size: var(--font-size-sm);
-  margin-bottom: 2px;
-}
-
-.watchlist-item-meta {
-  display: flex;
-  gap: var(--spacing-xs);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
 }
 
 .watchlist-type-tag, .watchlist-rank-tag {

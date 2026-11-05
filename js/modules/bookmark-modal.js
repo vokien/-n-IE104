@@ -92,17 +92,34 @@ export function initBookmarkModal() {
     });
   }
 
-  // EVENT DELEGATION: Xử lý nút xóa từng item trong Modal Body
+  // EVENT DELEGATION: Xử lý tương tác trong Modal Body (xóa hoặc click điều hướng)
   if (modalBody) {
     modalBody.addEventListener("click", (e) => {
       const removeBtn = e.target.closest(".remove-item-btn");
-      if (!removeBtn) return;
+      if (removeBtn) {
+        const venueId = removeBtn.getAttribute("data-id");
+        if (venueId) {
+          removeBookmark(venueId);
+          renderBookmarksList();
+          updateTriggerButtons();
+        }
+        return;
+      }
 
-      const venueId = removeBtn.getAttribute("data-id");
-      if (venueId) {
-        removeBookmark(venueId);
-        renderBookmarksList();
-        updateTriggerButtons();
+      // Xử lý điều hướng khi bấm vào mục tiêu
+      const itemLink = e.target.closest(".watchlist-item-link");
+      if (itemLink) {
+        const venueId = itemLink.getAttribute("data-id");
+        const isVenuesPage = window.location.pathname.endsWith("venues.html");
+
+        if (isVenuesPage && typeof window.focusVenueById === "function") {
+          e.preventDefault();
+          closeModal();
+          window.focusVenueById(venueId);
+          window.history.pushState(null, "", `venues.html?id=${encodeURIComponent(venueId)}`);
+        } else {
+          closeModal();
+        }
       }
     });
   }
@@ -170,16 +187,17 @@ export function renderBookmarksList() {
 
     return `
       <div class="watchlist-item">
-        <div class="watchlist-item-info">
+        <a href="venues.html?id=${encodeURIComponent(v.id)}" class="watchlist-item-link" data-id="${escapeHtml(v.id)}" title="Xem chi tiết ${escapeHtml(v.name)}">
           <div class="watchlist-item-title">
             ${v.acronym ? `<strong>${v.acronym}</strong> - ` : ""}${escapeHtml(v.name)}
           </div>
           <div class="watchlist-item-meta">
             <span class="watchlist-type-tag">${typeText}</span>
             <span class="watchlist-rank-tag">${rankText}</span>
+            <span class="watchlist-action-hint">Xem chi tiết &rarr;</span>
           </div>
-        </div>
-        <button type="button" class="btn-icon remove-item-btn" data-id="${escapeHtml(v.id)}" title="Xóa khỏi danh sách" aria-label="Xóa ${escapeHtml(v.name)}">
+        </a>
+        <button type="button" class="btn-icon remove-item-btn" data-id="${escapeHtml(v.id)}" title="Xóa khỏi danh sách" aria-label="Xóa ${escapeHtml(v.name)} khỏi danh sách">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>

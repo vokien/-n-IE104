@@ -123,6 +123,21 @@
   .directory-pagination .directory-button { padding-inline: var(--spacing-sm); }
   .directory-page .filter-choice, .directory-page summary { min-height: 44px; }
 }
+
+/* Hiệu ứng nổi bật khi điều hướng từ Danh sách mục tiêu đến thẻ Venue */
+.venue-entry.highlight-target {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-light), var(--shadow-lg) !important;
+  animation: venue-target-pulse 2s ease-in-out;
+}
+
+@keyframes venue-target-pulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.02); }
+  60% { transform: scale(0.99); }
+  100% { transform: scale(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .directory-page *, .directory-page *::before, .directory-page *::after { scroll-behavior: auto; transition: none; animation: none; }
 }

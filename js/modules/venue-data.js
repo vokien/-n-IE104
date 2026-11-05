@@ -34,7 +34,7 @@ export async function loadVenues() {
     const rows = await response.json();
     if (!Array.isArray(rows) || rows.some(row => !row.id || !row.name)) throw new Error(`Invalid directory: ${file}`);
     return rows.map(row => ({ ...row, kind,
-      searchText: normalize([row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' ')) }));
+      searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' ')) }));
   }));
   return groups.flat();
 }
