@@ -94,14 +94,6 @@ function makeCard(row) {
     footer.append(link);
   }
 
-  // Nút xem lịch trình CFP cho hội nghị
-  if (row.kind === 'conference') {
-    const timelineLink = element('a', 'Xem Lịch CFP', 'directory-button');
-    timelineLink.href = `timeline.html?id=${encodeURIComponent(row.id)}`;
-    timelineLink.setAttribute('aria-label', `Xem lịch trình CFP của ${row.acronym || row.name}`);
-    footer.append(timelineLink);
-  }
-
   footer.append(bookmark);
   card.append(footer);
   return card;
