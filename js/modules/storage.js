@@ -109,13 +109,20 @@ export function saveBookmarks(list) {
 
 /**
  * Cập nhật số lượng trên các badge hiển thị
+ * Giữ nguyên slot không gian để kích thước nút Mục Tiêu không bị xê dịch
  */
 export function updateBadgeCounter() {
   const count = getBookmarks().length;
   const badgeElements = document.querySelectorAll(".bookmark-count");
   badgeElements.forEach(el => {
     el.textContent = count;
-    el.style.display = count > 0 ? "inline-flex" : "none";
+    if (count > 0) {
+      el.classList.remove("is-empty");
+      el.style.display = "";
+    } else {
+      el.classList.add("is-empty");
+      el.style.display = "";
+    }
   });
 }
 

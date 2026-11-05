@@ -187,14 +187,13 @@ export function renderBookmarksList() {
 
     return `
       <div class="watchlist-item">
-        <a href="venues.html?id=${encodeURIComponent(v.id)}" class="watchlist-item-link" data-id="${escapeHtml(v.id)}" title="Xem chi tiết ${escapeHtml(v.name)}">
+        <a href="venues.html?id=${encodeURIComponent(v.id)}" class="watchlist-item-link" data-id="${escapeHtml(v.id)}" title="${escapeHtml(v.name)}">
           <div class="watchlist-item-title">
             ${v.acronym ? `<strong>${v.acronym}</strong> - ` : ""}${escapeHtml(v.name)}
           </div>
           <div class="watchlist-item-meta">
             <span class="watchlist-type-tag">${typeText}</span>
             <span class="watchlist-rank-tag">${rankText}</span>
-            <span class="watchlist-action-hint">Xem chi tiết &rarr;</span>
           </div>
         </a>
         <button type="button" class="btn-icon remove-item-btn" data-id="${escapeHtml(v.id)}" title="Xóa khỏi danh sách" aria-label="Xóa ${escapeHtml(v.name)} khỏi danh sách">

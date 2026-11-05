@@ -234,8 +234,12 @@ svg {
   gap: var(--spacing-xs);
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  padding: 0 12px;
+  padding: 0 10px;
   height: 38px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+  box-sizing: border-box;
   line-height: 1;
 }
 
@@ -250,7 +254,34 @@ svg {
 }
 
 #bookmark-header-btn .bookmark-count.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  font-variant-numeric: tabular-nums;
   flex-shrink: 0 !important;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+#bookmark-header-btn .bookmark-count.is-empty {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+#theme-toggle-btn {
+  width: 38px;
+  min-width: 38px;
+  max-width: 38px;
+  height: 38px;
+  padding: 0;
+  flex-shrink: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .btn-icon:hover {
@@ -260,7 +291,6 @@ svg {
 }
 
 .bookmark-count {
-  display: none;
   font-family: var(--font-family-mono);
   font-size: 11px;
   font-weight: var(--font-weight-bold);
@@ -1134,7 +1164,19 @@ textarea.form-control {
   #bookmark-header-btn {
     padding: 0;
     width: 38px;
+    min-width: 38px;
+    max-width: 38px;
     justify-content: center;
+    position: relative;
+  }
+  #bookmark-header-btn .bookmark-count.badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    min-width: 14px;
+    height: 14px;
+    font-size: 9px;
+    padding: 0 2px;
   }
 }
 
@@ -1798,6 +1840,17 @@ textarea.form-control {
   color: var(--color-text-muted);
 }
 
+.bookmark-trigger-btn {
+  width: 96px;
+  min-width: 96px;
+  max-width: 96px;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box;
+}
+
 .bookmark-trigger-btn.bookmarked {
   border-color: var(--color-accent);
   color: var(--color-accent);
@@ -1957,23 +2010,6 @@ textarea.form-control {
   gap: var(--spacing-xs);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-}
-
-.watchlist-action-hint {
-  margin-left: auto;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
-  font-size: 11px;
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  opacity: 0.85;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-.watchlist-item-link:hover .watchlist-action-hint {
-  opacity: 1;
-  transform: translateX(3px);
 }
 
 .watchlist-item .remove-item-btn {
