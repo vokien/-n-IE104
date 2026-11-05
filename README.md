@@ -52,6 +52,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 ├── timeline.html            # Trang dòng thời gian CFP & đếm ngược deadline (TV4)
 ├── about.html               # Trang giới thiệu đề tài và nhóm sinh viên (TV5)
 ├── contact.html             # Trang form liên hệ & góp ý (TV5)
+├── 404.html                 # Trang ngoại lệ 404 và điều hướng lỗi (TV5)
 ├── css/
 │   ├── variables.css        # Hệ thống Design Tokens (:root, bảng màu HSL, Dark/Light)
 │   ├── main.css             # Style khung dùng chung (Header, Footer, Wheel Nav)
