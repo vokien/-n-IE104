@@ -6,7 +6,7 @@
   <meta name="description" content="Website tra cứu và khuyến nghị hội nghị / tạp chí xếp hạng Scopus & CORE cho đề tài nghiên cứu khoa học - Đồ án môn học IE104 (100% Vanilla HTML5, CSS3, JavaScript ESM)">
   <meta name="keywords" content="Scopus, CORE 2026, SJR, CiteScore, Hội nghị khoa học, Tạp chí khoa học, Khuyến nghị bài báo, Okapi BM25, AoE, Vanilla JS">
   <meta name="author" content="Nhóm đồ án IE104 - UIT">
-  <title>Scopus &amp; CORE Venue Recommender | Trang Chủ</title>
+  <title>ScopusVenue - Tra Cứu &amp; Gợi Ý Hội Nghị, Tạp Chí Khoa Học | Trang Chủ</title>
   
   <!-- CSS Design Tokens & Semantic Styles (100% Vanilla CSS) -->
   <link rel="stylesheet" href="./css/variables.css">
@@ -92,14 +92,14 @@
 
         <!-- Thanh Tìm kiếm Nhanh (Hero Quick Search Bar) -->
         <div class="hero-search-wrapper">
-          <form class="hero-search-form" action="venues.html" method="GET" role="search" aria-label="Tìm kiếm nhanh venue">
+          <form class="hero-search-form" action="venues.html" method="GET" role="search" aria-label="Tìm kiếm nhanh hội nghị và tạp chí">
             <input 
               type="text" 
               name="q" 
               class="hero-search-input" 
               id="hero-search-input"
               placeholder="Nhập tên hội nghị, tạp chí, từ khóa (VD: CVPR, TPAMI, AI, Data Mining, ISSN...)"
-              aria-label="Từ khóa tìm kiếm venue"
+              aria-label="Từ khóa tìm kiếm hội nghị, tạp chí"
               autocomplete="off"
             >
             <button type="submit" class="hero-search-btn" aria-label="Thực hiện tìm kiếm">
@@ -182,8 +182,8 @@
     <!-- 2.3. Khối 4 Nan Hoa Điều Hướng (Wheel Hub Feature Highlights) -->
     <section class="container section-spacer" aria-labelledby="features-heading">
       <header class="section-header">
-        <h2 id="features-heading" class="section-title">Các Trục Tính Năng Cốt Lõi (Mô Hình Bánh Xe)</h2>
-        <p class="section-desc">Hệ thống được thiết kế hướng nghiên cứu sinh và tác giả bài báo khoa học, giải quyết trọn vẹn từ khâu lựa chọn venue đến quản lý hạn nộp bài.</p>
+        <h2 id="features-heading" class="section-title">Các Tính Năng Cốt Lõi Của Hệ Thống</h2>
+        <p class="section-desc">Hệ thống được thiết kế hướng nghiên cứu sinh và tác giả bài báo khoa học, giải quyết trọn vẹn từ khâu lựa chọn nơi công bố đến quản lý hạn nộp bài.</p>
       </header>
 
       <div class="grid-cards">
@@ -221,7 +221,7 @@
           <span class="badge badge-q1 spoke-badge">TRA CỨU TOÀN DIỆN</span>
           <h3 class="spoke-title">Tra Cứu Hội Nghị &amp; Tạp Chí</h3>
           <p class="spoke-desc">
-            Tra cứu nhanh trên kho dữ liệu hơn 10.000 venues. Hỗ trợ lọc tức thời theo phân hạng Tạp chí Scopus (Q1, Q2, Q3, Q4), phân hạng Hội nghị CORE (A*, A, B, C), Chuyên ngành đào tạo, Chỉ số CiteScore/SJR và mã định danh quốc tế ISSN/eISSN.
+            Tra cứu nhanh trên kho dữ liệu hơn 10.000 hội nghị và tạp chí. Hỗ trợ lọc tức thời theo phân hạng Tạp chí Scopus (Q1, Q2, Q3, Q4), phân hạng Hội nghị CORE (A*, A, B, C), Chuyên ngành đào tạo, Chỉ số CiteScore/SJR và mã định danh quốc tế ISSN/eISSN.
           </p>
           <a href="venues.html" class="btn-primary spoke-link">
             <span>Mở bộ lọc hội nghị &amp; tạp chí</span>
@@ -507,7 +507,7 @@
           </div>
           <h3 class="step-title">So Khớp Thuật Toán BM25</h3>
           <p class="step-desc">
-            Thuật toán Okapi BM25 chuẩn hóa độ dài văn bản, bão hòa tần suất từ khóa học thuật và lọc ra danh sách venues có Scope tương đồng cao nhất.
+            Thuật toán Okapi BM25 chuẩn hóa độ dài văn bản, bão hòa tần suất từ khóa học thuật và lọc ra danh sách nơi công bố có phạm vi nghiên cứu tương đồng cao nhất.
           </p>
         </article>
 
@@ -517,7 +517,7 @@
           </div>
           <h3 class="step-title">Đánh Dấu &amp; Canh Deadline</h3>
           <p class="step-desc">
-            Lưu venue vào danh sách mục tiêu (Watchlist), kích hoạt đồng hồ đếm ngược CFP theo giờ AoE và hoàn thiện bản thảo trước hạn nộp bài.
+            Lưu hội nghị hoặc tạp chí vào danh sách mục tiêu (Watchlist), kích hoạt đồng hồ đếm ngược CFP theo giờ AoE và hoàn thiện bản thảo trước hạn nộp bài.
           </p>
         </article>
       </div>
@@ -600,7 +600,7 @@
             <li>Võ Đình Kiên (TV1 - Trưởng nhóm)</li>
             <li>Trần Duy Khánh (TV2)</li>
             <li>Huỳnh Văn Lên (TV3)</li>
-            <li>Tràn Hồng Lĩnh (TV4)</li>
+            <li>Trần Hồng Lĩnh (TV4)</li>
             <li>Ngô Bảo Lâm (TV5)</li>
             <li style="margin-top: 4px;">
               <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
@@ -614,7 +614,7 @@
         <div class="footer-col">
           <h4>Tiêu Chuẩn &amp; Học Thuật</h4>
           <ul class="footer-links-list">
-            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8,752 venues)</li>
+            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8.752 hội nghị &amp; tạp chí)</li>
             <li><strong>Thuật toán:</strong> Okapi BM25 thuần Vanilla JS</li>
             <li><strong>Múi giờ CFP:</strong> Anywhere on Earth (AoE UTC-12)</li>
             <li><strong>Kiến trúc:</strong> 100% Vanilla HTML5 / CSS3 / ESM</li>

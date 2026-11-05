@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Hệ thống gợi ý hội nghị và tạp chí Scopus/CORE phù hợp với bản thảo nghiên cứu của bạn bằng thuật toán Okapi BM25 - ScopusVenue IE104.">
-  <title>Gợi Ý Theo Bản Thảo (Okapi BM25) | ScopusVenue</title>
+  <title>Gợi Ý Nơi Công Bố Theo Bản Thảo | ScopusVenue</title>
 
   <!-- Design Tokens & Shared Styles -->
   <link rel="stylesheet" href="css/variables.css">
@@ -223,7 +223,7 @@
              ======================== -->
         <section class="results-card" aria-labelledby="results-heading" aria-live="polite">
           <h2 class="results-card__title" id="results-heading">
-            <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#target"></use></svg> Kết Quả Đề Xuất (Top-K Matches)
+            <svg class="recommend-icon" aria-hidden="true" focusable="false"><use href="images/recommend-icons.svg#target"></use></svg> Kết Quả Gợi Ý Nơi Công Bố Phù Hợp Nhất
           </h2>
 
           <!-- Placeholder khi chưa phân tích -->
@@ -245,7 +245,7 @@
           </div>
 
           <!-- Container JS sẽ render kết quả vào đây -->
-          <div id="recommend-results-container" hidden aria-label="Kết quả gợi ý venue"></div>
+          <div id="recommend-results-container" hidden aria-label="Kết quả gợi ý hội nghị và tạp chí"></div>
         </section>
 
       </div><!-- /.recommend-layout -->
@@ -295,7 +295,7 @@
             <li>Võ Đình Kiên (TV1 - Trưởng nhóm)</li>
             <li>Trần Duy Khánh (TV2)</li>
             <li>Huỳnh Văn Lên (TV3)</li>
-            <li>Tràn Hồng Lĩnh (TV4)</li>
+            <li>Trần Hồng Lĩnh (TV4)</li>
             <li>Ngô Bảo Lâm (TV5)</li>
             <li style="margin-top: 4px;">
               <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
@@ -309,7 +309,7 @@
         <div class="footer-col">
           <h4>Tiêu Chuẩn &amp; Học Thuật</h4>
           <ul class="footer-links-list">
-            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8,752 venues)</li>
+            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8.752 hội nghị &amp; tạp chí)</li>
             <li><strong>Thuật toán:</strong> Okapi BM25 thuần Vanilla JS</li>
             <li><strong>Múi giờ CFP:</strong> Anywhere on Earth (AoE UTC-12)</li>
             <li><strong>Kiến trúc:</strong> 100% Vanilla HTML5 / CSS3 / ESM</li>
