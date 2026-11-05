@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="scopus-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <!-- Nền bo góc chuẩn App Icon nhận diện thương hiệu ScopusVenue -->
+  <rect width="32" height="32" rx="7" fill="url(#scopus-grad)"/>
+  
+  <!-- Đỉnh mũ cử nhân hình thoi -->
+  <path d="M16 6.5L3.5 13L16 19.5L28.5 13L16 6.5Z" fill="#ffffff"/>
+  
+  <!-- Khối thân vòm mũ cử nhân -->
+  <path d="M8.5 15.5V21.5C8.5 24 11.8 26 16 26C20.2 26 23.5 24 23.5 21.5V15.5L16 19.5L8.5 15.5Z" fill="#ffffff" fill-opacity="0.92"/>
+  
+  <!-- Tua rua học thuật màu cam thương hiệu (Accent) -->
+  <path d="M25 14.5V22" stroke="#ea580c" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="25" cy="22.5" r="1.2" fill="#ea580c"/>
+</svg>
