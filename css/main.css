@@ -1630,7 +1630,7 @@ textarea.form-control {
 
 /* 9.3. Hero Badge & CTA Buttons */
 .hero-section {
-  padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+  padding: var(--spacing-2xl) 0 var(--spacing-lg);
   text-align: center;
 }
 
