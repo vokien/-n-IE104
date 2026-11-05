@@ -205,6 +205,7 @@ svg {
   align-items: center;
   gap: var(--spacing-sm);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .btn-icon {
@@ -229,18 +230,27 @@ svg {
 #bookmark-header-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
-  white-space: nowrap;
-  flex-shrink: 0;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
   padding: 0 12px;
+  height: 38px;
+  line-height: 1;
 }
 
 #bookmark-header-btn svg {
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
 }
 
 #bookmark-header-btn .bookmark-label {
-  white-space: nowrap;
+  white-space: nowrap !important;
+  display: inline-block;
+  line-height: 1;
+}
+
+#bookmark-header-btn .bookmark-count.badge {
+  flex-shrink: 0 !important;
 }
 
 .btn-icon:hover {
@@ -1002,6 +1012,16 @@ textarea.form-control {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+}
+
+.footer-links-list li {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+}
+
+.footer-links-list li strong {
+  color: var(--color-text-main);
 }
 
 .footer-links-list a {

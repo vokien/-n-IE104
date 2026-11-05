@@ -24,7 +24,7 @@
         <span>Scopus<span>Venue</span></span>
       </a>
 
-      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang vệ tinh -->
+      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang chức năng -->
       <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
@@ -32,7 +32,6 @@
           <li><a href="venues.html">Tra Cứu Hội Nghị &amp; Tạp Chí</a></li>
           <li><a href="recommend.html">Gợi Ý Theo Bản Thảo</a></li>
           <li><a href="timeline.html">Lịch Nộp Bài (CFP)</a></li>
-          <li><a href="sitemap.html">Sơ Đồ Website</a></li>
           <li><a href="contact.html">Liên Hệ</a></li>
         </ul>
       </nav>
@@ -147,21 +146,80 @@
   </div>
 
   <!-- ============================================================
-       4. FOOTER MÔ HÌNH BÁNH XE (SEMANTIC <footer role="contentinfo">)
+       4. FOOTER HỌC THUẬT ĐA CỘT (SEMANTIC <footer role="contentinfo">)
        ============================================================ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
-        <a href="index.html">Trang Chủ</a>
-        <a href="about.html">Giới Thiệu Đề Tài</a>
-        <a href="venues.html">Tra Cứu Hội Nghị &amp; Tạp Chí</a>
-        <a href="recommend.html">Gợi Ý Theo Bản Thảo</a>
-        <a href="timeline.html">Lịch Nộp Bài (CFP)</a>
-        <a href="sitemap.html">Sơ Đồ Website</a>
-        <a href="contact.html">Liên Hệ &amp; Góp Ý</a>
-      </nav>
+      <div class="footer-grid">
+        <!-- Cột 1: Thông tin Đề tài & Trường Viện -->
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo footer-brand-logo" aria-label="Về trang chủ ScopusVenue">
+            <svg class="brand-icon brand-icon-box--footer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span>Scopus<span>Venue</span></span>
+          </a>
+          <p class="footer-about-text">
+            Hệ thống tra cứu và khuyến nghị nơi công bố khoa học (Hội nghị CORE &amp; Tạp chí Scopus SJR) dành cho giảng viên, nghiên cứu sinh và sinh viên.
+          </p>
+          <div style="margin-top: var(--spacing-sm);">
+            <span class="footer-uit-badge">ĐHQG-HCM · TRƯỜNG ĐH CÔNG NGHỆ THÔNG TIN</span>
+          </div>
+        </div>
+
+        <!-- Cột 2: Đơn vị phụ trách & Giảng viên hướng dẫn -->
+        <div class="footer-col">
+          <h4>Đơn Vị &amp; Học Phần</h4>
+          <ul class="footer-links-list">
+            <li><strong>Môn học:</strong> IE104 - Internet &amp; Công nghệ Web</li>
+            <li><strong>Khoa:</strong> Kỹ thuật Phần mềm (SE - UIT)</li>
+            <li><strong>GVHD:</strong> ThS. Võ Tấn Khoa</li>
+            <li><strong>Email:</strong> <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a></li>
+            <li><strong>Địa chỉ:</strong> KP.6, P. Linh Trung, TP. Thủ Đức, TP.HCM</li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Đội ngũ sinh viên thực hiện -->
+        <div class="footer-col">
+          <h4>Nhóm Sinh Viên Thực Hiện</h4>
+          <ul class="footer-links-list">
+            <li>Võ Đình Kiên (TV1 - Trưởng nhóm)</li>
+            <li>Trần Duy Khánh (TV2)</li>
+            <li>Huỳnh Văn Lên (TV3)</li>
+            <li>Tràn Hồng Lĩnh (TV4)</li>
+            <li>Ngô Bảo Lâm (TV5)</li>
+            <li style="margin-top: 4px;">
+              <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
+                Xem chi tiết phân công đồ án &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Tiêu chuẩn kỹ thuật & Sơ đồ website -->
+        <div class="footer-col">
+          <h4>Tiêu Chuẩn &amp; Học Thuật</h4>
+          <ul class="footer-links-list">
+            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8,752 venues)</li>
+            <li><strong>Thuật toán:</strong> Okapi BM25 thuần Vanilla JS</li>
+            <li><strong>Múi giờ CFP:</strong> Anywhere on Earth (AoE UTC-12)</li>
+            <li><strong>Kiến trúc:</strong> 100% Vanilla HTML5 / CSS3 / ESM</li>
+            <li style="margin-top: 4px;">
+              <a href="sitemap.html" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
+                Sơ đồ cấu trúc website (Sitemap) &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dòng đáy chân trang (Bản quyền & Định danh học thuật) -->
       <div class="footer-bottom">
-        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
+        <p>&copy; 2026 ScopusVenue. Đồ án môn học IE104 - Internet và Công nghệ Web | Trường Đại học Công nghệ Thông tin - ĐHQG-HCM.</p>
+        <div>
+          <span class="footer-uit-badge">UIT · VNU-HCM · 2026</span>
+        </div>
       </div>
     </div>
   </footer>
