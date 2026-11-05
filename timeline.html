@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi">
 <head>
-  <link rel="icon" href="data:,">
   <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ie104_theme_preference');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="icon" href="data:,">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lịch Nộp Bài (CFP) &amp; Đếm Ngược Deadline | ScopusVenue</title>
   <link rel="stylesheet" href="./css/variables.css">

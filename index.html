@@ -1,7 +1,20 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ie104_theme_preference');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Website tra cứu và khuyến nghị hội nghị / tạp chí xếp hạng Scopus & CORE cho đề tài nghiên cứu khoa học - Đồ án môn học IE104 (100% Vanilla HTML5, CSS3, JavaScript ESM)">
   <meta name="keywords" content="Scopus, CORE 2026, SJR, CiteScore, Hội nghị khoa học, Tạp chí khoa học, Khuyến nghị bài báo, Okapi BM25, AoE, Vanilla JS">

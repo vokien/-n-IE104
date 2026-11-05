@@ -22,6 +22,8 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-body);
+  color: var(--color-text-main);
 }
 
 body {
