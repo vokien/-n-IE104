@@ -56,7 +56,7 @@
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span class="bookmark-label">Mục Tiêu</span>
-          <span class="bookmark-count badge is-empty" aria-label="Số lượng mục tiêu đã lưu">0</span>
+          <span class="bookmark-count badge" aria-label="Số lượng mục tiêu đã lưu">0</span>
         </button>
 
         <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
@@ -388,13 +388,13 @@
 
         if (!nameVal || !emailVal || !messageVal) {
           feedbackBox.className = 'contact-success-toast contact-toast--error';
-          feedbackBox.innerHTML = 'Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc.';
+          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc.</p>';
           return;
         }
 
         // Mô phỏng gửi thành công
         feedbackBox.className = 'contact-success-toast contact-toast--success';
-        feedbackBox.innerHTML = `Cảm ơn <strong>${nameVal}</strong>! Ý kiến đóng góp của bạn đã được ghi nhận thành công trong phiên làm việc. Nhóm sẽ đối soát và cập nhật dữ liệu.`;
+        feedbackBox.innerHTML = '<p class="contact-feedback-msg">Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận.</p>';
         
         contactForm.reset();
       });

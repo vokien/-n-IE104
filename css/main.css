@@ -19,6 +19,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -183,11 +184,11 @@ svg {
   padding: 7px 11px;
   color: var(--color-text-muted);
   font-size: 14.5px;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-md);
   text-decoration: none;
   white-space: nowrap;
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .wheel-nav a:hover {
@@ -198,7 +199,7 @@ svg {
 .wheel-nav a.active {
   color: var(--color-primary);
   background-color: var(--color-primary-light);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Action Controls (Bookmark & Theme Toggle) */
@@ -264,13 +265,6 @@ svg {
   padding: 0 5px;
   font-variant-numeric: tabular-nums;
   flex-shrink: 0 !important;
-  transition: opacity var(--transition-fast), visibility var(--transition-fast);
-}
-
-#bookmark-header-btn .bookmark-count.is-empty {
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none;
 }
 
 #theme-toggle-btn {
@@ -623,13 +617,16 @@ textarea.form-control {
 
 /* Đội ngũ phát triển (Team Cards) */
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-lg);
 }
 
 .member-card {
+  flex: 1 1 260px;
+  max-width: 360px;
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -740,6 +737,11 @@ textarea.form-control {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-md);
+}
+
+.contact-feedback-msg {
+  margin: 0;
+  line-height: var(--line-height-normal);
 }
 
 /* ----------------------------------------------------------------------------
