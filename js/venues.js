@@ -5,7 +5,7 @@ import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
 const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
-const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' });
+const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' });
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -65,7 +65,7 @@ function makeCard(row) {
 
     if (deadline) {
       const deadlineInfo = element('p', undefined, 'venue-deadline');
-      const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} UTC`);
+      const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} (Giờ VN)`);
       time.dateTime = deadline.raw;
       deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
       block.append(deadlineInfo);

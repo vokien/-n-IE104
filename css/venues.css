@@ -88,7 +88,24 @@
 .venue-entry:hover { border-color: var(--color-border-focus); }
 .venue-entry-header { display: flex; align-items: center; flex-wrap: wrap; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); }
 .venue-kind { font-size: var(--font-size-sm); color: var(--color-text-muted); }
-.venue-rank { font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); padding: var(--spacing-xs) var(--spacing-sm); border-radius: var(--radius-sm); background: var(--color-bg-subtle); color: var(--color-text-main); }
+.venue-rank {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.countdown-box .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .venue-rank[data-rank="Q1"], .venue-rank[data-rank="A*"] { background: hsl(145 65% 42% / .18); border-left: 3px solid hsl(145 65% 42%); }
 .venue-rank[data-rank="Q2"], .venue-rank[data-rank="A"] { background: hsl(48 95% 50% / .18); border-left: 3px solid hsl(48 95% 50%); }
 .venue-rank[data-rank="Q3"], .venue-rank[data-rank="B"] { background: hsl(25 95% 52% / .18); border-left: 3px solid hsl(25 95% 52%); }
