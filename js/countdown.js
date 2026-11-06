@@ -586,6 +586,8 @@
     getAllConferences: () => allConferences,
     getActiveTimezoneConfig,
     setupTimezoneSelector,
+    getUserLocalTz,
+    getLocalOffsetLabel,
   };
 
   // Kích hoạt an toàn khi DOM hoàn tất

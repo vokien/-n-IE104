@@ -6,35 +6,82 @@ import { updateTriggerButtons } from './modules/bookmark-modal.js';
 const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 
-function formatVenueDeadline(timestamp, dateOnly, rawDay) {
-  if (dateOnly) return rawDay.split('-').reverse().join('/');
-  let tz = 'Asia/Ho_Chi_Minh';
-  let label = 'Múi giờ thiết bị';
+function renderDualVenueDeadline(deadline) {
+  const container = element('div', undefined, 'venue-deadline');
+  container.append(element('small', 'Hạn nộp bài gần nhất'));
 
-  if (window.CountdownService && typeof window.CountdownService.getActiveTimezoneConfig === 'function') {
-    const cfg = window.CountdownService.getActiveTimezoneConfig();
-    tz = cfg.iana;
-    label = cfg.itemLabel;
+  const dualBox = element('div', undefined, 'venue-deadline-dual');
+
+  let userLocalTz = 'Asia/Ho_Chi_Minh';
+  if (window.CountdownService && typeof window.CountdownService.getUserLocalTz === 'function') {
+    userLocalTz = window.CountdownService.getUserLocalTz();
   } else {
     try {
-      const savedMode = localStorage.getItem('cfp_timezone_pref') || 'local';
-      if (savedMode === 'aoe') {
-        tz = 'Etc/GMT+12';
-        label = 'Múi giờ hội nghị (AoE)';
-      } else {
-        tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Ho_Chi_Minh';
-        label = 'Múi giờ thiết bị';
-      }
+      userLocalTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Ho_Chi_Minh';
     } catch (e) {}
   }
 
-  try {
-    const df = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz });
-    return `${df.format(timestamp)} (${label})`;
-  } catch (e) {
-    const df = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' });
-    return `${df.format(timestamp)} (${label})`;
+  let localOffset = '';
+  if (window.CountdownService && typeof window.CountdownService.getLocalOffsetLabel === 'function') {
+    localOffset = window.CountdownService.getLocalOffsetLabel(userLocalTz);
+  } else {
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: userLocalTz, timeZoneName: 'short' }).formatToParts(new Date());
+      const p = parts.find((x) => x.type === 'timeZoneName');
+      localOffset = p ? p.value : '';
+    } catch (e) {}
+    if (!localOffset) {
+      const offsetMin = -new Date().getTimezoneOffset();
+      const sign = offsetMin >= 0 ? '+' : '-';
+      const hours = Math.floor(Math.abs(offsetMin) / 60);
+      localOffset = `UTC${sign}${hours}`;
+    }
   }
+
+  const dtOpts = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+  let localText = '';
+  let aoeText = '';
+
+  if (deadline.dateOnly) {
+    const formattedDate = deadline.raw.split('-').reverse().join('/');
+    localText = formattedDate;
+    aoeText = `${formattedDate} (AoE)`;
+  } else {
+    try {
+      const localFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: userLocalTz }).format(deadline.value);
+      localText = `${localFormatted} (${localOffset})`;
+    } catch (e) {
+      const localFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'Asia/Ho_Chi_Minh' }).format(deadline.value);
+      localText = `${localFormatted} (GMT+7)`;
+    }
+
+    try {
+      const aoeFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'Etc/GMT+12' }).format(deadline.value);
+      aoeText = `${aoeFormatted} (AoE)`;
+    } catch (e) {
+      const aoeFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'UTC' }).format(deadline.value);
+      aoeText = `${aoeFormatted} (AoE)`;
+    }
+  }
+
+  // Dòng 1: Múi giờ thiết bị
+  const localRow = element('div', undefined, 'venue-deadline-item');
+  const localTag = element('span', 'Giờ thiết bị:', 'venue-deadline-tz');
+  const localTime = element('time', localText, 'venue-deadline-time');
+  localTime.dateTime = deadline.raw;
+  localRow.append(localTag, localTime);
+
+  // Dòng 2: Múi giờ hội nghị (AoE)
+  const aoeRow = element('div', undefined, 'venue-deadline-item');
+  const aoeTag = element('span', 'Giờ hội nghị:', 'venue-deadline-tz');
+  const aoeTime = element('time', aoeText, 'venue-deadline-time');
+  aoeTime.dateTime = deadline.raw;
+  aoeRow.append(aoeTag, aoeTime);
+
+  dualBox.append(localRow, aoeRow);
+  container.append(dualBox);
+  return container;
 }
 
 function element(tag, text, className) {
@@ -94,10 +141,7 @@ function makeCard(row) {
     const block = element('div', undefined, 'venue-deadline-block');
 
     if (deadline) {
-      const deadlineInfo = element('p', undefined, 'venue-deadline');
-      const time = element('time', formatVenueDeadline(deadline.value, deadline.dateOnly, deadline.raw));
-      time.dateTime = deadline.raw;
-      deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
+      const deadlineInfo = renderDualVenueDeadline(deadline);
       block.append(deadlineInfo);
 
       // Thẻ countdown box tích hợp cho Task 4.3
