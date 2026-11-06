@@ -3,7 +3,7 @@
  * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4)
  * Xử lý: Nạp dữ liệu hội nghị từ conf.json,
  * tự động kích hoạt đồng hồ đếm ngược cho deadline gần nhất.
- * Múi giờ: Giờ Việt Nam (ICT / UTC+7)
+ * Múi giờ: Múi giờ chuẩn hội nghị (AoE - UTC-12) & Múi giờ theo thiết bị
  * Chuẩn: 100% Vanilla JS, 0% Inline CSS, Memory Safe.
  * ==========================================================
  */
@@ -98,7 +98,7 @@
   let venueGlobalInterval = null;
 
   /**
-   * 1. Tiện ích chuẩn hóa chuỗi thời gian về múi giờ Việt Nam (ICT / UTC+7)
+   * 1. Tiện ích chuẩn hóa chuỗi thời gian (fallback +07:00 khi chuỗi không có múi giờ)
    * Tự động chuyển đổi khoảng trắng thành "T" để tránh lỗi NaN khi parse
    */
   function parseVietnamDate(dateString) {
