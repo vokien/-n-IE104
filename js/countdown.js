@@ -74,31 +74,22 @@
     const localOffset = getLocalOffsetLabel(userLocalTz);
     const shortTzName = userLocalTz.split("/").pop().replace(/_/g, " ");
 
-    if (pref === "vn") {
-      return {
-        key: "vn",
-        iana: "Asia/Ho_Chi_Minh",
-        bannerLabel: "Giờ Việt Nam - ICT / UTC+7",
-        stepperLabel: "Giờ VN",
-        itemLabel: "Giờ VN",
-      };
-    }
     if (pref === "aoe") {
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Giờ gốc hội nghị - AoE / UTC-12",
-        stepperLabel: "AoE",
-        itemLabel: "AoE",
+        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
+        stepperLabel: "Giờ hội nghị (AoE)",
+        itemLabel: "Múi giờ hội nghị (AoE)",
       };
     }
-    // Mặc định: local (tự động theo máy tính người dùng)
+    // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Giờ thiết bị: ${shortTzName} (${localOffset})`,
+      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
       stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Giờ thiết bị (${localOffset})`,
+      itemLabel: `Múi giờ thiết bị (${localOffset})`,
     };
   }
 
@@ -421,6 +412,9 @@
     let currentPref = "local";
     try {
       currentPref = localStorage.getItem(TZ_STORAGE_KEY) || "local";
+      if (currentPref !== "local" && currentPref !== "aoe") {
+        currentPref = "local";
+      }
     } catch (e) {}
 
     selectEl.value = currentPref;
@@ -431,7 +425,7 @@
       const userLocalTz = getUserLocalTz();
       const localOffset = getLocalOffsetLabel(userLocalTz);
       const shortTzName = userLocalTz.split("/").pop().replace(/_/g, " ");
-      localOption.textContent = `Giờ thiết bị: ${shortTzName} (${localOffset}) - Tự động`;
+      localOption.textContent = `Múi giờ của thiết bị: ${shortTzName} (${localOffset}) - Tự động`;
     }
 
     selectEl.addEventListener("change", (e) => {

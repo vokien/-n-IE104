@@ -9,7 +9,7 @@ const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 function formatVenueDeadline(timestamp, dateOnly, rawDay) {
   if (dateOnly) return rawDay.split('-').reverse().join('/');
   let tz = 'Asia/Ho_Chi_Minh';
-  let label = 'Giờ VN';
+  let label = 'Múi giờ thiết bị';
 
   if (window.CountdownService && typeof window.CountdownService.getActiveTimezoneConfig === 'function') {
     const cfg = window.CountdownService.getActiveTimezoneConfig();
@@ -18,15 +18,12 @@ function formatVenueDeadline(timestamp, dateOnly, rawDay) {
   } else {
     try {
       const savedMode = localStorage.getItem('cfp_timezone_pref') || 'local';
-      if (savedMode === 'vn') {
-        tz = 'Asia/Ho_Chi_Minh';
-        label = 'Giờ VN';
-      } else if (savedMode === 'aoe') {
+      if (savedMode === 'aoe') {
         tz = 'Etc/GMT+12';
-        label = 'AoE';
+        label = 'Múi giờ hội nghị (AoE)';
       } else {
         tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Ho_Chi_Minh';
-        label = 'Giờ thiết bị';
+        label = 'Múi giờ thiết bị';
       }
     } catch (e) {}
   }
@@ -36,7 +33,7 @@ function formatVenueDeadline(timestamp, dateOnly, rawDay) {
     return `${df.format(timestamp)} (${label})`;
   } catch (e) {
     const df = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' });
-    return `${df.format(timestamp)} (Giờ VN)`;
+    return `${df.format(timestamp)} (${label})`;
   }
 }
 
