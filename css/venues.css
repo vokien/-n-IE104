@@ -10,8 +10,6 @@
 .directory-main button:disabled { opacity: .5; cursor: not-allowed; }
 .directory-main button:not(:disabled):active { transform: scale(.97); }
 .directory-main { padding-top: var(--spacing-xl); }
-.directory-breadcrumb { display: flex; gap: var(--spacing-sm); font-size: var(--font-size-sm); color: var(--color-text-muted); }
-.directory-breadcrumb a { color: var(--color-primary-hover); }
 .directory-heading { margin-block: var(--spacing-lg); }
 .directory-heading h1 { font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl)); line-height: var(--line-height-tight); letter-spacing: -.025em; }
 .directory-heading p { max-width: 70ch; margin-top: var(--spacing-sm); color: var(--color-text-muted); }
