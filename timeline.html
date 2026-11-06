@@ -83,8 +83,25 @@
     <header class="timeline-page-header">
       <h1 class="timeline-page-title">Lịch Trình Nộp Bài &amp; Đếm Ngược Thời Gian Thực</h1>
       <p class="timeline-page-desc">
-        Theo dõi các mốc quan trọng (Abstract, Full Paper, Notification) của các hội nghị quốc tế theo múi giờ Việt Nam (ICT - UTC+7).
+        Theo dõi các mốc quan trọng (Abstract, Full Paper, Notification) của các hội nghị quốc tế tự động đồng bộ theo múi giờ thiết bị của bạn.
       </p>
+
+      <!-- Bộ chọn Múi giờ Thông minh (Auto-detect + Selector) -->
+      <div class="timeline-tz-control" aria-label="Bộ chọn múi giờ hiển thị">
+        <label for="timezone-selector" class="timeline-tz-label">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>Múi giờ hiển thị:</span>
+        </label>
+        <select id="timezone-selector" class="timeline-tz-select" aria-label="Chọn múi giờ hiển thị hạn nộp bài">
+          <option value="local">Giờ thiết bị (Tự động)</option>
+          <option value="vn">Giờ Việt Nam (ICT - UTC+7)</option>
+          <option value="aoe">Giờ gốc hội nghị (AoE - UTC-12)</option>
+        </select>
+      </div>
     </header>
 
     <!-- Khối đếm ngược nổi bật (Countdown Banner mẫu) -->

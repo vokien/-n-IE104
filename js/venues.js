@@ -5,7 +5,40 @@ import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
 const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
-const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' });
+
+function formatVenueDeadline(timestamp, dateOnly, rawDay) {
+  if (dateOnly) return rawDay.split('-').reverse().join('/');
+  let tz = 'Asia/Ho_Chi_Minh';
+  let label = 'Giờ VN';
+
+  if (window.CountdownService && typeof window.CountdownService.getActiveTimezoneConfig === 'function') {
+    const cfg = window.CountdownService.getActiveTimezoneConfig();
+    tz = cfg.iana;
+    label = cfg.itemLabel;
+  } else {
+    try {
+      const savedMode = localStorage.getItem('cfp_timezone_pref') || 'local';
+      if (savedMode === 'vn') {
+        tz = 'Asia/Ho_Chi_Minh';
+        label = 'Giờ VN';
+      } else if (savedMode === 'aoe') {
+        tz = 'Etc/GMT+12';
+        label = 'AoE';
+      } else {
+        tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Ho_Chi_Minh';
+        label = 'Giờ thiết bị';
+      }
+    } catch (e) {}
+  }
+
+  try {
+    const df = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz });
+    return `${df.format(timestamp)} (${label})`;
+  } catch (e) {
+    const df = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' });
+    return `${df.format(timestamp)} (Giờ VN)`;
+  }
+}
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -65,7 +98,7 @@ function makeCard(row) {
 
     if (deadline) {
       const deadlineInfo = element('p', undefined, 'venue-deadline');
-      const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} (Giờ VN)`);
+      const time = element('time', formatVenueDeadline(deadline.value, deadline.dateOnly, deadline.raw));
       time.dateTime = deadline.raw;
       deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
       block.append(deadlineInfo);

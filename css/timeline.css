@@ -33,6 +33,74 @@
   font-size: var(--font-size-md, 1rem);
 }
 
+.timeline-tz-control {
+  margin-top: var(--spacing-md, 1rem);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs, 0.5rem);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill, 9999px);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.timeline-tz-control:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.timeline-tz-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.timeline-tz-label svg {
+  color: var(--color-primary);
+}
+
+.timeline-tz-select {
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 2px 4px;
+}
+
+.timeline-tz-select:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] .timeline-tz-control {
+  background-color: var(--color-bg-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .timeline-tz-select {
+  color: var(--color-primary);
+  background-color: var(--color-bg-surface);
+}
+
+[data-theme="dark"] .timeline-tz-select option {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}
+
 .timeline-section-title {
   font-size: var(--font-size-xl, 1.35rem);
   color: var(--color-primary, #0f172a);
