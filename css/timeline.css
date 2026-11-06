@@ -511,7 +511,7 @@
 /* ----------------------------------------------------------
    5. HUY HIỆU TRẠNG THÁI (Status Badges)
    ---------------------------------------------------------- */
-.badge {
+.badge:not(.bookmark-count) {
   display: inline-flex;
   align-items: center;
   justify-content: center;

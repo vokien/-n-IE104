@@ -3,12 +3,12 @@
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
 }
-.directory-page :is(a, button, input, select, summary):focus-visible {
+.directory-main :is(a, button, input, select, summary):focus-visible {
   outline: 3px solid var(--color-border-focus); outline-offset: 3px;
 }
-.directory-page :is(button, input, select) { font: inherit; }
-.directory-page button:disabled { opacity: .5; cursor: not-allowed; }
-.directory-page button:not(:disabled):active { transform: scale(.97); }
+.directory-main :is(button, input, select) { font: inherit; }
+.directory-main button:disabled { opacity: .5; cursor: not-allowed; }
+.directory-main button:not(:disabled):active { transform: scale(.97); }
 .directory-main { padding-top: var(--spacing-xl); }
 .directory-breadcrumb { display: flex; gap: var(--spacing-sm); font-size: var(--font-size-sm); color: var(--color-text-muted); }
 .directory-breadcrumb a { color: var(--color-primary-hover); }
@@ -75,7 +75,7 @@
 .rank-choices input:checked + span { background: var(--color-primary-light); border-color: var(--color-primary); font-weight: var(--font-weight-bold); }
 .rank-choices input:focus-visible + span { outline: 3px solid var(--color-border-focus); outline-offset: 2px; }
 .filter-note { font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: 4px; }
-.directory-page select { min-height: 38px; max-width: 100%; width: 100%; padding: 6px var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text-main); background: var(--color-bg-surface); }
+.directory-main select { min-height: 38px; max-width: 100%; width: 100%; padding: 6px var(--spacing-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text-main); background: var(--color-bg-surface); }
 .reset-filters { width: 100%; margin-top: 12px; min-height: 38px; }
 .directory-results { min-width: 0; }
 .results-toolbar { display: flex; align-items: end; justify-content: space-between; gap: var(--spacing-md); margin-bottom: var(--spacing-md); }
@@ -213,7 +213,7 @@
   .venue-entry h3 { font-size: var(--font-size-lg); }
   .venue-entry-footer > a { width: 100%; }
   .directory-pagination .directory-button { padding-inline: var(--spacing-sm); }
-  .directory-page .filter-choice, .directory-page summary { min-height: 44px; }
+  .directory-main .filter-choice, .directory-main summary { min-height: 44px; }
 }
 
 /* Hiệu ứng nổi bật khi điều hướng từ Danh sách mục tiêu đến thẻ Venue */

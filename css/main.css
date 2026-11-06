@@ -231,40 +231,55 @@ svg {
 }
 
 #bookmark-header-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-xs);
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--spacing-xs) !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  padding: 0 10px;
-  height: 38px;
-  width: 130px;
-  min-width: 130px;
-  max-width: 130px;
-  box-sizing: border-box;
-  line-height: 1;
+  padding: 0 10px !important;
+  height: 38px !important;
+  width: 130px !important;
+  min-width: 130px !important;
+  max-width: 130px !important;
+  box-sizing: border-box !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  font-family: inherit !important;
+  line-height: 1 !important;
 }
 
 #bookmark-header-btn svg {
+  width: 16px !important;
+  height: 16px !important;
   flex-shrink: 0 !important;
 }
 
 #bookmark-header-btn .bookmark-label {
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  line-height: 1 !important;
   white-space: nowrap !important;
-  display: inline-block;
-  line-height: 1;
+  display: inline-block !important;
 }
 
 #bookmark-header-btn .bookmark-count.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 20px;
-  height: 18px;
-  padding: 0 5px;
-  font-variant-numeric: tabular-nums;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 20px !important;
+  height: 18px !important;
+  padding: 0 5px !important;
+  font-size: 11px !important;
+  font-family: var(--font-family-mono) !important;
+  font-weight: var(--font-weight-bold) !important;
+  line-height: 1.2 !important;
+  border-radius: var(--radius-pill) !important;
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+  font-variant-numeric: tabular-nums !important;
   flex-shrink: 0 !important;
+  gap: 0 !important;
 }
 
 #theme-toggle-btn {
