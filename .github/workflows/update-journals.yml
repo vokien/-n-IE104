@@ -83,3 +83,9 @@ jobs:
             - Đồng bộ chỉ số học thuật: CiteScore, H-index, homepage URLs.
             - Tích hợp hạn nộp bài của các Số đặc biệt (Special Issues) theo chuẩn múi giờ AoE UTC-12.
             - Đã vượt qua kiểm định chuẩn hóa schema 100% không lỗi.
+      - name: Enable auto-merge when explicitly configured by the repository
+        if: success() && (vars.JOUR_AUTO_MERGE == 'true' || vars.CONF_AUTO_MERGE == 'true') && steps.pr.outputs.pull-request-number != ''
+        run: gh pr merge "$PR_NUMBER" --auto --squash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.pull-request-number }}
