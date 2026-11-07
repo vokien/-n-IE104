@@ -23,7 +23,7 @@ def request(url):
     parsed = urlsplit(url)
     if (parsed.scheme not in ('http', 'https') or parsed.username or parsed.password
             or parsed.port not in (None, 80, 443) or parsed.hostname not in
-            {'api.github.com', 'codeload.github.com', 'wikicfp.com', 'www.wikicfp.com'}):
+            {'api.github.com', 'codeload.github.com', 'raw.githubusercontent.com', 'wikicfp.com', 'www.wikicfp.com', 'dblp.org'}):
         raise ValueError('Unapproved source URL')
     if parsed.hostname.endswith('github.com') and parsed.scheme != 'https':
         raise ValueError('GitHub API requires HTTPS')
@@ -38,7 +38,7 @@ def request(url):
         if token:
             headers['Authorization'] = 'Bearer ' + token
     try:
-        response = build_opener(NoRedirect()).open(Request(url, headers=headers), timeout=25)
+        response = build_opener(NoRedirect()).open(Request(url, headers=headers), timeout=30)
     except HTTPError as error:
         response = error
     with response:

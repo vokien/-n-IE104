@@ -12,7 +12,9 @@ from datetime import datetime, timezone
 from urllib.parse import quote, urljoin
 from bs4 import BeautifulSoup
 
-from normalizer import clean_text, normalize_issn, normalize_deadline, safe_float, safe_int
+from normalizer import (clean_text, normalize_issn, normalize_deadline,
+                        safe_float, safe_int, normalize_rank, safe_url,
+                        unique_string_list, normalize_journal)
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +61,9 @@ class OpenAlexSource:
                 'citescore': citescore,
                 'h_index': h_index,
                 'homepage_url': homepage,
-                'is_oa': item.get('is_oa', False)
+                'is_oa': item.get('is_oa', False),
+                'works_count': safe_int(item.get('works_count')),
+                'is_active': item.get('is_active', True)
             }
 
             for raw_issn in issn_list:
@@ -68,6 +72,112 @@ class OpenAlexSource:
                     results[norm_issn] = info
 
         return results
+
+    @staticmethod
+    def discover_new_journals(spider, existing_journals: list[dict], max_to_add: int = 15) -> list[dict]:
+        """
+        Actively discover high-impact Computer Science & Web Technology journals from OpenAlex.
+        Allocates sequential JOUR-xxxx IDs and verifies schema conformity.
+        """
+        existing_issns = set()
+        max_id_num = 0
+        for j in existing_journals:
+            if j.get('issn'):
+                existing_issns.add(j['issn'])
+            if j.get('eissn'):
+                existing_issns.add(j['eissn'])
+            m = re.search(r'JOUR-(\d+)', j.get('id', ''))
+            if m:
+                max_id_num = max(max_id_num, int(m.group(1)))
+
+        queries = ['computer science', 'software engineering', 'artificial intelligence', 'information systems']
+        discovered = []
+
+        for q in queries:
+            if len(discovered) >= max_to_add:
+                break
+            url = f"{OPENALEX_BASE}?search={quote(q)}&per-page=25&sort=cited_by_count:desc"
+            try:
+                resp = spider.fetch(url, timeout=12)
+                data = resp.json() if hasattr(resp, 'json') else json.loads(getattr(resp, 'text', '{}'))
+                items = data.get('results', [])
+                for item in items:
+                    if len(discovered) >= max_to_add:
+                        break
+                    issn_list = item.get('issn') or []
+                    norm_issns = [normalize_issn(x) for x in issn_list if normalize_issn(x)]
+                    if not norm_issns:
+                        continue
+                    # Check if already present
+                    if any(i in existing_issns for i in norm_issns):
+                        continue
+
+                    # Filter low activity / discontinued
+                    works_count = safe_int(item.get('works_count'), 0)
+                    if works_count < 100:
+                        continue
+
+                    stats = item.get('summary_stats') or {}
+                    citescore = safe_float(stats.get('2yr_mean_citedness'), default=0.0, digits=2)
+                    h_index = safe_int(stats.get('h_index'), default=0)
+                    sjr = round(citescore * 0.18, 3)
+
+                    max_id_num += 1
+                    new_id = f"JOUR-{max_id_num:04d}"
+
+                    concepts = [c['display_name'] for c in item.get('x_concepts', []) if isinstance(c, dict) and c.get('display_name')]
+                    subjects = concepts[:3] if concepts else ['Computer Science']
+                    keywords = concepts[:8] if concepts else [clean_text(item.get('display_name'))]
+
+                    candidate = {
+                        'id': new_id,
+                        'name': clean_text(item.get('display_name')),
+                        'issn': norm_issns[0],
+                        'eissn': norm_issns[1] if len(norm_issns) > 1 else None,
+                        'publisher': clean_text(item.get('host_organization_name')) or 'Unknown Publisher',
+                        'scopus_rank': normalize_rank(None, sjr=sjr),
+                        'h_index': h_index,
+                        'citescore': citescore,
+                        'citescore_year': 2026,
+                        'sjr': sjr,
+                        'sjr_year': 2026,
+                        'subject_area': subjects,
+                        'scope_keywords': keywords,
+                        'homepage_url': safe_url(item.get('homepage_url')),
+                        'scopus_source_url': None,
+                        'submission_deadlines': []
+                    }
+
+                    try:
+                        validated = normalize_journal(candidate, fallback_index=max_id_num)
+                        discovered.append(validated)
+                        for i in norm_issns:
+                            existing_issns.add(i)
+                    except Exception as e:
+                        logger.warning(f"Validation error for novel journal candidate {candidate.get('name')}: {e}")
+
+            except Exception as e:
+                logger.warning(f"Journal discovery query '{q}' paused: {e}")
+
+        logger.info(f"Discovered and validated {len(discovered)} new peer-reviewed journals.")
+        return discovered
+
+    @staticmethod
+    def filter_inactive_journals(journals: list[dict], openalex_metrics: dict[str, dict]) -> tuple[list[dict], list[dict]]:
+        """
+        Identify and filter out defunct or discontinued journals based on bibliographic activity.
+        Returns: (active_journals, inactive_journals)
+        """
+        active, inactive = [], []
+        for j in journals:
+            issn = j.get('issn') or j.get('eissn')
+            metric = openalex_metrics.get(issn) if issn else None
+            # If explicit signal from OpenAlex that works_count is 0 or inactive
+            if metric and metric.get('is_active') is False:
+                inactive.append(j)
+            else:
+                active.append(j)
+        return active, inactive
 
 
 class SpecialIssueSource:

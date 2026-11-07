@@ -113,11 +113,13 @@ jobs:
           commit-message: '[T3.2] Tự động cập nhật và làm sạch dữ liệu hội nghị'
           title: '[T3.2] Cập nhật dữ liệu hội nghị tự động'
           body: |
-            Cập nhật cùng file `data/conf.json` từ CCF Deadlines và WikiCFP, giới hạn trong ICORE2026.
+            Cập nhật tự động `data/conf.json` từ hệ thống đa nguồn: CCF Deadlines, AI-Deadlines, Sec-Deadlines, SE-Deadlines và WikiCFP.
 
-            Đã chuẩn hóa theo pipeline tiền xử lý, giữ ID ổn định, các vòng nộp bài và 11 trường conference.
-            Chỉ giữ hội nghị có keyword và ngày submission deadline lớn hơn ngày chạy.
-            Journal không thay đổi. Báo cáo chi tiết nằm trong artifact của lượt Actions này.
+            - Tự động bổ sung các hội nghị uy tín mới phát hiện và đồng bộ hạn nộp bài mới nhất.
+            - Tự động thanh lọc các hội nghị không còn đợt Call-for-Papers nào trong tương lai.
+            - Chuẩn hóa múi giờ chuẩn AoE (UTC-12), đồng hồ đếm ngược và bảng xếp hạng CORE (A*, A, B, C).
+            - Tích hợp cơ chế chống sập mạng toàn diện (Universal Network Resilience), tự động chuyển đổi nguồn an toàn khi WikiCFP hoặc máy chủ mạng bên ngoài gặp sự cố.
+            - Journal không thay đổi. Báo cáo chi tiết nằm trong artifact của lượt Actions này.
       - name: Enable auto-merge when explicitly configured by the repository
         if: success() && vars.CONF_AUTO_MERGE == 'true' && steps.pr.outputs.pull-request-number != ''
         run: gh pr merge "$PR_NUMBER" --auto --squash

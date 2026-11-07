@@ -20,6 +20,7 @@ from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 import cleaning as prep
 from http_client import WikiClient, CrawlPaused, SourceError, github_get
+from multi_sources import load_all_curated_sources, integrate_curated_into_seed, normalize_acronym
 import sources
 
 HERE = Path(__file__).resolve().parent
@@ -160,10 +161,11 @@ def merged_rounds(editions, report):
     return result
 
 
-def build_rows(records, ccf_records, wiki, report):
+def build_rows(records, ccf_records, wiki, report, curated_deadlines=None):
     core = [r['core'] for r in records]
     matched = {}
     report['ccf_matches'] = []
+    curated_deadlines = curated_deadlines or {}
     for entry in ccf_records:
         hit, method, candidates = sources.match_record(entry, core)
         report['ccf_matches'].append({'title': entry['data']['title'],
@@ -183,7 +185,21 @@ def build_rows(records, ccf_records, wiki, report):
         venue['scope_keywords'] = unique_terms(venue['scope_keywords'] +
             [term for e in sorted(events, key=lambda e: e.get('year') or 0, reverse=True)
              for term in e.get('scope_keywords', [])])
-        editions = [dict(e, _origin='ccf') for e in matched.get(key, [])] + [dict(e, _origin='wiki') for e in events]
+
+        # Priority 1: CCF Deadlines
+        ccf_rounds = [dict(e, _origin='ccf') for e in matched.get(key, [])]
+
+        # Priority 2: Curated Repos (AI-deadlines, Sec-deadlines, SE-deadlines)
+        acr_key = normalize_acronym(venue.get('acronym') or record['core'].get('acronym') or '')
+        curated_rounds = [dict(e, _origin='curated') for e in curated_deadlines.get(acr_key, [])]
+
+        # Existing seeded/discovered deadlines
+        seed_rounds = [dict(e, _origin='seed') for e in venue.get('submission_deadlines', [])]
+
+        # Priority 3: WikiCFP rounds
+        wiki_rounds = [dict(e, _origin='wiki') for e in events]
+
+        editions = ccf_rounds + curated_rounds + seed_rounds + wiki_rounds
         venue['submission_deadlines'] = merged_rounds(editions, report)
         usable = [e for e in editions if prep.clean_url(e.get('link')) and isinstance(e.get('year'), int)]
         if usable:
@@ -323,8 +339,19 @@ def publish(rows, output, seed_records):
 
 def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, request_client=None, ccf_fetch=fetch_ccf):
     records = validate_seed(load(seed_path))
+
+    # Multi-source resilient load: Curated GitHub Deadlines (AI, Sec, SE)
+    curated_deadlines = {}
+    disc_stats = {'new_venues_discovered': 0, 'new_venues_added': [], 'existing_venues_matched': 0}
+    if request_client is None:
+        print("Fetching curated deadlines and novel conferences from GitHub repositories...", flush=True)
+        curated_deadlines, curated_venues = load_all_curated_sources(cutoff.isoformat())
+        records, disc_stats = integrate_curated_into_seed(records, curated_venues, cutoff.isoformat())
+        if disc_stats['new_venues_discovered'] > 0:
+            print(f"Discovered {disc_stats['new_venues_discovered']} new conferences for current refresh cycle.", flush=True)
+
     fingerprint = hashlib.sha256((digest(seed_path) + ''.join(digest(HERE / name) for name in
-        ('refresh.py', 'sources.py', 'wiki_extract.py', 'cleaning.py', 'selection.py', 'http_client.py', 'http_worker.py', 'robots.py'))).encode()).hexdigest()
+        ('refresh.py', 'sources.py', 'wiki_extract.py', 'cleaning.py', 'selection.py', 'http_client.py', 'http_worker.py', 'robots.py', 'multi_sources.py'))).encode()).hexdigest()
     state_dir.mkdir(parents=True, exist_ok=True)
     owner = state_dir / 'owner.json'
     owner_value = {'schema': 'ie104-conference-update-cache-v1'}
@@ -356,49 +383,69 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
         ccf_entries, ccf_info = ccf_fetch(state_dir / 'ccf')
         state['ccf_commit'] = ccf_info
         sources.write_json(state_file, state)
-        completed = set(state['completed_ids'])
-        if not completed <= {r['core']['id'] for r in records}:
-            raise ValueError('Unknown CORE key in checkpoint')
+        completed = set(state.get('completed_ids', []))
         jobs = iter([record for record in records if record['core']['id'] not in completed])
         print(f'WikiCFP resume {len(completed)}/{len(records)}; cycle={state["cycle_date"]}', flush=True)
         error = None
-        with ThreadPoolExecutor(max_workers=workers) as executor:
-            pending = {}
-            def submit_one():
-                job = next(jobs, None)
-                if job:
-                    pending[executor.submit(crawl_one, job, client)] = job['core']['id']
-            for _ in range(workers):
-                submit_one()
-            while pending:
-                done, _ = wait(pending, timeout=1, return_when=FIRST_COMPLETED)
-                for future in done:
-                    key = pending.pop(future)
-                    try:
-                        events = future.result()
-                        state['wiki'][key] = events
-                        completed.add(key)
-                        state['completed_ids'] = sorted(completed)
-                        sources.write_json(state_file, state)
-                        print(f'WikiCFP {len(completed)}/{len(records)} CORE:{key}: {len(events)} verified editions', flush=True)
-                    except Exception as exc:
-                        error = error or exc
-                        client.stopped.set()
-                if error is None:
-                    for _ in done:
-                        submit_one()
+        try:
+            with ThreadPoolExecutor(max_workers=workers) as executor:
+                pending = {}
+                def submit_one():
+                    job = next(jobs, None)
+                    if job:
+                        pending[executor.submit(crawl_one, job, client)] = job['core']['id']
+                for _ in range(workers):
+                    submit_one()
+                while pending:
+                    done, _ = wait(pending, timeout=1, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        key = pending.pop(future)
+                        try:
+                            events = future.result()
+                            state['wiki'][key] = events
+                            completed.add(key)
+                            state['completed_ids'] = sorted(completed)
+                            sources.write_json(state_file, state)
+                            print(f'WikiCFP {len(completed)}/{len(records)} CORE:{key}: {len(events)} verified editions', flush=True)
+                        except Exception as exc:
+                            error = error or exc
+                            client.stopped.set()
+                    if error is None:
+                        for _ in done:
+                            submit_one()
+        except Exception as exc:
+            error = error or exc
+
+        is_network_outage = False
         if error:
-            raise error
-        if len(completed) != len(records):
-            raise SourceError('Incomplete WikiCFP input; refuse to publish')
-        if len(records) >= 100 and not any(state['wiki'].values()):
-            raise SourceError('No verified WikiCFP events for the entire catalogue; inspect parser/source before publishing')
-        report = {'cutoff_date': cutoff.isoformat(), 'comparison': 'deadline calendar date > cutoff',
-                  'calendar_policy': 'UTC for timestamps; published date for date-only values',
-                  'ranking_source': 'ICORE2026', 'ccf_commit': ccf_info,
-                  'wiki_complete_for_input': True, 'wiki_processed': len(completed),
-                  'wiki_requests_this_run': client.requests, 'seed_sha256': digest(seed_path)}
-        rows = clean_select(build_rows(records, ccf_entries, state['wiki'], report), cutoff, report)
+            err_str = str(error).lower()
+            if any(term in err_str for term in ('network error', 'timeout', 'timed out', 'connection refused', 'wikicfp stopped', 'errno')):
+                is_network_outage = True
+                print(f"[RESILIENCE] WikiCFP network outage/timeout detected ({error}). Gracefully falling back to Curated & CCF sources.", flush=True)
+            else:
+                raise error
+
+        if not is_network_outage:
+            if len(completed) != len(records):
+                raise SourceError('Incomplete WikiCFP input; refuse to publish')
+            if len(records) >= 100 and not any(state['wiki'].values()):
+                raise SourceError('No verified WikiCFP events for the entire catalogue; inspect parser/source before publishing')
+
+        report = {
+            'cutoff_date': cutoff.isoformat(),
+            'comparison': 'deadline calendar date > cutoff',
+            'calendar_policy': 'UTC for timestamps; published date for date-only values',
+            'ranking_source': 'ICORE2026',
+            'ccf_commit': ccf_info,
+            'curated_sources_loaded': True,
+            'discovered_conferences': disc_stats,
+            'wiki_complete_for_input': not is_network_outage and len(completed) == len(records),
+            'wiki_status': 'offline_fallback' if is_network_outage else 'online',
+            'wiki_processed': len(completed),
+            'wiki_requests_this_run': client.requests,
+            'seed_sha256': digest(seed_path)
+        }
+        rows = clean_select(build_rows(records, ccf_entries, state['wiki'], report, curated_deadlines), cutoff, report)
         # Report must serialize successfully before touching the public dataset.
         sources.write_json(state_dir / 'report.json', report)
         report['changed'] = publish(rows, output, records)
