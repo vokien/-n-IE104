@@ -15,7 +15,7 @@ export function deadlineValue(timeline) {
   }
   const day = timeline.deadline_dates?.deadline;
   if (day && /^\d{4}-\d{2}-\d{2}$/.test(day)) {
-    return { value: Date.parse(`${day}T00:00:00Z`), raw: day, dateOnly: true, timeline };
+    return { value: Date.parse(`${day}T23:59:59+07:00`), raw: day, dateOnly: true, timeline };
   }
   return null;
 }
@@ -34,7 +34,7 @@ export async function loadVenues() {
     const rows = await response.json();
     if (!Array.isArray(rows) || rows.some(row => !row.id || !row.name)) throw new Error(`Invalid directory: ${file}`);
     return rows.map(row => ({ ...row, kind,
-      searchText: normalize([row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' ')) }));
+      searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' ')) }));
   }));
   return groups.flat();
 }

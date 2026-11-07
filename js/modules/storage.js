@@ -109,13 +109,13 @@ export function saveBookmarks(list) {
 
 /**
  * Cập nhật số lượng trên các badge hiển thị
+ * Hiển thị rõ ràng số lượng mục tiêu và giữ cố định kích thước
  */
 export function updateBadgeCounter() {
   const count = getBookmarks().length;
   const badgeElements = document.querySelectorAll(".bookmark-count");
   badgeElements.forEach(el => {
     el.textContent = count;
-    el.style.display = count > 0 ? "inline-flex" : "none";
   });
 }
 

@@ -8,10 +8,10 @@
 ---
 
 ## 🌟 GIỚI THIỆU ĐỀ TÀI
-Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viên tra cứu danh bạ và khuyến nghị nơi công bố khoa học tối ưu (Hội nghị / Tạp chí) dựa trên bản thảo bài báo.
+Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viên tra cứu và khuyến nghị nơi công bố khoa học tối ưu (Hội nghị / Tạp chí) dựa trên bản thảo bài báo.
 
 ### ✨ Các Tính Năng Nổi Bật:
-1. **🔍 Tra Cứu Danh Bạ Đa Tiêu Chí (`venues.html`)**:
+1. **🔍 Tra Cứu Hội Nghị &amp; Tạp Chí Đa Tiêu Chí (`venues.html`)**:
    - Lọc theo thứ hạng Scopus / SJR (**Q1, Q2, Q3, Q4**).
    - Lọc theo chuẩn xếp hạng hội nghị quốc tế **CORE 2026** (**A\*, A, B, C**).
    - Lọc theo chuyên ngành nghiên cứu (Khoa học máy tính, Trí tuệ nhân tạo, Mạng máy tính,...).
@@ -28,7 +28,7 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
    - Đánh dấu yêu thích (Bookmarks), lưu lịch sử tìm kiếm vào `localStorage` của trình duyệt.
 5. **🎨 Kiến Trúc Giao Diện Chuẩn**:
    - **100% Thẻ ngữ nghĩa Semantic HTML5**: `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`, `<time>`, `<figure>`.
-   - **Mô hình bánh xe (Wheel Navigation Model)**: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang vệ tinh và có trang sơ đồ site (`sitemap.html`).
+   - **Mô hình bánh xe (Wheel Navigation Model)**: Trang chủ làm trục tâm (Hub), kết nối nan hoa trực tiếp 2 chiều với các trang chức năng vệ tinh.
    - **Chế độ Sáng / Tối (Dark / Light Mode)** chuyển đổi mượt mà bằng CSS Custom Properties.
 
 ---
@@ -47,16 +47,16 @@ Hệ thống web hỗ trợ các nhà nghiên cứu, giảng viên và sinh viê
 ├── .gitignore               # Loại bỏ file rác, file .env, file hệ điều hành
 ├── README.md                # Tài liệu tổng quan dự án và hướng dẫn chạy
 ├── index.html               # Trang chủ (Hub tâm của mô hình bánh xe)
-├── venues.html              # Trang danh bạ tra cứu hội nghị & tạp chí (TV3)
+├── venues.html              # Trang tra cứu hội nghị & tạp chí (TV3)
 ├── recommend.html           # Trang gợi ý bài báo theo thuật toán NLP (TV2)
 ├── timeline.html            # Trang dòng thời gian CFP & đếm ngược deadline (TV4)
 ├── about.html               # Trang giới thiệu đề tài và nhóm sinh viên (TV5)
 ├── contact.html             # Trang form liên hệ & góp ý (TV5)
-├── sitemap.html             # Trang sơ đồ site theo mô hình bánh xe (TV5)
+├── 404.html                 # Trang ngoại lệ 404 và điều hướng lỗi (TV5)
 ├── css/
 │   ├── variables.css        # Hệ thống Design Tokens (:root, bảng màu HSL, Dark/Light)
 │   ├── main.css             # Style khung dùng chung (Header, Footer, Wheel Nav)
-│   ├── venues.css           # Style trang danh bạ và bộ lọc (TV3)
+│   ├── venues.css           # Style trang tra cứu hội nghị & tạp chí và bộ lọc (TV3)
 │   ├── recommend.css        # Style trang gợi ý bài báo (TV2)
 │   └── timeline.css         # Style dòng thời gian và countdown (TV4)
 ├── js/

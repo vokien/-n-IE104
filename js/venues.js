@@ -1,11 +1,88 @@
-﻿import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
+import { loadVenues, nearestDeadline, safeUrl } from './modules/venue-data.js?v=20261017-sort2';
 import { selectVenues, sortOptions, paginateVenues } from './filter.js';
 import { isBookmarked } from './modules/storage.js';
 import { updateTriggerButtons } from './modules/bookmark-modal.js';
 
 const PAGE_SIZE = 10;
 const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
-const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' });
+
+function renderDualVenueDeadline(deadline) {
+  const container = element('div', undefined, 'venue-deadline');
+  container.append(element('small', 'Hạn nộp bài gần nhất'));
+
+  const dualBox = element('div', undefined, 'venue-deadline-dual');
+
+  let userLocalTz = 'Asia/Ho_Chi_Minh';
+  if (window.CountdownService && typeof window.CountdownService.getUserLocalTz === 'function') {
+    userLocalTz = window.CountdownService.getUserLocalTz();
+  } else {
+    try {
+      userLocalTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Ho_Chi_Minh';
+    } catch (e) {}
+  }
+
+  let localOffset = '';
+  if (window.CountdownService && typeof window.CountdownService.getLocalOffsetLabel === 'function') {
+    localOffset = window.CountdownService.getLocalOffsetLabel(userLocalTz);
+  } else {
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: userLocalTz, timeZoneName: 'short' }).formatToParts(new Date());
+      const p = parts.find((x) => x.type === 'timeZoneName');
+      localOffset = p ? p.value : '';
+    } catch (e) {}
+    if (!localOffset) {
+      const offsetMin = -new Date().getTimezoneOffset();
+      const sign = offsetMin >= 0 ? '+' : '-';
+      const hours = Math.floor(Math.abs(offsetMin) / 60);
+      localOffset = `UTC${sign}${hours}`;
+    }
+  }
+
+  const dtOpts = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+  let localText = '';
+  let aoeText = '';
+
+  if (deadline.dateOnly) {
+    const formattedDate = deadline.raw.split('-').reverse().join('/');
+    localText = formattedDate;
+    aoeText = `${formattedDate} (AoE)`;
+  } else {
+    try {
+      const localFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: userLocalTz }).format(deadline.value);
+      localText = `${localFormatted} (${localOffset})`;
+    } catch (e) {
+      const localFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'Asia/Ho_Chi_Minh' }).format(deadline.value);
+      localText = `${localFormatted} (GMT+7)`;
+    }
+
+    try {
+      const aoeFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'Etc/GMT+12' }).format(deadline.value);
+      aoeText = `${aoeFormatted} (AoE)`;
+    } catch (e) {
+      const aoeFormatted = new Intl.DateTimeFormat('vi-VN', { ...dtOpts, timeZone: 'UTC' }).format(deadline.value);
+      aoeText = `${aoeFormatted} (AoE)`;
+    }
+  }
+
+  // Dòng 1: Múi giờ thiết bị
+  const localRow = element('div', undefined, 'venue-deadline-item');
+  const localTag = element('span', 'Giờ thiết bị:', 'venue-deadline-tz');
+  const localTime = element('time', localText, 'venue-deadline-time');
+  localTime.dateTime = deadline.raw;
+  localRow.append(localTag, localTime);
+
+  // Dòng 2: Múi giờ hội nghị (AoE)
+  const aoeRow = element('div', undefined, 'venue-deadline-item');
+  const aoeTag = element('span', 'Giờ hội nghị:', 'venue-deadline-tz');
+  const aoeTime = element('time', aoeText, 'venue-deadline-time');
+  aoeTime.dateTime = deadline.raw;
+  aoeRow.append(aoeTag, aoeTime);
+
+  dualBox.append(localRow, aoeRow);
+  container.append(dualBox);
+  return container;
+}
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -64,10 +141,7 @@ function makeCard(row) {
     const block = element('div', undefined, 'venue-deadline-block');
 
     if (deadline) {
-      const deadlineInfo = element('p', undefined, 'venue-deadline');
-      const time = element('time', deadline.dateOnly ? deadline.raw.split('-').reverse().join('/') : `${dateFormat.format(deadline.value)} UTC`);
-      time.dateTime = deadline.raw;
-      deadlineInfo.append(element('small', 'Hạn nộp bài gần nhất'), time);
+      const deadlineInfo = renderDualVenueDeadline(deadline);
       block.append(deadlineInfo);
 
       // Thẻ countdown box tích hợp cho Task 4.3
@@ -92,14 +166,6 @@ function makeCard(row) {
     link.rel = 'noopener noreferrer';
     link.setAttribute('aria-label', `Website ${row.acronym || row.name} (mở tab mới)`);
     footer.append(link);
-  }
-
-  // Nút xem lịch trình CFP cho hội nghị
-  if (row.kind === 'conference') {
-    const timelineLink = element('a', 'Xem Lịch CFP', 'directory-button');
-    timelineLink.href = `timeline.html?id=${encodeURIComponent(row.id)}`;
-    timelineLink.setAttribute('aria-label', `Xem lịch trình CFP của ${row.acronym || row.name}`);
-    footer.append(timelineLink);
   }
 
   footer.append(bookmark);
@@ -139,7 +205,7 @@ async function initDirectory() {
     document.getElementById('quartile-filter').hidden = kind === 'conference';
     document.getElementById('core-filter').hidden = kind === 'journal';
 
-       const selected = selectVenues(rows, {
+    const selected = selectVenues(rows, {
       query: search.value,
       kind,
       subject: subject.value,
@@ -147,6 +213,16 @@ async function initDirectory() {
       core: data.getAll('core'),
       sort: sort.value,
     });
+
+    // Nếu có tham số ?id=... và tìm thấy trong kết quả, đưa venue mục tiêu lên đầu trang 1
+    const currentTargetId = new URLSearchParams(location.search).get('id');
+    if (currentTargetId && selected.length > 0) {
+      const targetIdx = selected.findIndex(r => r.id === currentTargetId || (r.acronym && r.acronym.toLowerCase() === currentTargetId.toLowerCase()));
+      if (targetIdx > 0) {
+        const [targetItem] = selected.splice(targetIdx, 1);
+        selected.unshift(targetItem);
+      }
+    }
 
     // DÙNG HÀM paginateVenues CỦA BẠN LÊN
     const paged = paginateVenues(selected, page, PAGE_SIZE);
@@ -220,7 +296,7 @@ async function initDirectory() {
       controls.forEach((control) => { control.disabled = false; });
       render();
     } catch (error) {
-      count.textContent = 'Chưa tải được danh bạ';
+      count.textContent = 'Chưa tải được dữ liệu hội nghị & tạp chí';
       status.replaceChildren(element('h3', 'Không tải được dữ liệu'), element('p', 'Kiểm tra kết nối rồi thử lại. Nếu đang mở file trực tiếp, hãy mở website qua máy chủ HTTP.'));
       const retry = element('button', 'Thử lại', 'directory-button primary');
       retry.type = 'button';
@@ -232,7 +308,50 @@ async function initDirectory() {
     }
   }
 
+  function focusVenueById(targetId) {
+    if (!targetId || !rows.length) return false;
+    const cleanId = String(targetId).trim();
+    const target = rows.find(r => r.id === cleanId || (r.acronym && r.acronym.toLowerCase() === cleanId.toLowerCase()));
+    if (!target) return false;
+
+    // Reset bộ lọc rank & subject
+    filterForm.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+    subject.value = '';
+
+    // Chuyển loại hình tương ứng
+    const kindRadio = filterForm.querySelector(`input[name="kind"][value="${target.kind}"]`);
+    if (kindRadio) {
+      kindRadio.checked = true;
+    }
+
+    // Đặt từ khóa tìm kiếm
+    search.value = target.acronym || target.name;
+    page = 1;
+    render();
+
+    // Cuộn mượt và highlight card
+    requestAnimationFrame(() => {
+      const card = container.querySelector(`[data-venue-id="${target.id}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('highlight-target');
+        setTimeout(() => card.classList.remove('highlight-target'), 3500);
+      }
+    });
+
+    return true;
+  }
+
+  // Đăng ký toàn cục để bookmark-modal có thể điều hướng trực tiếp khi ở venues.html
+  window.focusVenueById = focusVenueById;
+
   await load();
+
+  // Tự động cuộn đến venue mục tiêu nếu có tham số ?id= trên URL
+  const initialTargetId = new URLSearchParams(location.search).get('id');
+  if (initialTargetId) {
+    focusVenueById(initialTargetId);
+  }
 }
 
 initDirectory();

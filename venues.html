@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ie104_theme_preference');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Tra cứu tạp chí và hội nghị theo chủ đề, hạng Q, CORE và hạn nộp bài.">
-  <title>Danh bạ tạp chí và hội nghị | ScopusVenue</title>
-  <link rel="icon" href="data:,">
+  <title>Tra Cứu Hội Nghị &amp; Tạp Chí | ScopusVenue</title>
+  <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/venues.css">
@@ -23,15 +36,14 @@
         <span>Scopus<span>Venue</span></span>
       </a>
 
-      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với 6 trang vệ tinh -->
+      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang chức năng -->
       <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
-          <li><a href="venues.html" class="active" aria-current="page">Tra Cứu Danh Bạ</a></li>
-          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
-          <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
-          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="venues.html" class="active" aria-current="page">Tra Cứu Hội Nghị &amp; Tạp Chí</a></li>
+          <li><a href="recommend.html">Gợi Ý Theo Bản Thảo</a></li>
+          <li><a href="timeline.html">Lịch Nộp Bài (CFP)</a></li>
           <li><a href="contact.html">Liên Hệ</a></li>
         </ul>
       </nav>
@@ -42,8 +54,8 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
-          <span>Mục Tiêu</span>
-          <span class="bookmark-count badge" style="display: none;">0</span>
+          <span class="bookmark-label">Mục Tiêu</span>
+          <span class="bookmark-count badge" aria-label="Số lượng mục tiêu đã lưu">0</span>
         </button>
 
         <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
@@ -65,10 +77,9 @@
     </div>
   </header>
   <main id="main-content" class="container directory-main">
-    <nav class="directory-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span aria-hidden="true">/</span><span aria-current="page">Danh bạ</span></nav>
     <header class="directory-heading">
-      <h1>Tìm nơi công bố nghiên cứu</h1>
-      <p>Tra cứu tạp chí và hội nghị theo lĩnh vực, thứ hạng và hạn nộp bài.</p>
+      <h1>Tra Cứu Hội Nghị &amp; Tạp Chí Khoa Học</h1>
+      <p>Tra cứu hội nghị xếp hạng CORE và tạp chí xếp hạng Scopus SJR theo chuyên ngành, thứ hạng và hạn nộp bài.</p>
     </header>
     <form class="directory-search" id="directory-search" role="search">
       <label for="search-input" class="visually-hidden">Tìm tên, chủ đề hoặc nhà xuất bản</label>
@@ -77,7 +88,7 @@
       <button class="directory-button primary" type="submit">Tìm kiếm</button>
     </form>
     <div class="directory-layout">
-      <aside class="directory-sidebar" aria-label="Bộ lọc danh bạ">
+      <aside class="directory-sidebar" aria-label="Bộ lọc hội nghị và tạp chí">
         <details class="filter-panel" open>
           <summary>Bộ lọc</summary>
           <form id="filter-form">
@@ -119,33 +130,91 @@
       </aside>
       <section class="directory-results" aria-labelledby="results-heading" aria-busy="true">
         <header class="results-toolbar">
-          <div><h2 id="results-heading">Danh sách công bố</h2><p id="result-count" role="status" aria-live="polite">Đang tải danh bạ…</p></div>
+          <div><h2 id="results-heading">Danh Sách Hội Nghị &amp; Tạp Chí</h2><p id="result-count" role="status" aria-live="polite">Đang tải dữ liệu hội nghị &amp; tạp chí…</p></div>
           <div class="sort-control"><label for="sort-select">Sắp xếp</label><select id="sort-select"><option value="name">Tên A-Z</option><option value="name_desc">Tên Z-A</option></select></div>
         </header>
         <div id="directory-status" class="directory-state" role="status"><p>Đang tải tạp chí và hội nghị…</p></div>
         <div id="venues-list-container" class="venue-list"></div>
-        <nav id="directory-pagination" class="directory-pagination" aria-label="Phân trang danh bạ" hidden>
+        <nav id="directory-pagination" class="directory-pagination" aria-label="Phân trang danh sách hội nghị &amp; tạp chí" hidden>
           <button type="button" class="directory-button" id="previous-page">Trang trước</button>
           <span id="page-label"></span>
           <button type="button" class="directory-button" id="next-page">Trang sau</button>
         </nav>
-        <noscript><p class="directory-state">Bật JavaScript để tải và tra cứu danh bạ. Bạn vẫn có thể trở về <a href="index.html">trang chủ</a>.</p></noscript>
+        <noscript><p class="directory-state">Bật JavaScript để tải và tra cứu hội nghị &amp; tạp chí. Bạn vẫn có thể trở về <a href="index.html">trang chủ</a>.</p></noscript>
       </section>
     </div>
   </main>
-    <footer class="site-footer" role="contentinfo">
+  <!-- ============================================================
+       4. FOOTER HỌC THUẬT ĐA CỘT (SEMANTIC <footer role="contentinfo">)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
-        <a href="index.html">Trang Chủ (Hub)</a>
-        <a href="venues.html" class="active" aria-current="page">Danh Bạ Venues</a>
-        <a href="recommend.html">Khuyến Nghị Bài Báo</a>
-        <a href="timeline.html">Lịch Trình CFP</a>
-        <a href="about.html">Về Nhóm Tác Giả</a>
-        <a href="sitemap.html">Sơ Đồ Site</a>
-        <a href="contact.html">Liên Hệ &amp; Góp Ý</a>
-      </nav>
+      <div class="footer-grid">
+        <!-- Cột 1: Thông tin Đề tài & Trường Viện -->
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo footer-brand-logo" aria-label="Về trang chủ ScopusVenue">
+            <svg class="brand-icon brand-icon-box--footer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span>Scopus<span>Venue</span></span>
+          </a>
+          <p class="footer-about-text">
+            Hệ thống tra cứu và khuyến nghị nơi công bố khoa học (Hội nghị CORE &amp; Tạp chí Scopus SJR) dành cho giảng viên, nghiên cứu sinh và sinh viên.
+          </p>
+          <div style="margin-top: var(--spacing-sm);">
+            <span class="footer-uit-badge">ĐHQG-HCM · TRƯỜNG ĐH CÔNG NGHỆ THÔNG TIN</span>
+          </div>
+        </div>
+
+        <!-- Cột 2: Đơn vị phụ trách & Giảng viên hướng dẫn -->
+        <div class="footer-col">
+          <h4>Đơn Vị &amp; Học Phần</h4>
+          <ul class="footer-links-list">
+            <li><strong>Môn học:</strong> IE104 - Internet &amp; Công nghệ Web</li>
+            <li><strong>Khoa:</strong> Kỹ thuật Phần mềm (SE - UIT)</li>
+            <li><strong>GVHD:</strong> ThS. Võ Tấn Khoa</li>
+            <li><strong>Email:</strong> <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a></li>
+            <li><strong>Địa chỉ:</strong> KP.6, P. Linh Trung, TP. Thủ Đức, TP.HCM</li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Đội ngũ sinh viên thực hiện -->
+        <div class="footer-col">
+          <h4>Nhóm Sinh Viên Thực Hiện</h4>
+          <ul class="footer-links-list">
+            <li>Võ Đình Kiên (TV1 - Trưởng nhóm)</li>
+            <li>Trần Duy Khánh (TV2)</li>
+            <li>Huỳnh Văn Lên (TV3)</li>
+            <li>Trần Hồng Lĩnh (TV4)</li>
+            <li>Ngô Bảo Lâm (TV5)</li>
+            <li style="margin-top: 4px;">
+              <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
+                Xem chi tiết phân công đồ án &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Tiêu chuẩn kỹ thuật & Học thuật -->
+        <div class="footer-col">
+          <h4>Tiêu Chuẩn &amp; Học Thuật</h4>
+          <ul class="footer-links-list">
+            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8.752 hội nghị &amp; tạp chí)</li>
+            <li><strong>Thuật toán:</strong> Okapi BM25 thuần Vanilla JS</li>
+            <li><strong>Múi giờ CFP:</strong> Múi giờ chuẩn (AoE) &amp; Múi giờ thiết bị</li>
+            <li><strong>Kiến trúc:</strong> 100% Vanilla HTML5 / CSS3 / ESM</li>
+            <li><strong>Lưu trữ:</strong> Web Storage API (Client-side)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dòng đáy chân trang (Bản quyền & Định danh học thuật) -->
       <div class="footer-bottom">
-        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
+        <p>&copy; 2026 ScopusVenue. Đồ án môn học IE104 - Internet và Công nghệ Web | Trường Đại học Công nghệ Thông tin - ĐHQG-HCM.</p>
+        <div>
+          <span class="footer-uit-badge">UIT · VNU-HCM · 2026</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -172,7 +241,7 @@
           Xóa tất cả
         </button>
         <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
-          <span>Xem trong danh bạ</span>
+          <span>Tra cứu hội nghị &amp; tạp chí</span>
         </a>
       </div>
     </div>

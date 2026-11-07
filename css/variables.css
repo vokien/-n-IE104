@@ -70,7 +70,7 @@
   /* ----------------------------------------------------------------------------
      5. CONTAINER & LAYOUT DIMENSIONS (Mô hình Bánh xe - Hub and Spoke)
      -------------------------------------------------------------------------- */
-  --container-max-width:    1200px; /* Chiều rộng khung chuẩn màn hình Desktop */
+  --container-max-width:    1280px; /* Chiều rộng khung chuẩn mở rộng cho màn hình Desktop hiện đại */
   --container-narrow-width: 840px;  /* Chiều rộng tối ưu cho trang About, Contact */
   --header-height:          70px;   /* Chiều cao thanh điều hướng cố định */
   --sidebar-width:          290px;  /* Chiều rộng cột bộ lọc Facet Filter (TV3) */
@@ -134,7 +134,7 @@
   /* ----------------------------------------------------------------------------
      7. ACADEMIC RANKINGS & STATUS BADGES (DÀNH CHO TV2, TV3, TV4)
      -------------------------------------------------------------------------- */
-  /* Scopus Quartiles (Dành cho TV3 - Danh bạ venues.html) */
+  /* Scopus Quartiles (Dành cho TV3 - Tra cứu venues.html) */
   --badge-q1:                hsl(145, 65%, 42%);         /* Q1: Xanh lá thẫm uy tín */
   --badge-q1-bg:             hsl(145, 60%, 93%);
   --badge-q2:                hsl(200, 75%, 48%);         /* Q2: Xanh lam */
@@ -144,7 +144,7 @@
   --badge-q4:                hsl(0, 70%, 55%);           /* Q4: Đỏ cam nhạt / xám */
   --badge-q4-bg:             hsl(0, 70%, 94%);
 
-  /* CORE Conference Rankings (Dành cho TV3 - Danh bạ venues.html) */
+  /* CORE Conference Rankings (Dành cho TV3 - Tra cứu venues.html) */
   --badge-core-astar:        hsl(270, 75%, 55%);         /* Flagship A*: Tím hoàng gia */
   --badge-core-astar-bg:     hsl(270, 65%, 94%);
   --badge-core-a:            hsl(215, 85%, 52%);         /* Hạng A: Xanh sapphire */

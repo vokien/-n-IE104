@@ -1,9 +1,9 @@
-﻿/**
+/**
  * ==========================================================
  * SCOPUSVENUE - COUNTDOWN & TIMELINE MODULE (Thành viên 4)
  * Xử lý: Nạp dữ liệu hội nghị từ conf.json,
  * tự động kích hoạt đồng hồ đếm ngược cho deadline gần nhất.
- * Múi giờ: Anywhere on Earth (AoE / UTC-12)
+ * Múi giờ: Múi giờ chuẩn hội nghị (AoE - UTC-12) & Múi giờ theo thiết bị
  * Chuẩn: 100% Vanilla JS, 0% Inline CSS, Memory Safe.
  * ==========================================================
  */
@@ -17,6 +17,8 @@
   const MS_HOUR   = 60 * MS_MINUTE;
   const MS_DAY    = 24 * MS_HOUR;
 
+  const VN_TIMEZONE = "Asia/Ho_Chi_Minh";
+
   // Icon SVG Calendar chuẩn pixel
   const CALENDAR_ICON_SVG = `
     <svg class="timeline-date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -29,31 +31,95 @@
 
   let allConferences = [];
   let bannerTimerInterval = null;
+  let activeFeaturedConference = null;
+
+  const TZ_STORAGE_KEY = "cfp_timezone_pref";
+
+  /**
+   * Lấy múi giờ IANA của máy tính người dùng
+   */
+  function getUserLocalTz() {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Ho_Chi_Minh";
+    } catch (e) {
+      return "Asia/Ho_Chi_Minh";
+    }
+  }
+
+  /**
+   * Lấy độ lệch giờ GMT/UTC định dạng ngắn (ví dụ: GMT+7, GMT-5)
+   */
+  function getLocalOffsetLabel(tz) {
+    try {
+      const parts = new Intl.DateTimeFormat("en-US", { timeZone: tz, timeZoneName: "short" }).formatToParts(new Date());
+      const p = parts.find((x) => x.type === "timeZoneName");
+      if (p) return p.value;
+    } catch (e) {}
+    const offsetMin = -new Date().getTimezoneOffset();
+    const sign = offsetMin >= 0 ? "+" : "-";
+    const hours = Math.floor(Math.abs(offsetMin) / 60);
+    return `UTC${sign}${hours}`;
+  }
+
+  /**
+   * Trích xuất cấu hình múi giờ đang hoạt động dựa theo tùy chọn người dùng
+   */
+  function getActiveTimezoneConfig() {
+    let pref = "local";
+    try {
+      pref = localStorage.getItem(TZ_STORAGE_KEY) || "local";
+    } catch (e) {}
+
+    const userLocalTz = getUserLocalTz();
+    const localOffset = getLocalOffsetLabel(userLocalTz);
+    const shortTzName = userLocalTz.split("/").pop().replace(/_/g, " ");
+
+    if (pref === "aoe") {
+      return {
+        key: "aoe",
+        iana: "Etc/GMT+12",
+        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
+        stepperLabel: "Giờ hội nghị (AoE)",
+        itemLabel: "Múi giờ hội nghị (AoE)",
+      };
+    }
+    // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
+    return {
+      key: "local",
+      iana: userLocalTz,
+      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
+      stepperLabel: `Giờ thiết bị (${localOffset})`,
+      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+    };
+  }
 
   // Quản lý đếm ngược thời gian thực trên danh sách venues (venues.html)
   const venueCountdownRegistry = new Map();
   let venueGlobalInterval = null;
 
   /**
-   * 1. Tiện ích chuẩn hóa chuỗi thời gian về chuẩn AoE (UTC-12)
+   * 1. Tiện ích chuẩn hóa chuỗi thời gian (fallback +07:00 khi chuỗi không có múi giờ)
    * Tự động chuyển đổi khoảng trắng thành "T" để tránh lỗi NaN khi parse
    */
-  function parseAoEDate(dateString) {
+  function parseVietnamDate(dateString) {
     if (!dateString) return NaN;
     let normalized = String(dateString).trim().replace(" ", "T");
     if (!normalized.includes("T")) {
-      normalized = `${normalized}T23:59:59-12:00`;
+      normalized = `${normalized}T23:59:59+07:00`;
     } else if (!normalized.match(/([+-]\d{2}:\d{2}|Z)$/)) {
-      normalized = `${normalized}-12:00`;
+      normalized = `${normalized}+07:00`;
     }
     return new Date(normalized).getTime();
   }
+
+  // Tương thích ngược với các lệnh gọi parseAoEDate cũ
+  const parseAoEDate = parseVietnamDate;
 
   /**
    * 2. Phân loại trạng thái deadline thông minh
    */
   function getSmartStatus(dateString) {
-    const targetTime = parseAoEDate(dateString);
+    const targetTime = parseVietnamDate(dateString);
     const remaining  = targetTime - Date.now();
     const diffDays   = Math.ceil(remaining / MS_DAY);
 
@@ -71,6 +137,7 @@
 
   /**
    * 3. Trích xuất đợt nộp bài phù hợp nhất của 1 hội nghị
+   * CHỈ lấy đợt còn hạn nộp bài (loại bỏ hoàn toàn các đợt đã hết hạn)
    */
   function extractActiveEdition(venue) {
     if (!venue.submission_deadlines || !Array.isArray(venue.submission_deadlines) || venue.submission_deadlines.length === 0) {
@@ -79,14 +146,10 @@
     const now = Date.now();
 
     const upcoming = venue.submission_deadlines
-      .filter((e) => e && e.deadline && parseAoEDate(e.deadline) > now)
-      .sort((a, b) => parseAoEDate(a.deadline) - parseAoEDate(b.deadline));
-    if (upcoming.length > 0) return upcoming[0];
+      .filter((e) => e && e.deadline && parseVietnamDate(e.deadline) > now)
+      .sort((a, b) => parseVietnamDate(a.deadline) - parseVietnamDate(b.deadline));
 
-    const validPast = venue.submission_deadlines
-      .filter((e) => e && e.deadline && !isNaN(parseAoEDate(e.deadline)))
-      .sort((a, b) => parseAoEDate(b.deadline) - parseAoEDate(a.deadline));
-    return validPast[0] || null;
+    return upcoming.length > 0 ? upcoming[0] : null;
   }
 
   /**
@@ -112,7 +175,7 @@
     }
 
     if (!deadlineStr) return null;
-    const targetTimestamp = parseAoEDate(deadlineStr);
+    const targetTimestamp = parseVietnamDate(deadlineStr);
     if (isNaN(targetTimestamp)) return null;
 
     let rankLabel = "";
@@ -135,29 +198,41 @@
   }
 
   /**
+   * Cập nhật chuỗi thông báo hạn nộp bài trên Featured Banner theo múi giờ đang chọn
+   */
+  function updateFeaturedDeadlineText(conference) {
+    if (!conference) return;
+    const deadlineEl = document.querySelector(".countdown-featured-deadline");
+    if (!deadlineEl || !conference.deadline) return;
+
+    const tzConfig = getActiveTimezoneConfig();
+    const formatted = new Intl.DateTimeFormat("vi-VN", {
+      timeZone: tzConfig.iana,
+      day: "2-digit", month: "long", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
+    }).format(new Date(conference.targetTime));
+
+    deadlineEl.innerHTML = `Hạn nộp: <time datetime="${conference.deadline}">${formatted} (${tzConfig.bannerLabel})</time>`;
+  }
+
+  /**
    * 5. Khởi động đồng hồ đếm ngược nổi bật (Featured Banner - timeline.html)
    */
   function startFeaturedCountdown(conference) {
     if (!conference) return;
+    activeFeaturedConference = conference;
 
     const daysEl    = document.getElementById("days");
     const hoursEl   = document.getElementById("hours");
     const minutesEl = document.getElementById("minutes");
     const secondsEl = document.getElementById("seconds");
     const titleEl   = document.getElementById("featured-countdown");
-    const deadlineEl = document.querySelector(".countdown-featured-deadline");
 
     if (titleEl) {
       titleEl.textContent = `${conference.name} - Full Paper Submission`;
     }
 
-    if (deadlineEl && conference.deadline) {
-      const formatted = new Intl.DateTimeFormat("vi-VN", {
-        timeZone: "Etc/GMT+12",
-        day: "2-digit", month: "long", year: "numeric",
-      }).format(new Date(conference.targetTime));
-      deadlineEl.innerHTML = `Hạn nộp: <time datetime="${conference.deadline}">${formatted} (Múi giờ AoE - 23:59:59 UTC-12)</time>`;
-    }
+    updateFeaturedDeadlineText(conference);
 
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
@@ -197,15 +272,16 @@
   }
 
   /**
-   * 5b. Cập nhật động 3 bước CFP Stepper theo hội nghị đang xem
+   * 5b. Cập nhật động 3 bước CFP Stepper theo hội nghị đang xem và múi giờ được chọn
    */
   function renderCFPStepper(conference) {
+    const tzConfig = getActiveTimezoneConfig();
     const formatDate = (dateStr) => {
       if (!dateStr) return "Chưa công bố";
-      const ts = parseAoEDate(dateStr);
+      const ts = parseVietnamDate(dateStr);
       if (isNaN(ts)) return dateStr;
       return new Intl.DateTimeFormat("vi-VN", {
-        timeZone: "Etc/GMT+12",
+        timeZone: tzConfig.iana,
         day: "2-digit", month: "2-digit", year: "numeric",
       }).format(new Date(ts));
     };
@@ -238,26 +314,25 @@
     ];
 
     const container = (
-      document.getElementById("timeline-flow-container") ||
-      document.getElementById("cfp-stepper-container") ||
       document.getElementById("cfp-flow-container") ||
-      document.querySelector(".cfp-flow-stepper")?.closest("section, div[id], div[class*='container']")
+      document.getElementById("timeline-flow-container") ||
+      document.getElementById("cfp-stepper-container")
     );
 
     if (container) {
-      container.innerHTML = `<div class="cfp-flow-stepper">${stages.map((st, idx) => `
-        <div class="cfp-flow-step">
+      container.innerHTML = `<ol class="cfp-flow-stepper">${stages.map((st, idx) => `
+        <li class="cfp-flow-step ${st.status.isEnded ? "" : "cfp-flow-step--active"}">
           <div class="cfp-flow-node ${st.status.isEnded ? "cfp-flow-node--done" : "cfp-flow-node--active"}" aria-hidden="true">
             <span>${idx + 1}</span>
           </div>
           <div class="cfp-flow-body">
             <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
             <h3 class="cfp-flow-name">${st.title}</h3>
-            <p class="cfp-flow-date">${formatDate(st.date)} (AoE)</p>
+            <p class="cfp-flow-date">${formatDate(st.date)} (${tzConfig.stepperLabel})</p>
             <p class="cfp-flow-desc">${st.desc}</p>
           </div>
-        </div>
-      `).join("")}</div>`;
+        </li>
+      `).join("")}</ol>`;
       return;
     }
 
@@ -269,7 +344,7 @@
         const dateEl  = card.querySelector(".cfp-flow-date, .cfp-step-date, time");
         const titleEl = card.querySelector(".cfp-flow-name, .cfp-step-title, h3, h4");
         const nodeEl  = card.querySelector(".cfp-flow-node, .cfp-step-marker");
-        if (dateEl)  { dateEl.textContent = `${formatDate(st.date)} (AoE)`; if (dateEl.tagName === "TIME") dateEl.setAttribute("datetime", st.date || ""); }
+        if (dateEl)  { dateEl.textContent = `${formatDate(st.date)} (${tzConfig.stepperLabel})`; if (dateEl.tagName === "TIME") dateEl.setAttribute("datetime", st.date || ""); }
         if (titleEl) titleEl.textContent = st.title;
         if (nodeEl)  { nodeEl.classList.toggle("cfp-flow-node--done", st.status.isEnded); nodeEl.classList.toggle("cfp-flow-node--active", !st.status.isEnded); }
       });
@@ -278,20 +353,23 @@
 
   /**
    * 6. Render danh sách hội nghị vào Dòng thời gian ziczac
+   * CHỈ hiển thị các hội nghị còn hạn nộp bài, định dạng theo múi giờ đang chọn
    */
   function renderTimelineList(conferences) {
     const container = document.getElementById("timeline-events-container");
     if (!container) return;
 
     if (!conferences || conferences.length === 0) {
-      container.innerHTML = `<p class="timeline-empty-message">Không tìm thấy hội nghị phù hợp.</p>`;
+      container.innerHTML = `<p class="timeline-empty-message">Hiện không có hội nghị nào đang mở nhận bài.</p>`;
       return;
     }
+
+    const tzConfig = getActiveTimezoneConfig();
 
     container.innerHTML = `<div class="timeline-wrapper">${conferences.map((item) => {
       const status = getSmartStatus(item.deadline);
       const formattedDate = new Intl.DateTimeFormat("vi-VN", {
-        timeZone: "Etc/GMT+12", day: "2-digit", month: "long", year: "numeric",
+        timeZone: tzConfig.iana, day: "2-digit", month: "long", year: "numeric",
       }).format(new Date(item.targetTime));
       
       const rankBadge = item.rank
@@ -305,7 +383,7 @@
             <div class="timeline-header">
               <time class="timeline-date" datetime="${item.deadline}">
                 ${CALENDAR_ICON_SVG}
-                <span>${formattedDate} (AoE)</span>
+                <span>${formattedDate} (${tzConfig.itemLabel})</span>
               </time>
               <div class="timeline-badges">
                 ${rankBadge}
@@ -324,7 +402,48 @@
   }
 
   /**
+   * Khởi tạo bộ lắng nghe sự kiện chuyển đổi múi giờ (Timezone Selector)
+   */
+  function setupTimezoneSelector() {
+    const selectEl = document.getElementById("timezone-selector");
+    if (!selectEl) return;
+
+    let currentPref = "local";
+    try {
+      currentPref = localStorage.getItem(TZ_STORAGE_KEY) || "local";
+      if (currentPref !== "local" && currentPref !== "aoe") {
+        currentPref = "local";
+      }
+    } catch (e) {}
+
+    selectEl.value = currentPref;
+
+    // Cập nhật nhãn option local hiển thị đúng tên múi giờ và offset máy tính
+    const localOption = selectEl.querySelector('option[value="local"]');
+    if (localOption) {
+      const userLocalTz = getUserLocalTz();
+      const localOffset = getLocalOffsetLabel(userLocalTz);
+      const shortTzName = userLocalTz.split("/").pop().replace(/_/g, " ");
+      localOption.textContent = `Múi giờ của thiết bị: ${shortTzName} (${localOffset}) - Tự động`;
+    }
+
+    selectEl.addEventListener("change", (e) => {
+      const newPref = e.target.value;
+      try {
+        localStorage.setItem(TZ_STORAGE_KEY, newPref);
+      } catch (err) {}
+
+      if (activeFeaturedConference) {
+        updateFeaturedDeadlineText(activeFeaturedConference);
+        renderCFPStepper(activeFeaturedConference);
+      }
+      renderTimelineList(allConferences);
+    });
+  }
+
+  /**
    * 7. Hàm chính: Tự động nạp dữ liệu hội nghị từ conf.json
+   * Lọc bỏ hoàn toàn các hội nghị đã quá hạn nộp bài
    */
   async function loadTimelineData() {
     try {
@@ -334,17 +453,17 @@
       const rawData = await response.json();
       const list = Array.isArray(rawData) ? rawData : (rawData.conferences || rawData.venues || rawData.data || []);
 
-      allConferences = list.map(normalizeConference).filter((c) => c !== null);
-
       const now = Date.now();
-      allConferences.sort((a, b) => {
-        const aUp = a.targetTime > now, bUp = b.targetTime > now;
-        if (aUp && !bUp) return -1;
-        if (!aUp && bUp) return   1;
-        return a.targetTime - b.targetTime;
-      });
 
-      console.log(`✅ [ScopusVenue] Đã nạp ${allConferences.length} hội nghị có deadline!`);
+      // Chuẩn hóa và LOẠI BỎ TOÀN BỘ hội nghị đã quá hạn nộp bài
+      allConferences = list
+        .map(normalizeConference)
+        .filter((c) => c !== null && c.targetTime > now);
+
+      // Sắp xếp theo thứ tự hạn nộp bài gần nhất trước
+      allConferences.sort((a, b) => a.targetTime - b.targetTime);
+
+      console.log(`✅ [ScopusVenue] Đã nạp ${allConferences.length} hội nghị đang mở nhận bài!`);
 
       const targetId = new URLSearchParams(window.location.search).get("id");
       let featured = null;
@@ -352,20 +471,25 @@
       if (targetId) {
         featured = allConferences.find((c) => String(c.id) === String(targetId));
         if (featured) console.log(`🎯 [ScopusVenue] Hiển thị: ${featured.name}`);
-        else          console.warn(`⚠️ [ScopusVenue] Không tìm thấy id="${targetId}", dùng gần nhất.`);
+        else          console.warn(`⚠️ [ScopusVenue] Hội nghị id="${targetId}" không tồn tại hoặc đã hết hạn nộp bài.`);
       }
 
-      if (!featured) {
-        const upcoming = allConferences.filter((c) => c.targetTime > now);
-        featured = upcoming.length > 0 ? upcoming[0] : allConferences[0];
+      if (!featured && allConferences.length > 0) {
+        featured = allConferences[0];
       }
 
       if (featured) {
         startFeaturedCountdown(featured);
         renderCFPStepper(featured);
+      } else {
+        const titleEl = document.getElementById("featured-countdown");
+        if (titleEl) titleEl.textContent = "Hiện không có hội nghị nào đang mở nhận bài";
+        const deadlineEl = document.querySelector(".countdown-featured-deadline");
+        if (deadlineEl) deadlineEl.textContent = "Tất cả các đợt nộp bài trong năm đã kết thúc.";
       }
 
       renderTimelineList(allConferences);
+      setupTimezoneSelector();
 
     } catch (error) {
       console.error("❌ Lỗi khi tải dữ liệu hội nghị:", error);
@@ -452,12 +576,17 @@
 
   // Xuất API dùng chung cho cả timeline.html và venues.html
   window.CountdownService = {
+    parseVietnamDate,
     parseAoEDate,
     getSmartStatus,
     loadTimelineData,
     attachCountdown,
     initVenueCountdowns,
     getAllConferences: () => allConferences,
+    getActiveTimezoneConfig,
+    setupTimezoneSelector,
+    getUserLocalTz,
+    getLocalOffsetLabel,
   };
 
   // Kích hoạt an toàn khi DOM hoàn tất

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * =============================================================
  * RECOMMENDER.JS - Động cơ Khuyến nghị Học thuật (TV2)
  * Đồ án IE104 - Internet và Công nghệ Web
@@ -140,14 +140,14 @@ const BM25_B  = 0.75; // Kiểm soát mức độ chuẩn hóa theo độ dài t
  */
 class BM25Engine {
   /**
-   * @param {Object[]} venues - Danh bạ từ loadVenues(): jour.json + conf.json
+   * @param {Object[]} venues - Danh sách hội nghị & tạp chí từ loadVenues(): jour.json + conf.json
    */
   constructor(venues) {
     // kind là trường phân loại mới; type giữ tương thích dữ liệu/mock cũ.
     this.venues = venues.map(venue => ({ ...venue, kind: venue.kind || venue.type }));
     this.N = venues.length; // Tổng số tài liệu trong corpus
 
-    // Hỗ trợ scope mẫu và các trường của schema danh bạ mới.
+    // Hỗ trợ scope mẫu và các trường của schema hội nghị & tạp chí mới.
     this.docs = venues.map(venue => {
       const venueText = [
         venue.scope || "",
@@ -583,10 +583,11 @@ function renderResults(searchResult) {
         ).join("")
       : `<span class="matched-keywords__empty">Không có từ khóa trực tiếp trùng khớp</span>`;
 
-    // Link tới trang chủ venue
+    // Link tới trang chủ venue (chỉ 1 biểu tượng external ở cuối chuỗi)
     const linkHTML = venue.homepage_url
-      ? `<a href="${escapeHTML(venue.homepage_url)}" target="_blank" rel="noopener" class="result-link">
-           ${getRecommenderIcon("external")} Trang chủ venue ${getRecommenderIcon("external")}
+      ? `<a href="${escapeHTML(venue.homepage_url)}" target="_blank" rel="noopener noreferrer" class="result-link result-link--external">
+           <span>Trang chủ venue</span>
+           ${getRecommenderIcon("external")}
          </a>`
       : "";
 
@@ -621,7 +622,28 @@ function renderResults(searchResult) {
           <div class="keyword-tags">${keywordTagsHTML}</div>
         </div>
 
-        ${linkHTML}
+        <div class="result-actions">
+          <div class="result-links-group">
+            <a href="venues.html?id=${encodeURIComponent(venue.id || '')}" class="result-link result-link--internal">
+              <span>Chi tiết hồ sơ</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            ${linkHTML}
+          </div>
+          <button
+            type="button"
+            class="btn-icon bookmark-trigger-btn"
+            data-id="${escapeHTML(venue.id || '')}"
+            data-name="${escapeHTML(venue.name || '')}"
+            data-acronym="${escapeHTML(venue.acronym || '')}"
+            data-rank="${escapeHTML(venue.scopus_rank || venue.core_rank || '')}"
+            title="Lưu vào danh sách mục tiêu"
+            aria-label="Lưu ${escapeHTML(venue.name || '')}"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>Lưu</span>
+          </button>
+        </div>
       </article>
     `;
   }).join("");
@@ -639,6 +661,12 @@ function renderResults(searchResult) {
       });
     });
   });
+
+  // Cập nhật trạng thái các nút Lưu mục tiêu trên các thẻ kết quả vừa render
+  if (typeof window.updateTriggerButtons === "function") {
+    window.updateTriggerButtons();
+  }
+  window.dispatchEvent(new CustomEvent("venueBookmarkChanged"));
 }
 
 /**

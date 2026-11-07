@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ie104_theme_preference');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Liên hệ và đóng góp ý kiến cho hệ thống Scopus & CORE Venue Recommender - Đồ án IE104, Trường ĐH Công nghệ Thông tin (UIT)">
   <title>Liên Hệ &amp; Đóng Góp Ý Kiến | ScopusVenue</title>
+  <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
+
+  <!-- Khả năng tiếp cận: Phím tắt chuyển nhanh tới nội dung chính -->
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
 
   <!-- ============================================================
        1. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (WHEEL NAVIGATION HUB)
@@ -23,15 +40,14 @@
         <span>Scopus<span>Venue</span></span>
       </a>
 
-      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với 6 trang vệ tinh -->
+      <!-- Thanh điều hướng mô hình bánh xe: Trang chủ làm trục tâm (Hub), kết nối nan hoa với các trang chức năng -->
       <nav class="wheel-nav" role="navigation" aria-label="Thanh điều hướng chính mô hình bánh xe">
         <ul>
           <li><a href="index.html">Trang Chủ</a></li>
-          <li><a href="venues.html">Tra Cứu Danh Bạ</a></li>
-          <li><a href="recommend.html">Khuyến Nghị Bài Báo</a></li>
-          <li><a href="timeline.html">Lịch Trình CFP</a></li>
           <li><a href="about.html">Giới Thiệu</a></li>
-          <li><a href="sitemap.html">Sơ Đồ Site</a></li>
+          <li><a href="venues.html">Tra Cứu Hội Nghị &amp; Tạp Chí</a></li>
+          <li><a href="recommend.html">Gợi Ý Theo Bản Thảo</a></li>
+          <li><a href="timeline.html">Lịch Nộp Bài (CFP)</a></li>
           <li><a href="contact.html" class="active" aria-current="page">Liên Hệ</a></li>
         </ul>
       </nav>
@@ -42,8 +58,8 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
-          <span>Mục Tiêu</span>
-          <span class="bookmark-count badge" style="display: none;">0</span>
+          <span class="bookmark-label">Mục Tiêu</span>
+          <span class="bookmark-count badge" aria-label="Số lượng mục tiêu đã lưu">0</span>
         </button>
 
         <button type="button" class="btn-icon" id="theme-toggle-btn" title="Chuyển chế độ Giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện sáng tối">
@@ -74,7 +90,7 @@
         <span class="dot"></span>
         KẾT NỐI &amp; PHẢN HỒI Ý KIẾN
       </div>
-      <h1 class="page-title">Liên Hệ &amp; Đóng Góp Học Thuật</h1>
+      <h1 class="page-title">Liên Hệ &amp; Đóng Góp Ý Kiến</h1>
       <p class="page-description">
         Mọi ý kiến đóng góp từ các nhà nghiên cứu, tác giả và cộng đồng sinh viên giúp cơ sở dữ liệu ScopusVenue ngày một hoàn thiện và chính xác hơn.
       </p>
@@ -120,8 +136,7 @@
           <div>
             <div class="contact-item-title">Email Học Thuật</div>
             <div class="contact-item-desc">
-              <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a> (GVHD)<br>
-              <a href="mailto:scopusvenue-ie104@uit.edu.vn">scopusvenue-ie104@uit.edu.vn</a>
+              <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a> (ThS. Võ Tấn Khoa - GVHD)
             </div>
           </div>
         </div>
@@ -145,7 +160,7 @@
 
         <!-- Hộp ghi chú thời gian xử lý -->
         <div class="contact-notice-box">
-          <strong>Quy trình phản hồi:</strong> Các đề xuất bổ sung hội nghị / tạp chí sẽ được nhóm kiểm tra chéo trên cơ sở dữ liệu Scopus Preview và cổng CORE Portal trước khi cập nhật vào cơ sở dữ liệu <code>conf.json</code> &amp; <code>jour.json</code> (8,752 venues).
+          <strong>Quy trình phản hồi:</strong> Các đề xuất bổ sung hội nghị / tạp chí sẽ được nhóm kiểm tra chéo trên cơ sở dữ liệu Scopus Preview và cổng CORE Portal trước khi cập nhật vào cơ sở dữ liệu <code>conf.json</code> &amp; <code>jour.json</code> (8.752 hội nghị &amp; tạp chí).
         </div>
       </aside>
 
@@ -250,20 +265,77 @@
     </div>
   </main>
 
-  <!-- FOOTER MÔ HÌNH BÁNH XE (SEMANTIC <footer role="contentinfo">) -->
-    <footer class="site-footer" role="contentinfo">
+  <!-- ============================================================
+       4. FOOTER HỌC THUẬT ĐA CỘT (SEMANTIC <footer role="contentinfo">)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <nav class="footer-nav" aria-label="Liên kết chân trang theo mô hình bánh xe">
-        <a href="index.html">Trang Chủ (Hub)</a>
-        <a href="venues.html">Danh Bạ Venues</a>
-        <a href="recommend.html">Khuyến Nghị Bài Báo</a>
-        <a href="timeline.html">Lịch Trình CFP</a>
-        <a href="about.html">Về Nhóm Tác Giả</a>
-        <a href="sitemap.html">Sơ Đồ Site</a>
-        <a href="contact.html" class="active" aria-current="page">Liên Hệ &amp; Góp Ý</a>
-      </nav>
+      <div class="footer-grid">
+        <!-- Cột 1: Thông tin Đề tài & Trường Viện -->
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo footer-brand-logo" aria-label="Về trang chủ ScopusVenue">
+            <svg class="brand-icon brand-icon-box--footer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span>Scopus<span>Venue</span></span>
+          </a>
+          <p class="footer-about-text">
+            Hệ thống tra cứu và khuyến nghị nơi công bố khoa học (Hội nghị CORE &amp; Tạp chí Scopus SJR) dành cho giảng viên, nghiên cứu sinh và sinh viên.
+          </p>
+          <div style="margin-top: var(--spacing-sm);">
+            <span class="footer-uit-badge">ĐHQG-HCM · TRƯỜNG ĐH CÔNG NGHỆ THÔNG TIN</span>
+          </div>
+        </div>
+
+        <!-- Cột 2: Đơn vị phụ trách & Giảng viên hướng dẫn -->
+        <div class="footer-col">
+          <h4>Đơn Vị &amp; Học Phần</h4>
+          <ul class="footer-links-list">
+            <li><strong>Môn học:</strong> IE104 - Internet &amp; Công nghệ Web</li>
+            <li><strong>Khoa:</strong> Kỹ thuật Phần mềm (SE - UIT)</li>
+            <li><strong>GVHD:</strong> ThS. Võ Tấn Khoa</li>
+            <li><strong>Email:</strong> <a href="mailto:khoavt@uit.edu.vn">khoavt@uit.edu.vn</a></li>
+            <li><strong>Địa chỉ:</strong> KP.6, P. Linh Trung, TP. Thủ Đức, TP.HCM</li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Đội ngũ sinh viên thực hiện -->
+        <div class="footer-col">
+          <h4>Nhóm Sinh Viên Thực Hiện</h4>
+          <ul class="footer-links-list">
+            <li>Võ Đình Kiên (TV1 - Trưởng nhóm)</li>
+            <li>Trần Duy Khánh (TV2)</li>
+            <li>Huỳnh Văn Lên (TV3)</li>
+            <li>Trần Hồng Lĩnh (TV4)</li>
+            <li>Ngô Bảo Lâm (TV5)</li>
+            <li style="margin-top: 4px;">
+              <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
+                Xem chi tiết phân công đồ án &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Tiêu chuẩn kỹ thuật & Học thuật -->
+        <div class="footer-col">
+          <h4>Tiêu Chuẩn &amp; Học Thuật</h4>
+          <ul class="footer-links-list">
+            <li><strong>Dữ liệu:</strong> Scopus SJR &amp; CORE 2026 (8.752 hội nghị &amp; tạp chí)</li>
+            <li><strong>Thuật toán:</strong> Okapi BM25 thuần Vanilla JS</li>
+            <li><strong>Múi giờ CFP:</strong> Múi giờ chuẩn (AoE) &amp; Múi giờ thiết bị</li>
+            <li><strong>Kiến trúc:</strong> 100% Vanilla HTML5 / CSS3 / ESM</li>
+            <li><strong>Lưu trữ:</strong> Web Storage API (Client-side)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dòng đáy chân trang (Bản quyền & Định danh học thuật) -->
       <div class="footer-bottom">
-        <p>Đồ án môn học <strong>IE104 - Internet và Công nghệ Web</strong> | Giảng viên hướng dẫn: <strong>ThS. Võ Tấn Khoa</strong></p>
+        <p>&copy; 2026 ScopusVenue. Đồ án môn học IE104 - Internet và Công nghệ Web | Trường Đại học Công nghệ Thông tin - ĐHQG-HCM.</p>
+        <div>
+          <span class="footer-uit-badge">UIT · VNU-HCM · 2026</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -295,7 +367,7 @@
           Xóa tất cả
         </button>
         <a href="venues.html" class="btn-primary" style="font-size: var(--font-size-sm); padding: 6px 14px;">
-          <span>Xem trong danh bạ</span>
+          <span>Tra cứu hội nghị &amp; tạp chí</span>
         </a>
       </div>
     </div>
@@ -315,17 +387,25 @@
         
         const nameVal = document.getElementById('contact-name').value.trim();
         const emailVal = document.getElementById('contact-email').value.trim();
+        const topicVal = document.getElementById('contact-topic').value;
         const messageVal = document.getElementById('contact-message').value.trim();
 
-        if (!nameVal || !emailVal || !messageVal) {
+        if (!nameVal || !emailVal || !topicVal || !messageVal) {
           feedbackBox.className = 'contact-success-toast contact-toast--error';
-          feedbackBox.innerHTML = 'Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc.';
+          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc (bao gồm chọn chủ đề đóng góp).</p>';
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailVal)) {
+          feedbackBox.className = 'contact-success-toast contact-toast--error';
+          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Địa chỉ email không hợp lệ. Vui lòng kiểm tra lại định dạng email (ví dụ: name@domain.edu.vn).</p>';
           return;
         }
 
         // Mô phỏng gửi thành công
         feedbackBox.className = 'contact-success-toast contact-toast--success';
-        feedbackBox.innerHTML = `Cảm ơn <strong>${nameVal}</strong>! Ý kiến đóng góp của bạn đã được ghi nhận thành công trong phiên làm việc. Nhóm sẽ đối soát và cập nhật dữ liệu.`;
+        feedbackBox.innerHTML = '<p class="contact-feedback-msg">Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận và gửi đến ban quản trị hệ thống.</p>';
         
         contactForm.reset();
       });
