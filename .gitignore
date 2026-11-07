@@ -27,7 +27,10 @@ desktop.ini
 
 # Dependencies & Build artifacts (nếu có công cụ phụ trợ)
 node_modules/
-tools/conference_update/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+.cache/
 dist/
 build/
 npm-debug.log*
