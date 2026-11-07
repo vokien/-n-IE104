@@ -118,8 +118,14 @@ class WikiClient:
                     robot.parse(text.splitlines())
                 else:
                     raise SourceError('Cannot verify WikiCFP robots.txt')
-                crawl_delay = robot.crawl_delay(AGENT) or 0
-                rate = robot.request_rate(AGENT)
+                try:
+                    crawl_delay = robot.crawl_delay(AGENT) or 0
+                except (AttributeError, Exception):
+                    crawl_delay = 0
+                try:
+                    rate = robot.request_rate(AGENT)
+                except (AttributeError, Exception):
+                    rate = None
                 self.delay = max(self.delay, crawl_delay, rate.seconds / rate.requests if rate and rate.requests else 0)
                 self.robots[origin] = robot
             allowed = self.robots[origin].can_fetch(AGENT, url)
