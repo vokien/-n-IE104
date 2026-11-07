@@ -314,15 +314,14 @@
     ];
 
     const container = (
-      document.getElementById("timeline-flow-container") ||
-      document.getElementById("cfp-stepper-container") ||
       document.getElementById("cfp-flow-container") ||
-      document.querySelector(".cfp-flow-stepper")?.closest("section, div[id], div[class*='container']")
+      document.getElementById("timeline-flow-container") ||
+      document.getElementById("cfp-stepper-container")
     );
 
     if (container) {
-      container.innerHTML = `<div class="cfp-flow-stepper">${stages.map((st, idx) => `
-        <div class="cfp-flow-step">
+      container.innerHTML = `<ol class="cfp-flow-stepper">${stages.map((st, idx) => `
+        <li class="cfp-flow-step ${st.status.isEnded ? "" : "cfp-flow-step--active"}">
           <div class="cfp-flow-node ${st.status.isEnded ? "cfp-flow-node--done" : "cfp-flow-node--active"}" aria-hidden="true">
             <span>${idx + 1}</span>
           </div>
@@ -332,8 +331,8 @@
             <p class="cfp-flow-date">${formatDate(st.date)} (${tzConfig.stepperLabel})</p>
             <p class="cfp-flow-desc">${st.desc}</p>
           </div>
-        </div>
-      `).join("")}</div>`;
+        </li>
+      `).join("")}</ol>`;
       return;
     }
 

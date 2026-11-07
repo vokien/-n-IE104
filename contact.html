@@ -24,6 +24,9 @@
 </head>
 <body>
 
+  <!-- Khả năng tiếp cận: Phím tắt chuyển nhanh tới nội dung chính -->
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+
   <!-- ============================================================
        1. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (WHEEL NAVIGATION HUB)
        ============================================================ -->
@@ -384,17 +387,25 @@
         
         const nameVal = document.getElementById('contact-name').value.trim();
         const emailVal = document.getElementById('contact-email').value.trim();
+        const topicVal = document.getElementById('contact-topic').value;
         const messageVal = document.getElementById('contact-message').value.trim();
 
-        if (!nameVal || !emailVal || !messageVal) {
+        if (!nameVal || !emailVal || !topicVal || !messageVal) {
           feedbackBox.className = 'contact-success-toast contact-toast--error';
-          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc.</p>';
+          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Vui lòng điền đầy đủ tất cả các trường thông tin bắt buộc (bao gồm chọn chủ đề đóng góp).</p>';
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailVal)) {
+          feedbackBox.className = 'contact-success-toast contact-toast--error';
+          feedbackBox.innerHTML = '<p class="contact-feedback-msg">Địa chỉ email không hợp lệ. Vui lòng kiểm tra lại định dạng email (ví dụ: name@domain.edu.vn).</p>';
           return;
         }
 
         // Mô phỏng gửi thành công
         feedbackBox.className = 'contact-success-toast contact-toast--success';
-        feedbackBox.innerHTML = '<p class="contact-feedback-msg">Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận.</p>';
+        feedbackBox.innerHTML = '<p class="contact-feedback-msg">Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận và gửi đến ban quản trị hệ thống.</p>';
         
         contactForm.reset();
       });

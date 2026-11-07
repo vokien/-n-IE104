@@ -24,6 +24,9 @@
 </head>
 <body>
 
+  <!-- Khả năng tiếp cận: Phím tắt chuyển nhanh tới nội dung chính -->
+  <a href="#main-content" class="skip-to-content">Chuyển đến nội dung chính</a>
+
   <!-- ============================================================
        1. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (WHEEL NAVIGATION HUB)
        ============================================================ -->
@@ -79,7 +82,7 @@
   </header>
 
   <!-- MAIN: Dành cho Thành viên 4 (Countdown Tracker & Timeline Dev) -->
-  <main class="container page-main" role="main">
+  <main class="container page-main" role="main" id="main-content">
     <header class="timeline-page-header">
       <h1 class="timeline-page-title">Lịch Trình Nộp Bài &amp; Đếm Ngược Thời Gian Thực</h1>
       <p class="timeline-page-desc">
@@ -141,40 +144,42 @@
       <h2 id="cfp-flow-heading" class="timeline-section-title">
         Quy Trình Các Mốc Nộp Bài CFP Tiêu Chuẩn
       </h2>
-      <ol class="cfp-flow-stepper">
-        <!-- Mốc 1: Abstract Submission -->
-        <li class="cfp-flow-step cfp-flow-step--active">
-          <div class="cfp-flow-node">1</div>
-          <div class="cfp-flow-body">
-            <span class="badge badge--warning">Mốc 1</span>
-            <h3 class="cfp-flow-name">Abstract Submission</h3>
-            <time class="cfp-flow-date" datetime="2026-10-25T23:59:59+07:00">25/10/2026</time>
-            <p class="cfp-flow-text">Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện.</p>
-          </div>
-        </li>
+      <div id="cfp-flow-container" class="cfp-flow-wrapper">
+        <ol class="cfp-flow-stepper">
+          <!-- Mốc 1: Abstract Submission -->
+          <li class="cfp-flow-step cfp-flow-step--active">
+            <div class="cfp-flow-node">1</div>
+            <div class="cfp-flow-body">
+              <p class="cfp-flow-badge">MỐC 1</p>
+              <h3 class="cfp-flow-name">Abstract Submission</h3>
+              <time class="cfp-flow-date" datetime="2026-10-25T23:59:59+07:00">25/10/2026</time>
+              <p class="cfp-flow-desc">Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện.</p>
+            </div>
+          </li>
 
-        <!-- Mốc 2: Full Paper Submission -->
-        <li class="cfp-flow-step">
-          <div class="cfp-flow-node">2</div>
-          <div class="cfp-flow-body">
-            <span class="badge badge--open">Mốc 2</span>
-            <h3 class="cfp-flow-name">Full Paper Submission</h3>
-            <time class="cfp-flow-date" datetime="2026-11-17T23:59:59+07:00">17/11/2026</time>
-            <p class="cfp-flow-text">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
-          </div>
-        </li>
+          <!-- Mốc 2: Full Paper Submission -->
+          <li class="cfp-flow-step">
+            <div class="cfp-flow-node">2</div>
+            <div class="cfp-flow-body">
+              <p class="cfp-flow-badge">MỐC 2</p>
+              <h3 class="cfp-flow-name">Full Paper Submission</h3>
+              <time class="cfp-flow-date" datetime="2026-11-17T23:59:59+07:00">17/11/2026</time>
+              <p class="cfp-flow-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+            </div>
+          </li>
 
-        <!-- Mốc 3: Notification of Acceptance -->
-        <li class="cfp-flow-step">
-          <div class="cfp-flow-node">3</div>
-          <div class="cfp-flow-body">
-            <span class="badge badge--ended">Mốc 3</span>
-            <h3 class="cfp-flow-name">Notification</h3>
-            <time class="cfp-flow-date" datetime="2026-12-20T23:59:59+07:00">20/12/2026</time>
-            <p class="cfp-flow-text">Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.</p>
-          </div>
-        </li>
-      </ol>
+          <!-- Mốc 3: Notification of Acceptance -->
+          <li class="cfp-flow-step">
+            <div class="cfp-flow-node">3</div>
+            <div class="cfp-flow-body">
+              <p class="cfp-flow-badge">MỐC 3</p>
+              <h3 class="cfp-flow-name">Notification</h3>
+              <time class="cfp-flow-date" datetime="2026-12-20T23:59:59+07:00">20/12/2026</time>
+              <p class="cfp-flow-desc">Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
     </section>
 
     <!-- Dòng thời gian CFP chi tiết các hội nghị trong năm -->

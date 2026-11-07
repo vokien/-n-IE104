@@ -564,19 +564,59 @@
 
 .keyword-tag:hover { opacity: 1; }
 
+/* Khu vuc hanh dong the ket qua */
+.result-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.result-links-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
 .result-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: var(--spacing-sm);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.result-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
+.result-link:hover {
+  text-decoration: underline;
+}
+
+.result-link--internal {
+  color: var(--color-primary);
+}
+
+.result-link--internal:hover {
+  color: var(--color-primary-hover);
+}
+
+.result-link--external {
+  color: var(--color-text-muted);
+}
+
+.result-link--external:hover {
+  color: var(--color-text-main);
+}
+
+.result-actions .bookmark-trigger-btn {
+  height: 34px;
+  font-size: var(--font-size-xs);
+}
 
 /* ---------------------------------------------------------------
    7. TRANG THAI THONG BAO LOI / KHONG CO KET QUA

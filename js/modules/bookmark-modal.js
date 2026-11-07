@@ -22,10 +22,78 @@ let previousActiveElement = null;
  */
 export function initBookmarkModal() {
   const modalBackdrop = document.getElementById("bookmark-modal-backdrop");
+  const modalContainer = modalBackdrop ? modalBackdrop.querySelector(".bookmark-modal") : null;
   const openBtn = document.getElementById("bookmark-header-btn");
   const closeBtn = document.getElementById("bookmark-modal-close-btn");
   const clearBtn = document.getElementById("bookmark-modal-clear-btn");
   const modalBody = document.getElementById("bookmark-modal-body");
+
+  // Đóng overlay xác nhận nếu đang mở
+  function hideConfirmOverlay() {
+    const existingOverlay = document.querySelector(".confirm-overlay");
+    if (existingOverlay) {
+      existingOverlay.remove();
+    }
+  }
+
+  // Hiển thị overlay xác nhận xóa toàn bộ danh sách (đè lên Watchlist modal)
+  function showConfirmOverlay() {
+    hideConfirmOverlay();
+
+    const overlay = document.createElement("div");
+    overlay.className = "confirm-overlay";
+    overlay.setAttribute("role", "alertdialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "confirm-overlay-title");
+    overlay.setAttribute("aria-describedby", "confirm-overlay-desc");
+
+    overlay.innerHTML = `
+      <div class="confirm-overlay-dialog">
+        <div class="confirm-overlay-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h4 id="confirm-overlay-title" class="confirm-overlay-title">Xác Nhận Xóa Danh Sách</h4>
+        <p id="confirm-overlay-desc" class="confirm-overlay-desc">
+          Bạn có chắc chắn muốn xóa toàn bộ danh sách mục tiêu đã lưu không?
+        </p>
+        <div class="confirm-overlay-actions">
+          <button type="button" class="btn-cancel-confirm" id="confirm-cancel-btn">Hủy bỏ</button>
+          <button type="button" class="btn-danger-confirm" id="confirm-accept-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Xác nhận xóa</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    overlay.querySelector("#confirm-cancel-btn")?.addEventListener("click", hideConfirmOverlay);
+    overlay.querySelector("#confirm-accept-btn")?.addEventListener("click", () => {
+      clearAllBookmarks();
+      renderBookmarksList();
+      updateTriggerButtons();
+      hideConfirmOverlay();
+    });
+
+    // Đóng khi click ngoài hộp thoại xác nhận
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        hideConfirmOverlay();
+      }
+    });
+
+    document.body.appendChild(overlay);
+
+    // Focus nút Hủy bỏ an toàn
+    const cancelBtn = overlay.querySelector("#confirm-cancel-btn");
+    if (cancelBtn) cancelBtn.focus();
+  }
 
   // Mở modal
   function openModal() {
@@ -45,6 +113,7 @@ export function initBookmarkModal() {
   // Đóng modal
   function closeModal() {
     if (!modalBackdrop) return;
+    hideConfirmOverlay();
     modalBackdrop.classList.remove("active");
     modalBackdrop.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
@@ -74,8 +143,16 @@ export function initBookmarkModal() {
 
   // Đóng khi nhấn phím Escape
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modalBackdrop && modalBackdrop.classList.contains("active")) {
-      closeModal();
+    if (e.key === "Escape") {
+      const activeOverlay = document.querySelector(".confirm-overlay");
+      if (activeOverlay) {
+        e.stopPropagation();
+        hideConfirmOverlay();
+        return;
+      }
+      if (modalBackdrop && modalBackdrop.classList.contains("active")) {
+        closeModal();
+      }
     }
   });
 
@@ -84,11 +161,7 @@ export function initBookmarkModal() {
     clearBtn.addEventListener("click", () => {
       const list = getBookmarks();
       if (list.length === 0) return;
-      if (window.confirm("ĐẠI CA có chắc muốn xóa toàn bộ danh sách mục tiêu đã lưu?")) {
-        clearAllBookmarks();
-        renderBookmarksList();
-        updateTriggerButtons();
-      }
+      showConfirmOverlay();
     });
   }
 
