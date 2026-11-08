@@ -64,6 +64,8 @@ def refresh_journals(
     dry_run: bool = False,
     skip_openalex: bool = False,
     skip_special_issues: bool = False,
+    skip_discovery: bool = False,
+    discover_limit: int = 15,
     spider: JournalSpider | None = None
 ) -> dict:
     """Execute end-to-end journal refresh pipeline."""
@@ -98,6 +100,7 @@ def refresh_journals(
     special_issues_matched = 0
 
     # 1. Update Metrics via OpenAlex (Batch mode)
+    all_openalex_metrics = {}
     if not skip_openalex:
         logger.info("Starting OpenAlex batch metric update...")
         # Collect ISSNs
@@ -120,6 +123,7 @@ def refresh_journals(
                 resp = spider.fetch(batch_url, timeout=12)
                 payload = resp.json() if hasattr(resp, 'json') else json.loads(getattr(resp, 'text', '{}'))
                 parsed_metrics = OpenAlexSource.parse_response(payload)
+                all_openalex_metrics.update(parsed_metrics)
 
                 for matched_issn, info in parsed_metrics.items():
                     for target_rec in issn_map.get(matched_issn, []):
@@ -135,7 +139,21 @@ def refresh_journals(
             except Exception as e:
                 logger.warning(f"Batch {idx}/{len(chunks)} failed gracefully: {e}")
 
-    # 2. Extract Special Issues (Option B)
+    # 2. Filter inactive or discontinued journals
+    records_to_process, inactive_journals = OpenAlexSource.filter_inactive_journals(records_to_process, all_openalex_metrics)
+    if inactive_journals:
+        logger.info(f"Filtered out {len(inactive_journals)} inactive/discontinued journals.")
+
+    # 3. Discover novel peer-reviewed journals
+    discovered_journals = []
+    if not skip_discovery:
+        logger.info("Discovering novel peer-reviewed journals via OpenAlex...")
+        discovered_journals = OpenAlexSource.discover_new_journals(spider, records_to_process, max_to_add=discover_limit)
+        if discovered_journals:
+            records_to_process.extend(discovered_journals)
+            logger.info(f"Appended {len(discovered_journals)} newly discovered journals.")
+
+    # 4. Extract Special Issues (Option B)
     if not skip_special_issues:
         logger.info("Crawling Special Issues Call-for-Papers...")
         current_year = time.strftime('%Y')
@@ -153,7 +171,7 @@ def refresh_journals(
         except Exception as e:
             logger.warning(f"Special Issues extraction paused: {e}")
 
-    # 3. Defensive Normalization Gate
+    # 5. Defensive Normalization Gate
     logger.info("Running defensive normalization and schema verification...")
     cleaned_journals, norm_report = normalize_all(records_to_process)
 
@@ -173,6 +191,8 @@ def refresh_journals(
         'metrics_updated': metrics_updated,
         'special_issues_found': special_issues_found,
         'special_issues_matched': special_issues_matched,
+        'discovered_count': len(discovered_journals),
+        'inactive_dropped': len(inactive_journals),
         'rank_distribution': norm_report['rank_counts'],
         'journals_with_deadlines': norm_report['with_deadlines'],
         'dry_run': dry_run
@@ -193,6 +213,8 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help="Run without overwriting output file")
     parser.add_argument('--skip-openalex', action='store_true', help="Skip OpenAlex metrics update")
     parser.add_argument('--skip-special-issues', action='store_true', help="Skip Special Issues crawling")
+    parser.add_argument('--skip-discovery', action='store_true', help="Skip novel journal discovery")
+    parser.add_argument('--discover-limit', type=int, default=15, help="Maximum new journals to discover per run")
 
     args = parser.parse_args()
     report = refresh_journals(
@@ -203,7 +225,9 @@ def main():
         limit=args.limit,
         dry_run=args.dry_run,
         skip_openalex=args.skip_openalex,
-        skip_special_issues=args.skip_special_issues
+        skip_special_issues=args.skip_special_issues,
+        skip_discovery=args.skip_discovery,
+        discover_limit=args.discover_limit
     )
     print(json.dumps(report, indent=2))
 

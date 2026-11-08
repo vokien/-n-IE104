@@ -75,12 +75,13 @@ jobs:
           branch: automation/update-journals
           delete-branch: false
           add-paths: data/jour.json
-          commit-message: 'feat(journal): tự động cập nhật chỉ số tạp chí và Special Issues'
-          title: '[Automation] Cập nhật dữ liệu tạp chí và Special Issues tự động'
+          commit-message: '[T3.2] Tự động cập nhật chỉ số tạp chí và Special Issues'
+          title: '[T3.2] Cập nhật dữ liệu tạp chí và Special Issues tự động'
           body: |
             Cập nhật tự động `data/jour.json` từ OpenAlex batch API và chuyên mục Call-for-Papers Special Issues bằng Scrapling.
 
             - Đồng bộ chỉ số học thuật: CiteScore, H-index, homepage URLs.
+            - Tự động bổ sung các tạp chí CNTT uy tín mới và thanh lọc các tạp chí dừng hoạt động.
             - Tích hợp hạn nộp bài của các Số đặc biệt (Special Issues) theo chuẩn múi giờ AoE UTC-12.
             - Đã vượt qua kiểm định chuẩn hóa schema 100% không lỗi.
       - name: Enable auto-merge when explicitly configured by the repository
