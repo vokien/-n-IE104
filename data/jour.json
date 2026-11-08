@@ -260296,5 +260296,194 @@
     ],
     "homepage_url": "https://cis.ieee.org/publications/ieee-transactions-on-artificial-intelligence",
     "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8931",
+    "name": "Artificial intelligence for engineering design analysis and manufacturing",
+    "issn": "0890-0604",
+    "eissn": "1469-1760",
+    "publisher": "Cambridge University Press",
+    "scopus_rank": "Q1",
+    "h_index": 72,
+    "citescore": 5.6,
+    "citescore_year": 2026,
+    "sjr": 1.003,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Artificial intelligence for engineering design analysis and manufacturing"
+    ],
+    "homepage_url": "http://journals.cambridge.org/AIE",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8932",
+    "name": "MIS Quarterly",
+    "issn": "0276-7783",
+    "eissn": "2162-9730",
+    "publisher": "MIS Quarterly",
+    "scopus_rank": "Q1",
+    "h_index": 365,
+    "citescore": 10.3,
+    "citescore_year": 2026,
+    "sjr": 1.852,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "MIS Quarterly"
+    ],
+    "homepage_url": "http://www.misq.org/",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8933",
+    "name": "neural information processing systems",
+    "issn": "1049-5258",
+    "eissn": null,
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q1",
+    "h_index": 251,
+    "citescore": 16.2,
+    "citescore_year": 2026,
+    "sjr": 2.912,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "neural information processing systems"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8934",
+    "name": "Information Systems Research",
+    "issn": "1047-7047",
+    "eissn": "1526-5536",
+    "publisher": "Institute for Operations Research and the Management Sciences",
+    "scopus_rank": "Q1",
+    "h_index": 246,
+    "citescore": 8.7,
+    "citescore_year": 2026,
+    "sjr": 1.568,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Information Systems Research"
+    ],
+    "homepage_url": "http://isr.journal.informs.org/",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8935",
+    "name": "Conference proceedings/Conference proceedings - IEEE International Conference on Systems, Man, and Cybernetics",
+    "issn": "1062-922X",
+    "eissn": "2577-1655",
+    "publisher": "Institute of Electrical and Electronics Engineers",
+    "scopus_rank": "Q4",
+    "h_index": 118,
+    "citescore": 0.9,
+    "citescore_year": 2026,
+    "sjr": 0.162,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Conference proceedings/Conference proceedings - IEEE International Conference on Systems, Man, and Cybernetics"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8936",
+    "name": "International Journal of Geographical Information Systems",
+    "issn": "0269-3798",
+    "eissn": "1362-3087",
+    "publisher": "Taylor & Francis",
+    "scopus_rank": "Q1",
+    "h_index": 180,
+    "citescore": 7.6,
+    "citescore_year": 2026,
+    "sjr": 1.366,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "International Journal of Geographical Information Systems"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8937",
+    "name": "Information Systems Journal",
+    "issn": "1350-1917",
+    "eissn": "1365-2575",
+    "publisher": "Wiley",
+    "scopus_rank": "Q1",
+    "h_index": 148,
+    "citescore": 12.8,
+    "citescore_year": 2026,
+    "sjr": 2.295,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Information Systems Journal"
+    ],
+    "homepage_url": "http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1365-2575",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8938",
+    "name": "Communications of the Association for Information Systems",
+    "issn": "1529-3181",
+    "eissn": null,
+    "publisher": "Association for Information Systems",
+    "scopus_rank": "Q2",
+    "h_index": 114,
+    "citescore": 2.9,
+    "citescore_year": 2026,
+    "sjr": 0.522,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Communications of the Association for Information Systems"
+    ],
+    "homepage_url": "http://cais.isworld.org/contents.asp",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8939",
+    "name": "Transactions in GIS",
+    "issn": "1361-1682",
+    "eissn": "1467-9671",
+    "publisher": "Wiley",
+    "scopus_rank": "Q2",
+    "h_index": 94,
+    "citescore": 2.7,
+    "citescore_year": 2026,
+    "sjr": 0.482,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Transactions in GIS"
+    ],
+    "homepage_url": "https://onlinelibrary.wiley.com/journal/14679671",
+    "scopus_source_url": null
   }
 ]
