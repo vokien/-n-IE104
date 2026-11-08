@@ -74,8 +74,15 @@ class ConferenceUpdateTests(unittest.TestCase):
         self.assertEqual(len(records), 987)
         registry = {r['venue']['id']: r['venue'] for r in records}
         for row in load(ROOT / 'data/conf.json'):
-            self.assertEqual(row['name'], registry[row['id']]['name'])
-            self.assertEqual(row['acronym'], registry[row['id']]['acronym'])
+            if row['id'] in registry:
+                self.assertEqual(row['name'], registry[row['id']]['name'])
+                self.assertEqual(row['acronym'], registry[row['id']]['acronym'])
+            else:
+                # Novel discovered conferences allocated with sequential ID > 987
+                num = int(row['id'].split('-')[1])
+                self.assertGreater(num, 987)
+                self.assertTrue(bool(row['name']))
+                self.assertTrue(bool(row['acronym']))
             self.assertEqual(set(row), set(FIELDS))
 
     def test_ccf_identity_same_acronym_wrong_dblp_not_joined(self):
