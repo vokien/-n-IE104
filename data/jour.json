@@ -259981,5 +259981,320 @@
     ],
     "homepage_url": null,
     "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8916",
+    "name": "Proceedings/Proceedings - International Symposium on Software Reliability Engineering",
+    "issn": "1071-9458",
+    "eissn": "2332-6549",
+    "publisher": "Institute of Electrical and Electronics Engineers",
+    "scopus_rank": "Q1",
+    "h_index": 84,
+    "citescore": 4.2,
+    "citescore_year": 2026,
+    "sjr": 0.76,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Proceedings/Proceedings - International Symposium on Software Reliability Engineering"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8917",
+    "name": "Proceedings of the ... ACM-IEEE International Symposium on Empirical Software Engineering and Measurement/International Symposium on Empirical Software Engineering and Measurement",
+    "issn": "1938-6451",
+    "eissn": "1949-3770",
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q1",
+    "h_index": 78,
+    "citescore": 6.5,
+    "citescore_year": 2026,
+    "sjr": 1.161,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Proceedings of the ... ACM-IEEE International Symposium on Empirical Software Engineering and Measurement/International Symposium on Empirical Software Engineering and Measurement"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8918",
+    "name": "Asia-Pacific Software Engineering Conference (APSEC)",
+    "issn": "1530-1362",
+    "eissn": "2640-0715",
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q3",
+    "h_index": 54,
+    "citescore": 1.4,
+    "citescore_year": 2026,
+    "sjr": 0.243,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Asia-Pacific Software Engineering Conference (APSEC)"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8919",
+    "name": "Advances in Engineering Software (1978)",
+    "issn": "0141-1195",
+    "eissn": "1878-3066",
+    "publisher": "Elsevier BV",
+    "scopus_rank": "Q4",
+    "h_index": 50,
+    "citescore": 0.0,
+    "citescore_year": 2026,
+    "sjr": 0.0,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Advances in Engineering Software (1978)"
+    ],
+    "homepage_url": "https://www.journals.elsevier.com/advances-in-engineering-software",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8920",
+    "name": "Software Engineering Journal",
+    "issn": "0268-6961",
+    "eissn": "2053-910X",
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q4",
+    "h_index": 51,
+    "citescore": 0.0,
+    "citescore_year": 2026,
+    "sjr": 0.0,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Software Engineering Journal"
+    ],
+    "homepage_url": "http://digital-library.theiet.org/content/journals/sej",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8921",
+    "name": "Proceedings/Proceedings of the ... International Conference on Software Engineering and Knowledge Engineering",
+    "issn": "2325-9000",
+    "eissn": "2325-9086",
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q4",
+    "h_index": 36,
+    "citescore": 0.4,
+    "citescore_year": 2026,
+    "sjr": 0.072,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Proceedings/Proceedings of the ... International Conference on Software Engineering and Knowledge Engineering"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8922",
+    "name": "Journal of Software Engineering and Applications",
+    "issn": "1945-3116",
+    "eissn": "1945-3124",
+    "publisher": "Scientific Research Publishing",
+    "scopus_rank": "Q2",
+    "h_index": 42,
+    "citescore": 3.8,
+    "citescore_year": 2026,
+    "sjr": 0.688,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Journal of Software Engineering and Applications"
+    ],
+    "homepage_url": "http://www.srpublishing.org/scirp/Journal/Home.aspx?JournalID=45",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8923",
+    "name": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "issn": "2159-5399",
+    "eissn": "2374-3468",
+    "publisher": "Association for the Advancement of Artificial Intelligence",
+    "scopus_rank": "Q1",
+    "h_index": 317,
+    "citescore": 9.2,
+    "citescore_year": 2026,
+    "sjr": 1.651,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Proceedings of the AAAI Conference on Artificial Intelligence"
+    ],
+    "homepage_url": "https://www.aaai.org/Library/AAAI/aaai-library.php",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8924",
+    "name": "Computers and Education Artificial Intelligence",
+    "issn": "2666-920X",
+    "eissn": null,
+    "publisher": "Elsevier BV",
+    "scopus_rank": "Q1",
+    "h_index": 136,
+    "citescore": 54.4,
+    "citescore_year": 2026,
+    "sjr": 9.797,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Computers and Education Artificial Intelligence"
+    ],
+    "homepage_url": "https://www.journals.elsevier.com/computers-and-education-artificial-intelligence",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8925",
+    "name": "AI & Society",
+    "issn": "0951-5666",
+    "eissn": "1435-5655",
+    "publisher": "Springer Nature",
+    "scopus_rank": "Q1",
+    "h_index": 113,
+    "citescore": 8.2,
+    "citescore_year": 2026,
+    "sjr": 1.467,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "AI & Society"
+    ],
+    "homepage_url": "https://link.springer.com/journal/146",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8926",
+    "name": "Frontiers in artificial intelligence and applications",
+    "issn": "0922-6389",
+    "eissn": "1879-8314",
+    "publisher": "Unknown Publisher",
+    "scopus_rank": "Q3",
+    "h_index": 75,
+    "citescore": 1.5,
+    "citescore_year": 2026,
+    "sjr": 0.268,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Frontiers in artificial intelligence and applications"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8927",
+    "name": "Frontiers in Artificial Intelligence",
+    "issn": "2624-8212",
+    "eissn": null,
+    "publisher": "Frontiers Media",
+    "scopus_rank": "Q1",
+    "h_index": 99,
+    "citescore": 8.7,
+    "citescore_year": 2026,
+    "sjr": 1.562,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "Frontiers in Artificial Intelligence"
+    ],
+    "homepage_url": "https://www.frontiersin.org/journals/artificial-intelligence#",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8928",
+    "name": "IEEE International Conference on Tools with Artificial Intelligence (ICTAI)",
+    "issn": "1082-3409",
+    "eissn": "2375-0197",
+    "publisher": "Institute of Electrical and Electronics Engineers",
+    "scopus_rank": "Q3",
+    "h_index": 74,
+    "citescore": 1.2,
+    "citescore_year": 2026,
+    "sjr": 0.209,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "IEEE International Conference on Tools with Artificial Intelligence (ICTAI)"
+    ],
+    "homepage_url": null,
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8929",
+    "name": "International Journal of Artificial Intelligence in Education",
+    "issn": "1560-4292",
+    "eissn": "1560-4306",
+    "publisher": "Springer Science+Business Media",
+    "scopus_rank": "Q1",
+    "h_index": 99,
+    "citescore": 26.8,
+    "citescore_year": 2026,
+    "sjr": 4.82,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "International Journal of Artificial Intelligence in Education"
+    ],
+    "homepage_url": "https://link.springer.com/journal/40593",
+    "scopus_source_url": null
+  },
+  {
+    "id": "JOUR-8930",
+    "name": "IEEE Transactions on Artificial Intelligence",
+    "issn": "2691-4581",
+    "eissn": null,
+    "publisher": "Institute of Electrical and Electronics Engineers",
+    "scopus_rank": "Q1",
+    "h_index": 68,
+    "citescore": 7.2,
+    "citescore_year": 2026,
+    "sjr": 1.291,
+    "sjr_year": 2026,
+    "subject_area": [
+      "Computer Science"
+    ],
+    "scope_keywords": [
+      "IEEE Transactions on Artificial Intelligence"
+    ],
+    "homepage_url": "https://cis.ieee.org/publications/ieee-transactions-on-artificial-intelligence",
+    "scopus_source_url": null
   }
 ]
