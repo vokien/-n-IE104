@@ -141,6 +141,14 @@
   flex: 1 1 280px;
 }
 
+.countdown-featured-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 0.5rem);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
 .countdown-featured-badge {
   display: inline-flex;
   align-items: center;
@@ -148,11 +156,39 @@
   text-align: center;
   background-color: hsla(15, 90%, 55%, 0.15);
   color: var(--color-accent, #ea580c);
-  margin-bottom: var(--spacing-xs, 0.5rem);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: var(--radius-sm, 4px);
+}
+
+.countdown-featured-flow-hint {
+  margin-top: 10px;
+}
+
+.flow-hint-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary, #2563eb);
+  text-decoration: none;
+  padding: 4px 10px;
+  background: hsla(217, 91%, 60%, 0.08);
+  border: 1px solid hsla(217, 91%, 60%, 0.2);
+  border-radius: var(--radius-pill, 9999px);
+  transition: all 160ms ease-out;
+}
+
+.flow-hint-link:hover {
+  background: hsla(217, 91%, 60%, 0.16);
+  border-color: var(--color-primary, #2563eb);
+  transform: translateY(-1px);
+}
+
+.flow-hint-link svg {
+  flex-shrink: 0;
 }
 
 .countdown-featured-title {
@@ -215,6 +251,54 @@
 .cfp-flow-section {
   max-width: 900px;
   margin: 0 auto var(--spacing-2xl, 3rem);
+}
+
+.cfp-flow-header-wrapper {
+  text-align: center;
+  margin-bottom: var(--spacing-xl, 2rem);
+}
+
+.cfp-flow-badge-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs, 0.5rem);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-xs, 0.5rem);
+}
+
+.cfp-flow-connected-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent, #ea580c);
+  background: hsla(15, 90%, 55%, 0.1);
+  border: 1px solid hsla(15, 90%, 55%, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill, 9999px);
+}
+
+.cfp-flow-conf-name {
+  color: var(--color-primary, #2563eb);
+  font-weight: 800;
+  border-bottom: 2px dashed var(--color-primary, #2563eb);
+  padding-bottom: 2px;
+}
+
+.timeline-section-subtitle {
+  color: var(--color-text-muted, #64748b);
+  font-size: 0.9375rem;
+  max-width: 680px;
+  margin: 6px auto 0;
+  line-height: 1.5;
+}
+
+.cfp-flow-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-xs, 0.5rem);
+  margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .cfp-flow-stepper {
@@ -631,6 +715,61 @@
   border: 1px solid hsla(215, 16%, 47%, 0.3);
 }
 .status-badge--ended .status-dot { background-color: #64748b; }
+
+.badge--neutral, .status-badge--neutral {
+  background-color: hsla(215, 16%, 47%, 0.12);
+  color: var(--color-text-muted, #64748b);
+  border: 1px solid hsla(215, 16%, 47%, 0.25);
+  font-weight: 600;
+}
+
+.badge--milestone {
+  background-color: hsla(217, 91%, 60%, 0.12);
+  color: var(--color-primary, #2563eb);
+  border: 1px solid hsla(217, 91%, 60%, 0.3);
+  font-weight: 700;
+}
+
+.badge--accent-outline {
+  background-color: transparent;
+  color: var(--color-primary, #2563eb);
+  border: 1px solid var(--color-primary, #2563eb);
+  font-weight: 700;
+}
+
+.timeline-item-actions {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--color-border, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.timeline-select-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary, #2563eb);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm, 4px);
+  transition: all 160ms ease-out;
+}
+
+.timeline-select-btn:hover {
+  background-color: hsla(217, 91%, 60%, 0.08);
+  color: var(--color-accent, #ea580c);
+  text-decoration: underline;
+}
+
+.timeline-select-btn svg {
+  flex-shrink: 0;
+}
 
 /* ----------------------------------------------------------
    6. HỖ TRỢ DARK THEME ([data-theme="dark"])

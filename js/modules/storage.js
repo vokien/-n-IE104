@@ -52,13 +52,28 @@ export function toggleBookmark(venue) {
     list.splice(existingIndex, 1);
     isAdded = false;
   } else {
+    // Trích xuất hạn nộp bài nếu có (để theo dõi biến động deadline)
+    let initialDeadline = venue.deadline || null;
+    let initialAbstractDeadline = venue.abstract_deadline || null;
+    let initialDecisionDeadline = venue.decision_deadline || null;
+    if (venue.submission_deadlines && Array.isArray(venue.submission_deadlines) && venue.submission_deadlines.length > 0) {
+      initialDeadline = initialDeadline || venue.submission_deadlines[0].deadline || null;
+      initialAbstractDeadline = initialAbstractDeadline || venue.submission_deadlines[0].abstract_deadline || null;
+      initialDecisionDeadline = initialDecisionDeadline || venue.submission_deadlines[0].decision_deadline || null;
+    }
+
+    const detectedType = venue.type || (venue.core_rank ? "conference" : (venue.scopus_rank ? "journal" : "unknown"));
+
     list.push({
       id: venue.id,
       name: venue.name,
       acronym: venue.acronym || null,
-      type: venue.type || "unknown",
+      type: detectedType,
       scopus_rank: venue.scopus_rank || null,
       core_rank: venue.core_rank || null,
+      saved_deadline: initialDeadline,
+      saved_abstract_deadline: initialAbstractDeadline,
+      saved_decision_deadline: initialDecisionDeadline,
       saved_at: new Date().toISOString()
     });
     isAdded = true;
