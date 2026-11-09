@@ -25,6 +25,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg-body);
   color: var(--color-text-main);
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 body {
@@ -37,6 +40,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -117,7 +123,7 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 /* Logo thương hiệu: Luôn trỏ về Trục tâm (Hub - index.html) */
@@ -131,6 +137,12 @@ svg {
   color: var(--color-primary);
   letter-spacing: -0.03em;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.brand-logo > span {
+  display: inline-block;
   white-space: nowrap;
 }
 
@@ -231,55 +243,53 @@ svg {
 }
 
 #bookmark-header-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: var(--spacing-xs) !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  padding: 0 10px !important;
-  height: 38px !important;
-  width: 130px !important;
-  min-width: 130px !important;
-  max-width: 130px !important;
-  box-sizing: border-box !important;
-  font-size: var(--font-size-sm) !important;
-  font-weight: var(--font-weight-semibold) !important;
-  font-family: inherit !important;
-  line-height: 1 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 10px;
+  height: 38px;
+  min-height: 38px;
+  width: auto;
+  box-sizing: border-box;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  font-family: inherit;
+  line-height: 1;
 }
 
 #bookmark-header-btn svg {
-  width: 16px !important;
-  height: 16px !important;
-  flex-shrink: 0 !important;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  pointer-events: none;
 }
 
 #bookmark-header-btn .bookmark-label {
-  font-size: var(--font-size-sm) !important;
-  font-weight: var(--font-weight-semibold) !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
-  display: inline-block !important;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 #bookmark-header-btn .bookmark-count.badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-width: 20px !important;
-  height: 18px !important;
-  padding: 0 5px !important;
-  font-size: 11px !important;
-  font-family: var(--font-family-mono) !important;
-  font-weight: var(--font-weight-bold) !important;
-  line-height: 1.2 !important;
-  border-radius: var(--radius-pill) !important;
-  background-color: var(--color-primary-light) !important;
-  color: var(--color-primary) !important;
-  font-variant-numeric: tabular-nums !important;
-  flex-shrink: 0 !important;
-  gap: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 11px;
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 #theme-toggle-btn {
@@ -1180,38 +1190,69 @@ textarea.form-control {
 
 @media (max-width: 540px) {
   #bookmark-header-btn .bookmark-label {
-    display: none;
+    display: none !important;
   }
   #bookmark-header-btn {
-    padding: 0;
-    width: 38px;
-    min-width: 38px;
-    max-width: 38px;
-    justify-content: center;
-    position: relative;
+    padding: 0 !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    justify-content: center !important;
+    position: relative !important;
   }
   #bookmark-header-btn .bookmark-count.badge {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    min-width: 14px;
-    height: 14px;
-    font-size: 9px;
-    padding: 0 2px;
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    min-width: 14px !important;
+    height: 14px !important;
+    font-size: 9px !important;
+    padding: 0 3px !important;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
   }
 
   .brand-logo {
-    font-size: var(--font-size-lg);
+    font-size: 1.05rem;
+    gap: 6px;
   }
 
   .page-title {
     font-size: var(--font-size-2xl);
+  }
+
+  .hero-search-input {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .hero-search-btn {
+    padding: 8px 14px !important;
+    font-size: 14px !important;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Tùy chỉnh responsive Samsung S24 & màn hình hẹp (<= 380px):
+     Lược bỏ phần chữ ScopusVenue, chỉ giữ icon nhận diện để không bao giờ tràn chiều ngang */
+  .brand-logo > span {
+    display: none !important;
+  }
+  .site-header .container {
+    gap: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 @media (max-width: 680px) {

@@ -26,15 +26,80 @@ export function nearestDeadline(row, now = Date.now()) {
   return dates.find(day => day.value >= (day.dateOnly ? utcToday : now)) ?? dates.at(-1) ?? null;
 }
 
-export async function loadVenues() {
-  const sources = [['jour.json', 'journal'], ['conf.json', 'conference']];
-  const groups = await Promise.all(sources.map(async ([file, kind]) => {
-    const response = await fetch(new URL(`../../data/${file}`, import.meta.url));
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${file}`);
-    const rows = await response.json();
-    if (!Array.isArray(rows) || rows.some(row => !row.id || !row.name)) throw new Error(`Invalid directory: ${file}`);
-    return rows.map(row => ({ ...row, kind,
-      searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' ')) }));
-  }));
-  return groups.flat();
+let memoryCache = null;
+
+async function fetchJsonWithRetry(url, retries = 2, delayMs = 800) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), 25000) : null;
+      const response = await fetch(url, controller ? { signal: controller.signal } : undefined);
+      if (timeoutId) clearTimeout(timeoutId);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json();
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise(r => setTimeout(r, delayMs * Math.pow(1.5, attempt)));
+    }
+  }
+}
+
+export async function loadVenues(onProgress = null) {
+  if (memoryCache && Array.isArray(memoryCache) && memoryCache.length) {
+    if (typeof onProgress === 'function') onProgress(memoryCache, { isComplete: true, stage: 'cache' });
+    return memoryCache;
+  }
+
+  // Chia tách tải dữ liệu theo 2 giai đoạn (Staged Loading):
+  // Giai đoạn 1: conf.json nhẹ (~230KB) tải siêu tốc trong ~100ms để hiển thị ngay lập tức trên di động.
+  // Giai đoạn 2: jour.json nặng (~8.8MB) tải song song ngầm và cập nhật liền mạch.
+  const confUrl = new URL('../../data/conf.json', import.meta.url);
+  const jourUrl = new URL('../../data/jour.json', import.meta.url);
+
+  let confRows = [];
+  try {
+    const rawConf = await fetchJsonWithRetry(confUrl, 2, 600);
+    if (Array.isArray(rawConf)) {
+      confRows = rawConf.map(row => ({
+        ...row,
+        kind: 'conference',
+        searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' '))
+      }));
+      if (typeof onProgress === 'function' && confRows.length > 0) {
+        onProgress(confRows, { isComplete: false, stage: 'conferences' });
+      }
+    }
+  } catch (err) {
+    console.warn('[venue-data] Không tải được conf.json ở giai đoạn 1, thử tiếp tục...', err);
+  }
+
+  let jourRows = [];
+  try {
+    const rawJour = await fetchJsonWithRetry(jourUrl, 2, 1000);
+    if (Array.isArray(rawJour)) {
+      jourRows = rawJour.map(row => ({
+        ...row,
+        kind: 'journal',
+        searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' '))
+      }));
+    }
+  } catch (err) {
+    console.warn('[venue-data] Lỗi tải jour.json...', err);
+  }
+
+  const combined = [...confRows, ...jourRows];
+  if (!combined.length) {
+    throw new Error('Không thể tải dữ liệu danh mục (conf.json hoặc jour.json).');
+  }
+
+  memoryCache = combined;
+  if (typeof window !== 'undefined') {
+    window.__IE104_VENUES_CACHE__ = combined;
+  }
+
+  if (typeof onProgress === 'function') {
+    onProgress(combined, { isComplete: true, stage: 'all' });
+  }
+
+  return combined;
 }

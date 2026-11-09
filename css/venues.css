@@ -206,11 +206,65 @@
   .directory-sidebar { position: static; max-height: none; overflow-y: visible; }
   .directory-search { flex-wrap: wrap; }
   .directory-search input { width: calc(100% - 56px); }
-  .directory-search .primary { width: 100%; }
+  .directory-search .primary { width: 100%; min-height: 44px; }
   .venue-entry { padding: var(--spacing-md); }
   .venue-entry h3 { font-size: var(--font-size-lg); }
-  .venue-entry-footer > a { width: 100%; }
-  .directory-pagination .directory-button { padding-inline: var(--spacing-sm); }
+  
+  /* Tối ưu nút bấm một tay & vùng ngón cái (Thumb Zone Friendly) trên di động */
+  .venue-entry-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  .venue-entry-footer .venue-deadline-block,
+  .venue-entry-footer .venue-metrics {
+    width: 100%;
+  }
+  .venue-entry-footer > a.directory-button,
+  .venue-entry-footer .bookmark-trigger-btn {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Phân trang thích ứng di động: Tránh tràn ngang trên màn hình Samsung S24 360px */
+  .directory-pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "label label"
+      "prev next";
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding-top: var(--spacing-md);
+  }
+  #page-label {
+    grid-area: label;
+    min-width: 0 !important;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 4px;
+    font-size: var(--font-size-sm);
+  }
+  #previous-page {
+    grid-area: prev;
+    min-width: 0 !important;
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+  #next-page {
+    grid-area: next;
+    min-width: 0 !important;
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
   .directory-main .filter-choice, .directory-main summary { min-height: 44px; }
 }
 
