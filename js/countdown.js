@@ -276,14 +276,17 @@
    */
   function renderCFPStepper(conference) {
     const tzConfig = getActiveTimezoneConfig();
-    const formatDate = (dateStr) => {
-      if (!dateStr) return "Chưa công bố";
-      const ts = parseVietnamDate(dateStr);
-      if (isNaN(ts)) return dateStr;
-      return new Intl.DateTimeFormat("vi-VN", {
+    const formatStageDate = (st, idx) => {
+      if (!st.date) {
+        return idx === 0 ? "Không yêu cầu (Nộp thẳng Full Paper)" : "Chưa công bố";
+      }
+      const ts = parseVietnamDate(st.date);
+      if (isNaN(ts)) return `${st.date} (${tzConfig.stepperLabel})`;
+      const formatted = new Intl.DateTimeFormat("vi-VN", {
         timeZone: tzConfig.iana,
         day: "2-digit", month: "2-digit", year: "numeric",
       }).format(new Date(ts));
+      return `${formatted} (${tzConfig.stepperLabel})`;
     };
 
     const stages = [
@@ -293,7 +296,7 @@
         desc:  "Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện.",
         status: conference.abstractDeadline
           ? getSmartStatus(conference.abstractDeadline)
-          : { className: "badge--ended", label: "Chưa công bố", isEnded: true },
+          : { className: "badge--ended", label: "Không yêu cầu", isEnded: true },
       },
       {
         title: "Full Paper Submission",
@@ -328,7 +331,7 @@
           <div class="cfp-flow-body">
             <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
             <h3 class="cfp-flow-name">${st.title}</h3>
-            <p class="cfp-flow-date">${formatDate(st.date)} (${tzConfig.stepperLabel})</p>
+            <p class="cfp-flow-date">${formatStageDate(st, idx)}</p>
             <p class="cfp-flow-desc">${st.desc}</p>
           </div>
         </li>
@@ -344,7 +347,7 @@
         const dateEl  = card.querySelector(".cfp-flow-date, .cfp-step-date, time");
         const titleEl = card.querySelector(".cfp-flow-name, .cfp-step-title, h3, h4");
         const nodeEl  = card.querySelector(".cfp-flow-node, .cfp-step-marker");
-        if (dateEl)  { dateEl.textContent = `${formatDate(st.date)} (${tzConfig.stepperLabel})`; if (dateEl.tagName === "TIME") dateEl.setAttribute("datetime", st.date || ""); }
+        if (dateEl)  { dateEl.textContent = formatStageDate(st, idx); if (dateEl.tagName === "TIME") dateEl.setAttribute("datetime", st.date || ""); }
         if (titleEl) titleEl.textContent = st.title;
         if (nodeEl)  { nodeEl.classList.toggle("cfp-flow-node--done", st.status.isEnded); nodeEl.classList.toggle("cfp-flow-node--active", !st.status.isEnded); }
       });

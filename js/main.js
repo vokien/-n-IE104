@@ -40,5 +40,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 5. Thích ứng placeholder trên màn hình nhỏ (chống bị cắt chữ trên Samsung S24 / mobile)
+  function adaptResponsivePlaceholders() {
+    const isMobile = window.matchMedia("(max-width: 576px)").matches;
+    document.querySelectorAll("input[data-placeholder-mobile]").forEach(input => {
+      const mobilePh = input.getAttribute("data-placeholder-mobile");
+      const desktopPh = input.getAttribute("data-placeholder-desktop") || input.placeholder;
+      if (isMobile && mobilePh) {
+        input.placeholder = mobilePh;
+      } else if (!isMobile && desktopPh) {
+        input.placeholder = desktopPh;
+      }
+    });
+  }
+
+  adaptResponsivePlaceholders();
+  window.addEventListener("resize", adaptResponsivePlaceholders, { passive: true });
+
   console.log("🌐 [IE104] Kiến trúc Mô hình Bánh xe (Wheel Model Hub) đã sẵn sàng - 100% Vanilla JS ESM.");
 });

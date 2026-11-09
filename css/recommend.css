@@ -14,6 +14,11 @@
   .recommend-layout {
     grid-template-columns: 1fr;
   }
+  /* Bỏ sticky trên di động để form-card không nổi/chạy trên màn hình và không đè lên bộ lọc khi cuộn */
+  .form-card {
+    position: static !important;
+    top: auto !important;
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -675,6 +680,24 @@
   .filter-row { grid-template-columns: 1fr; }
   .result-item { padding: var(--spacing-sm) var(--spacing-md); }
   .algo-badges { justify-content: flex-start; }
+
+  /* Tối ưu Thumb Zone: Nút lưu/đã lưu toàn chiều ngang hoặc chạm ngón cái tiện lợi */
+  .result-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  .result-actions .result-links-group {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .result-actions .bookmark-trigger-btn {
+    width: 100% !important;
+    min-width: 100% !important;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 /* Trình bày trang khuyến nghị; thay thế CSS inline. */
@@ -689,6 +712,20 @@
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.form-card__title svg,
+.results-card__title svg,
+.algo-badge svg,
+.btn-analyze svg {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .field-required { color: var(--color-danger); margin-left: 4px; }

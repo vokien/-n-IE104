@@ -288,11 +288,25 @@ async function initDirectory() {
     controls.forEach((control) => { control.disabled = true; });
     results.setAttribute('aria-busy', 'true');
     status.hidden = false;
-    status.replaceChildren(element('p', 'Đang tải tạp chí và hội nghị…'));
+    status.replaceChildren(element('p', 'Đang tải hội nghị và tạp chí khoa học…'));
     try {
-      rows = await loadVenues();
+      rows = await loadVenues((progressiveRows, meta) => {
+        rows = progressiveRows;
+        const currentSub = subject.value;
+        const subjects = [...new Set(rows.flatMap((row) => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
+        subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map((value) => new Option(value, value)));
+        if (subjects.includes(currentSub)) subject.value = currentSub;
+        controls.forEach((control) => { control.disabled = false; });
+        render();
+        if (meta && !meta.isComplete) {
+          status.hidden = false;
+          status.replaceChildren(element('p', 'Đã tải 106 hội nghị · Đang đồng bộ danh mục tạp chí Scopus…'));
+        }
+      });
+      const currentSub = subject.value;
       const subjects = [...new Set(rows.flatMap((row) => row.subject_area ?? []))].sort((a, b) => a.localeCompare(b));
       subject.replaceChildren(new Option('Tất cả lĩnh vực', ''), ...subjects.map((value) => new Option(value, value)));
+      if (subjects.includes(currentSub)) subject.value = currentSub;
       controls.forEach((control) => { control.disabled = false; });
       render();
     } catch (error) {
