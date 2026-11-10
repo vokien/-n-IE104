@@ -19,14 +19,13 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg-body);
   color: var(--color-text-main);
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -40,8 +39,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
+  max-width: 100%;
   width: 100%;
 }
 
@@ -1203,7 +1202,32 @@ textarea.form-control {
   }
 }
 
-@media (max-width: 1080px) {
+/* Tối ưu header điều hướng trên màn hình Nest Hub Max và laptop hẹp (1081px - 1320px):
+   Thu gọn khoảng cách link điều hướng và nhãn nút để không bao giờ vượt quá chiều ngang khung nhìn */
+@media (min-width: 1141px) and (max-width: 1320px) {
+  .wheel-nav a {
+    padding: 6px 8px;
+    font-size: 13.5px;
+    gap: 3px;
+  }
+  .wheel-nav ul {
+    gap: 2px;
+  }
+  #bookmark-header-btn .bookmark-label,
+  #notification-header-btn .notification-label {
+    display: none !important;
+  }
+  #bookmark-header-btn,
+  #notification-header-btn {
+    padding: 0 8px !important;
+    gap: 4px !important;
+  }
+  .header-actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1140px) {
   .wheel-nav {
     display: none;
     position: absolute;
@@ -1252,6 +1276,9 @@ textarea.form-control {
 }
 
 @media (max-width: 540px) {
+  .header-actions {
+    gap: 6px !important;
+  }
   #bookmark-header-btn .bookmark-label,
   #notification-header-btn .notification-label {
     display: none !important;
@@ -1279,6 +1306,27 @@ textarea.form-control {
 }
 
 @media (max-width: 480px) {
+  /* Tùy chỉnh responsive toàn bộ smartphone <= 480px (iPhone SE, Samsung S24, Galaxy Z Fold, v.v.):
+     Lược bỏ toàn bộ phần chữ ScopusVenue và thẻ tag, chỉ giữ icon nhận diện 36px.
+     Đảm bảo container header và container nội dung luôn đồng nhất 100%,
+     chứa trọn vẹn nút menu di động và các nút thao tác mà không bị tràn ra ngoài mép. */
+  .brand-logo > span,
+  .brand-logo .brand-hub-tag,
+  .brand-logo .brand-spoke-tag {
+    display: none !important;
+  }
+
+  .brand-logo {
+    font-size: 1.05rem;
+    gap: 0;
+  }
+
+  .site-header .container {
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 6px;
+  }
+
   .container {
     padding-left: 12px;
     padding-right: 12px;
@@ -1286,11 +1334,6 @@ textarea.form-control {
 
   .footer-grid {
     grid-template-columns: 1fr;
-  }
-
-  .brand-logo {
-    font-size: 1.05rem;
-    gap: 6px;
   }
 
   .page-title {
@@ -1309,14 +1352,11 @@ textarea.form-control {
   }
 }
 
-@media (max-width: 380px) {
-  /* Tùy chỉnh responsive Samsung S24 & màn hình hẹp (<= 380px):
-     Lược bỏ phần chữ ScopusVenue, chỉ giữ icon nhận diện để không bao giờ tràn chiều ngang */
-  .brand-logo > span {
-    display: none !important;
-  }
+@media (max-width: 340px) {
+  /* Tùy chỉnh riêng cho thiết bị siêu hẹp <= 340px (iPhone SE 1st 320px):
+     Đồng bộ padding container 8px cho cả header lẫn nội dung để không bao giờ lệch mép */
+  .container,
   .site-header .container {
-    gap: 6px;
     padding-left: 8px;
     padding-right: 8px;
   }

@@ -243,6 +243,47 @@
   font-weight: 600;
 }
 
+/* Thích ứng đếm ngược trên smartphone (iPhone SE, Samsung S24, Galaxy Z Fold) */
+@media (max-width: 480px) {
+  .countdown-featured-card {
+    padding: 12px;
+  }
+  .countdown-timer-box {
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+  }
+  .countdown-unit-box {
+    min-width: 0;
+    flex: 1;
+    padding: 6px 3px;
+  }
+  .countdown-number {
+    font-size: 1.35rem;
+  }
+  .countdown-unit-label {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .countdown-featured-card {
+    padding: 8px;
+  }
+  .countdown-timer-box {
+    gap: 4px;
+  }
+  .countdown-unit-box {
+    padding: 4px 2px;
+  }
+  .countdown-number {
+    font-size: 1.15rem;
+  }
+  .countdown-unit-label {
+    font-size: 0.6rem;
+  }
+}
+
 /* ----------------------------------------------------------
    3. TRỌNG TÂM TASK 4.1: CFP FLOW STEPPER
    (Mốc Abstract -> Full Paper -> Notification)
@@ -744,9 +785,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: var(--spacing-sm, 0.75rem);
 }
 
-.timeline-select-btn {
+.timeline-expand-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -754,21 +796,192 @@
   font-weight: 600;
   color: var(--color-primary, #2563eb);
   background: transparent;
-  border: none;
+  border: 1px solid var(--color-border, #e2e8f0);
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 5px 10px;
   border-radius: var(--radius-sm, 4px);
   transition: all 160ms ease-out;
 }
 
-.timeline-select-btn:hover {
-  background-color: hsla(217, 91%, 60%, 0.08);
-  color: var(--color-accent, #ea580c);
-  text-decoration: underline;
+.timeline-expand-btn:hover {
+  background-color: var(--color-primary-light, #eff6ff);
+  border-color: var(--color-primary, #2563eb);
+  color: var(--color-primary, #2563eb);
 }
 
-.timeline-select-btn svg {
+.timeline-expand-icon {
   flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.timeline-item.is-expanded .timeline-expand-icon {
+  transform: rotate(180deg);
+}
+
+.timeline-item.is-expanded .timeline-expand-btn {
+  background-color: var(--color-primary-light, #eff6ff);
+  border-color: var(--color-primary, #2563eb);
+}
+
+/* Vùng mở rộng 3 mốc deadline CFP của riêng từng hội nghị */
+.timeline-milestones-drawer {
+  display: none;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-border, #e2e8f0);
+  animation: drawerSlideDown 0.22s ease-out;
+}
+
+.timeline-item.is-expanded .timeline-milestones-drawer {
+  display: block;
+}
+
+.timeline-milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .timeline-milestones-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.timeline-milestone-item {
+  background-color: var(--color-bg-subtle, #f8fafc);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeline-milestone-item.timeline-milestone--active {
+  border-left: 3px solid var(--color-primary, #2563eb);
+  background-color: hsla(217, 91%, 60%, 0.04);
+}
+
+.timeline-milestone-item.timeline-milestone--ended {
+  opacity: 0.85;
+}
+
+.timeline-milestone-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.timeline-milestone-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-primary, #2563eb);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.timeline-milestone-name {
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: 700;
+  color: var(--color-text-main, #1e293b);
+  flex: 1;
+}
+
+.timeline-milestone-date {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent, #ea580c);
+  font-family: var(--font-family-mono, monospace);
+  margin-top: 2px;
+}
+
+.timeline-milestone-desc {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Hiệu ứng nổi bật khi điều hướng từ trang Tra cứu (venues.html) sang */
+.timeline-item--highlight .timeline-content {
+  border-color: var(--color-primary, #2563eb) !important;
+  box-shadow: 0 0 0 3px hsla(217, 91%, 60%, 0.35), 0 8px 20px rgba(37, 99, 235, 0.15) !important;
+  animation: itemPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes itemPulse {
+  from { box-shadow: 0 0 0 2px hsla(217, 91%, 60%, 0.2); }
+  to { box-shadow: 0 0 0 5px hsla(217, 91%, 60%, 0.45); }
+}
+
+@keyframes drawerSlideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Nút liên kết CFP từ trang venues.html */
+.directory-button--cfp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background-color: var(--color-primary-light, #eff6ff) !important;
+  color: var(--color-primary, #2563eb) !important;
+  border: 1px solid var(--color-primary, #2563eb) !important;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-md, 6px);
+  padding: 6px 12px;
+  font-size: var(--font-size-sm, 0.875rem);
+  transition: all var(--transition-fast, 160ms);
+}
+
+.directory-button--cfp:hover {
+  background-color: var(--color-primary, #2563eb) !important;
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+[data-theme="dark"] .timeline-expand-btn {
+  background: transparent;
+  border-color: var(--color-border, #334155);
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .timeline-item.is-expanded .timeline-expand-btn,
+[data-theme="dark"] .timeline-expand-btn:hover {
+  background-color: hsla(217, 91%, 60%, 0.15);
+  border-color: #3b82f6;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .timeline-milestone-item {
+  background-color: var(--color-bg-surface, #1e293b);
+  border-color: var(--color-border, #334155);
+}
+
+[data-theme="dark"] .timeline-milestone-item.timeline-milestone--active {
+  background-color: hsla(217, 91%, 60%, 0.1);
+}
+
+[data-theme="dark"] .directory-button--cfp {
+  background-color: hsla(217, 91%, 60%, 0.15) !important;
+  color: #60a5fa !important;
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .directory-button--cfp:hover {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
 }
 
 /* ----------------------------------------------------------

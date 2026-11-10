@@ -159,6 +159,14 @@ function makeCard(row) {
     footer.append(block);
   }
 
+  // Nút liên kết trực tiếp sang thẻ tương ứng tại trang Tiến trình CFP (timeline.html)
+  if (row.kind !== 'journal') {
+    const cfpLink = element('a', 'Tiến trình CFP \u2192', 'directory-button directory-button--cfp');
+    cfpLink.href = `timeline.html?id=${encodeURIComponent(row.id)}#conf-${encodeURIComponent(row.id)}`;
+    cfpLink.setAttribute('aria-label', `Xem tiến trình 3 mốc deadline CFP của hội nghị ${row.acronym || row.name}`);
+    footer.append(cfpLink);
+  }
+
   if (homepage) {
     const link = element('a', 'Website chính thức', 'directory-button');
     link.href = homepage;

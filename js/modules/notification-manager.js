@@ -650,3 +650,4 @@ export function initNotificationCenter() {
 
   updateNotificationBadge();
 }
+
