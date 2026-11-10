@@ -8,7 +8,7 @@ const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 
 function renderDualVenueDeadline(deadline) {
   const container = element('div', undefined, 'venue-deadline');
-  container.append(element('small', 'Hạn nộp bài gần nhất'));
+  container.append(element('small', 'Hạn nộp toàn văn (Full Paper)'));
 
   const dualBox = element('div', undefined, 'venue-deadline-dual');
 

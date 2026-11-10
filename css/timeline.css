@@ -764,6 +764,15 @@
   font-weight: 600;
 }
 
+/* Badge chuyên biệt cho ngày thông báo kết quả (Notification / Phản biện) */
+.badge--review, .status-badge--review {
+  background-color: hsla(217, 91%, 60%, 0.12);
+  color: var(--color-primary, #2563eb);
+  border: 1px solid hsla(217, 91%, 60%, 0.3);
+  font-weight: 600;
+}
+.badge--review .status-dot { background-color: #2563eb; }
+
 .badge--milestone {
   background-color: hsla(217, 91%, 60%, 0.12);
   color: var(--color-primary, #2563eb);

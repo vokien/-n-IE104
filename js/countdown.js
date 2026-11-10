@@ -116,23 +116,115 @@
   const parseAoEDate = parseVietnamDate;
 
   /**
-   * 2. Phân loại trạng thái deadline thông minh
+   * 2a. Phân loại trạng thái chuyên biệt cho Mốc 3 - Notification (Ngày thông báo kết quả)
+   * TUYỆT ĐỐI KHÔNG dùng các từ ngữ gây hiểu lầm như "Đang mở nhận bài", "Khẩn cấp", "Sắp đến hạn"
+   * Sử dụng chuẩn ngữ nghĩa học thuật:
+   * - "Chờ công bố kết quả" (khi còn > 30 ngày)
+   * - "Đang phản biện (còn X ngày)" (khi còn <= 30 ngày)
+   * - "Sắp công bố kết quả (còn X ngày)" (khi còn <= 7 ngày)
+   * - "Đã công bố kết quả" (khi đã đến hoặc qua ngày)
+   * - "Chưa công bố" (khi ban tổ chức chưa ấn định ngày)
    */
-  function getSmartStatus(dateString) {
+  function getNotificationStatus(dateString) {
+    if (!dateString) {
+      return {
+        type: "unannounced",
+        label: "Chưa công bố",
+        className: "badge--ended",
+        isEnded: true,
+      };
+    }
+
     const targetTime = parseVietnamDate(dateString);
     const remaining  = targetTime - Date.now();
     const diffDays   = Math.ceil(remaining / MS_DAY);
 
     if (isNaN(targetTime) || remaining <= 0) {
-      return { type: "ended",   label: "Đã kết thúc",                   className: "badge--ended",   diffDays: 0,        isEnded: true  };
+      return {
+        type: "announced",
+        label: "Đã công bố kết quả",
+        className: "badge--ended",
+        diffDays: 0,
+        isEnded: true,
+      };
+    }
+
+    if (diffDays <= 7) {
+      return {
+        type: "announcing-soon",
+        label: `Sắp công bố kết quả (còn ${diffDays} ngày)`,
+        className: "badge--warning",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
+
+    if (diffDays <= 30) {
+      return {
+        type: "in-review",
+        label: `Đang phản biện (còn ${diffDays} ngày)`,
+        className: "badge--review",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
+
+    return {
+      type: "pending",
+      label: "Chờ công bố kết quả",
+      className: "badge--review",
+      diffDays: diffDays,
+      isEnded: false,
+    };
+  }
+
+  /**
+   * 2b. Phân loại trạng thái deadline thông minh cho việc nộp bài (Abstract, Full Paper)
+   */
+  function getSmartStatus(dateString, milestoneType = "paper") {
+    if (milestoneType === "notification") {
+      return getNotificationStatus(dateString);
+    }
+
+    const targetTime = parseVietnamDate(dateString);
+    const remaining  = targetTime - Date.now();
+    const diffDays   = Math.ceil(remaining / MS_DAY);
+    const isAbstract = milestoneType === "abstract";
+
+    if (isNaN(targetTime) || remaining <= 0) {
+      return {
+        type: "ended",
+        label: isAbstract ? "Đã đóng nhận abstract" : "Đã kết thúc nhận bài",
+        className: "badge--ended",
+        diffDays: 0,
+        isEnded: true,
+      };
     }
     if (diffDays <= 7) {
-      return { type: "urgent",  label: `Khẩn cấp (còn ${diffDays} ngày)`,  className: "badge--urgent",  diffDays: diffDays, isEnded: false };
+      return {
+        type: "urgent",
+        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        className: "badge--urgent",
+        diffDays: diffDays,
+        isEnded: false,
+      };
     }
     if (diffDays <= 30) {
-      return { type: "warning", label: `Sắp đến hạn (${diffDays} ngày)`,   className: "badge--warning", diffDays: diffDays, isEnded: false };
+      return {
+        type: "warning",
+        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        className: "badge--warning",
+        diffDays: diffDays,
+        isEnded: false,
+      };
     }
-    return   { type: "open",    label: "Đang mở nhận bài",                  className: "badge--open",    diffDays: diffDays, isEnded: false };
+    return {
+      type: "open",
+      label: isAbstract ? "Đang mở nhận abstract" : "Đang mở nhận bài",
+      className: "badge--open",
+      diffDays: diffDays,
+      isEnded: false,
+    };
   }
 
   /**
@@ -284,7 +376,10 @@
       hour: "2-digit", minute: "2-digit",
     }).format(new Date(conference.targetTime));
 
-    deadlineEl.innerHTML = `Hạn nộp (${conference.nearestMilestone.label}): <time datetime="${conference.nearestMilestone.dateStr}">${formatted} (${tzConfig.bannerLabel})</time>`;
+    const isNotif = conference.nearestMilestone.type === "notification";
+    const prefix = isNotif ? "Thời gian công bố kết quả" : "Hạn nộp";
+
+    deadlineEl.innerHTML = `${prefix} (${conference.nearestMilestone.label}): <time datetime="${conference.nearestMilestone.dateStr}">${formatted} (${tzConfig.bannerLabel})</time>`;
   }
 
   /**
@@ -386,7 +481,7 @@
           ? "Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện."
           : "Hội nghị không có vòng nộp abstract; tác giả nộp trực tiếp toàn văn bản thảo (Full Paper) tại Mốc 2.",
         status: conference.abstractDeadline
-          ? getSmartStatus(conference.abstractDeadline)
+          ? getSmartStatus(conference.abstractDeadline, "abstract")
           : { className: "badge--neutral", label: "Không có vòng nộp abstract", isEnded: true },
       },
       {
@@ -394,7 +489,7 @@
         date:  conference.deadline || null,
         desc:  "Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).",
         status: conference.deadline
-          ? getSmartStatus(conference.deadline)
+          ? getSmartStatus(conference.deadline, "paper")
           : { className: "badge--ended", label: "Chưa công bố", isEnded: true },
       },
       {
@@ -404,7 +499,7 @@
           ? "Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện."
           : "Hội đồng khoa học chưa công bố ngày thông báo kết quả chấp nhận bài báo.",
         status: conference.decisionDeadline
-          ? getSmartStatus(conference.decisionDeadline)
+          ? getNotificationStatus(conference.decisionDeadline)
           : { className: "badge--ended", label: "Chưa công bố", isEnded: true },
       },
     ];
@@ -488,7 +583,12 @@
 
     container.innerHTML = `<div class="timeline-wrapper">${conferences.map((item) => {
       const milestone = item.nearestMilestone || { label: "Hạn nộp", dateStr: item.deadline };
-      const status = getSmartStatus(milestone.dateStr);
+      const isNotifMilestone = milestone.type === "notification";
+      const status = isNotifMilestone
+        ? getNotificationStatus(milestone.dateStr)
+        : getSmartStatus(milestone.dateStr, milestone.type);
+      const milestonePrefix = isNotifMilestone ? "Ngày công bố kết quả" : "Hạn chót";
+
       const formattedDate = new Intl.DateTimeFormat("vi-VN", {
         timeZone: tzConfig.iana, day: "2-digit", month: "long", year: "numeric",
       }).format(new Date(item.targetTime));
@@ -500,15 +600,15 @@
       const milestoneBadge = `<span class="badge badge--milestone">${milestone.label}</span>`;
       const isExpanded = expandedIds.has(String(item.id));
 
-      // Trạng thái và ngày tháng 3 mốc deadline chi tiết
+      // Trạng thái và ngày tháng 3 mốc deadline chi tiết (Phân biệt chuẩn ngữ nghĩa học thuật)
       const m1Date = item.abstractDeadline ? formatDateWithTz(item.abstractDeadline, tzConfig) : "Không có vòng nộp abstract";
-      const m1Status = item.abstractDeadline ? getSmartStatus(item.abstractDeadline) : { className: "badge--neutral", label: "Không có", isEnded: true };
+      const m1Status = item.abstractDeadline ? getSmartStatus(item.abstractDeadline, "abstract") : { className: "badge--neutral", label: "Không có", isEnded: true };
 
       const m2Date = item.deadline ? formatDateWithTz(item.deadline, tzConfig) : "Chưa công bố";
-      const m2Status = item.deadline ? getSmartStatus(item.deadline) : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
+      const m2Status = item.deadline ? getSmartStatus(item.deadline, "paper") : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
 
       const m3Date = item.decisionDeadline ? formatDateWithTz(item.decisionDeadline, tzConfig) : "Chưa công bố";
-      const m3Status = item.decisionDeadline ? getSmartStatus(item.decisionDeadline) : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
+      const m3Status = item.decisionDeadline ? getNotificationStatus(item.decisionDeadline) : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
 
       return `
         <article class="timeline-item ${isExpanded ? "is-expanded" : ""}" id="conf-${item.id}" data-conf-id="${item.id}" data-status="${status.type}">
@@ -517,7 +617,7 @@
             <div class="timeline-header">
               <time class="timeline-date" datetime="${milestone.dateStr}">
                 ${CALENDAR_ICON_SVG}
-                <span>Hạn chót [${milestone.label}]: ${formattedDate} (${tzConfig.itemLabel})</span>
+                <span>${milestonePrefix} [${milestone.label}]: ${formattedDate} (${tzConfig.itemLabel})</span>
               </time>
               <div class="timeline-badges">
                 ${rankBadge}
@@ -823,6 +923,7 @@
     parseVietnamDate,
     parseAoEDate,
     getSmartStatus,
+    getNotificationStatus,
     loadTimelineData,
     attachCountdown,
     initVenueCountdowns,
