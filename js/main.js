@@ -9,6 +9,7 @@
 import { initTheme } from "./modules/theme.js";
 import { initNavigation } from "./modules/navigation.js";
 import { initBookmarkModal, updateTriggerButtons } from "./modules/bookmark-modal.js";
+import { initNotificationCenter } from "./modules/notification-manager.js";
 import { saveSearchQuery, AppStorage } from "./modules/storage.js";
 
 // Đảm bảo tương thích toàn cục cho console DevTools và kiểm thử
@@ -26,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 3. Khởi tạo Hộp thoại Bookmark & Danh sách mục tiêu
   initBookmarkModal();
+
+  // 4. Khởi tạo Trung tâm Thông báo Biến động Deadline & Mục tiêu
+  initNotificationCenter();
 
   // 4. Lắng nghe form tìm kiếm nhanh trên Hero Banner
   const heroSearchForm = document.querySelector(".hero-search-form");

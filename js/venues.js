@@ -8,7 +8,7 @@ const number = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 3 });
 
 function renderDualVenueDeadline(deadline) {
   const container = element('div', undefined, 'venue-deadline');
-  container.append(element('small', 'Hạn nộp bài gần nhất'));
+  container.append(element('small', 'Hạn nộp toàn văn (Full Paper)'));
 
   const dualBox = element('div', undefined, 'venue-deadline-dual');
 
@@ -157,6 +157,14 @@ function makeCard(row) {
       block.append(blockEmpty);
     }
     footer.append(block);
+  }
+
+  // Nút liên kết trực tiếp sang thẻ tương ứng tại trang Tiến trình CFP (timeline.html)
+  if (row.kind !== 'journal') {
+    const cfpLink = element('a', 'Tiến trình CFP \u2192', 'directory-button directory-button--cfp');
+    cfpLink.href = `timeline.html?id=${encodeURIComponent(row.id)}#conf-${encodeURIComponent(row.id)}`;
+    cfpLink.setAttribute('aria-label', `Xem tiến trình 3 mốc deadline CFP của hội nghị ${row.acronym || row.name}`);
+    footer.append(cfpLink);
   }
 
   if (homepage) {

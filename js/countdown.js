@@ -116,40 +116,202 @@
   const parseAoEDate = parseVietnamDate;
 
   /**
-   * 2. Phân loại trạng thái deadline thông minh
+   * 2a. Phân loại trạng thái chuyên biệt cho Mốc 3 - Notification (Ngày thông báo kết quả)
+   * TUYỆT ĐỐI KHÔNG dùng các từ ngữ gây hiểu lầm như "Đang mở nhận bài", "Khẩn cấp", "Sắp đến hạn"
+   * Sử dụng chuẩn ngữ nghĩa học thuật:
+   * - "Chờ công bố kết quả" (khi còn > 30 ngày)
+   * - "Đang phản biện (còn X ngày)" (khi còn <= 30 ngày)
+   * - "Sắp công bố kết quả (còn X ngày)" (khi còn <= 7 ngày)
+   * - "Đã công bố kết quả" (khi đã đến hoặc qua ngày)
+   * - "Chưa công bố" (khi ban tổ chức chưa ấn định ngày)
    */
-  function getSmartStatus(dateString) {
+  function getNotificationStatus(dateString) {
+    if (!dateString) {
+      return {
+        type: "unannounced",
+        label: "Chưa công bố",
+        className: "badge--ended",
+        isEnded: true,
+      };
+    }
+
     const targetTime = parseVietnamDate(dateString);
     const remaining  = targetTime - Date.now();
     const diffDays   = Math.ceil(remaining / MS_DAY);
 
     if (isNaN(targetTime) || remaining <= 0) {
-      return { type: "ended",   label: "Đã kết thúc",                   className: "badge--ended",   diffDays: 0,        isEnded: true  };
+      return {
+        type: "announced",
+        label: "Đã công bố kết quả",
+        className: "badge--ended",
+        diffDays: 0,
+        isEnded: true,
+      };
     }
+
     if (diffDays <= 7) {
-      return { type: "urgent",  label: `Khẩn cấp (còn ${diffDays} ngày)`,  className: "badge--urgent",  diffDays: diffDays, isEnded: false };
+      return {
+        type: "announcing-soon",
+        label: `Sắp công bố kết quả (còn ${diffDays} ngày)`,
+        className: "badge--warning",
+        diffDays: diffDays,
+        isEnded: false,
+      };
     }
+
     if (diffDays <= 30) {
-      return { type: "warning", label: `Sắp đến hạn (${diffDays} ngày)`,   className: "badge--warning", diffDays: diffDays, isEnded: false };
+      return {
+        type: "in-review",
+        label: `Đang phản biện (còn ${diffDays} ngày)`,
+        className: "badge--review",
+        diffDays: diffDays,
+        isEnded: false,
+      };
     }
-    return   { type: "open",    label: "Đang mở nhận bài",                  className: "badge--open",    diffDays: diffDays, isEnded: false };
+
+    return {
+      type: "pending",
+      label: "Chờ công bố kết quả",
+      className: "badge--review",
+      diffDays: diffDays,
+      isEnded: false,
+    };
   }
 
   /**
-   * 3. Trích xuất đợt nộp bài phù hợp nhất của 1 hội nghị
-   * CHỈ lấy đợt còn hạn nộp bài (loại bỏ hoàn toàn các đợt đã hết hạn)
+   * 2b. Phân loại trạng thái deadline thông minh cho việc nộp bài (Abstract, Full Paper)
+   */
+  function getSmartStatus(dateString, milestoneType = "paper") {
+    if (milestoneType === "notification") {
+      return getNotificationStatus(dateString);
+    }
+
+    const targetTime = parseVietnamDate(dateString);
+    const remaining  = targetTime - Date.now();
+    const diffDays   = Math.ceil(remaining / MS_DAY);
+    const isAbstract = milestoneType === "abstract";
+
+    if (isNaN(targetTime) || remaining <= 0) {
+      return {
+        type: "ended",
+        label: isAbstract ? "Đã đóng nhận abstract" : "Đã kết thúc nhận bài",
+        className: "badge--ended",
+        diffDays: 0,
+        isEnded: true,
+      };
+    }
+    if (diffDays <= 7) {
+      return {
+        type: "urgent",
+        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        className: "badge--urgent",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
+    if (diffDays <= 30) {
+      return {
+        type: "warning",
+        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        className: "badge--warning",
+        diffDays: diffDays,
+        isEnded: false,
+      };
+    }
+    return {
+      type: "open",
+      label: isAbstract ? "Đang mở nhận abstract" : "Đang mở nhận bài",
+      className: "badge--open",
+      diffDays: diffDays,
+      isEnded: false,
+    };
+  }
+
+  /**
+   * 3a. Tính toán mốc deadline hiệu lực gần nhất của hội nghị
+   * Xét cả 3 mốc: Abstract Submission, Full Paper Submission, Notification
+   * Lấy mốc còn hạn gần nhất (> now) để đếm ngược và sắp xếp thứ tự
+   */
+  function computeNearestMilestone(abstractStr, paperStr, decisionStr) {
+    const now = Date.now();
+    const abstractTs = abstractStr ? parseVietnamDate(abstractStr) : NaN;
+    const paperTs    = paperStr ? parseVietnamDate(paperStr) : NaN;
+    const decisionTs = decisionStr ? parseVietnamDate(decisionStr) : NaN;
+
+    const candidates = [];
+
+    if (!isNaN(abstractTs) && abstractTs > now) {
+      candidates.push({
+        type: "abstract",
+        label: "Abstract Submission",
+        badge: "Abstract",
+        timestamp: abstractTs,
+        dateStr: abstractStr,
+        isSubmission: true,
+      });
+    }
+
+    if (!isNaN(paperTs) && paperTs > now) {
+      candidates.push({
+        type: "fullpaper",
+        label: "Full Paper Submission",
+        badge: "Full Paper",
+        timestamp: paperTs,
+        dateStr: paperStr,
+        isSubmission: true,
+      });
+    }
+
+    if (!isNaN(decisionTs) && decisionTs > now) {
+      candidates.push({
+        type: "notification",
+        label: "Notification",
+        badge: "Notification",
+        timestamp: decisionTs,
+        dateStr: decisionStr,
+        isSubmission: false,
+      });
+    }
+
+    if (candidates.length === 0) {
+      const fallbackTs = !isNaN(paperTs) ? paperTs : (!isNaN(abstractTs) ? abstractTs : decisionTs);
+      return {
+        type: "ended",
+        label: "Đã kết thúc",
+        badge: "Đã đóng",
+        timestamp: fallbackTs || 0,
+        dateStr: paperStr || abstractStr || decisionStr || "",
+        isSubmission: false,
+        isEnded: true,
+      };
+    }
+
+    candidates.sort((a, b) => a.timestamp - b.timestamp);
+    const nearest = candidates[0];
+    nearest.isEnded = false;
+    return nearest;
+  }
+
+  /**
+   * 3b. Trích xuất đợt nộp bài phù hợp nhất của 1 hội nghị
+   * CHỈ lấy đợt còn ít nhất 1 mốc hợp lệ (> now)
    */
   function extractActiveEdition(venue) {
     if (!venue.submission_deadlines || !Array.isArray(venue.submission_deadlines) || venue.submission_deadlines.length === 0) {
       return null;
     }
-    const now = Date.now();
 
     const upcoming = venue.submission_deadlines
-      .filter((e) => e && e.deadline && parseVietnamDate(e.deadline) > now)
-      .sort((a, b) => parseVietnamDate(a.deadline) - parseVietnamDate(b.deadline));
+      .map((e) => {
+        if (!e) return null;
+        const nearest = computeNearestMilestone(e.abstract_deadline, e.deadline, e.decision_deadline);
+        if (!nearest || nearest.isEnded) return null;
+        return { edition: e, nearest };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.nearest.timestamp - b.nearest.timestamp);
 
-    return upcoming.length > 0 ? upcoming[0] : null;
+    return upcoming.length > 0 ? upcoming[0].edition : null;
   }
 
   /**
@@ -166,7 +328,7 @@
     if (item.submission_deadlines && Array.isArray(item.submission_deadlines) && item.submission_deadlines.length > 0) {
       const edition = extractActiveEdition(item);
       if (!edition) return null;
-      deadlineStr      = edition.deadline;
+      deadlineStr      = edition.deadline || "";
       abstractDeadline = edition.abstract_deadline || null;
       decisionDeadline = edition.decision_deadline || null;
       yearStr   = edition.year ? ` ${edition.year}` : "";
@@ -174,14 +336,15 @@
       fullName  = item.name;
     }
 
-    if (!deadlineStr) return null;
-    const targetTimestamp = parseVietnamDate(deadlineStr);
-    if (isNaN(targetTimestamp)) return null;
+    if (!deadlineStr && !abstractDeadline) return null;
+
+    const nearest = computeNearestMilestone(abstractDeadline, deadlineStr, decisionDeadline);
+    if (!nearest || nearest.isEnded) return null;
 
     let rankLabel = "";
-    if (item.core_rank)   rankLabel = `CORE ${item.core_rank}`;
+    if (item.core_rank)        rankLabel = `CORE ${item.core_rank}`;
     else if (item.scopus_rank) rankLabel = `Scopus ${item.scopus_rank}`;
-    else if (item.rank)   rankLabel = item.rank;
+    else if (item.rank)        rankLabel = item.rank;
 
     return {
       id: item.id || Math.random().toString(36).substring(2, 9),
@@ -192,7 +355,8 @@
       decisionDeadline: decisionDeadline,
       rank: rankLabel,
       comment: item.comment || "",
-      targetTime: targetTimestamp,
+      nearestMilestone: nearest,
+      targetTime: nearest.timestamp,
       homepage: item.homepage_url || item.link || "#",
     };
   }
@@ -201,9 +365,9 @@
    * Cập nhật chuỗi thông báo hạn nộp bài trên Featured Banner theo múi giờ đang chọn
    */
   function updateFeaturedDeadlineText(conference) {
-    if (!conference) return;
+    if (!conference || !conference.nearestMilestone) return;
     const deadlineEl = document.querySelector(".countdown-featured-deadline");
-    if (!deadlineEl || !conference.deadline) return;
+    if (!deadlineEl) return;
 
     const tzConfig = getActiveTimezoneConfig();
     const formatted = new Intl.DateTimeFormat("vi-VN", {
@@ -212,7 +376,10 @@
       hour: "2-digit", minute: "2-digit",
     }).format(new Date(conference.targetTime));
 
-    deadlineEl.innerHTML = `Hạn nộp: <time datetime="${conference.deadline}">${formatted} (${tzConfig.bannerLabel})</time>`;
+    const isNotif = conference.nearestMilestone.type === "notification";
+    const prefix = isNotif ? "Thời gian công bố kết quả" : "Hạn nộp";
+
+    deadlineEl.innerHTML = `${prefix} (${conference.nearestMilestone.label}): <time datetime="${conference.nearestMilestone.dateStr}">${formatted} (${tzConfig.bannerLabel})</time>`;
   }
 
   /**
@@ -227,9 +394,14 @@
     const minutesEl = document.getElementById("minutes");
     const secondsEl = document.getElementById("seconds");
     const titleEl   = document.getElementById("featured-countdown");
+    const milestoneBadgeEl = document.getElementById("countdown-featured-milestone-badge");
 
     if (titleEl) {
-      titleEl.textContent = `${conference.name} - Full Paper Submission`;
+      titleEl.textContent = `${conference.name} - ${conference.nearestMilestone.label}`;
+    }
+
+    if (milestoneBadgeEl) {
+      milestoneBadgeEl.textContent = conference.nearestMilestone.label;
     }
 
     updateFeaturedDeadlineText(conference);
@@ -275,10 +447,22 @@
    * 5b. Cập nhật động 3 bước CFP Stepper theo hội nghị đang xem và múi giờ được chọn
    */
   function renderCFPStepper(conference) {
+    if (!conference) return;
     const tzConfig = getActiveTimezoneConfig();
+
+    // Làm rõ quan hệ: Gắn trực tiếp tên hội nghị vào tiêu đề phần CFP Stepper
+    const confNameEl = document.getElementById("cfp-flow-conf-name");
+    if (confNameEl) {
+      confNameEl.textContent = conference.name;
+    }
+    const confDescEl = document.getElementById("cfp-flow-conf-desc");
+    if (confDescEl) {
+      confDescEl.textContent = `Chi tiết quy trình 3 mốc nộp bài và thông báo kết quả của hội nghị "${conference.name}" (${conference.fullName}) đang được theo dõi ở trên.`;
+    }
+
     const formatStageDate = (st, idx) => {
       if (!st.date) {
-        return idx === 0 ? "Không yêu cầu (Nộp thẳng Full Paper)" : "Chưa công bố";
+        return idx === 0 ? "Không có vòng nộp abstract" : "Chưa công bố";
       }
       const ts = parseVietnamDate(st.date);
       if (isNaN(ts)) return `${st.date} (${tzConfig.stepperLabel})`;
@@ -293,25 +477,29 @@
       {
         title: "Abstract Submission",
         date:  conference.abstractDeadline || null,
-        desc:  "Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện.",
+        desc:  conference.abstractDeadline
+          ? "Đăng ký tiêu đề, danh sách tác giả và tóm tắt bài báo lên hệ thống phản biện."
+          : "Hội nghị không có vòng nộp abstract; tác giả nộp trực tiếp toàn văn bản thảo (Full Paper) tại Mốc 2.",
         status: conference.abstractDeadline
-          ? getSmartStatus(conference.abstractDeadline)
-          : { className: "badge--ended", label: "Không yêu cầu", isEnded: true },
+          ? getSmartStatus(conference.abstractDeadline, "abstract")
+          : { className: "badge--neutral", label: "Không có vòng nộp abstract", isEnded: true },
       },
       {
         title: "Full Paper Submission",
         date:  conference.deadline || null,
         desc:  "Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).",
         status: conference.deadline
-          ? getSmartStatus(conference.deadline)
+          ? getSmartStatus(conference.deadline, "paper")
           : { className: "badge--ended", label: "Chưa công bố", isEnded: true },
       },
       {
         title: "Notification",
         date:  conference.decisionDeadline || null,
-        desc:  "Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.",
+        desc:  conference.decisionDeadline
+          ? "Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện."
+          : "Hội đồng khoa học chưa công bố ngày thông báo kết quả chấp nhận bài báo.",
         status: conference.decisionDeadline
-          ? getSmartStatus(conference.decisionDeadline)
+          ? getNotificationStatus(conference.decisionDeadline)
           : { className: "badge--ended", label: "Chưa công bố", isEnded: true },
       },
     ];
@@ -329,7 +517,10 @@
             <span>${idx + 1}</span>
           </div>
           <div class="cfp-flow-body">
-            <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
+            <div class="cfp-flow-header-row">
+              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
+              <span class="badge ${st.status.className}">${st.status.label}</span>
+            </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
             <p class="cfp-flow-date">${formatStageDate(st, idx)}</p>
             <p class="cfp-flow-desc">${st.desc}</p>
@@ -355,10 +546,31 @@
   }
 
   /**
+   * Định dạng chuỗi ngày giờ theo múi giờ đang kích hoạt (AoE hoặc Thiết bị)
+   */
+  function formatDateWithTz(dateStr, tzConfig, fallbackText = "Chưa công bố") {
+    if (!dateStr) return fallbackText;
+    const ts = parseVietnamDate(dateStr);
+    if (isNaN(ts)) return `${dateStr} (${tzConfig.stepperLabel})`;
+    try {
+      const formatted = new Intl.DateTimeFormat("vi-VN", {
+        timeZone: tzConfig.iana,
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit",
+      }).format(new Date(ts));
+      return `${formatted} (${tzConfig.stepperLabel})`;
+    } catch (e) {
+      return `${dateStr} (${tzConfig.stepperLabel})`;
+    }
+  }
+
+  /**
    * 6. Render danh sách hội nghị vào Dòng thời gian ziczac
    * CHỈ hiển thị các hội nghị còn hạn nộp bài, định dạng theo múi giờ đang chọn
+   * Sắp xếp chính xác theo mốc deadline gần nhất của từng hội nghị
+   * Hỗ trợ MỞ RỘNG (Expand/Collapse) xem trọn vẹn 3 mốc deadline CFP của riêng từng hội nghị
    */
-  function renderTimelineList(conferences) {
+  function renderTimelineList(conferences, expandedIds = new Set()) {
     const container = document.getElementById("timeline-events-container");
     if (!container) return;
 
@@ -370,7 +582,13 @@
     const tzConfig = getActiveTimezoneConfig();
 
     container.innerHTML = `<div class="timeline-wrapper">${conferences.map((item) => {
-      const status = getSmartStatus(item.deadline);
+      const milestone = item.nearestMilestone || { label: "Hạn nộp", dateStr: item.deadline };
+      const isNotifMilestone = milestone.type === "notification";
+      const status = isNotifMilestone
+        ? getNotificationStatus(milestone.dateStr)
+        : getSmartStatus(milestone.dateStr, milestone.type);
+      const milestonePrefix = isNotifMilestone ? "Ngày công bố kết quả" : "Hạn chót";
+
       const formattedDate = new Intl.DateTimeFormat("vi-VN", {
         timeZone: tzConfig.iana, day: "2-digit", month: "long", year: "numeric",
       }).format(new Date(item.targetTime));
@@ -379,17 +597,31 @@
         ? `<span class="badge badge--rank">${item.rank}</span>`
         : "";
 
+      const milestoneBadge = `<span class="badge badge--milestone">${milestone.label}</span>`;
+      const isExpanded = expandedIds.has(String(item.id));
+
+      // Trạng thái và ngày tháng 3 mốc deadline chi tiết (Phân biệt chuẩn ngữ nghĩa học thuật)
+      const m1Date = item.abstractDeadline ? formatDateWithTz(item.abstractDeadline, tzConfig) : "Không có vòng nộp abstract";
+      const m1Status = item.abstractDeadline ? getSmartStatus(item.abstractDeadline, "abstract") : { className: "badge--neutral", label: "Không có", isEnded: true };
+
+      const m2Date = item.deadline ? formatDateWithTz(item.deadline, tzConfig) : "Chưa công bố";
+      const m2Status = item.deadline ? getSmartStatus(item.deadline, "paper") : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
+
+      const m3Date = item.decisionDeadline ? formatDateWithTz(item.decisionDeadline, tzConfig) : "Chưa công bố";
+      const m3Status = item.decisionDeadline ? getNotificationStatus(item.decisionDeadline) : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
+
       return `
-        <article class="timeline-item" data-status="${status.type}">
+        <article class="timeline-item ${isExpanded ? "is-expanded" : ""}" id="conf-${item.id}" data-conf-id="${item.id}" data-status="${status.type}">
           <div class="timeline-dot" aria-hidden="true"></div>
           <div class="timeline-content">
             <div class="timeline-header">
-              <time class="timeline-date" datetime="${item.deadline}">
+              <time class="timeline-date" datetime="${milestone.dateStr}">
                 ${CALENDAR_ICON_SVG}
-                <span>${formattedDate} (${tzConfig.itemLabel})</span>
+                <span>${milestonePrefix} [${milestone.label}]: ${formattedDate} (${tzConfig.itemLabel})</span>
               </time>
               <div class="timeline-badges">
                 ${rankBadge}
+                ${milestoneBadge}
                 <span class="badge ${status.className}">
                   <span class="status-dot" aria-hidden="true"></span>
                   ${status.label}
@@ -398,10 +630,74 @@
             </div>
             <h3 class="timeline-title">${item.name}</h3>
             <p class="timeline-desc">${item.fullName}</p>
+            
+            <div class="timeline-item-actions">
+              <button type="button" class="timeline-expand-btn" data-conf-id="${item.id}" aria-expanded="${isExpanded}" aria-controls="drawer-${item.id}">
+                <svg class="timeline-expand-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <span class="timeline-expand-label">${isExpanded ? "Thu gọn 3 mốc CFP &uarr;" : "Xem chi tiết 3 mốc CFP &darr;"}</span>
+              </button>
+            </div>
+
+            <!-- Vùng mở rộng xem chi tiết 3 mốc deadline CFP của riêng hội nghị này -->
+            <div class="timeline-milestones-drawer" id="drawer-${item.id}">
+              <div class="timeline-milestones-grid">
+                <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
+                  <div class="timeline-milestone-head">
+                    <span class="timeline-milestone-number">1</span>
+                    <span class="timeline-milestone-name">Abstract Submission</span>
+                    <span class="badge ${m1Status.className}">${m1Status.label}</span>
+                  </div>
+                  <div class="timeline-milestone-date">${m1Date}</div>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
+                </div>
+
+                <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
+                  <div class="timeline-milestone-head">
+                    <span class="timeline-milestone-number">2</span>
+                    <span class="timeline-milestone-name">Full Paper Submission</span>
+                    <span class="badge ${m2Status.className}">${m2Status.label}</span>
+                  </div>
+                  <div class="timeline-milestone-date">${m2Date}</div>
+                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+                </div>
+
+                <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
+                  <div class="timeline-milestone-head">
+                    <span class="timeline-milestone-number">3</span>
+                    <span class="timeline-milestone-name">Notification</span>
+                    <span class="badge ${m3Status.className}">${m3Status.label}</span>
+                  </div>
+                  <div class="timeline-milestone-date">${m3Date}</div>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </article>
       `;
     }).join("")}</div>`;
+
+    // Gán sự kiện click: Mở rộng / Thu gọn 3 mốc CFP ngay tại thẻ hội nghị đó
+    container.onclick = (e) => {
+      const expandBtn = e.target.closest(".timeline-expand-btn");
+      const titleClick = e.target.closest(".timeline-title");
+      if (!expandBtn && !titleClick) return;
+
+      const article = (expandBtn || titleClick).closest(".timeline-item");
+      if (!article) return;
+
+      const isExpanded = article.classList.contains("is-expanded");
+      article.classList.toggle("is-expanded", !isExpanded);
+
+      const btn = article.querySelector(".timeline-expand-btn");
+      if (btn) {
+        btn.setAttribute("aria-expanded", String(!isExpanded));
+        const labelEl = btn.querySelector(".timeline-expand-label");
+        if (labelEl) {
+          labelEl.textContent = !isExpanded ? "Thu gọn 3 mốc CFP \u2191" : "Xem chi tiết 3 mốc CFP \u2193";
+        }
+      }
+    };
   }
 
   /**
@@ -436,17 +732,62 @@
         localStorage.setItem(TZ_STORAGE_KEY, newPref);
       } catch (err) {}
 
+      // Banner & Stepper luôn luôn là hội nghị có deadline gần nhất toàn hệ thống
       if (activeFeaturedConference) {
         updateFeaturedDeadlineText(activeFeaturedConference);
         renderCFPStepper(activeFeaturedConference);
       }
-      renderTimelineList(allConferences);
+
+      // Lưu lại danh sách các thẻ đang mở rộng để bảo toàn sau khi render lại
+      const currentlyExpanded = new Set();
+      document.querySelectorAll(".timeline-item.is-expanded").forEach((el) => {
+        const id = el.getAttribute("data-conf-id");
+        if (id) currentlyExpanded.add(id);
+      });
+
+      renderTimelineList(allConferences, currentlyExpanded);
     });
   }
 
   /**
+   * Cuộn mượt và highlight thẻ hội nghị tương ứng khi điều hướng từ trang tra cứu (venues.html)
+   */
+  function highlightTargetConference(targetId) {
+    if (!targetId) return;
+
+    setTimeout(() => {
+      const targetElement = (
+        document.getElementById(`conf-${targetId}`) ||
+        document.querySelector(`.timeline-item[data-conf-id="${targetId}"]`)
+      );
+
+      if (targetElement) {
+        // Tự động mở rộng 3 mốc deadline của hội nghị mục tiêu
+        targetElement.classList.add("is-expanded");
+        const btn = targetElement.querySelector(".timeline-expand-btn");
+        if (btn) {
+          btn.setAttribute("aria-expanded", "true");
+          const labelEl = btn.querySelector(".timeline-expand-label");
+          if (labelEl) labelEl.textContent = "Thu gọn 3 mốc CFP \u2191";
+        }
+
+        // Cuộn mượt tới vị trí giữa màn hình
+        targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        // Kích hoạt hiệu ứng nổi bật (pulse viền sáng)
+        targetElement.classList.add("timeline-item--highlight");
+        setTimeout(() => {
+          targetElement.classList.remove("timeline-item--highlight");
+        }, 3500);
+      }
+    }, 250);
+  }
+
+  /**
    * 7. Hàm chính: Tự động nạp dữ liệu hội nghị từ conf.json
-   * Lọc bỏ hoàn toàn các hội nghị đã quá hạn nộp bài
+   * - Banner đếm ngược và Stepper 3 mốc LUÔN LUÔN LÀ hội nghị có deadline gần nhất
+   * - Từng thẻ hội nghị trong CFP có thể mở rộng xem 3 mốc
+   * - Hỗ trợ liên kết trực tiếp từ trang Tra cứu sang thẻ tương ứng
    */
   async function loadTimelineData() {
     try {
@@ -468,22 +809,11 @@
 
       console.log(`✅ [ScopusVenue] Đã nạp ${allConferences.length} hội nghị đang mở nhận bài!`);
 
-      const targetId = new URLSearchParams(window.location.search).get("id");
-      let featured = null;
-
-      if (targetId) {
-        featured = allConferences.find((c) => String(c.id) === String(targetId));
-        if (featured) console.log(`🎯 [ScopusVenue] Hiển thị: ${featured.name}`);
-        else          console.warn(`⚠️ [ScopusVenue] Hội nghị id="${targetId}" không tồn tại hoặc đã hết hạn nộp bài.`);
-      }
-
-      if (!featured && allConferences.length > 0) {
-        featured = allConferences[0];
-      }
-
-      if (featured) {
-        startFeaturedCountdown(featured);
-        renderCFPStepper(featured);
+      // BANNER & STEPPER TRÊN CÙNG: LUÔN LUÔN LÀ HỘI NGHỊ CÓ DEADLINE GẦN NHẤT
+      if (allConferences.length > 0) {
+        const nearestConference = allConferences[0];
+        startFeaturedCountdown(nearestConference);
+        renderCFPStepper(nearestConference);
       } else {
         const titleEl = document.getElementById("featured-countdown");
         if (titleEl) titleEl.textContent = "Hiện không có hội nghị nào đang mở nhận bài";
@@ -493,6 +823,17 @@
 
       renderTimelineList(allConferences);
       setupTimezoneSelector();
+
+      // Kiểm tra xem có yêu cầu liên kết từ trang tra cứu (venues.html) sang không
+      const urlParams = new URLSearchParams(window.location.search);
+      let targetConfId = urlParams.get("id") || urlParams.get("conf");
+      if (!targetConfId && window.location.hash) {
+        targetConfId = window.location.hash.replace("#conf-", "").replace("#", "");
+      }
+
+      if (targetConfId) {
+        highlightTargetConference(targetConfId);
+      }
 
     } catch (error) {
       console.error("❌ Lỗi khi tải dữ liệu hội nghị:", error);
@@ -582,6 +923,7 @@
     parseVietnamDate,
     parseAoEDate,
     getSmartStatus,
+    getNotificationStatus,
     loadTimelineData,
     attachCountdown,
     initVenueCountdowns,
