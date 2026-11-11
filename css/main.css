@@ -1780,6 +1780,7 @@ textarea.form-control {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
   padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--color-border);
 }
@@ -1988,12 +1989,29 @@ textarea.form-control {
 
 .notification-tabs {
   display: flex;
+  flex-shrink: 0;
   gap: var(--spacing-xs);
   padding: 8px var(--spacing-lg);
   background-color: var(--color-bg-subtle);
   border-bottom: 1px solid var(--color-border);
   overflow-x: auto;
   white-space: nowrap;
+}
+
+/* Áp dụng Phương án A trên mobile: giữ nguyên nhãn đầy đủ và cho phép tự xuống dòng để hết scroll ngang,
+   trong khi Tablet & Desktop (> 540px) giữ nguyên 1 hàng đầy đủ */
+@media (max-width: 540px) {
+  .notification-tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    white-space: normal;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .notification-tab {
+    padding: 5px 10px;
+  }
 }
 
 .notification-tab {
@@ -2208,11 +2226,70 @@ textarea.form-control {
   margin: 0;
 }
 
-.notification-sync-status {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  flex: 1;
-  text-align: left;
+.notification-modal-footer {
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.notif-footer-actions-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.notif-footer-btn {
+  height: 36px;
+  padding: 0 12px;
+  font-size: var(--font-size-xs, 0.8125rem);
+  white-space: nowrap;
+}
+
+.notif-footer-btn--primary {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.notif-footer-btn--primary:hover {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.notif-footer-btn--danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.notif-footer-btn--danger:hover {
+  background-color: hsla(0, 84%, 60%, 0.08);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+@media (max-width: 540px) {
+  .notification-modal .modal-header {
+    padding: var(--spacing-sm) 12px;
+  }
+
+  .notification-modal .modal-body {
+    padding: var(--spacing-sm) 12px;
+  }
+
+  .notification-modal-footer {
+    padding: 10px 12px;
+  }
+
+  .notif-footer-actions-box {
+    gap: 6px;
+  }
+
+  .notif-footer-btn {
+    padding: 0 10px;
+    font-size: 0.78rem;
+  }
 }
 
 
