@@ -2964,3 +2964,192 @@ textarea.form-control {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+/* =============================================================
+   14. MOBILE FULL-WIDTH ACTION BUTTONS (<= 600px)
+   Uu tien mo rong chieu ngang nut bam het phan tu cha de de thao tac
+   ============================================================= */
+@media (max-width: 600px) {
+  .hero-search-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+  }
+
+  .hero-search-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: var(--font-size-sm);
+    text-align: left;
+  }
+
+  .hero-search-btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 16px !important;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm) !important;
+    box-sizing: border-box;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+    width: 100%;
+  }
+
+  .hero-cta-group > a,
+  .hero-cta-group > button {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .spoke-link {
+    align-self: stretch;
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .featured-venue-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+  }
+
+  .featured-venue-footer .venue-details-link {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+    box-sizing: border-box;
+  }
+
+  .featured-venue-footer .bookmark-trigger-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 44px;
+    height: auto;
+    padding: 10px 14px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .bookmark-modal .modal-header,
+  .bookmark-modal .modal-body,
+  .bookmark-modal .modal-footer {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .bookmark-modal .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .bookmark-modal .modal-footer > button,
+  .bookmark-modal .modal-footer > a {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 42px;
+    height: auto;
+    padding: 10px 14px !important;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .confirm-overlay-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .confirm-overlay-actions > button {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .notif-footer-actions-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .notif-footer-btn {
+    width: 100%;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 42px;
+    height: auto;
+    padding: 10px 14px;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+
+  .notif-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .notif-card-actions .notif-action-link,
+  .notif-card-actions .notif-read-btn {
+    width: 100%;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+  }
+
+  .notif-card-actions .notif-action-link {
+    background-color: var(--color-bg-subtle);
+  }
+
+  .error-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+    width: 100%;
+  }
+
+  .error-actions > a,
+  .error-actions > button {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

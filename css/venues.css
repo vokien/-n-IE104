@@ -265,6 +265,13 @@
     min-height: 44px;
     justify-content: center;
   }
+  .directory-state .directory-button {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
   .directory-main .filter-choice, .directory-main summary { min-height: 44px; }
 }
 

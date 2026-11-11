@@ -1054,3 +1054,32 @@
   color: var(--color-text-muted);
   margin-top: 4px;
 }
+
+@media (max-width: 600px) {
+  .countdown-featured-flow-hint {
+    width: 100%;
+  }
+
+  .flow-hint-link {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .timeline-item-actions {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .timeline-expand-btn {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
