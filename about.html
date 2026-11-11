@@ -337,10 +337,9 @@
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
-          <span>Trung Tâm Thông Báo Biến Động</span>
+          <span>Thông Báo</span>
         </h3>
         <div class="modal-header-actions">
-          <button type="button" class="btn-text" id="notification-mark-all-read-btn">Đã đọc tất cả</button>
           <button type="button" class="btn-icon" id="notification-modal-close-btn" aria-label="Đóng thông báo">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -357,11 +356,15 @@
       <div class="modal-body" id="notification-modal-body">
         <!-- Danh sách thông báo được render tự động qua ESM module js/modules/notification-manager.js -->
       </div>
-      <div class="modal-footer">
-        <span class="notification-sync-status">Đồng bộ tự động cùng dữ liệu hội nghị &amp; tạp chí</span>
-        <button type="button" class="btn-icon" id="notification-clear-btn" style="color: var(--color-danger); border-color: var(--color-danger);">
-          Xóa thông báo cũ
-        </button>
+      <div class="modal-footer notification-modal-footer">
+        <div class="notif-footer-actions-box">
+          <button type="button" class="btn-icon notif-footer-btn notif-footer-btn--primary" id="notification-mark-all-read-btn">
+            Đã đọc tất cả
+          </button>
+          <button type="button" class="btn-icon notif-footer-btn notif-footer-btn--danger" id="notification-clear-btn">
+            Xóa tất cả thông báo
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -376,7 +379,7 @@
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="color: var(--color-accent);" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
-          <span>Danh Sách Mục Tiêu Đã Lưu</span>
+          <span>Danh Sách Mục Tiêu</span>
         </h3>
         <button type="button" class="btn-icon" id="bookmark-modal-close-btn" aria-label="Đóng cửa sổ">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
