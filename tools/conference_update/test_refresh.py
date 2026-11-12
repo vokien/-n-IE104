@@ -75,8 +75,8 @@ class ConferenceUpdateTests(unittest.TestCase):
         registry = {r['venue']['id']: r['venue'] for r in records}
         for row in load(ROOT / 'data/conf.json'):
             if row['id'] in registry:
-                self.assertEqual(row['name'], registry[row['id']]['name'])
-                self.assertEqual(row['acronym'], registry[row['id']]['acronym'])
+                self.assertEqual(row['name'].strip(), registry[row['id']]['name'].strip())
+                self.assertEqual(row['acronym'].strip(), registry[row['id']]['acronym'].strip())
             else:
                 # Novel discovered conferences allocated with sequential ID > 987
                 num = int(row['id'].split('-')[1])

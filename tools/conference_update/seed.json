@@ -2832,7 +2832,7 @@
     {
       "core": {
         "id": "2189",
-        "name": " International Conference on Ambient Systems, Networks and Technologies",
+        "name": "International Conference on Ambient Systems, Networks and Technologies",
         "acronym": "ANT",
         "source": "ICORE2026",
         "rank": "Unranked",
@@ -10037,7 +10037,7 @@
     {
       "core": {
         "id": "2184",
-        "name": "IEEE Conference on Cognitive and Computational Aspects of Situation Management ",
+        "name": "IEEE Conference on Cognitive and Computational Aspects of Situation Management",
         "acronym": "CogSIMA",
         "source": "ICORE2026",
         "rank": "National:USA",
@@ -10055,7 +10055,7 @@
       },
       "venue": {
         "id": "CONF-253",
-        "name": "IEEE Conference on Cognitive and Computational Aspects of Situation Management ",
+        "name": "IEEE Conference on Cognitive and Computational Aspects of Situation Management",
         "acronym": "CogSIMA",
         "issn": null,
         "eissn": null,
@@ -16610,7 +16610,7 @@
     {
       "core": {
         "id": "2014",
-        "name": "World Conference on Educational Multimedia, Hypermedia and Telecommunications ",
+        "name": "World Conference on Educational Multimedia, Hypermedia and Telecommunications",
         "acronym": "ED-MEDIA",
         "source": "ICORE2026",
         "rank": "C",
@@ -16628,7 +16628,7 @@
       },
       "venue": {
         "id": "CONF-339",
-        "name": "World Conference on Educational Multimedia, Hypermedia and Telecommunications ",
+        "name": "World Conference on Educational Multimedia, Hypermedia and Telecommunications",
         "acronym": "ED-MEDIA",
         "issn": null,
         "eissn": null,
@@ -22020,7 +22020,7 @@
     {
       "core": {
         "id": "2030",
-        "name": "IEEE Global Telecommunications Conference ",
+        "name": "IEEE Global Telecommunications Conference",
         "acronym": "GLOBECOM",
         "source": "ICORE2026",
         "rank": "B",
@@ -23051,7 +23051,7 @@
     {
       "core": {
         "id": "2033",
-        "name": "Symposium on High Performance Chips ",
+        "name": "Symposium on High Performance Chips",
         "acronym": "HOTCHIPS (HCS)",
         "source": "ICORE2026",
         "rank": "C",
@@ -34303,7 +34303,7 @@
     {
       "core": {
         "id": "2172",
-        "name": " International Conference on Advanced Communications and Computation",
+        "name": "International Conference on Advanced Communications and Computation",
         "acronym": "INFOCOMP",
         "source": "ICORE2026",
         "rank": "Unranked",
@@ -34321,7 +34321,7 @@
       },
       "venue": {
         "id": "CONF-606",
-        "name": " International Conference on Advanced Communications and Computation",
+        "name": "International Conference on Advanced Communications and Computation",
         "acronym": "INFOCOMP",
         "issn": null,
         "eissn": null,
@@ -42072,7 +42072,7 @@
     {
       "core": {
         "id": "2097",
-        "name": "Malaysia International Conference on Communications ",
+        "name": "Malaysia International Conference on Communications",
         "acronym": "MICC",
         "source": "ICORE2026",
         "rank": "Regional",
@@ -42090,7 +42090,7 @@
       },
       "venue": {
         "id": "CONF-725",
-        "name": "Malaysia International Conference on Communications ",
+        "name": "Malaysia International Conference on Communications",
         "acronym": "MICC",
         "issn": null,
         "eissn": null,
@@ -55100,7 +55100,7 @@
     {
       "core": {
         "id": "2136",
-        "name": "Software Process Improvement and Capability Determination ",
+        "name": "Software Process Improvement and Capability Determination",
         "acronym": "SPICE",
         "source": "ICORE2026",
         "rank": "C",
@@ -55118,7 +55118,7 @@
       },
       "venue": {
         "id": "CONF-898",
-        "name": "Software Process Improvement and Capability Determination ",
+        "name": "Software Process Improvement and Capability Determination",
         "acronym": "SPICE",
         "issn": null,
         "eissn": null,
@@ -58221,7 +58221,7 @@
     {
       "core": {
         "id": "2213",
-        "name": "The International Conference on Verification and Evaluation of Computer and Communication Systems ",
+        "name": "The International Conference on Verification and Evaluation of Computer and Communication Systems",
         "acronym": "VECoS",
         "source": "ICORE2026",
         "rank": "C",
@@ -58239,7 +58239,7 @@
       },
       "venue": {
         "id": "CONF-943",
-        "name": "The International Conference on Verification and Evaluation of Computer and Communication Systems ",
+        "name": "The International Conference on Verification and Evaluation of Computer and Communication Systems",
         "acronym": "VECoS",
         "issn": null,
         "eissn": null,
