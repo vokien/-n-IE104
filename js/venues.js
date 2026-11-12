@@ -181,6 +181,67 @@ function makeCard(row) {
   return card;
 }
 
+function getPaginationMode() {
+  const w = window.innerWidth;
+  if (w <= 540) return 'mobile';
+  if (w <= 900) return 'tablet';
+  return 'desktop';
+}
+
+function getPaginationItems(current, total, mode = 'desktop') {
+  if (total <= 1) return [1];
+
+  if (mode === 'mobile') {
+    if (total <= 5) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+    if (current <= 3) {
+      const count = total >= 6 ? 3 : 2;
+      return [...Array.from({ length: count }, (_, i) => i + 1), '...', total];
+    }
+    if (current >= total - 2) {
+      const count = total >= 6 ? 3 : 2;
+      const start = total - count + 1;
+      return [1, '...', ...Array.from({ length: count }, (_, i) => start + i)];
+    }
+    return [1, '...', current, '...', total];
+  }
+
+  if (mode === 'tablet') {
+    if (total <= 7) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+    if (current <= 4) {
+      return [...Array.from({ length: 4 }, (_, i) => i + 1), '...', total];
+    }
+    if (current >= total - 3) {
+      return [1, '...', ...Array.from({ length: 4 }, (_, i) => total - 3 + i)];
+    }
+    return [1, '...', current - 1, current, current + 1, '...', total];
+  }
+
+  // Desktop mode:
+  if (total <= 10) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  if (current <= 5) {
+    const count = Math.min(total - 3, 10);
+    const items = Array.from({ length: count }, (_, i) => i + 1);
+    items.push('...');
+    items.push(total - 1, total);
+    return items;
+  }
+  if (current >= total - 4) {
+    const count = Math.min(total - 3, 10);
+    const items = [1, 2, '...'];
+    for (let p = total - count + 3; p <= total; p++) {
+      items.push(p);
+    }
+    return items;
+  }
+  return [1, 2, '...', current - 2, current - 1, current, current + 1, current + 2, '...', total - 1, total];
+}
+
 async function initDirectory() {
   const container = document.getElementById('venues-list-container');
   if (!container) return;
@@ -193,10 +254,40 @@ async function initDirectory() {
   const status = document.getElementById('directory-status');
   const results = document.querySelector('.directory-results');
   const pagination = document.getElementById('directory-pagination');
+  const paginationPages = document.getElementById('pagination-pages');
   const previous = document.getElementById('previous-page');
   const next = document.getElementById('next-page');
   let rows = [];
   let page = 1;
+  let pages = 1;
+
+  function renderPaginationButtons() {
+    if (!paginationPages) return;
+    paginationPages.replaceChildren();
+    const mode = getPaginationMode();
+    const items = getPaginationItems(page, pages, mode);
+    for (const item of items) {
+      if (item === '...') {
+        const dots = element('span', '...', 'pagination-ellipsis');
+        dots.setAttribute('aria-hidden', 'true');
+        paginationPages.append(dots);
+      } else {
+        const btn = element('button', String(item), 'pagination-btn');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', `Trang ${item}`);
+        if (item === page) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.addEventListener('click', () => {
+            page = item;
+            render(true);
+          });
+        }
+        paginationPages.append(btn);
+      }
+    }
+  }
   const compact = window.matchMedia('(max-width: 768px)');
   const panel = document.querySelector('.filter-panel');
   panel.open = !compact.matches;
@@ -235,7 +326,7 @@ async function initDirectory() {
     // DÙNG HÀM paginateVenues CỦA BẠN LÊN
     const paged = paginateVenues(selected, page, PAGE_SIZE);
     page = paged.page ?? page;
-    const pages = paged.totalPages ?? Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
+    pages = paged.totalPages ?? Math.max(1, Math.ceil(selected.length / PAGE_SIZE));
     const items = paged.items ?? selected.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     const start = (page - 1) * PAGE_SIZE;
 
@@ -261,7 +352,11 @@ async function initDirectory() {
     pagination.hidden = selected.length === 0;
     previous.disabled = page === 1;
     next.disabled = page === pages;
-    document.getElementById('page-label').textContent = `Trang ${number.format(page)} / ${number.format(pages)}`;
+    const pageLabel = document.getElementById('page-label');
+    if (pageLabel) {
+      pageLabel.textContent = `Trang ${number.format(page)} / ${number.format(pages)}`;
+    }
+    renderPaginationButtons();
     if (moveFocus) {
       const heading = document.getElementById('results-heading');
       heading.tabIndex = -1;
@@ -290,6 +385,16 @@ async function initDirectory() {
 
   previous.addEventListener('click', () => { page--; render(true); });
   next.addEventListener('click', () => { page++; render(true); });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (pagination && !pagination.hidden) {
+        renderPaginationButtons();
+      }
+    }, 150);
+  });
 
   async function load() {
     const controls = [...document.querySelectorAll('#filter-form input, #filter-form select, #filter-form button, #directory-search input, #directory-search button, #sort-select')];

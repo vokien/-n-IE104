@@ -177,20 +177,131 @@
   letter-spacing: 0.5px;
 }
 
-.directory-pagination { display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-sm); padding-top: var(--spacing-lg); font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }
-.directory-pagination .directory-button {
-  min-width: 110px;
+.directory-pagination {
+  display: flex;
   justify-content: center;
-  text-align: center;
-  white-space: nowrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: var(--spacing-xl);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  flex-wrap: wrap;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-main);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.pagination-btn:hover:not(.active):not(:disabled) {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.pagination-btn.active {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  cursor: default;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35);
+}
+
+.pagination-ellipsis {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  letter-spacing: 1px;
+}
+
+/* Nút mũi tên chuyển trang điều hướng trên Desktop */
+.directory-pagination .pagination-nav-btn {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
   flex-shrink: 0;
 }
-#page-label {
-  min-width: 120px;
-  text-align: center;
+
+.directory-pagination .pagination-nav-btn .pagination-label-mobile {
+  display: none;
+}
+
+.directory-pagination .pagination-nav-btn .pagination-arrow {
   display: inline-block;
-  font-variant-numeric: tabular-nums;
-  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Khi nút điều hướng bị disabled (ví dụ ở trang đầu hoặc trang cuối), ẩn hoàn toàn để khớp giao diện chuẩn */
+.directory-pagination .pagination-nav-btn:disabled {
+  display: none !important;
+}
+
+/* Ẩn nhãn text Trang X / Y trên Desktop */
+#page-label {
+  display: none;
+}
+
+/* Tương thích Dark Mode theo chuẩn ảnh tham khảo */
+[data-theme="dark"] .pagination-btn,
+[data-theme="dark"] .pagination-ellipsis,
+[data-theme="dark"] .directory-pagination .pagination-nav-btn {
+  background-color: hsl(220, 18%, 18%);
+  border-color: hsl(220, 15%, 26%);
+  color: hsl(215, 20%, 75%);
+}
+
+[data-theme="dark"] .pagination-btn:hover:not(.active):not(:disabled),
+[data-theme="dark"] .directory-pagination .pagination-nav-btn:hover:not(:disabled) {
+  background-color: hsl(215, 30%, 25%);
+  border-color: var(--color-primary);
+  color: var(--color-primary-hover);
+}
+
+[data-theme="dark"] .pagination-btn.active {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
 }
 .directory-state { border: 1px dashed var(--color-border); border-radius: var(--radius-lg); padding: var(--spacing-xl); text-align: center; background: var(--color-bg-surface); }
 .directory-state h3 { margin-bottom: var(--spacing-sm); }
@@ -199,6 +310,16 @@
   .directory-layout { grid-template-columns: 208px minmax(0, 1fr); gap: var(--spacing-md); }
   .results-toolbar { align-items: start; flex-direction: column; }
   .sort-control { width: 100%; max-width: none; }
+  #page-label {
+    display: block;
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 4px;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
 }
 @media (max-width: 768px) {
   .directory-main { padding-top: var(--spacing-lg); }
@@ -232,38 +353,61 @@
     box-sizing: border-box;
   }
 
-  /* Phân trang thích ứng di động: Tránh tràn ngang trên màn hình Samsung S24 360px */
+  /* Phân trang thích ứng di động & tablet: Khối ô vuông thu gọn, căn giữa hàng ngang */
   .directory-pagination {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "label label"
-      "prev next";
-    gap: var(--spacing-sm);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     width: 100%;
     padding-top: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  .directory-pagination .pagination-pages {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
   }
   #page-label {
-    grid-area: label;
-    min-width: 0 !important;
+    display: block;
+    order: -1;
     width: 100%;
     text-align: center;
     margin-bottom: 4px;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
   }
-  #previous-page {
-    grid-area: prev;
-    min-width: 0 !important;
-    width: 100%;
-    min-height: 44px;
-    justify-content: center;
+  .pagination-btn {
+    min-width: 35px;
+    height: 36px;
+    padding: 0 4px;
+    font-size: var(--font-size-xs);
   }
+  .pagination-ellipsis {
+    min-width: 28px;
+    height: 36px;
+    padding: 0 2px;
+    font-size: var(--font-size-xs);
+  }
+  #previous-page,
   #next-page {
-    grid-area: next;
-    min-width: 0 !important;
-    width: 100%;
-    min-height: 44px;
+    width: 36px;
+    min-width: 36px !important;
+    height: 36px;
+    min-height: 36px !important;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+  }
+  .directory-pagination .pagination-nav-btn .pagination-label-mobile {
+    display: none !important;
+  }
+  .directory-pagination .pagination-nav-btn .pagination-arrow {
+    display: inline-block !important;
+    line-height: 1;
   }
   .directory-state .directory-button {
     width: 100%;
@@ -273,6 +417,34 @@
     box-sizing: border-box;
   }
   .directory-main .filter-choice, .directory-main summary { min-height: 44px; }
+}
+
+@media (max-width: 380px) {
+  .directory-pagination {
+    gap: 3px;
+  }
+  .directory-pagination .pagination-pages {
+    gap: 3px;
+  }
+  .pagination-btn {
+    min-width: 32px;
+    height: 34px;
+    padding: 0 2px;
+    font-size: 11px;
+  }
+  .pagination-ellipsis {
+    min-width: 26px;
+    height: 34px;
+    padding: 0 1px;
+    font-size: 11px;
+  }
+  #previous-page,
+  #next-page {
+    width: 32px;
+    min-width: 32px !important;
+    height: 34px;
+    min-height: 34px !important;
+  }
 }
 
 /* Hiệu ứng nổi bật khi điều hướng từ Danh sách mục tiêu đến thẻ Venue */
