@@ -19,6 +19,15 @@
     position: static !important;
     top: auto !important;
   }
+  /* Trên thiết bị di động, loại bỏ cuộn nội bộ trong thẻ kết quả để người dùng lướt cả trang tự nhiên, tránh bẫy cuộn */
+  .results-card {
+    min-height: auto;
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: visible;
+    overscroll-behavior-y: auto;
+    scrollbar-gutter: auto;
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -272,26 +281,21 @@
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-md);
-  /* Cuộn riêng trong thẻ kết quả khi con trỏ nằm trên thẻ.
-     Chặn cuộn lan ra trang khi đã chạm đầu/cuối danh sách. */
-  min-height: min(420px, 75vh);
-  max-height: 75vh;
-  max-height: 75dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior-y: contain;
-  scrollbar-gutter: stable;
   transition: box-shadow var(--transition-normal);
 }
 
 /* Trên desktop, chiều cao hàng do form quyết định.
-   Nội dung kết quả không làm hàng dài thêm, nhưng vẫn cuộn bên trong. */
+   Nội dung kết quả không làm hàng dài thêm, cuộn riêng bên trong thẻ kết quả. */
 @media (min-width: 901px) {
   .results-card {
     align-self: stretch;
     contain: size;
     min-height: 0;
     max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
   }
 }
 

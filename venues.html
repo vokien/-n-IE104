@@ -146,9 +146,16 @@
         <div id="directory-status" class="directory-state" role="status"><p>Đang tải tạp chí và hội nghị…</p></div>
         <div id="venues-list-container" class="venue-list"></div>
         <nav id="directory-pagination" class="directory-pagination" aria-label="Phân trang danh sách hội nghị &amp; tạp chí" hidden>
-          <button type="button" class="directory-button" id="previous-page">Trang trước</button>
+          <button type="button" class="directory-button pagination-nav-btn" id="previous-page" aria-label="Trang trước">
+            <span class="pagination-arrow" aria-hidden="true">←</span>
+            <span class="pagination-label-mobile">Trang trước</span>
+          </button>
+          <div id="pagination-pages" class="pagination-pages" aria-label="Dải số trang"></div>
           <span id="page-label"></span>
-          <button type="button" class="directory-button" id="next-page">Trang sau</button>
+          <button type="button" class="directory-button pagination-nav-btn" id="next-page" aria-label="Trang sau">
+            <span class="pagination-label-mobile">Trang sau</span>
+            <span class="pagination-arrow" aria-hidden="true">→</span>
+          </button>
         </nav>
         <noscript><p class="directory-state">Bật JavaScript để tải và tra cứu hội nghị &amp; tạp chí. Bạn vẫn có thể trở về <a href="index.html">trang chủ</a>.</p></noscript>
       </section>
