@@ -316,92 +316,6 @@
     "homepage_url": "https://aime27.aimedicine.info/"
   },
   {
-    "id": "CONF-003",
-    "name": "International Conference on Ambient Systems, Networks and Technologies",
-    "acronym": "ANT",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": null,
-    "subject_area": [],
-    "scope_keywords": [
-      "computer networks",
-      "distributed systems",
-      "internet of things",
-      "artificial intelligence",
-      "Agent Systems and Intelligent Computing",
-      "Artificial Intelligence and Large Language Models",
-      "Big Data and Analytics",
-      "Cloud Computing",
-      "Context-Aware Systems and Interfaces",
-      "Networking and Communication Technologies",
-      "Mobile Networks and Applications",
-      "Smart Environments and Applications",
-      "Smart Sustainable Cities",
-      "Systems Security and Privacy",
-      "Software Engineering",
-      "Vehicular Networks",
-      "Modeling and Simulation",
-      "intelligent and ambient comput",
-      "networks and communication tec",
-      "ubiquitous computing",
-      "security, sustainability, and",
-      "agent systems, intelligent com",
-      "IOT",
-      "mobile networks, protocols and",
-      "systems software engineering",
-      "agent systems",
-      "context-awareness",
-      "ambient",
-      "service-oriented architectures",
-      "SOA",
-      "networking",
-      "computer science",
-      "wireless",
-      "emerging technologies",
-      "ambient systems",
-      "communications",
-      "Autonomic Networks and Communications",
-      "Distributed Artificial Intelligence",
-      "Emerging Networking, Tracking and Sensing",
-      "Multimodal Interfaces",
-      "Service Oriented Computing for Systems & Applications",
-      "Social Networks",
-      "General track: Distributed systems, networks and applications"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "comment": "WikiCFP CFP text",
-        "year": 2027,
-        "edition_id": "wikicfp-203786",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-16",
-          "decision_deadline": "2027-01-07",
-          "camera_ready_deadline": "2027-02-01"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-16",
-          "decision_deadline": "2027-01-07",
-          "camera_ready_deadline": "2027-02-01"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://cs-conferences.acadiau.ca/ant-27/",
-        "date": "Apr 13, 2027 - Apr 15, 2027",
-        "place": "Delft, the Netherlands"
-      }
-    ],
-    "homepage_url": "https://cs-conferences.acadiau.ca/ant-27/"
-  },
-  {
     "id": "CONF-005",
     "name": "The Conference on Automated Deduction",
     "acronym": "CADE",
@@ -447,95 +361,6 @@
       }
     ],
     "homepage_url": "https://fscd-cade.science.ru.nl/"
-  },
-  {
-    "id": "CONF-006",
-    "name": "International Conference on Advanced Information Systems Engineering",
-    "acronym": "CAiSE",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "A",
-    "subject_area": [],
-    "scope_keywords": [
-      "novel approaches to is eng",
-      "models, methods and techniques",
-      "architectures and platforms",
-      "domain-specific and multi-aspe",
-      "information systems",
-      "BPM",
-      "business processes",
-      "systems engineering",
-      "software engineering",
-      "service oriented architecture",
-      "Methods, techniques and tools for IS engineering",
-      "Innovation and creativity in IS engineering",
-      "Enterprise architecture and enterprise modelling",
-      "Requirements engineering",
-      "Business process modelling, analysis and management",
-      "Requirements, models, and software reuse",
-      "Adaptation, evolution and flexibility issues",
-      "Domain engineering IS in networked & virtual organizations",
-      "Method engineering",
-      "Knowledge, information, and data quality",
-      "Languages and models",
-      "Mining, monitoring and predicting",
-      "Variability and configuration Matching, compliance and alignment issues",
-      "Conceptual design and modelling",
-      "Security Service science",
-      "Innovative platforms, architectures and technologies for IS",
-      "Service-oriented architecture",
-      "Model-driven architecture",
-      "Component based development",
-      "Agent architecture",
-      "Distributed, mobile, and open architecture",
-      "Innovative database technology",
-      "Semantic web",
-      "IS and ubiquitous technologies",
-      "Adaptive and context-aware IS",
-      "engineering",
-      "business process management",
-      "services",
-      "Methodologies and approaches for IS engineering",
-      "Service science",
-      "Business process modelling and management",
-      "Model, component, and software reuse",
-      "Adaptive IS engineering approaches",
-      "Knowledge patterns and ontologies for IS engineering",
-      "IS engineering approaches for adaptive and flexible information systems",
-      "IS in networked & virtual organizations",
-      "Quality of models and of modelling languages",
-      "Innovative platforms, architectures and technologies for IS engineering",
-      "Simulation",
-      "IS reengineering",
-      "novel approaches is eng"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-05T11:59:59Z",
-        "deadline": "2026-11-16T11:59:59Z",
-        "decision_deadline": "2027-02-11T11:59:59Z",
-        "year": 2027,
-        "edition_id": "caise27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-15 23:59:59",
-          "abstract_deadline": "2026-11-04 23:59:59",
-          "decision_deadline": "2027-02-10 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://deal.us.es/caise27/",
-        "date": "June 7-11, 2027",
-        "place": "Seville, Spain"
-      }
-    ],
-    "homepage_url": "https://deal.us.es/caise27/"
   },
   {
     "id": "CONF-007",
@@ -676,6 +501,65 @@
       }
     ],
     "homepage_url": "https://conferences.i-cav.org/2027/"
+  },
+  {
+    "id": "CONF-211",
+    "name": "International Conference on Compiler Construction",
+    "acronym": "CC",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "B",
+    "subject_area": [],
+    "scope_keywords": [
+      "compilers",
+      "programming",
+      "Compilation and interpretation techniques, including program representation, analysis, and transformation; code generation, optimization, and synthesis; the verification thereof",
+      "Run-time techniques, including memory management, virtual machines, and dynamic and just-in-time compilation",
+      "Programming tools, including refactoring editors, checkers, verifiers, compilers, debuggers, and profilers",
+      "Techniques for specific domains, such as secure, parallel, distributed, embedded or mobile environments",
+      "Design and implementation of novel language constructs, programming models, and domain-specific languages",
+      "Compilation and interpretation techniques, including program representation, analysis, and transformation; code generation and optimization;",
+      "Run-time techniques, including memory management, virtual machines, and dynamic and just-in-time compilation;",
+      "Programming tools, including refactoring editors, checkers, verifiers, compilers, debuggers, and profilers;",
+      "Techniques for specific domains, such as secure, parallel, distributed, embedded or mobile environments;",
+      "compilation",
+      "Compilation and interpretation techniques, including program",
+      "representation and analysis, code generation and code optimization;",
+      "Run-time techniques, including memory management and dynamic and",
+      "just-in-time compilation;",
+      "Programming tools, from refactoring editors to checkers to compilers",
+      "to virtual machines to debuggers;",
+      "Techniques for specific domains, such as secure, parallel,",
+      "distributed, embedded or mobile environments;",
+      "Albert Cohen"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2026-12-02T11:59:59Z",
+        "deadline": "2026-12-04T11:59:59Z",
+        "decision_deadline": "2027-01-16T11:59:59Z",
+        "year": 2027,
+        "edition_id": "cc27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2026-12-03 23:59:59",
+          "abstract_deadline": "2026-12-01 23:59:59",
+          "decision_deadline": "2027-01-15 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
+        },
+        "link": "https://conf.researchr.org/home/CC-2027",
+        "date": "March 20-21, 2027",
+        "place": "Salt Lake City, Utah, USA"
+      }
+    ],
+    "homepage_url": "https://conf.researchr.org/home/CC-2027"
   },
   {
     "id": "CONF-008",
@@ -911,59 +795,6 @@
     "homepage_url": "https://ches.iacr.org/2027/"
   },
   {
-    "id": "CONF-012",
-    "name": "International Conference on Cloud Computing and Services Science",
-    "acronym": "CLOSER",
-    "issn": null,
-    "eissn": "2184-5042",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "C",
-    "subject_area": [
-      "Computer Science Applications",
-      "Software",
-      "Computer Science (miscellaneous)"
-    ],
-    "scope_keywords": [
-      "artificial intelligence",
-      "cloud computing",
-      "computer networks",
-      "services",
-      "services science",
-      "cloud"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201741",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://closer.scitevents.org/",
-        "date": "Apr 17, 2027 - Apr 19, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://closer.scitevents.org/"
-  },
-  {
     "id": "CONF-253",
     "name": "IEEE Conference on Cognitive and Computational Aspects of Situation Management",
     "acronym": "CogSIMA",
@@ -1179,6 +1010,167 @@
       }
     ],
     "homepage_url": "https://2027.cogsima.org"
+  },
+  {
+    "id": "CONF-013",
+    "name": "International Conference on Computational Linguistics",
+    "acronym": "COLING",
+    "issn": "2951-2093",
+    "eissn": null,
+    "publisher": "Association for Computational Linguistics (ACL)",
+    "core_rank": "B",
+    "subject_area": [
+      "Theoretical Computer Science",
+      "Computational Theory and Mathematics",
+      "Computer Science Applications"
+    ],
+    "scope_keywords": [
+      "NLP",
+      "artificial intelligence",
+      "computational linguistics",
+      "Benchmarking and Evaluation",
+      "Computational Cognitive Modeling and Psycholinguistics",
+      "Computational Social Science and Sociolinguistics",
+      "Cross-lingual and Multilingual NLP (including Machine Translation)",
+      "Dialogue and Interactive Systems",
+      "NLP for Digital Humanities and Cultural Analytics",
+      "Discourse and Pragmatics",
+      "Ethics, Bias, Fairness, Alignment and Security",
+      "Human-AI Interaction and Social Impact of AI systems (including User Studies)",
+      "Information Extraction and Retrieval",
+      "Interpretability and Analysis of NLP Models",
+      "Knowledge-based NLP and Reasoning",
+      "Language Acquisition, Learning and Evolution",
+      "Language Diversity and NLP for Low-resourced/Less-studied Languages",
+      "Language Modeling, including Novel Architectures",
+      "Language Resources",
+      "Linguistic Theories and Language Modeling for Linguistic Insights",
+      "Machine Learning, including Resource-efficiency and Explainability",
+      "Agent-based LLM systems",
+      "Morphology and Syntax: Segmentation, Tagging, Chunking and Parsing",
+      "Multimodality and Language Grounding to Vision, Robotics and Beyond",
+      "Natural Language Generation, Summarization and Simplification",
+      "NLP and LLM Applications",
+      "Phonology and Speech: Recognition, Synthesis, Spoken Language Modeling",
+      "Semantics: Lexical and Sentence-Level",
+      "Sentiment Analysis, Opinion and Argument Mining, Offensive Language Detection",
+      "natural language processing",
+      "Document Classification and Topic Modeling",
+      "Ethics, Bias, and Fairness",
+      "Information Extraction",
+      "Information Retrieval and Text Mining",
+      "Interpretability and Analysis of Models for NLP",
+      "Language Modeling",
+      "Language Resources and Evaluation",
+      "Linguistic Insights Derived using Computational Techniques",
+      "Linguistic Theories, Cognitive Modeling and Psycholinguistics",
+      "Low-Resource and Efficient Methods for NLP",
+      "Machine Learning for Computational Linguistics and NLP",
+      "Machine Translation and Translation Aids",
+      "Multilingualism and Language Diversity",
+      "Multimodal and Grounded Language Acquisition",
+      "NLP and LLM Applications (such as Education, Healthcare, Finance, Legal NLP, Computational Social Science, etc.)",
+      "Natural Language Generation",
+      "Offensive Speech Detection and Analysis",
+      "Phonology, Morphology and Word Segmentation",
+      "Question Answering",
+      "Lexical Semantics",
+      "Sentence-level Semantics (Textual Inference, Paraphrasing, etc)",
+      "Sentiment Analysis, Stylistic Analysis, Opinion and Argument Mining",
+      "Speech Recognition and Synthesis, and Spoken Language Understanding",
+      "Summarization and Simplification",
+      "Syntactic analysis (tagging, chunking, parsing)",
+      "Vision and Robotics",
+      "Applications (including BioNLP and eHealth, NLP for legal purposes, NLP for Social Media and Journalism, etc.)",
+      "Document classification, topic modeling, information retrieval and cross-lingual retrieval",
+      "Ethics and NLP",
+      "Information Extraction, Text Mining, and Knowledge Graph Derivation from Texts",
+      "CL/NLP and Linguistic Theories, Cognitive Modeling and Psycholinguistics",
+      "Machine Learning for CL/NLP",
+      "Morphology and Word Segmentation",
+      "Semantics",
+      "Sentiment Analysis, Opinion and Argument Mining",
+      "Speech recognition and synthesis and spoken language understanding",
+      "Tagging, Chunking, Syntax and Parsing",
+      "Textual Inference and Question Answering",
+      "Vision, Robotics, Multimodal and Grounded Language Acquisition",
+      "Pragmatics, discourse, semantics, syntax, grammar and the lexicon;",
+      "Lexical semantics and ontologies;",
+      "Word segmentation, tagging and chunking;",
+      "Parsing, syntactic and semantic;",
+      "Semantic role labeling;",
+      "Discourse relations;",
+      "Dialogue and conversational agents;",
+      "Language generation;",
+      "Summarization;",
+      "Question answering;",
+      "Paraphrasing and textual entailment;",
+      "Multilingual processing, machine translation and translation aids;",
+      "Information retrieval, information extraction and knowledge base linking;",
+      "Sentiment analysis, opinion mining and social media;",
+      "Speech recognition, text-to-speech and spoken language understanding;",
+      "Multimodal systems and representations;",
+      "Applications;",
+      "Tools in aid of NLP tasks and applications;",
+      "Corpus development and language resources;",
+      "System evaluation methodology and metrics;",
+      "Machine learning for natural language;",
+      "Cognitive, mathematical and computational models of language processing;",
+      "In all relevant areas, we encourage authors to include analysis of the influence of theories (intuitions, methodologies, insights), to",
+      "technologies (computational algorithms, methods, tools, data), and/or contributions of technologies to theory development. In technologically",
+      "oriented papers, we encourage in-depth analysis and discussion of errors made in the experiments described, if possible linking them to the",
+      "presence or absence of linguistically-motivated features. Contributions that display and rigorously discuss future potential, even if",
+      "=============================================================",
+      "ABOUT COLING",
+      "­-­-­-­-­-­-­-­-­-­-­-------------",
+      "Syntax, semantics, grammar, and the lexicon",
+      "Lexical semantics and ontologies",
+      "Phonology/morphology, word segmentation, and tagging",
+      "Summarization",
+      "Language generation",
+      "Paraphrasing and textual entailment",
+      "Parsing and chunking",
+      "Spoken language processing, understanding and speech-to-speech",
+      "translation",
+      "Linguistic, psychological and mathematical models of language",
+      "Computational pragmatics",
+      "Dialogue and conversational agents",
+      "Computational models of discourse",
+      "Information retrieval",
+      "Word sense disambiguation",
+      "Information extraction and text mining",
+      "Semantic role labeling",
+      "Sentiment analysis and opinion mining",
+      "Corpus-based modeling of language",
+      "Multilingual processing",
+      "Multimodal systems and representations",
+      "Statistical and machine learning methods",
+      "Applications",
+      "Corpus development and language resources",
+      "Evaluation methods and user studies",
+      "linguistics"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": "2026-12-24T11:59:59Z",
+        "comment": "Commitment deadline for long research papers reviewed by ARR",
+        "year": 2027,
+        "edition_id": "coling27",
+        "timezone": "UTC",
+        "original_timezone": "UTC-12",
+        "original_deadlines": {
+          "deadline": "2026-12-23 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted"
+        },
+        "link": "https://2027.coling-iccl.org/",
+        "date": "May 9-14 (in-person) and 6-7 (virtual), 2027",
+        "place": "Macau SAR, China / Online"
+      }
+    ],
+    "homepage_url": "https://2027.coling-iccl.org/"
   },
   {
     "id": "CONF-256",
@@ -1498,58 +1490,6 @@
     "homepage_url": "http://2027.cscwd.org"
   },
   {
-    "id": "CONF-017",
-    "name": "International Conference on Computer Supported Education",
-    "acronym": "CSEDU",
-    "issn": null,
-    "eissn": "2184-5026",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "B",
-    "subject_area": [
-      "Computer Science Applications",
-      "Information Systems"
-    ],
-    "scope_keywords": [
-      "engineering",
-      "education",
-      "higher education",
-      "computer science",
-      "information technology",
-      "e-learning"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201736",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://csedu.scitevents.org/",
-        "date": "Apr 16, 2027 - Apr 18, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://csedu.scitevents.org/"
-  },
-  {
     "id": "CONF-018",
     "name": "IEEE Computer Security Foundations Symposium",
     "acronym": "CSFW",
@@ -1613,186 +1553,6 @@
       }
     ],
     "homepage_url": "https://www.ieee-security.org/TC/CSF2027/"
-  },
-  {
-    "id": "CONF-019",
-    "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
-    "acronym": "CVPR",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "A*",
-    "subject_area": [],
-    "scope_keywords": [
-      "computer science",
-      "computer vision",
-      "deep learning",
-      "3D computer vision",
-      "Action and behavior recognition",
-      "Adversarial learning, adversarial attack and defense methods",
-      "Biometrics, face, gesture, body pose",
-      "Computational photography, image and video synthesis",
-      "Datasets and evaluation",
-      "Efficient training and inference methods for networks",
-      "Explainable AI, fairness, accountability, privacy, transparency and ethics in vision",
-      "Image retrieval",
-      "Low-level and physics-based vision",
-      "Machine learning architectures and formulations",
-      "Medical, biological and cell microscopy",
-      "Motion and tracking",
-      "Neural generative models, auto encoders, GANs",
-      "Optimization and learning methods",
-      "Recognition (object detection, categorization)",
-      "Representation learning, deep learning",
-      "Scene analysis and understanding",
-      "Segmentation, grouping and shape",
-      "Transfer, low-shot, semi- and un- supervised learning",
-      "Video analysis and understanding",
-      "Vision + language, vision + other modalities",
-      "Vision applications and systems, vision for robotics and autonomous vehicles",
-      "Visual reasoning and logical representation",
-      "pattern recognition",
-      "machine learning",
-      "artificial intelligence",
-      "vision",
-      "graphics",
-      "robotics",
-      "learning",
-      "Sensors",
-      "Early and Biologically-inspired Vision",
-      "Color and Texture",
-      "Segmentation and Grouping",
-      "Computational Photography and Video",
-      "Shape-from-X",
-      "Stereo and Structure from Motion",
-      "Image-Based Modeling",
-      "Illumination and Reflectance Modeling",
-      "Shape Representation and Matching",
-      "Object Detection, Recognition, and Categorization",
-      "Video Analysis and Event Recognition",
-      "Face and Gesture Analysis",
-      "Statistical Methods and Learning",
-      "Performance Evaluation",
-      "Medical Image Analysis",
-      "Image and Video Retrieval",
-      "Vision for Graphics",
-      "Vision for Robotics",
-      "Vision for Internet",
-      "Applications of Computer Vision",
-      "Object Recognition",
-      "Object Detection and Categorization",
-      "3D reconstruction and geometry: single-view, multi-view, depth, and sensors",
-      "Trustworthy, responsible and explainable vision",
-      "Generative AI Safety and Authenticity",
-      "Deep learning architectures and techniques",
-      "Computational imaging and cameras",
-      "Vision applications, systems and social impact",
-      "Theory, optimization, and statistical learning for vision",
-      "Low-level vision",
-      "Physics-based vision and shape-from-X",
-      "Document analysis and understanding",
-      "Human-centric vision and biometrics",
-      "Data synthesis, datasets and benchmarks",
-      "Efficient and scalable vision",
-      "Multimodal learning",
-      "Image and video synthesis and generation",
-      "Mulitmodal Generative and Foundation Models",
-      "Reasoning & Reinforcement Learning",
-      "Recognition: Categorization, detection, retrieval",
-      "Segmentation, grouping and shape analysis",
-      "Representation learning",
-      "Embodied vision and robotics",
-      "Agentic AI",
-      "Physical AI: World Models, VLA, Planning, Simulation",
-      "Autonomous driving",
-      "Self-, semi-, meta- and unsupervised learning",
-      "Transfer / low-shot / continual / long-tail learning",
-      "Photogrammetry, remote sensing and multi-sensors",
-      "Video understanding, motion and tracking",
-      "Vision + graphics",
-      "AI for Science and Scientific Discovery",
-      "AI for Education",
-      "Medical and biological vision, cell microscopy"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-11T11:59:59Z",
-        "deadline": "2026-11-17T11:59:59Z",
-        "rebuttal_deadline": "2027-02-02T11:59:59Z",
-        "decision_deadline": "2027-02-26T11:59:59Z",
-        "year": 2027,
-        "edition_id": "cvpr27",
-        "timezone": "UTC",
-        "original_timezone": "UTC-12",
-        "original_deadlines": {
-          "deadline": "2026-11-16 23:59:59",
-          "abstract_deadline": "2026-11-10 23:59:59",
-          "decision_deadline": "2027-02-25 23:59:59",
-          "rebuttal_deadline": "2027-02-01 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://cvpr.thecvf.com/Conferences/2027",
-        "date": "June 22-25, 2027",
-        "place": "Seattle, WA, United States"
-      }
-    ],
-    "homepage_url": "https://cvpr.thecvf.com/Conferences/2027"
-  },
-  {
-    "id": "CONF-284",
-    "name": "Design Automation Conference",
-    "acronym": "DAC",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "A*",
-    "subject_area": [],
-    "scope_keywords": [
-      "chip design",
-      "system design",
-      "EDA",
-      "design automation"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-12T01:00:00Z",
-        "deadline": "2026-11-19T01:00:00Z",
-        "decision_deadline": "2027-03-09T11:59:59Z",
-        "year": 2027,
-        "edition_id": "dac27",
-        "timezone": "UTC",
-        "original_timezone": "UTC-8",
-        "original_deadlines": {
-          "deadline": "2026-11-18 17:00:00",
-          "abstract_deadline": "2026-11-11 17:00:00",
-          "decision_deadline": "2027-03-09 03:59:59",
-          "camera_ready_deadline": "2026-03-31"
-        },
-        "deadline_dates": {
-          "camera_ready_deadline": "2026-03-31"
-        },
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://dac.com/2027/authors/call-for-contributions",
-        "date": "July 11-14, 2027",
-        "place": "San Jose, CA",
-        "camera_ready_deadline": null,
-        "original_timezones": {
-          "camera_ready_deadline": null
-        }
-      }
-    ],
-    "homepage_url": "https://dac.com/2027/authors/call-for-contributions"
   },
   {
     "id": "CONF-020",
@@ -1980,6 +1740,55 @@
       }
     ],
     "homepage_url": "https://dasfaa2027.github.io/"
+  },
+  {
+    "id": "CONF-290",
+    "name": "International Conference on Data Science, Technology and Applications",
+    "acronym": "DATA",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "C",
+    "subject_area": [],
+    "scope_keywords": [
+      "data mining",
+      "neural networks and artificial",
+      "big data",
+      "data management",
+      "business analytics",
+      "data science"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": null,
+        "comment": "WikiCFP CFP text",
+        "decision_deadline": null,
+        "camera_ready_deadline": null,
+        "year": 2027,
+        "edition_id": "wikicfp-204204",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2027-02-16",
+          "decision_deadline": "2027-04-09",
+          "camera_ready_deadline": "2027-04-21"
+        },
+        "deadline_dates": {
+          "deadline": "2027-02-16",
+          "decision_deadline": "2027-04-09",
+          "camera_ready_deadline": "2027-04-21"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "decision_deadline": "date_only",
+          "camera_ready_deadline": "date_only"
+        },
+        "link": "https://data.scitevents.org",
+        "date": "Jul 19, 2027 - Jul 21, 2027",
+        "place": "Rome, Italy"
+      }
+    ],
+    "homepage_url": "https://data.scitevents.org"
   },
   {
     "id": "CONF-021",
@@ -2181,7 +1990,7 @@
           "rebuttal_deadline": "converted"
         },
         "link": "https://ecai2027.org/",
-        "date": "October 2-7, 2027",
+        "date": "October 4-7, 2027",
         "place": "Athens, Greece"
       }
     ],
@@ -2211,30 +2020,6 @@
     ],
     "submission_deadlines": [
       {
-        "deadline": "2026-11-20T11:59:59Z",
-        "rebuttal_deadline": "2027-01-16T11:59:59Z",
-        "decision_deadline": "2027-01-29T11:59:59Z",
-        "comment": "Submission R1",
-        "year": 2027,
-        "edition_id": "ecoop27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-19 23:59:59",
-          "decision_deadline": "2027-01-28 23:59:59",
-          "rebuttal_deadline": "2027-01-15 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://2027.ecoop.org/",
-        "date": "June 28 - July 2, 2027",
-        "place": "Turin, Italy"
-      },
-      {
         "deadline": "2027-02-12T11:59:59Z",
         "rebuttal_deadline": "2027-03-27T11:59:59Z",
         "decision_deadline": "2027-04-09T11:59:59Z",
@@ -2262,63 +2047,6 @@
     "homepage_url": "https://2027.ecoop.org/"
   },
   {
-    "id": "CONF-027",
-    "name": "International Conference on Evaluation of Novel Approaches to Software Engineering",
-    "acronym": "ENASE",
-    "issn": null,
-    "eissn": "2184-4895",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "B",
-    "subject_area": [
-      "Computer Science Applications",
-      "Software"
-    ],
-    "scope_keywords": [
-      "software engineering",
-      "information systems",
-      "mobile computing",
-      "computer science",
-      "ICT",
-      "service-oriented architectures",
-      "software process improvement",
-      "artificial intelligence",
-      "communications",
-      "e-business technologies",
-      "knowledge management"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201738",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://enase.scitevents.org/",
-        "date": "Apr 20, 2027 - Apr 22, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://enase.scitevents.org/"
-  },
-  {
     "id": "CONF-028",
     "name": "European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning",
     "acronym": "ESANN",
@@ -2336,18 +2064,20 @@
       "Statistical and mathematical aspects of learning Data mining",
       "Feedforward models Signal processing and modeling",
       "Kernel machines Approximation and identification",
-      "Graphical models, EM and Bayesian learning Classification and clustering"
+      "Graphical models, EM and Bayesian learning Classification and clustering",
+      "computational intelligence",
+      "data mining"
     ],
     "submission_deadlines": [
       {
-        "deadline": "2026-11-19T11:59:59Z",
+        "deadline": "2026-11-26T11:59:59Z",
         "decision_deadline": "2027-01-23T11:59:59Z",
         "year": 2027,
         "edition_id": "esann27",
         "timezone": "UTC",
         "original_timezone": "UTC-8",
         "original_deadlines": {
-          "deadline": "2026-11-19 03:59:59",
+          "deadline": "2026-11-26 03:59:59",
           "decision_deadline": "2027-01-23 03:59:59"
         },
         "deadline_dates": {},
@@ -2358,6 +2088,30 @@
         "link": "https://www.esann.org/",
         "date": "April 21 - 23, 2027",
         "place": "Bruges, Belgium and Online"
+      },
+      {
+        "deadline": null,
+        "decision_deadline": null,
+        "comment": "WikiCFP labelled date table",
+        "year": 2027,
+        "edition_id": "wikicfp-204242",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2026-11-25",
+          "decision_deadline": "2027-01-27"
+        },
+        "deadline_dates": {
+          "deadline": "2026-11-25",
+          "decision_deadline": "2027-01-27"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "decision_deadline": "date_only"
+        },
+        "link": "https://www.esann.org/",
+        "date": "Apr 21, 2027 - Apr 23, 2027",
+        "place": "Bruges, Belgium"
       }
     ],
     "homepage_url": "https://www.esann.org/"
@@ -2497,101 +2251,6 @@
     "homepage_url": "https://www.ets2027.co.uk/"
   },
   {
-    "id": "CONF-031",
-    "name": "European Conference on Genetic Programming",
-    "acronym": "EuroGP",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "B",
-    "subject_area": [],
-    "scope_keywords": [
-      "genetic programming",
-      "optimization",
-      "artificial intelligence",
-      "machine learning",
-      "evolutionary computation",
-      "soft computing",
-      "evolutionary computing",
-      "bio-inspired methods",
-      "Innovative applications of GP",
-      "Theoretical developments",
-      "GP performance and behaviour",
-      "Fitness landscape analysis of GP",
-      "Algorithms, representations and operators",
-      "Search-based software engineering",
-      "Genetic improvement programming",
-      "Evolutionary design",
-      "Evolutionary robotics",
-      "Tree-based GP and Linear GP",
-      "Graph-based GP and Grammar-based GP",
-      "Evolvable hardware",
-      "Self-reproducing programs",
-      "Multi-population GP",
-      "Multi-objective GP",
-      "Fast/Parallel GP",
-      "Probabilistic GP",
-      "Object-oriented GP",
-      "Hybrid architectures including GP",
-      "Coevolution in GP",
-      "Modularity in GP",
-      "Semantics in GP",
-      "Unconventional GP",
-      "Automatic software maintenance",
-      "Evolutionary inductive programming",
-      "Evolution of automata or machines",
-      "Real-world applications",
-      "GP for program improvement",
-      "Software Engineering and GP",
-      "Unconventional evolvable computation",
-      "Accepted papers will be included in the proceedings published by Springer",
-      "Verlag in the Lecture Notes in Computer Science (LNCS) series. The papers which",
-      "EuroGP 2015 will take place in Copenhagen, Denmark, and will be co-located within",
-      "the EvoStar event with three related conferences: EvoCOP, EvoMUSART, and",
-      "Evolution of automata or machine",
-      "EuroGP 2014 will take place in Granada, Spain, and will be co-located within",
-      "the EvoStar event with four related conferences: EvoBIO, EvoCOP, EvoMUSART, and",
-      "bioinspired computing",
-      "automatic program induction",
-      "Empirical studies of GP performance and behavior",
-      "Applications of GP to real-world problems",
-      "Tree-based, Linear, Graph-based, Grammar-based GP",
-      "Evolution of various classes of automata or machine",
-      "GP for evolving meta- and hyper-heuristic algorithms",
-      "Applications of GP to real-life problems",
-      "Hybrid architectures including GP components",
-      "Grammar-based GP",
-      "Linear GP",
-      "Evolution of tree or graph structures",
-      "Evolution of various classes of automata or machines (e.g. cellular automata, finite state machines, pushdown automata, Turing machines)",
-      "Object-oriented genetic programming"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": "2026-11-17T11:59:59Z",
-        "decision_deadline": "2027-01-11T11:59:59Z",
-        "comment": "Full papers",
-        "year": 2027,
-        "edition_id": "eurogp27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-16 23:59:59",
-          "decision_deadline": "2027-01-10 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://www.evostar.org/2027/eurogp/",
-        "date": "March 31-April 2, 2027",
-        "place": "Mainz, Germany (hybrid)"
-      }
-    ],
-    "homepage_url": "https://www.evostar.org/2027/eurogp/"
-  },
-  {
     "id": "CONF-032",
     "name": "IEEE European Symposium on Security and Privacy",
     "acronym": "EuroS&P",
@@ -2724,150 +2383,6 @@
       }
     ],
     "homepage_url": "https://eurovis27.github.io/web/"
-  },
-  {
-    "id": "CONF-033",
-    "name": "European Conference on Evolutionary Computation in Combinatorial Optimisation",
-    "acronym": "EvoCOP",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "B",
-    "subject_area": [],
-    "scope_keywords": [
-      "evolutionary computation",
-      "combinatorial optimisation",
-      "metaheuristics",
-      "Applications of metaheuristics to combinatorial optimisation problems",
-      "Representation techniques",
-      "Practical solution of NP-hard problems",
-      "Neighbourhoods and efficient algorithms for searching them",
-      "Variation operators for stochastic search methods",
-      "Theoretical developments",
-      "Constraint-handling techniques",
-      "Parallelisation and grid computing",
-      "Search space and landscape analyses",
-      "Comparisons between different (also exact) methods",
-      "Heuristics",
-      "Genetic programming and Genetic algorithms",
-      "Tabu search, iterated local search and variable neighbourhood search",
-      "Ant colony optimisation",
-      "Artificial immune systems",
-      "Scatter search",
-      "Particle swarm optimisation",
-      "Memetic algorithms",
-      "Hybrid methods and hybridisation techniques",
-      "Matheuristics (hybrids of exact and heuristic methods)",
-      "Hyper-heuristics and autonomous search",
-      "Automatic algorithm configuration and design",
-      "Metaheuristics and machine learning",
-      "Surrogate-model-based methods",
-      "Estimation of distribution algorithms",
-      "String processing",
-      "Scheduling and timetabling",
-      "Network design",
-      "Vehicle routing",
-      "Graph problems",
-      "Satisfiability",
-      "Packing and cutting problems",
-      "Energy optimisation problems",
-      "Multi-objective optimisation",
-      "Search-based software engineering"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": "2026-11-17T11:59:59Z",
-        "decision_deadline": "2027-01-11T11:59:59Z",
-        "comment": "Full papers",
-        "year": 2027,
-        "edition_id": "evocop27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-16 23:59:59",
-          "decision_deadline": "2027-01-10 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://www.evostar.org/2027/evocop/",
-        "date": "March 31-April 2, 2027",
-        "place": "Mainz, Germany (hybrid)"
-      }
-    ],
-    "homepage_url": "https://www.evostar.org/2027/evocop/"
-  },
-  {
-    "id": "CONF-034",
-    "name": "International Conference on Artificial Intelligence in Music, Sound, Art and Design",
-    "acronym": "EvoMUSART",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "C",
-    "subject_area": [],
-    "scope_keywords": [
-      "artificial intelligence",
-      "computational creativity",
-      "generative ai",
-      "computer music",
-      "— Systems that create drawings, images, animations, videos, sculptures, poetry, text, designs, webpages, buildings, virtual environments, and other creative artefacts;",
-      "— Systems that create musical pieces, sounds, instruments, voices, sound effects, soundscapes, and multimodal artistic experiences;",
-      "— Systems that create artefacts such as game content, architecture, furniture, industrial products, and digital experiences based on aesthetic and functional criteria;",
-      "— Generative AI, foundation models, large language models (LLMs), multimodal models, and diffusion-based creative systems;",
-      "— Computational creativity in digital games, interactive storytelling, and narrative generation;",
-      "multimedia",
-      "music",
-      "design",
-      "Systems that create drawings, images, animations, sculptures, poetry, text, designs, webpages, buildings, etc.;",
-      "Systems that create musical pieces, sounds, instruments, voices, sound effects, sound analysis, etc.;",
-      "Systems that create artefacts such as game content, architecture, furniture, based on aesthetic and/or functional criteria;",
-      "Systems that resort to artificial intelligence to perform the analysis of image, music, sound, sculpture, or some other types of artistic objects;",
-      "Systems in which artificial intelligence is used to promote the creativity of a human user;",
-      "Theories or models of computational aesthetics;",
-      "Computational models of emotional response, surprise, novelty;",
-      "Representation techniques for images, videos, music, etc.;",
-      "Surveys of the current state-of-the-art in the area;",
-      "art",
-      "Systems that resort to artificial intelligence to perform the analysis of image, music, sound, sculpture, or some other types of artistic object;",
-      "computer science",
-      "evolutionary computation",
-      "machine learning"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": "2026-11-17T11:59:59Z",
-        "decision_deadline": "2027-01-11T11:59:59Z",
-        "comment": "Full papers",
-        "year": 2027,
-        "edition_id": "evomusart27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-16 23:59:59",
-          "decision_deadline": "2027-01-10 23:59:59",
-          "camera_ready_deadline": "2027-01-24"
-        },
-        "deadline_dates": {
-          "camera_ready_deadline": "2027-01-24"
-        },
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://www.evostar.org/2027/evomusart/",
-        "date": "March 31-April 2, 2027",
-        "place": "Mainz, Germany (hybrid)",
-        "camera_ready_deadline": null,
-        "original_timezones": {
-          "camera_ready_deadline": null
-        }
-      }
-    ],
-    "homepage_url": "https://www.evostar.org/2027/evomusart/"
   },
   {
     "id": "CONF-387",
@@ -3150,16 +2665,22 @@
         "original_timezone": "AoE",
         "original_deadlines": {
           "deadline": "2027-02-05 23:59:59",
-          "decision_deadline": "2027-04-30 23:59:59"
+          "decision_deadline": "2027-04-30 23:59:59",
+          "camera_ready_deadline": "2027-05-14 23:59:00"
         },
         "deadline_dates": {},
         "utc_status": {
           "deadline": "converted",
-          "decision_deadline": "converted"
+          "decision_deadline": "converted",
+          "camera_ready_deadline": "converted"
         },
         "link": "https://conferences.graphicsinterface.org/2027",
         "date": "June 15-18, 2027",
-        "place": "Winnipeg, Canada"
+        "place": "Winnipeg, Canada",
+        "camera_ready_deadline": "2027-05-15T11:59:00Z",
+        "original_timezones": {
+          "camera_ready_deadline": "AoE"
+        }
       }
     ],
     "homepage_url": "https://conferences.graphicsinterface.org/2027"
@@ -3205,6 +2726,93 @@
       }
     ],
     "homepage_url": "https://gmp-conference-2027.github.io/gmp2027/"
+  },
+  {
+    "id": "CONF-452",
+    "name": "ACM Symposium on High-Performance Parallel and Distributed Computing",
+    "acronym": "HPDC",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "A",
+    "subject_area": [],
+    "scope_keywords": [
+      "Operating systems, networks, and architectures",
+      "High-performance runtime environments",
+      "Massively multicore systems, including heterogeneous systems",
+      "Datacenter technology, resource virtualization",
+      "Programming languages, APIs, and system inter-operation approaches",
+      "File and storage systems, I/O, and data management",
+      "Big data stacks and big data ecosystems",
+      "Resource management and scheduling, including cost/energy-aware techniques",
+      "Performance modeling, analysis, and engineering",
+      "Fault tolerance, reliability, and availability",
+      "Operational guarantees, risk assessment and management",
+      "Emerging application areas that include cloud/edge computing and IoT",
+      "distributed computing",
+      "high-performance computing",
+      "cloud computing",
+      "computer architecture",
+      "high performance computing",
+      "grid",
+      "cloud",
+      "HPDC architectures: HPC systems, Grids, Computing Clouds, SOA for HPDC",
+      "High end communications: Software/hardware/architecture and networking",
+      "(incl. Terabit networks systems and services)",
+      "Data management and transport",
+      "(incl. High performance I/O and file systems)",
+      "Operating system technologies for high performance distributed computing",
+      "(incl. Virtualization for HPDC systems)",
+      "relate to the overall conference",
+      "Information about previous offering(s) of the workshop,",
+      "if applicable: attendance, number of papers submitted,",
+      "number of papers accepted",
+      "Names, affiliations, and research interest of the workshop organizers",
+      "distributed systems",
+      "HPDC systems and applications",
+      "Service oriented architectures for HPDC",
+      "Virtualization for HPDC systems",
+      "Software environments, programming frameworks and language/compiler support",
+      "Grid middleware",
+      "Resource management, scheduling and load-balancing",
+      "Parallel and distributed algorithms",
+      "Workflow management",
+      "High performance I/O and file systems",
+      "Performance modeling, simulation, and prediction",
+      "Fault tolerance, reliability and availability for HPDC applications",
+      "Software/hardware/architecture for high end communications and networking",
+      "Security, configuration, policy, and management issues",
+      "Operating system technologies for high performance computing",
+      "Multimedia, teleimmersive, and collaborative applications",
+      "Terabit networks systems and services",
+      "Multicore algorithms and software implementations"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-01-12T11:59:59Z",
+        "deadline": "2027-01-19T11:59:59Z",
+        "decision_deadline": "2027-03-31T11:59:59Z",
+        "year": 2027,
+        "edition_id": "hpdc2027",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-01-18 23:59:59",
+          "abstract_deadline": "2027-01-11 23:59:59",
+          "decision_deadline": "2027-03-30 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
+        },
+        "link": "https://hpdc.sci.utah.edu/2027/",
+        "date": "June 7-9, 2027",
+        "place": "Atlanta, GA, USA"
+      }
+    ],
+    "homepage_url": "https://hpdc.sci.utah.edu/2027/"
   },
   {
     "id": "CONF-037",
@@ -3641,7 +3249,7 @@
       {
         "abstract_deadline": "2026-12-08T11:59:59Z",
         "deadline": "2026-12-15T11:59:59Z",
-        "rebuttal_deadline": "2027-02-05T11:59:59Z",
+        "rebuttal_deadline": "2027-02-09T11:59:59Z",
         "decision_deadline": "2027-02-27T11:59:59Z",
         "year": 2027,
         "edition_id": "icaps27",
@@ -3651,7 +3259,7 @@
           "deadline": "2026-12-14 23:59:59",
           "abstract_deadline": "2026-12-07 23:59:59",
           "decision_deadline": "2027-02-26 23:59:59",
-          "rebuttal_deadline": "2027-02-04 23:59:59"
+          "rebuttal_deadline": "2027-02-08 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
@@ -3661,7 +3269,7 @@
           "rebuttal_deadline": "converted"
         },
         "link": "https://icaps27.icaps-conference.org/",
-        "date": "June 27 - July 2, 2027",
+        "date": "June 30 - July 2, 2027",
         "place": "Columbia, SC, USA"
       },
       {
@@ -3808,18 +3416,21 @@
       {
         "abstract_deadline": "2027-02-13T11:59:59Z",
         "deadline": "2027-02-20T11:59:59Z",
+        "decision_deadline": "2027-04-17T11:59:59Z",
         "year": 2027,
         "edition_id": "icccn27",
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
           "deadline": "2027-02-19 23:59:59",
-          "abstract_deadline": "2027-02-12 23:59:59"
+          "abstract_deadline": "2027-02-12 23:59:59",
+          "decision_deadline": "2027-04-16 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
           "deadline": "converted",
-          "abstract_deadline": "converted"
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
         },
         "link": "http://www.icccn.org/ICCCN27/",
         "date": "July 12-15, 2027",
@@ -3958,27 +3569,6 @@
     ],
     "submission_deadlines": [
       {
-        "deadline": "2026-11-16T11:59:59Z",
-        "decision_deadline": "2027-05-16T11:59:59Z",
-        "comment": "Journal track; initial decision Jan 15, revised submission Apr 1",
-        "year": 2027,
-        "edition_id": "icdar2027",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-15 23:59:59",
-          "decision_deadline": "2027-05-15 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://icdar2027.org/",
-        "date": "August 18 - 22, 2027",
-        "place": "Kuala Lumpur, Malaysia"
-      },
-      {
         "abstract_deadline": "2027-02-27T11:59:59Z",
         "deadline": "2027-03-06T11:59:59Z",
         "rebuttal_deadline": "2027-04-28T11:59:59Z",
@@ -4007,6 +3597,88 @@
       }
     ],
     "homepage_url": "https://icdar2027.org/"
+  },
+  {
+    "id": "CONF-494",
+    "name": "IEEE International Conference on Distributed Computing Systems",
+    "acronym": "ICDCS",
+    "issn": "1063-6927",
+    "eissn": "2575-8411",
+    "publisher": "Institute of Electrical and Electronics Engineers Inc.",
+    "core_rank": "A",
+    "subject_area": [
+      "Software",
+      "Hardware and Architecture",
+      "Computer Networks and Communications"
+    ],
+    "scope_keywords": [
+      "distributed computing",
+      "edge computing",
+      "cloud computing",
+      "disributed computing",
+      "AI/ML and Distributed Systems",
+      "Algorithms for Distributed Computing, Scheduling and OS",
+      "Big Data & Big Models",
+      "Blockchain",
+      "Cloud Computing and Data Centers",
+      "Distributed Applications, Crowdsourcing and Video Analytics",
+      "Industry and Interdisciplinary Studies of Distributed Systems and Applications",
+      "Internet of Things",
+      "OS, Fault-tolerance and Dependability",
+      "Security, Privacy, and Trust in Distributed Systems",
+      "Mobile and Wireless Computing",
+      "Federated Learning, Analytics, and Deployment",
+      "Quantum Networks and Computing",
+      "Distributed Algorithms and Theory",
+      "Distributed Big Data Systems and Analytics",
+      "Distributed Dependability and Resilience",
+      "Distributed Operating Systems and Middleware",
+      "Internet of Things and Cyber-Physical Systems",
+      "AI for Distributed Systems and Distributed Systems for AI",
+      "Insights from Industrial Experience",
+      "distributed systems",
+      "??? Cloud Computing and Data Centers",
+      "??? Distributed Algorithms and Theory",
+      "Distributed Fault Tolerance and Dependability",
+      "Distributed Green Computing and Energy Management",
+      "Mobile and Wireless Network Computing",
+      "Social Networks and Crowdsourcing",
+      "Distributed and Federated Machine Learning",
+      "Industry and Experimentation",
+      "Block Chain",
+      "distributed algorithms",
+      "big data systems",
+      "networking",
+      "communications",
+      "privacy",
+      "web systems"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-01-07T11:59:59Z",
+        "deadline": "2027-01-14T11:59:59Z",
+        "decision_deadline": "2027-04-19T11:59:59Z",
+        "year": 2027,
+        "edition_id": "icdcs27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-01-13 23:59:59",
+          "abstract_deadline": "2027-01-06 23:59:59",
+          "decision_deadline": "2027-04-18 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
+        },
+        "link": "https://icdcs2027.icdcs.org/",
+        "date": "July 5-8, 2027",
+        "place": "Melbourne, Australia"
+      }
+    ],
+    "homepage_url": "https://icdcs2027.icdcs.org/"
   },
   {
     "id": "CONF-042",
@@ -4165,16 +3837,22 @@
     "submission_deadlines": [
       {
         "deadline": "2027-04-01T11:59:59Z",
+        "rebuttal_deadline": "2027-07-08T11:59:59Z",
+        "decision_deadline": "2027-08-07T11:59:59Z",
         "year": 2027,
         "edition_id": "icip27",
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
-          "deadline": "2027-03-31 23:59:59"
+          "deadline": "2027-03-31 23:59:59",
+          "decision_deadline": "2027-08-06 23:59:59",
+          "rebuttal_deadline": "2027-07-07 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
-          "deadline": "converted"
+          "deadline": "converted",
+          "decision_deadline": "converted",
+          "rebuttal_deadline": "converted"
         },
         "link": "https://2027.ieeeicip.org/",
         "date": "November 29-December 3, 2027",
@@ -4404,6 +4082,70 @@
       }
     ],
     "homepage_url": "https://2027.ieeeicme.org/"
+  },
+  {
+    "id": "CONF-525",
+    "name": "International Conference on Machine Learning",
+    "acronym": "ICML",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "A*",
+    "subject_area": [],
+    "scope_keywords": [
+      "machine learning",
+      "learning theory",
+      "optimization",
+      "probabilistic inference",
+      "General Machine Learning (active learning, clustering, online learning, ranking, reinforcement learning, supervised, semi- and self-supervised learning, time series analysis, etc.)",
+      "Deep Learning (architectures, generative models, deep reinforcement learning, etc.)",
+      "Learning Theory (bandits, game theory, statistical learning theory, etc.)",
+      "Optimization (convex and non-convex optimization, matrix/tensor methods, stochastic, online, non-smooth, composite, etc.)",
+      "Probabilistic Inference (Bayesian methods, graphical models, Monte Carlo methods, etc.)",
+      "Trustworthy Machine Learning (accountability, causality, fairness, privacy, robustness, etc.)",
+      "healthcare",
+      "artificial intelligence",
+      "deep learning",
+      "computer science",
+      "statistics",
+      "probabilistic methods",
+      "reinforcement learning",
+      "general machine learning (active learning, clustering, online learning, ranking, supervised, semi- and self-supervised learning, time series analysis, etc.)",
+      "deep learning (architectures, generative models, theory, etc.)",
+      "evaluation (methodology, meta studies, replicability and validity, human-in-the-loop, etc.)",
+      "theory of machine learning (statistical learning theory, bandits, game theory, decision theory, etc.)",
+      "machine learning systems (improved implementation and scalability, hardware, libraries, distributed methods, etc.)",
+      "probabilistic methods (Bayesian methods, graphical models, Monte Carlo methods, etc.)",
+      "reinforcement learning (decision and control, planning, hierarchical RL, robotics, etc.)",
+      "trustworthy machine learning (reliability, causality, fairness, interpretability, privacy, robustness, safety, etc.)",
+      "Self-Rankings"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-01-15T11:59:59Z",
+        "deadline": "2027-01-23T11:59:59Z",
+        "decision_deadline": "2027-05-04T11:59:59Z",
+        "year": 2027,
+        "edition_id": "icml27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-01-22 23:59:59",
+          "abstract_deadline": "2027-01-14 23:59:59",
+          "decision_deadline": "2027-05-03 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
+        },
+        "link": "https://icml.cc/Conferences/2027",
+        "date": "August 2-4, 2027",
+        "place": "Riocentro, Rio de Janeiro, Brazil"
+      }
+    ],
+    "homepage_url": "https://icml.cc/Conferences/2027"
   },
   {
     "id": "CONF-526",
@@ -4641,6 +4383,149 @@
     "homepage_url": "https://www.icmr2027.org/"
   },
   {
+    "id": "CONF-537",
+    "name": "ACM/SPEC International Conference on Performance Engineering",
+    "acronym": "ICPE",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "B",
+    "subject_area": [],
+    "scope_keywords": [
+      "performance engineering",
+      "measurement and empirical eval",
+      "performance testing",
+      "platform-related optimizations",
+      "software engineering",
+      "systems engineering",
+      "Performance modeling of software",
+      "Languages and ontologies",
+      "Methods and tools",
+      "Relationship/integration/tradeoffs with other QoS attributes",
+      "Analytical, simulation and statistical modeling methodologies",
+      "Model validation and calibration techniques",
+      "Automatic model extraction",
+      "Performance modeling and analysis tools",
+      "Performance and software development processes/paradigms",
+      "Software performance patterns and anti-patterns",
+      "Software/performance tool interoperability (models and data",
+      "interchange formats)",
+      "Performance-oriented design, implementation and configuration",
+      "management",
+      "Software Performance Engineering and Model-Driven Development",
+      "Gathering, interpreting and exploiting software performance",
+      "annotations and data",
+      "System sizing and capacity planning techniques",
+      "(Model-driven) Performance requirements engineering",
+      "Relationship between performance and architecture",
+      "Collaboration of development and operation (DevOps) for performance",
+      "Performance and agile methods",
+      "Performance in Service-Oriented Architectures (SOA)",
+      "Performance of microservice architectures and containers",
+      "Performance measurement, monitoring and analysis",
+      "Performance measurement and monitoring techniques",
+      "Analysis of measured application performance data",
+      "Application tracing and profiling",
+      "Workload characterization techniques",
+      "Experimental design",
+      "Tools for performance testing, measurement, profiling and tuning",
+      "Benchmarking",
+      "Performance metrics and benchmark suites",
+      "Benchmarking methodologies",
+      "Development of parameterizable, flexible benchmarks",
+      "Benchmark workloads and scenarios",
+      "Use of benchmarks in industry and academia",
+      "Run-time performance management",
+      "Use of models at run-time",
+      "Online performance prediction",
+      "Autonomic resource management",
+      "Utility-based optimization",
+      "Capacity management",
+      "Power and performance, energy efficiency",
+      "Power consumption models and management techniques",
+      "Tradeoffs between performance and energy efficiency",
+      "Performance-driven resource and power management",
+      "Performance modeling and evaluation in different environments and",
+      "application domains",
+      "Web-based systems, e-business, Web services",
+      "Big data systems, deep-learning systems, and other data analytics",
+      "systems",
+      "Internet of Things",
+      "Social networks",
+      "Cyber-physical systems",
+      "Industrial Internet (Industry 4.0)",
+      "Virtualization and cloud computing",
+      "Autonomous/adaptive systems",
+      "Transaction-oriented systems",
+      "Communication networks",
+      "Parallel and distributed systems",
+      "Embedded systems",
+      "Multi-core systems",
+      "Cluster and grid computing environments",
+      "High performance computing",
+      "Event-based systems",
+      "Real-time and multimedia systems",
+      "Low-latency systems",
+      "Peer-to-peer, mobile and wireless systems",
+      "performance evaluation",
+      "Software/performance tool interoperability (models and data interchange formats)",
+      "Performance-oriented design, implementation and configuration management",
+      "Gathering, interpreting and exploiting software performance annotations and data",
+      "Performance of micro-service architectures and containers",
+      "Performance modeling and evaluation in different environments and application domains",
+      "Big data systems, data analytics systems, and other data analysis systems",
+      "performance in the cloud",
+      "performance modeling",
+      "Performance in the data center, cloud, and Internet of Things",
+      "Performance methods in software development",
+      "Model-driven performance engineering",
+      "Performance modeling and prediction",
+      "Performance measurement and experimental analysis",
+      "Benchmarks (workloads, scenarios, and implementations)",
+      "Run-time performance and capacity management",
+      "Performance in cloud, virtualized, and multi-core systems",
+      "Performance of big data systems",
+      "Performance modeling and evaluation in other domains",
+      "Performance requirements specification",
+      "Performance testing and validation",
+      "All other topics related to performance",
+      "Performance and software development processes",
+      "Techniques to elicit and incorporate performance, availability, power and other extra-functional requirements throughout the software and system lifecycle",
+      "Agile, performance-test-driven development"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": null,
+        "abstract_deadline": null,
+        "decision_deadline": null,
+        "comment": "WikiCFP labelled date table",
+        "year": 2027,
+        "edition_id": "wikicfp-203034",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2026-11-23",
+          "abstract_deadline": "2026-11-16",
+          "decision_deadline": "2027-01-25"
+        },
+        "deadline_dates": {
+          "deadline": "2026-11-23",
+          "abstract_deadline": "2026-11-16",
+          "decision_deadline": "2027-01-25"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "abstract_deadline": "date_only",
+          "decision_deadline": "date_only"
+        },
+        "link": "https://icpe2027.spec.org/",
+        "date": "May 24, 2027 - May 28, 2027",
+        "place": "Gothenburg, Sweden"
+      }
+    ],
+    "homepage_url": "https://icpe2027.spec.org/"
+  },
+  {
     "id": "CONF-049",
     "name": "International Conference on Pattern Recognition",
     "acronym": "ICPR",
@@ -4674,8 +4559,8 @@
       {
         "abstract_deadline": "2027-03-02T11:59:59Z",
         "deadline": "2027-03-09T11:59:59Z",
-        "decision_deadline": "2027-06-01T11:59:59Z",
-        "comment": "All dates tentative; March 1 is paper registration; author rebuttal April 23 (provisional, cutoff unspecified)",
+        "decision_deadline": "2027-06-15T11:59:59Z",
+        "comment": "All dates tentative; March 1 is paper registration; author rebuttal May 17 (provisional, cutoff unspecified)",
         "year": 2027,
         "edition_id": "icpr27",
         "timezone": "UTC",
@@ -4683,7 +4568,7 @@
         "original_deadlines": {
           "deadline": "2027-03-08 23:59:59",
           "abstract_deadline": "2027-03-01 23:59:59",
-          "decision_deadline": "2027-05-31 23:59:59"
+          "decision_deadline": "2027-06-14 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
@@ -4746,22 +4631,25 @@
     ],
     "submission_deadlines": [
       {
-        "deadline": "2027-03-06T11:59:59Z",
-        "rebuttal_deadline": "2027-05-08T11:59:59Z",
-        "decision_deadline": "2027-05-29T11:59:59Z",
+        "abstract_deadline": "2027-02-20T11:59:59Z",
+        "deadline": "2027-02-27T11:59:59Z",
+        "rebuttal_deadline": "2027-05-01T11:59:59Z",
+        "decision_deadline": "2027-05-26T11:59:59Z",
         "comment": "Research Papers Track",
         "year": 2027,
         "edition_id": "icsme27",
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
-          "deadline": "2027-03-05 23:59:59",
-          "decision_deadline": "2027-05-28 23:59:59",
-          "rebuttal_deadline": "2027-05-07 23:59:59"
+          "deadline": "2027-02-26 23:59:59",
+          "abstract_deadline": "2027-02-19 23:59:59",
+          "decision_deadline": "2027-05-25 23:59:59",
+          "rebuttal_deadline": "2027-04-30 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
           "deadline": "converted",
+          "abstract_deadline": "converted",
           "decision_deadline": "converted",
           "rebuttal_deadline": "converted"
         },
@@ -4771,57 +4659,6 @@
       }
     ],
     "homepage_url": "https://conf.researchr.org/home/icsme-2027"
-  },
-  {
-    "id": "CONF-053",
-    "name": "International Conference on Information and Communication Technologies for Ageing Well and e-Health",
-    "acronym": "ICT4AWE",
-    "issn": null,
-    "eissn": "2184-4984",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "C",
-    "subject_area": [
-      "Computer Networks and Communications",
-      "Computer Science Applications",
-      "Health Informatics"
-    ],
-    "scope_keywords": [
-      "information technology",
-      "healthcare",
-      "health",
-      "ehealth"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201737",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://ict4awe.scitevents.org/",
-        "date": "Apr 19, 2027 - Apr 21, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://ict4awe.scitevents.org/"
   },
   {
     "id": "CONF-054",
@@ -5281,33 +5118,6 @@
     ],
     "submission_deadlines": [
       {
-        "abstract_deadline": "2026-11-11T11:59:59Z",
-        "deadline": "2026-11-18T11:59:59Z",
-        "rebuttal_deadline": "2027-02-03T11:59:59Z",
-        "decision_deadline": "2027-02-26T11:59:59Z",
-        "comment": "Cycle 1; rebuttal period January 26-February 2, 2027",
-        "year": 2027,
-        "edition_id": "imc27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-17 23:59:59",
-          "abstract_deadline": "2026-11-10 23:59:59",
-          "decision_deadline": "2027-02-25 23:59:59",
-          "rebuttal_deadline": "2027-02-02 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://conferences.sigcomm.org/imc/2027/",
-        "date": "Oct 25-29, 2027",
-        "place": "Atlanta, GA, USA"
-      },
-      {
         "abstract_deadline": "2027-04-01T11:59:59Z",
         "deadline": "2027-04-08T11:59:59Z",
         "decision_deadline": "2027-07-23T11:59:59Z",
@@ -5432,56 +5242,6 @@
     "homepage_url": "https://interspeech2027.org/"
   },
   {
-    "id": "CONF-061",
-    "name": "International Conference on Internet of Things, Big Data and Security",
-    "acronym": "IoTBDS",
-    "issn": null,
-    "eissn": "2184-4976",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "C",
-    "subject_area": [
-      "Computer Networks and Communications",
-      "Software"
-    ],
-    "scope_keywords": [
-      "security",
-      "big data",
-      "internet of things",
-      "IOT"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201739",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://iotbds.scitevents.org/",
-        "date": "Apr 18, 2027 - Apr 20, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://iotbds.scitevents.org/"
-  },
-  {
     "id": "CONF-062",
     "name": "IEEE/RSJ International Conference on Intelligent Robots and Systems",
     "acronym": "IROS",
@@ -5595,33 +5355,6 @@
       "Speech and dialogue systems"
     ],
     "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-10T11:59:59Z",
-        "deadline": "2026-11-17T11:59:59Z",
-        "rebuttal_deadline": "2027-03-09T11:59:59Z",
-        "decision_deadline": "2027-03-27T11:59:59Z",
-        "comment": "Main Track; rebuttal/revision period: February 16-March 8, 2027",
-        "year": 2027,
-        "edition_id": "isca27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-16 23:59:59",
-          "abstract_deadline": "2026-11-09 23:59:59",
-          "decision_deadline": "2027-03-26 23:59:59",
-          "rebuttal_deadline": "2027-03-08 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://iscaconf.org/isca2027/",
-        "date": "June 5-9, 2027",
-        "place": "Atlanta, Georgia, USA"
-      },
       {
         "abstract_deadline": "2026-12-07T11:59:59Z",
         "deadline": "2026-12-14T11:59:59Z",
@@ -5742,6 +5475,60 @@
       }
     ],
     "homepage_url": "https://www.iscb.org/ismbeccb2027/"
+  },
+  {
+    "id": "CONF-648",
+    "name": "International Symposium on Performance Analysis of Systems and Software",
+    "acronym": "ISPASS",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "B",
+    "subject_area": [],
+    "scope_keywords": [
+      "high-performance computing",
+      "performance analysis",
+      "benchmarks",
+      "tools",
+      "performance and power evaluati",
+      "power/performance analysis of",
+      "foundations of performance and",
+      "application and system code tu",
+      "systems",
+      "software",
+      "computer architecture",
+      "modeling",
+      "analysis"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2026-12-12T11:59:59Z",
+        "deadline": "2026-12-19T11:59:59Z",
+        "rebuttal_deadline": "2027-02-20T11:59:59Z",
+        "decision_deadline": "2027-03-09T11:59:59Z",
+        "year": 2027,
+        "edition_id": "ispass27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2026-12-18 23:59:59",
+          "abstract_deadline": "2026-12-11 23:59:59",
+          "decision_deadline": "2027-03-08 23:59:59",
+          "rebuttal_deadline": "2027-02-19 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted",
+          "rebuttal_deadline": "converted"
+        },
+        "link": "https://ispass.org/2027/",
+        "date": "May 9-11, 2027",
+        "place": "New York City, USA"
+      }
+    ],
+    "homepage_url": "https://ispass.org/2027/"
   },
   {
     "id": "CONF-067",
@@ -6071,6 +5858,56 @@
     "homepage_url": "https://kr.org/KR2027/"
   },
   {
+    "id": "CONF-709",
+    "name": "IEEE Symposium on Logic in Computer Science",
+    "acronym": "LICS",
+    "issn": "1043-6871",
+    "eissn": null,
+    "publisher": "Institute of Electrical and Electronics Engineers Inc.",
+    "core_rank": "A*",
+    "subject_area": [
+      "Mathematics (all)",
+      "Software"
+    ],
+    "scope_keywords": [
+      "theoretical computer science",
+      "computation theory",
+      "formal methods",
+      "logic",
+      "computer science",
+      "computer"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-01-15T11:59:59Z",
+        "deadline": "2027-01-22T11:59:59Z",
+        "rebuttal_deadline": "2027-03-29T11:59:59Z",
+        "decision_deadline": "2027-04-16T11:59:59Z",
+        "year": 2027,
+        "edition_id": "lics27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-01-21 23:59:59",
+          "abstract_deadline": "2027-01-14 23:59:59",
+          "decision_deadline": "2027-04-15 23:59:59",
+          "rebuttal_deadline": "2027-03-28 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted",
+          "rebuttal_deadline": "converted"
+        },
+        "link": "https://lics.siglog.org/lics27/",
+        "date": "June 21-24, 2027",
+        "place": "Montréal, Canada"
+      }
+    ],
+    "homepage_url": "https://lics.siglog.org/lics27/"
+  },
+  {
     "id": "CONF-719",
     "name": "International Conference on Mobile Data Management",
     "acronym": "MDM",
@@ -6219,73 +6056,6 @@
     "homepage_url": "https://mdm2027.github.io/index.html"
   },
   {
-    "id": "CONF-070",
-    "name": "ACM International Conference on Multimedia Systems",
-    "acronym": "MMSys",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "A",
-    "subject_area": [],
-    "scope_keywords": [
-      "multimedia",
-      "systems",
-      "networking",
-      "deep learning",
-      "multimedia systems",
-      "operating systems",
-      "networks",
-      "distributed systems",
-      "communications",
-      "mobility",
-      "multimedia transport",
-      "multimedia applications",
-      "Multimedia Networking",
-      "Multimedia Operating Systems",
-      "Multimedia Databases",
-      "Large-Scale and Remote Display Architectures",
-      "Real-Time Support For Multimedia",
-      "Networked Games",
-      "Virtual and Augmented Worlds",
-      "Cyber-Physical Systems",
-      "Peer-to-Peer Architectures for Streaming and Multicast",
-      "Modeling of Multimedia Systems",
-      "Multimedia Interfaces",
-      "Multimedia Middleware and Toolkits",
-      "Multimedia Programming Languages",
-      "Cloud-based Multimedia Processing",
-      "Multi-core Support for Multimedia",
-      "Mobile Multimedia Systems"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-13T11:59:59Z",
-        "deadline": "2026-11-20T11:59:59Z",
-        "decision_deadline": "2026-12-23T11:59:59Z",
-        "comment": "Research Track - Second Round",
-        "year": 2027,
-        "edition_id": "mmsys27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-19 23:59:59",
-          "abstract_deadline": "2026-11-12 23:59:59",
-          "decision_deadline": "2026-12-22 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://2027.acmmmsys.org",
-        "date": "March 30 - April 2, 2027",
-        "place": "Ghent, Belgium"
-      }
-    ],
-    "homepage_url": "https://2027.acmmmsys.org"
-  },
-  {
     "id": "CONF-071",
     "name": "ACM International Conference on Mobile Human-Computer Interaction",
     "acronym": "MobileHCI",
@@ -6377,6 +6147,80 @@
       }
     ],
     "homepage_url": "https://mobilehci.acm.org/2027/"
+  },
+  {
+    "id": "CONF-742",
+    "name": "International Conference on Model Driven Engineering Languages and Systems",
+    "acronym": "MoDELS",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "A",
+    "subject_area": [],
+    "scope_keywords": [
+      "models",
+      "model-driven engineering",
+      "software engineering",
+      "foundations",
+      "practice",
+      "model driven engineering",
+      "languages",
+      "systems",
+      "formal method",
+      "embedded system",
+      "modeling",
+      "modeling languages",
+      "model-based engineering",
+      "Intended audience",
+      "modelling",
+      "model-driven development",
+      "MODELS 2015 is seeking workshop proposals, tutorials, papers and demonstrations on",
+      "Workshop papers",
+      "Demonstrations of modeling tools and techniques",
+      "Posters",
+      "Doctoral Symposium papers",
+      "ACM Student Research Competition papers",
+      "Development and use of domain-specific modeling languages",
+      "Evolution of general-purpose modeling languages and related standards",
+      "Definition of the syntax and semantics of modeling languages",
+      "Tools and meta-tools for modeling languages and model-based development",
+      "Definition and usage of model transformations and generative approaches",
+      "New methodologies/frameworks/processes for model-driven development",
+      "Development of systems engineering and modeling-in-the-large concepts",
+      "Proposals of new model quality assurance techniques (analysis, testing, verification)",
+      "Integration of modeling languages and tools (hybrid multi-modeling approaches)",
+      "New modeling paradigms and formalisms",
+      "Modelling in, and for, the Cloud"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-03-13T11:59:59Z",
+        "deadline": "2027-03-20T11:59:59Z",
+        "rebuttal_deadline": "2027-05-22T11:59:59Z",
+        "decision_deadline": "2027-06-12T11:59:59Z",
+        "year": 2027,
+        "edition_id": "models27",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-03-19 23:59:59",
+          "abstract_deadline": "2027-03-12 23:59:59",
+          "decision_deadline": "2027-06-11 23:59:59",
+          "rebuttal_deadline": "2027-05-21 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted",
+          "rebuttal_deadline": "converted"
+        },
+        "link": "https://conf.researchr.org/home/models-2027",
+        "date": "TBD",
+        "place": "Budapest, Hungary"
+      }
+    ],
+    "homepage_url": "https://conf.researchr.org/home/models-2027"
   },
   {
     "id": "CONF-073",
@@ -6594,14 +6438,14 @@
     ],
     "submission_deadlines": [
       {
-        "deadline": "2026-11-21T11:59:59Z",
+        "deadline": "2026-12-05T11:59:59Z",
         "decision_deadline": "2027-02-27T11:59:59Z",
         "year": 2027,
         "edition_id": "pakdd27",
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
-          "deadline": "2026-11-20 23:59:59",
+          "deadline": "2026-12-04 23:59:59",
           "decision_deadline": "2027-02-26 23:59:59",
           "camera_ready_deadline": "2027-03-19"
         },
@@ -6788,56 +6632,6 @@
       }
     ],
     "homepage_url": "https://petsymposium.org/cfp27.php"
-  },
-  {
-    "id": "CONF-085",
-    "name": "ACM SIGPLAN Conference on Programming Language Design & Implementation",
-    "acronym": "PLDI",
-    "issn": "1531-7102",
-    "eissn": null,
-    "publisher": "Association for Computing Machinery",
-    "core_rank": "A*",
-    "subject_area": [
-      "Software"
-    ],
-    "scope_keywords": [
-      "programming languages",
-      "Extracting parallelism from programs - Exploiting explicit parallelism in programs",
-      "Memory management - Language constructs for parallelism",
-      "Program analyses - Performance analysis, evaluation, and tools",
-      "Performance optimizations - Pointer analyses",
-      "Domain-specific languages and tools - Novel programming models",
-      "Type systems and program logics - Debugging techniques and tools",
-      "Language designs and extensions - Analyses and tools for transforming and understanding programs",
-      "Checking or improving the safety, security, or correctness of programs",
-      "Interaction of compilers and run-time systems with underlying systems"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": "2026-11-13T11:59:59Z",
-        "rebuttal_deadline": "2027-02-19T11:59:59Z",
-        "decision_deadline": "2027-04-02T11:59:59Z",
-        "year": 2027,
-        "edition_id": "pldi27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-12 23:59:59",
-          "decision_deadline": "2027-04-01 23:59:59",
-          "rebuttal_deadline": "2027-02-18 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://pldi27.sigplan.org/",
-        "date": "June 5-11, 2027",
-        "place": "Atlanta, Georgia, USA"
-      }
-    ],
-    "homepage_url": "https://pldi27.sigplan.org/"
   },
   {
     "id": "CONF-086",
@@ -7319,51 +7113,6 @@
     "homepage_url": "https://conf.researchr.org/home/RE-2027"
   },
   {
-    "id": "CONF-088",
-    "name": "Requirements Engineering: Foundation for Software Quality",
-    "acronym": "REFSQ",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "B",
-    "subject_area": [],
-    "scope_keywords": [
-      "Software Engineering Techniques and Practices",
-      "Advanced Software Engineering Methodologies",
-      "Software Engineering Research",
-      "Service-Oriented Architecture and Web Services",
-      "Business Process Modeling and Analysis",
-      "Software Reliability and Analysis Research"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-06T11:59:59Z",
-        "deadline": "2026-11-13T11:59:59Z",
-        "decision_deadline": "2027-01-15T11:59:59Z",
-        "comment": "Regular research papers; abstract submission is optional",
-        "year": 2027,
-        "edition_id": "refsq27",
-        "timezone": "UTC",
-        "original_timezone": "AoE",
-        "original_deadlines": {
-          "deadline": "2026-11-12 23:59:59",
-          "abstract_deadline": "2026-11-05 23:59:59",
-          "decision_deadline": "2027-01-14 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://2027.refsq.org/",
-        "date": "April 12-15, 2027",
-        "place": "Basel, Switzerland"
-      }
-    ],
-    "homepage_url": "https://2027.refsq.org/"
-  },
-  {
     "id": "CONF-090",
     "name": "International Symposium on Applied Computational Intelligence and Informatics",
     "acronym": "SACI",
@@ -7605,7 +7354,9 @@
       "Mesh, ad-hoc, vehicular, and disruption tolerant networks",
       "Applications: cyber-physical systems, Internet of Things & ubiquitous computing",
       "Modeling, algorithms, and performance evaluation",
-      "MAC, network, transport, application protocols and cross-layer design"
+      "MAC, network, transport, application protocols and cross-layer design",
+      "mobile computing",
+      "cyber-physical systems"
     ],
     "submission_deadlines": [
       {
@@ -7615,15 +7366,23 @@
         "timezone": "UTC",
         "original_timezone": "UTC-5",
         "original_deadlines": {
-          "deadline": "2026-11-30 23:59:59"
+          "deadline": "2026-11-30 23:59:59",
+          "decision_deadline": "2027-02-15"
         },
-        "deadline_dates": {},
+        "deadline_dates": {
+          "decision_deadline": "2027-02-15"
+        },
         "utc_status": {
-          "deadline": "converted"
+          "deadline": "converted",
+          "decision_deadline": "date_only"
         },
         "link": "https://secon2027.ieee-secon.org/",
         "date": "May 5-7, 2027",
-        "place": "Lisbon, Portugal"
+        "place": "Lisbon, Portugal",
+        "decision_deadline": null,
+        "original_timezones": {
+          "decision_deadline": null
+        }
       }
     ],
     "homepage_url": "https://secon2027.ieee-secon.org/"
@@ -7824,21 +7583,24 @@
       {
         "abstract_deadline": "2027-01-15T11:59:59Z",
         "deadline": "2027-01-22T11:59:59Z",
+        "decision_deadline": "2027-04-06T11:59:59Z",
         "year": 2027,
         "edition_id": "sigir27",
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
           "deadline": "2027-01-21 23:59:59",
-          "abstract_deadline": "2027-01-14 23:59:59"
+          "abstract_deadline": "2027-01-14 23:59:59",
+          "decision_deadline": "2027-04-05 23:59:59"
         },
         "deadline_dates": {},
         "utc_status": {
           "deadline": "converted",
-          "abstract_deadline": "converted"
+          "abstract_deadline": "converted",
+          "decision_deadline": "converted"
         },
         "link": "https://sigir2027.org/",
-        "date": "July 18-24, 2027",
+        "date": "July 20-22, 2027",
         "place": "San Jose, California, USA"
       }
     ],
@@ -7881,11 +7643,179 @@
           "abstract_deadline": "converted"
         },
         "link": "https://www.sigmetrics.org/sigmetrics2027/",
-        "date": "June 7-11, 2027",
+        "date": "June 7-10, 2027",
         "place": "Atlanta, Georgia, USA"
       }
     ],
     "homepage_url": "https://www.sigmetrics.org/sigmetrics2027/"
+  },
+  {
+    "id": "CONF-881",
+    "name": "International Conference on Simulation and Modeling Methodologies, Technologies and Applications",
+    "acronym": "SIMULTECH",
+    "issn": "2184-2841",
+    "eissn": null,
+    "publisher": "Science and Technology Publications, Lda",
+    "core_rank": "C",
+    "subject_area": [
+      "Computer Science Applications",
+      "Computational Theory and Mathematics",
+      "Safety, Risk, Reliability and Quality",
+      "Modeling and Simulation"
+    ],
+    "scope_keywords": [
+      "simulation",
+      "energy",
+      "formal methods",
+      "complexity",
+      "virtual reality",
+      "ontologies",
+      "performance",
+      "modeling",
+      "technologies",
+      "applications"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": null,
+        "comment": "WikiCFP CFP text",
+        "decision_deadline": null,
+        "camera_ready_deadline": null,
+        "year": 2027,
+        "edition_id": "wikicfp-204205",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2027-02-16",
+          "decision_deadline": "2027-04-09",
+          "camera_ready_deadline": "2027-04-21"
+        },
+        "deadline_dates": {
+          "deadline": "2027-02-16",
+          "decision_deadline": "2027-04-09",
+          "camera_ready_deadline": "2027-04-21"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "decision_deadline": "date_only",
+          "camera_ready_deadline": "date_only"
+        },
+        "link": "https://simultech.scitevents.org",
+        "date": "Jul 21, 2027 - Jul 23, 2027",
+        "place": "Rome, Italy"
+      }
+    ],
+    "homepage_url": "https://simultech.scitevents.org"
+  },
+  {
+    "id": "CONF-886",
+    "name": "IEEE International Conference on Smart Computing",
+    "acronym": "SmartComp",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "B",
+    "subject_area": [],
+    "scope_keywords": [
+      "Emerging Smart Computing Paradigms",
+      "Algorithms for Smart Computing",
+      "AI and Machine Learning in Smart Computing",
+      "Mobile and Ubiquitous Smart Systems, Wearable Computing and IoT",
+      "Intelligent Cyber-Physical Systems",
+      "Cloud, Edge, and Fog based Smart Computing Platforms",
+      "Data Architectures and Analytics for Smart Computing",
+      "Distributed Sensing, AI and Computing",
+      "Middleware for Smart Systems",
+      "Novel Communication Paradigms in Smart Computing",
+      "Low Power Communication and Computing for Smart Systems",
+      "Social Computing and Smart Systems",
+      "Quantum Computing in Smart Systems",
+      "Security, Privacy, and Trust in Smart Computing",
+      "Fairness and Socio-technical Aspects of Smart Computing",
+      "Interdisciplinary Approaches to Smart Computing",
+      "Novel applications of Smart Computing in emerging and high potential fields ( e.g., Smart Communities, Health, Industry, Transport, Energy, Agrifood,...)",
+      "________________",
+      "artificial intelligence",
+      "machine learning",
+      "distributed sensing",
+      "cloud computing",
+      "applications of smart computin",
+      "Evaluation Studies and Datasets of Smart Environments",
+      "Smart and Usable Security and Privacy",
+      "Mobile and Ubiquitous Smart Systems",
+      "Computing for Smart and Connected Communities",
+      "Smart Green Computing",
+      "Distributed Sensing and Computation",
+      "Wearable Computing and IoT",
+      "Architectures and Software for Smart Computing",
+      "Novel Communication Paradigms (e.g., 5G/6G, VLC, DSA) in Smart Computing",
+      "Security, Privacy, and Economics in Smart Environments",
+      "Smart and Connected Communities across Cities",
+      "Smart Computing Technologies",
+      "Future Smart Computing Paradigms",
+      "Smart Human-centric Environments, Health, Entertainment, and Social Activities",
+      "Artificial Intelligence and Machine Learning for Smart Computing",
+      "Models of Smart Environments",
+      "Security, Privacy, and Trust issues in Smart Computing",
+      "Fairness and Socio-technical issues of Smart Computing",
+      "Cyber-physical System Platforms for Smart Environments",
+      "Middleware Platforms for Smart Environments",
+      "Mobile and Ubiquitous Platforms for Smart Environments",
+      "Cloud, Edge and Fog Computing Platforms for Smart Systems",
+      "Applications of Smart Computing",
+      "computer science",
+      "big data analytics",
+      "systems",
+      "smart computing",
+      "social computing",
+      "cognitive computing",
+      "theory and algorithms",
+      "hardware and devices",
+      "systems and middleware",
+      "methodologies and paradigms",
+      "Neuromorphic, bio-inspired, and unconventional computing paradigms",
+      "Algorithms for smart computing; machine learning, generative AI, foundation models, edge AI, and agentic/embodied AI",
+      "Mobile and ubiquitous systems, wearables, and IoT",
+      "Cloud, edge, and fog platforms; middleware; digital twins and simulation",
+      "Intelligent cyber-physical systems, robotics, autonomous systems, and human-robot collaboration",
+      "Data engineering and analytics; distributed, federated, and collaborative AI, sensing, and computation",
+      "Semantic and AI-native communications; low-power communication and computing",
+      "Resilient smart computing; security, privacy, and trust; ethical issues",
+      "Social computing and quantum computing in smart systems",
+      "Interdisciplinary approaches and applications in smart communities, health, transportation, energy, space, ocean and coastal systems, and agriculture",
+      "INDUSTRY TRACK"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": null,
+        "decision_deadline": null,
+        "camera_ready_deadline": null,
+        "comment": "WikiCFP CFP text",
+        "year": 2027,
+        "edition_id": "wikicfp-204172",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2027-01-25",
+          "decision_deadline": "2027-04-08",
+          "camera_ready_deadline": "2027-05-01"
+        },
+        "deadline_dates": {
+          "deadline": "2027-01-25",
+          "decision_deadline": "2027-04-08",
+          "camera_ready_deadline": "2027-05-01"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "decision_deadline": "date_only",
+          "camera_ready_deadline": "date_only"
+        },
+        "link": "https://smartcomp2027.org/authors/",
+        "date": "Jun 14, 2026 - Jun 17, 2026",
+        "place": "Boca Raton, Florida, USA"
+      }
+    ],
+    "homepage_url": "https://smartcomp2027.org/authors/"
   },
   {
     "id": "CONF-889",
@@ -7940,85 +7870,6 @@
       }
     ],
     "homepage_url": "https://cgweek27.computational-geometry.org/"
-  },
-  {
-    "id": "CONF-099",
-    "name": "IEEE Symposium on Security and Privacy",
-    "acronym": "S&P",
-    "issn": "1081-6011",
-    "eissn": null,
-    "publisher": "Institute of Electrical and Electronics Engineers Inc.",
-    "core_rank": "A*",
-    "subject_area": [
-      "Safety, Risk, Reliability and Quality",
-      "Software",
-      "Computer Networks and Communications"
-    ],
-    "scope_keywords": [
-      "security",
-      "privacy",
-      "Access control and authorization",
-      "Anonymity",
-      "Application security",
-      "Attacks and defenses",
-      "Authentication",
-      "Blockchains and distributed ledger security",
-      "Censorship resistance",
-      "Cloud security",
-      "Cyber physical systems security",
-      "Distributed systems security",
-      "Economics of security and privacy",
-      "Embedded systems security",
-      "Forensics",
-      "Hardware security",
-      "Intrusion detection and prevention",
-      "Malware and unwanted software",
-      "Mobile and Web security and privacy",
-      "Language-based security",
-      "Machine learning and AI security",
-      "Network and systems security",
-      "Privacy technologies and mechanisms",
-      "Protocol security",
-      "Secure information flow",
-      "Security and privacy for the Internet of Things",
-      "Security and privacy metrics",
-      "Security and privacy policies",
-      "Security architectures",
-      "Usable security and privacy",
-      "Trustworthy computing",
-      "Web security",
-      "Accountability"
-    ],
-    "submission_deadlines": [
-      {
-        "abstract_deadline": "2026-11-11T11:59:59Z",
-        "deadline": "2026-11-18T11:59:59Z",
-        "rebuttal_deadline": "2027-02-17T11:59:59Z",
-        "decision_deadline": "2027-03-06T11:59:59Z",
-        "comment": "Second Paper submission deadline",
-        "year": 2027,
-        "edition_id": "sp27",
-        "timezone": "UTC",
-        "original_timezone": "UTC-12",
-        "original_deadlines": {
-          "deadline": "2026-11-17 23:59:59",
-          "abstract_deadline": "2026-11-10 23:59:59",
-          "decision_deadline": "2027-03-05 23:59:59",
-          "rebuttal_deadline": "2027-02-16 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "abstract_deadline": "converted",
-          "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
-        },
-        "link": "https://sp2027.ieee-security.org/index.html",
-        "date": "May 17-19, 2027",
-        "place": "MONTREAL, CANADA"
-      }
-    ],
-    "homepage_url": "https://sp2027.ieee-security.org/index.html"
   },
   {
     "id": "CONF-100",
@@ -8108,6 +7959,66 @@
     "homepage_url": "https://spaa.acm.org/"
   },
   {
+    "id": "CONF-937",
+    "name": "ACM Symposium on User Interface Software and Technology",
+    "acronym": "UIST",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": "A*",
+    "subject_area": [],
+    "scope_keywords": [
+      "computer science",
+      "user interface",
+      "human-computer interaction",
+      "computer graphics",
+      "Significantly novel enabling technologies such as innovative input",
+      "devices, new interaction techniques, or new media that extend the",
+      "boundaries of traditional interaction, such as natural user interfaces,",
+      "augmented reality, mobile interaction, haptics and tactile interfaces,",
+      "ubiquitous computing (including wearables), social software, and",
+      "Novel interactive hardware prototypes, prototype fabrication methods",
+      "or tools, or processes for creating user experiences that involve",
+      "Innovative user interfaces for difficult interaction contexts or",
+      "challenging applications. Examples include managing large, complex",
+      "information sets, usable privacy and security, multi-user interaction,",
+      "crowdsourcing, fabrication, or techniques that span devices distributed",
+      "Breakthrough user experiences leveraging techniques such as machine",
+      "learning, computer vision, computer graphics, speech processing,",
+      "Innovative software architectures, tools, toolkits, programming",
+      "systems, development environments, tutorial and help systems that",
+      "support the development and use of the above technologies in user",
+      "Authors of all accepted papers will also be invited and encouraged to",
+      "participate in the demo session. All papers should be submitted",
+      "HCI",
+      "interaction",
+      "technology"
+    ],
+    "submission_deadlines": [
+      {
+        "abstract_deadline": "2027-04-01T11:59:59Z",
+        "deadline": "2027-04-08T11:59:59Z",
+        "year": 2027,
+        "edition_id": "uist2027",
+        "timezone": "UTC",
+        "original_timezone": "AoE",
+        "original_deadlines": {
+          "deadline": "2027-04-07 23:59:59",
+          "abstract_deadline": "2027-03-31 23:59:59"
+        },
+        "deadline_dates": {},
+        "utc_status": {
+          "deadline": "converted",
+          "abstract_deadline": "converted"
+        },
+        "link": "https://uist.acm.org/2027/",
+        "date": "October 27-29, 2027",
+        "place": "VIECON - Vienna Congress & Convention Center, Vienna, Austria"
+      }
+    ],
+    "homepage_url": "https://uist.acm.org/2027/"
+  },
+  {
     "id": "CONF-102",
     "name": "USENIX Security Symposium",
     "acronym": "USENIX Security",
@@ -8158,57 +8069,6 @@
       }
     ],
     "homepage_url": "https://www.usenix.org/conference/usenixsecurity27"
-  },
-  {
-    "id": "CONF-103",
-    "name": "International Conference on Vehicle Technology and Intelligent Transport Systems",
-    "acronym": "VEHITS",
-    "issn": null,
-    "eissn": "2184-495X",
-    "publisher": "Science and Technology Publications, Lda",
-    "core_rank": "C",
-    "subject_area": [
-      "Automotive Engineering",
-      "Control and Systems Engineering",
-      "Transportation"
-    ],
-    "scope_keywords": [
-      "control",
-      "internet of things",
-      "aerospace",
-      "transportation"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": null,
-        "comment": "WikiCFP CFP text",
-        "decision_deadline": null,
-        "camera_ready_deadline": null,
-        "year": 2027,
-        "edition_id": "wikicfp-201740",
-        "timezone": "UTC",
-        "original_timezone": null,
-        "original_deadlines": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "deadline_dates": {
-          "deadline": "2026-11-17",
-          "decision_deadline": "2027-01-15",
-          "camera_ready_deadline": "2027-01-27"
-        },
-        "utc_status": {
-          "deadline": "date_only",
-          "decision_deadline": "date_only",
-          "camera_ready_deadline": "date_only"
-        },
-        "link": "https://vehits.scitevents.org/",
-        "date": "Apr 16, 2027 - Apr 18, 2027",
-        "place": "Rome, Italy"
-      }
-    ],
-    "homepage_url": "https://vehits.scitevents.org/"
   },
   {
     "id": "CONF-104",
@@ -8455,153 +8315,6 @@
     "homepage_url": "https://wowmom2027.dii.unipi.it/index.html"
   },
   {
-    "id": "CONF-985",
-    "name": "International Conference on Web Search and Data Mining",
-    "acronym": "WSDM",
-    "issn": null,
-    "eissn": null,
-    "publisher": null,
-    "core_rank": "A",
-    "subject_area": [],
-    "scope_keywords": [
-      "data mining",
-      "artificial intelligence",
-      "web search",
-      "web mining",
-      "social networks",
-      "intelligent assistants",
-      "web of things",
-      "machine learning",
-      "information retrieval",
-      "web",
-      "search",
-      "Adversarial search",
-      "Algorithms and systems for Web-scale search",
-      "Audio and touch interfaces to search",
-      "Distributed search, metasearch, peer-to-peer search",
-      "Indexing web content",
-      "Local and mobile search",
-      "Multimedia Web search",
-      "Query analysis and query processing",
-      "Search benchmarking and evaluation",
-      "Search user behavior and log analysis",
-      "Search user interfaces and interaction",
-      "Searching social and real-time content",
-      "Semantic search, faceted search, and knowledge graphs",
-      "Sponsored search",
-      "Task-driven search",
-      "Vertical portals and search",
-      "Voice search, conversational search, and dialog in search",
-      "Web crawling",
-      "Zero-query and implicit search",
-      "Algorithms and systems for Web-scale mining",
-      "Clustering, classification, and summarization of Web data",
-      "Data, entity, event, and relationship extraction",
-      "Data extraction, integration and cleaning",
-      "Discovery-driven Web and social network mining",
-      "Geo and location data analysis",
-      "Knowledge acquisition and automatic construction of knowledge bases",
-      "Large-scale graph analysis",
-      "Modeling trustworthiness and reliability of online information",
-      "Multimodal data mining",
-      "NLP for Web mining",
-      "Online and streaming algorithms for Web data",
-      "Opinion mining and sentiment analysis",
-      "Web traffic and log analysis",
-      "Web measurements, web evolution and web models",
-      "Web recommender systems and algorithms",
-      "Mobile Mining",
-      "Neural architectures for Web search and mining",
-      "Web search and data mining under privacy constraints",
-      "Social Search, Mining and Other Applications",
-      "Personal assistants, dialogue models, and conversational interaction",
-      "Collaborative search and question answering",
-      "Social network dynamics",
-      "Human computation and crowdsourcing",
-      "Influence and viral marketing in social networks",
-      "Instant messaging and social networks",
-      "Link prediction and community detection",
-      "Location-based social networks",
-      "Searching and mining crowd-generated data and collaboratively generated content",
-      "Sampling, experiments, and evaluation in social networks",
-      "Social media analysis: blogs and friendship networks",
-      "Social network analysis, theories, models and applications",
-      "Social reputation, influence, and trust",
-      "Social tagging",
-      "User activity modeling and exploitation",
-      "Interpretable models of individual and social behavior",
-      "web seach",
-      "social search and mining",
-      "social media",
-      "Distributed, meta, and peer-to-peer search",
-      "Multifaceted and task-driven search",
-      "Personalized search and ranking",
-      "Security and privacy in Web search and mining",
-      "Search assistance",
-      "Search on mobile devices",
-      "Search quality benchmarking and evaluation",
-      "Search result ranking",
-      "Sponsored search and computational advertising",
-      "User interfaces and interaction",
-      "User modeling",
-      "Web dynamics and search",
-      "Bridging unstructured and structured data",
-      "Data integration and data cleaning",
-      "Sense and entity disambiguation",
-      "Traffic and log analysis",
-      "Web measurements, Web evolution, Web models",
-      "Crowd engagement mechanisms and motivations",
-      "Influence spreading and viral marketing in social networks",
-      "Mining crowd-generated data",
-      "Searching social media and collaboratively generated content",
-      "Social network analysis, theories, models, and applications",
-      "Tags, users, and search",
-      "User profiling and recommendation systems",
-      "Emerging & Cross-Domain Trends",
-      "Deep learning in search and data mining",
-      "Dialogue models and conversational interaction",
-      "Instant messaging social networks",
-      "Personal assistants and zero-query (proactive) recommendations",
-      "Audio interfaces to search",
-      "Authors are explicitly discouraged from submitting papers that do not",
-      "clearly present their contribution with respect to previous works, that",
-      "contain only incremental results, and that do not provide significant",
-      "User and search modeling",
-      "Search result ranking and assistance",
-      "Data, entity, event and relationship extraction",
-      "social network",
-      "algorithm design",
-      "==========",
-      "Ranking and machine learning for ranking",
-      "Algorithms and systems for Web-scale search and mining",
-      "========================"
-    ],
-    "submission_deadlines": [
-      {
-        "deadline": "2026-11-18T11:59:59Z",
-        "decision_deadline": "2026-12-19T11:59:59Z",
-        "comment": "Short Paper",
-        "year": 2027,
-        "edition_id": "wsdm27",
-        "timezone": "UTC",
-        "original_timezone": "UTC-12",
-        "original_deadlines": {
-          "deadline": "2026-11-17 23:59:59",
-          "decision_deadline": "2026-12-18 23:59:59"
-        },
-        "deadline_dates": {},
-        "utc_status": {
-          "deadline": "converted",
-          "decision_deadline": "converted"
-        },
-        "link": "https://wsdm-conference.org/2027/",
-        "date": "February 15 - 19, 2027",
-        "place": "Cordis, Hong Kong SAR, China"
-      }
-    ],
-    "homepage_url": "https://wsdm-conference.org/2027/"
-  },
-  {
     "id": "CONF-990",
     "name": "ACM Conference on Data and Application Security and Privacy",
     "acronym": "CODASPY",
@@ -8658,8 +8371,8 @@
     ],
     "submission_deadlines": [
       {
-        "abstract_deadline": "2026-11-17T11:59:59Z",
-        "deadline": "2026-11-24T11:59:59Z",
+        "abstract_deadline": "2026-12-01T11:59:59Z",
+        "deadline": "2026-12-08T11:59:59Z",
         "rebuttal_deadline": "2027-01-23T11:59:59Z",
         "decision_deadline": "2027-01-26T11:59:59Z",
         "year": 2027,
@@ -8667,21 +8380,29 @@
         "timezone": "UTC",
         "original_timezone": "AoE",
         "original_deadlines": {
-          "deadline": "2026-11-23 23:59:59",
-          "abstract_deadline": "2026-11-16 23:59:59",
+          "deadline": "2026-12-07 23:59:59",
+          "abstract_deadline": "2026-11-30 23:59:59",
           "decision_deadline": "2027-01-25 23:59:59",
-          "rebuttal_deadline": "2027-01-22 23:59:59"
+          "rebuttal_deadline": "2027-01-22 23:59:59",
+          "camera_ready_deadline": "2027-03-26"
         },
-        "deadline_dates": {},
+        "deadline_dates": {
+          "camera_ready_deadline": "2027-03-26"
+        },
         "utc_status": {
           "deadline": "converted",
           "abstract_deadline": "converted",
           "decision_deadline": "converted",
-          "rebuttal_deadline": "converted"
+          "rebuttal_deadline": "converted",
+          "camera_ready_deadline": "date_only"
         },
         "link": "https://www.codaspy.org/2027/",
         "date": "June 14-17, 2027",
-        "place": "Fort Collins, Colorado, USA"
+        "place": "Fort Collins, Colorado, USA",
+        "camera_ready_deadline": null,
+        "original_timezones": {
+          "camera_ready_deadline": null
+        }
       }
     ],
     "homepage_url": "http://www.codaspy.org/2027/"
@@ -8786,5 +8507,76 @@
       }
     ],
     "homepage_url": "https://www.isdfs.org/2027/"
+  },
+  {
+    "id": "CONF-1001",
+    "name": "The International Conference on Attacks and Defenses for Internet-of-Things",
+    "acronym": "ADIoT",
+    "issn": null,
+    "eissn": null,
+    "publisher": null,
+    "core_rank": null,
+    "subject_area": [
+      "Computer Security",
+      "Cryptography",
+      "Privacy"
+    ],
+    "scope_keywords": [
+      "The International Conference on Attacks and Defenses for Internet-of-Things",
+      "ADIOT",
+      "SEC",
+      "CONF",
+      "OTHERS",
+      "security",
+      "AI",
+      "privacy",
+      "Malware and unwanted software for IoT",
+      "Vulnerability analysis and reverse engineering for IoT",
+      "IoT security and privacy",
+      "IoT forensic techniques",
+      "Usable security and privacy for IoT",
+      "Intrusion detection and prevention for IoT",
+      "Cyber intelligence techniques for IoT",
+      "IoT infrastructures and mitigation techniques",
+      "IoT Hardware security",
+      "Cyber physical systems security",
+      "Adversarial learning for IoT",
+      "IoT Cyber crime",
+      "Denial-of-Service attacks for IoT",
+      "Security measurement for IoT",
+      "IoT security visualization techniques",
+      "Edge/Fog computing attack and defense"
+    ],
+    "submission_deadlines": [
+      {
+        "deadline": null,
+        "decision_deadline": null,
+        "camera_ready_deadline": null,
+        "comment": "WikiCFP CFP text",
+        "year": 2026,
+        "edition_id": "wikicfp-204240",
+        "timezone": "UTC",
+        "original_timezone": null,
+        "original_deadlines": {
+          "deadline": "2026-11-22",
+          "decision_deadline": "2026-12-07",
+          "camera_ready_deadline": "2026-12-12"
+        },
+        "deadline_dates": {
+          "deadline": "2026-11-22",
+          "decision_deadline": "2026-12-07",
+          "camera_ready_deadline": "2026-12-12"
+        },
+        "utc_status": {
+          "deadline": "date_only",
+          "decision_deadline": "date_only",
+          "camera_ready_deadline": "date_only"
+        },
+        "link": "https://adiot.sptagelab.org/2026/",
+        "date": "Dec 18, 2026 - Dec 20, 2026",
+        "place": "Hangzhou, China"
+      }
+    ],
+    "homepage_url": "https://adiot.sptagelab.org/2026/"
   }
 ]
