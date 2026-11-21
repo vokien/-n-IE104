@@ -283,20 +283,47 @@ class BM25Engine {
       // Lọc theo loại hình
       if (typeFilter !== "all" && venue.kind !== typeFilter) return false;
 
-      // Lọc theo xếp hạng tối thiểu
-      if (minRank !== "any") {
-        const rankOrder = { "Q1": 1, "Q2": 2, "Q3": 3, "Q4": 4 };
-        const coreOrder = { "A*": 1, "A": 2, "B": 3, "C": 4 };
+      // Lọc theo xếp hạng tối thiểu (Đồng bộ hai loại hình & Tier chung)
+      if (minRank && minRank !== "any") {
+        const scopusLevels = { "Q1": 1, "Q2": 2, "Q3": 3, "Q4": 4 };
+        const coreLevels   = { "A*": 1, "A": 2, "B": 3, "C": 4 };
 
-        if (["Q1","Q2","Q3","Q4"].includes(minRank)) {
-          const venueRank = rankOrder[venue.scopus_rank] || 99;
-          const reqRank   = rankOrder[minRank];
-          return venueRank <= reqRank;
+        let maxAllowedLevel = null;
+        if (minRank === "tier_top") {
+          maxAllowedLevel = 1;
+        } else if (minRank === "tier_high") {
+          maxAllowedLevel = 2;
+        } else if (minRank === "tier_mid") {
+          maxAllowedLevel = 3;
+        } else if (["Q1", "Q2", "Q3", "Q4"].includes(minRank)) {
+          maxAllowedLevel = scopusLevels[minRank];
+        } else if (["A*", "A", "B", "C"].includes(minRank)) {
+          maxAllowedLevel = coreLevels[minRank];
         }
-        if (["A*","A","B","C"].includes(minRank)) {
-          const venueRank = coreOrder[normalizeCoreRank(venue.core_rank)] || 99;
-          const reqRank   = coreOrder[minRank];
-          return venueRank <= reqRank;
+
+        if (maxAllowedLevel !== null) {
+          const isJournal = venue.kind === "journal" || !!venue.scopus_rank;
+
+          // Nếu người dùng chọn rõ loại hình cụ thể (conference hoặc journal)
+          if (typeFilter === "journal") {
+            const level = scopusLevels[venue.scopus_rank] || 99;
+            return level <= maxAllowedLevel;
+          }
+          if (typeFilter === "conference") {
+            const normCore = normalizeCoreRank(venue.core_rank);
+            const level = coreLevels[normCore] || 99;
+            return level <= maxAllowedLevel;
+          }
+
+          // Khi typeFilter === "all": Cho phép cả hội nghị & tạp chí đạt phân hạng tương đương
+          if (isJournal) {
+            const level = scopusLevels[venue.scopus_rank] || 99;
+            return level <= maxAllowedLevel;
+          } else {
+            const normCore = normalizeCoreRank(venue.core_rank);
+            const level = coreLevels[normCore] || 99;
+            return level <= maxAllowedLevel;
+          }
         }
       }
       return true;
@@ -721,12 +748,119 @@ function escapeHTML(str) {
     .replace(/'/g, "&#39;");
 }
 
+/**
+ * initCustomRankSelect()
+ * Thiết lập Custom Select Dropdown cho #filter-rank
+ * Hiển thị Badge học thuật, Chevron SVG xoay, click outside và keyboard nav
+ */
+function initCustomRankSelect() {
+  const trigger = document.getElementById("filter-rank-trigger");
+  const popover = document.getElementById("filter-rank-popover");
+  const select  = document.getElementById("filter-rank");
+  if (!trigger || !popover || !select) return;
+
+  const options = Array.from(popover.querySelectorAll(".custom-select-option"));
+
+  function openPopover() {
+    popover.removeAttribute("hidden");
+    trigger.setAttribute("aria-expanded", "true");
+    const selectedOpt = popover.querySelector(".custom-select-option.is-selected") || options[0];
+    if (selectedOpt) selectedOpt.focus();
+  }
+
+  function closePopover() {
+    popover.setAttribute("hidden", "");
+    trigger.setAttribute("aria-expanded", "false");
+  }
+
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+    if (isExpanded) {
+      closePopover();
+    } else {
+      openPopover();
+    }
+  });
+
+  options.forEach((opt, idx) => {
+    opt.addEventListener("click", () => {
+      selectOption(opt);
+    });
+
+    opt.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selectOption(opt);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = options[idx + 1] || options[0];
+        next.focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = options[idx - 1] || options[options.length - 1];
+        prev.focus();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        closePopover();
+        trigger.focus();
+      }
+    });
+  });
+
+  function selectOption(opt) {
+    const val = opt.getAttribute("data-value");
+    if (!val) return;
+
+    // Cập nhật thẻ select ngầm
+    select.value = val;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+
+    // Cập nhật giao diện trigger button
+    const optContent = opt.querySelector(".custom-select-opt-content");
+    const valDisplay = trigger.querySelector(".custom-select-value");
+    if (optContent && valDisplay) {
+      valDisplay.innerHTML = optContent.innerHTML;
+    }
+
+    // Cập nhật trạng thái active trong popover
+    options.forEach(o => {
+      const isMatch = o === opt;
+      o.classList.toggle("is-selected", isMatch);
+      o.setAttribute("aria-selected", isMatch ? "true" : "false");
+    });
+
+    closePopover();
+    trigger.focus();
+  }
+
+  // Đóng khi click ngoài
+  document.addEventListener("click", (e) => {
+    if (!trigger.contains(e.target) && !popover.contains(e.target)) {
+      closePopover();
+    }
+  });
+
+  // Đóng khi nhấn Escape từ trigger
+  trigger.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePopover();
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      openPopover();
+    }
+  });
+}
+
 /* ==============================================================
    KHỞI ĐỘNG SAU KHI DOM SẴN SÀNG
    ============================================================== */
 if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", () => {
   // Khởi tạo engine (tải dữ liệu JSON)
   initRecommender();
+
+  // Khởi tạo Custom Select Dropdown cho xếp hạng
+  initCustomRankSelect();
 
   const form      = document.getElementById("recommend-form");
   const btnSubmit = document.getElementById("btn-analyze");

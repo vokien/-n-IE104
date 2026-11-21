@@ -182,10 +182,10 @@
             </div>
 
             <!-- Bộ lọc bổ sung -->
-            <fieldset class="recommend-filters">
-              <legend class="field-label recommend-filters__legend">
-                Bộ lọc bổ sung (tuỳ chọn)
-              </legend>
+            <div class="recommend-filters" role="group" aria-labelledby="recommend-filters-title">
+              <div class="field-label recommend-filters__title" id="recommend-filters-title">
+                <span>Bộ lọc bổ sung (tuỳ chọn)</span>
+              </div>
               <div class="filter-row">
                 <!-- Loại hình -->
                 <div class="field-group field-group--compact">
@@ -197,24 +197,152 @@
                   </select>
                 </div>
 
-                <!-- Xếp hạng tối thiểu -->
-                <div class="field-group field-group--compact">
-                  <label class="field-label" for="filter-rank">Hạng tối thiểu</label>
-                  <select id="filter-rank" name="filter-rank" class="field-select">
-                    <option value="any">Không giới hạn</option>
+                <!-- Xếp hạng tối thiểu (Custom Select Dropdown) -->
+                <div class="field-group field-group--compact custom-select-group" id="filter-rank-group">
+                  <label class="field-label" id="filter-rank-label" for="filter-rank-trigger">Hạng tối thiểu</label>
+
+                  <!-- Select ẩn gốc để giữ tương thích dữ liệu và form submit -->
+                  <select id="filter-rank" name="filter-rank" class="visually-hidden" aria-hidden="true" tabindex="-1">
+                    <option value="any" selected>Không giới hạn</option>
+                    <optgroup label="Phân hạng chung">
+                      <option value="tier_top">Đỉnh cao (Q1 / CORE A*)</option>
+                      <option value="tier_high">Uy tín cao (Q1-Q2 / CORE A*-A)</option>
+                      <option value="tier_mid">Tiêu chuẩn (Q1-Q3 / CORE A*-B)</option>
+                    </optgroup>
                     <optgroup label="Scopus Quartile">
                       <option value="Q1">Q1 trở lên</option>
                       <option value="Q2">Q2 trở lên</option>
                       <option value="Q3">Q3 trở lên</option>
-                      <option value="Q4">Q4 trở lên</option>
                     </optgroup>
                     <optgroup label="CORE Rank">
                       <option value="A*">CORE A* trở lên</option>
                       <option value="A">CORE A trở lên</option>
                       <option value="B">CORE B trở lên</option>
-                      <option value="C">CORE C trở lên</option>
                     </optgroup>
                   </select>
+
+                  <!-- Custom Select Trigger Button -->
+                  <div class="custom-select-wrapper">
+                    <button
+                      type="button"
+                      id="filter-rank-trigger"
+                      class="custom-select-trigger"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-labelledby="filter-rank-label filter-rank-selected"
+                    >
+                      <span id="filter-rank-selected" class="custom-select-value">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-subtle">All</span>
+                          <span class="custom-select-opt-label">Không giới hạn</span>
+                        </span>
+                      </span>
+                      <svg class="custom-select-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+
+                    <!-- Popover Dropdown Menu -->
+                    <div id="filter-rank-popover" class="custom-select-popover" role="listbox" aria-labelledby="filter-rank-label" hidden>
+                      <div class="custom-select-section-title">Tất cả</div>
+                      <div class="custom-select-option is-selected" role="option" data-value="any" aria-selected="true" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-subtle">All</span>
+                          <span class="custom-select-opt-label">Không giới hạn</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+
+                      <div class="custom-select-section-title">Phân hạng chung (Hội nghị &amp; Tạp chí)</div>
+                      <div class="custom-select-option" role="option" data-value="tier_top" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-accent">Top Tier</span>
+                          <span class="custom-select-opt-label">Đỉnh cao (Q1 / CORE A*)</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="tier_high" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-primary">High Tier</span>
+                          <span class="custom-select-opt-label">Uy tín cao (Q1-Q2 / A*-A)</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="tier_mid" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-subtle">Mid Tier</span>
+                          <span class="custom-select-opt-label">Tiêu chuẩn (Q1-Q3 / A*-B)</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+
+                      <div class="custom-select-section-title">Scopus Quartile</div>
+                      <div class="custom-select-option" role="option" data-value="Q1" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-q1">Q1</span>
+                          <span class="custom-select-opt-label">Q1 trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="Q2" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-q2">Q2</span>
+                          <span class="custom-select-opt-label">Q2 trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="Q3" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-q3">Q3</span>
+                          <span class="custom-select-opt-label">Q3 trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+
+                      <div class="custom-select-section-title">CORE Rank</div>
+                      <div class="custom-select-option" role="option" data-value="A*" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-core-astar">CORE A*</span>
+                          <span class="custom-select-opt-label">CORE A* trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="A" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-core-a">CORE A</span>
+                          <span class="custom-select-opt-label">CORE A trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div class="custom-select-option" role="option" data-value="B" aria-selected="false" tabindex="0">
+                        <span class="custom-select-opt-content">
+                          <span class="badge badge-core-b">CORE B</span>
+                          <span class="custom-select-opt-label">CORE B trở lên</span>
+                        </span>
+                        <svg class="custom-select-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -230,7 +358,7 @@
                   <option value="50">Top 50</option>
                 </select>
               </div>
-            </fieldset>
+            </div>
 
             <!-- Nút phân tích -->
             <button
