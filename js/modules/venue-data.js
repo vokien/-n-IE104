@@ -103,3 +103,77 @@ export async function loadVenues(onProgress = null) {
 
   return combined;
 }
+
+export function calculateVenueStats(venues) {
+  let totalConferences = 0;
+  let totalJournals = 0;
+  let totalCfps = 0;
+  let coreConferences = 0;
+  let scopusQuartiles = 0;
+
+  for (const item of venues) {
+    if (item.kind === 'conference') {
+      totalConferences++;
+      if (Array.isArray(item.submission_deadlines)) {
+        totalCfps += item.submission_deadlines.length;
+      }
+      if (['A*', 'A', 'B', 'C'].includes(item.core_rank)) {
+        coreConferences++;
+      }
+    } else if (item.kind === 'journal') {
+      totalJournals++;
+      if (['Q1', 'Q2', 'Q3', 'Q4'].includes(item.scopus_rank)) {
+        scopusQuartiles++;
+      }
+    }
+  }
+
+  const totalVenues = totalConferences + totalJournals;
+
+  return {
+    total_venues: totalVenues,
+    total_conferences: totalConferences,
+    total_journals: totalJournals,
+    scopus_quartiles: scopusQuartiles,
+    core_conferences: coreConferences,
+    total_cfps: totalCfps,
+    'total-venues': totalVenues,
+    'total-conferences': totalConferences,
+    'total-journals': totalJournals,
+    'scopus-quartiles': scopusQuartiles,
+    'core-conferences': coreConferences,
+    'total-cfps': totalCfps
+  };
+}
+
+let venueStatsCache = null;
+
+export async function hydrateVenueStats() {
+  const statElements = document.querySelectorAll('[data-stat]');
+
+  const applyStatsToDom = (stats) => {
+    if (!statElements || !statElements.length) return;
+    statElements.forEach(el => {
+      const key = el.getAttribute('data-stat');
+      if (key && stats[key] !== undefined) {
+        el.textContent = new Intl.NumberFormat('vi-VN').format(stats[key]);
+      }
+    });
+  };
+
+  if (venueStatsCache) {
+    applyStatsToDom(venueStatsCache);
+    return venueStatsCache;
+  }
+
+  try {
+    const venues = await loadVenues();
+    const stats = calculateVenueStats(venues);
+    venueStatsCache = stats;
+    applyStatsToDom(stats);
+    return stats;
+  } catch (err) {
+    console.warn('[venue-data] Không thể nạp dữ liệu thống kê venue:', err);
+    return null;
+  }
+}

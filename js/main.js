@@ -11,11 +11,13 @@ import { initNavigation } from "./modules/navigation.js";
 import { initBookmarkModal, updateTriggerButtons } from "./modules/bookmark-modal.js";
 import { initNotificationCenter } from "./modules/notification-manager.js";
 import { saveSearchQuery, AppStorage } from "./modules/storage.js";
+import { hydrateVenueStats } from "./modules/venue-data.js";
 
 // Đảm bảo tương thích toàn cục cho console DevTools và kiểm thử
 if (typeof window !== "undefined") {
   window.AppStorage = AppStorage;
   window.updateTriggerButtons = updateTriggerButtons;
+  window.hydrateVenueStats = hydrateVenueStats;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Khởi tạo Trung tâm Thông báo Biến động Deadline & Mục tiêu
   initNotificationCenter();
 
-  // 4. Lắng nghe form tìm kiếm nhanh trên Hero Banner
+  // 5. Lắng nghe form tìm kiếm nhanh trên Hero Banner
   const heroSearchForm = document.querySelector(".hero-search-form");
   const heroSearchInput = document.getElementById("hero-search-input");
 
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Thích ứng placeholder trên màn hình nhỏ (chống bị cắt chữ trên Samsung S24 / mobile)
+  // 6. Thích ứng placeholder trên màn hình nhỏ (chống bị cắt chữ trên Samsung S24 / mobile)
   function adaptResponsivePlaceholders() {
     const isMobile = window.matchMedia("(max-width: 576px)").matches;
     document.querySelectorAll("input[data-placeholder-mobile]").forEach(input => {
@@ -60,6 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   adaptResponsivePlaceholders();
   window.addEventListener("resize", adaptResponsivePlaceholders, { passive: true });
+
+  // 7. Đồng bộ số liệu thống kê venues thời gian thực từ 2 file JSON
+  hydrateVenueStats();
 
   console.log("🌐 [IE104] Kiến trúc Mô hình Bánh xe (Wheel Model Hub) đã sẵn sàng - 100% Vanilla JS ESM.");
 });
