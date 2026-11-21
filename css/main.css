@@ -1236,7 +1236,9 @@ textarea.form-control {
     right: 0;
     background-color: var(--color-bg-surface);
     border-bottom: 1px solid var(--color-border);
-    padding: 20px 16px;
+    padding: clamp(16px, 2.5vh, 24px) 16px;
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
     box-shadow: var(--shadow-md);
     z-index: var(--z-drawer);
   }
@@ -1249,17 +1251,29 @@ textarea.form-control {
   .wheel-nav ul {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: clamp(8px, 1.5vh, 12px);
   }
 
   .wheel-nav a {
     width: 100%;
-    min-height: 48px;
-    padding: 12px 16px;
-    font-size: 15px;
+    min-height: clamp(52px, 6.5vh, 58px);
+    padding: 14px 18px;
+    font-size: clamp(15.5px, 4vw, 17px);
+    font-weight: 600;
     border-radius: var(--radius-md);
+    background-color: var(--color-bg-body);
+    border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .wheel-nav a:hover,
+  .wheel-nav a.active {
+    background-color: var(--color-primary-light);
+    border-color: hsla(215, 80%, 55%, 0.3);
+    color: var(--color-primary);
   }
 
   .mobile-menu-btn {
@@ -1283,7 +1297,7 @@ textarea.form-control {
 
 @media (max-width: 540px) {
   .header-actions {
-    gap: 6px !important;
+    gap: clamp(6px, 1.8vw, 10px) !important;
   }
   #bookmark-header-btn .bookmark-label,
   #notification-header-btn .notification-label {
@@ -1294,23 +1308,35 @@ textarea.form-control {
   #bookmark-header-btn,
   #theme-toggle-btn {
     padding: 0 !important;
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    max-width: 42px !important;
-    min-height: 42px !important;
+    width: clamp(42px, 10.5vw, 46px) !important;
+    height: clamp(42px, 10.5vw, 46px) !important;
+    min-width: clamp(42px, 10.5vw, 46px) !important;
+    max-width: clamp(42px, 10.5vw, 46px) !important;
+    min-height: clamp(42px, 10.5vw, 46px) !important;
+    border-radius: var(--radius-md) !important;
     justify-content: center !important;
     position: relative !important;
+  }
+  #notification-header-btn svg,
+  #bookmark-header-btn svg,
+  #theme-toggle-btn svg {
+    width: clamp(20px, 5vw, 22px) !important;
+    height: clamp(20px, 5vw, 22px) !important;
+  }
+  .mobile-menu-btn svg {
+    width: clamp(22px, 5.5vw, 24px) !important;
+    height: clamp(22px, 5.5vw, 24px) !important;
   }
   #bookmark-header-btn .bookmark-count.badge,
   #notification-header-btn .notification-count.badge {
     position: absolute !important;
     top: 2px !important;
     right: 2px !important;
-    min-width: 14px !important;
-    height: 14px !important;
-    font-size: 9px !important;
-    padding: 0 3px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 0 4px !important;
   }
 }
 
@@ -3183,5 +3209,46 @@ textarea.form-control {
     order: -1;
     margin-bottom: 2px;
     align-self: flex-start;
+  }
+
+  /* Header Top Nav Fluid Adaptive sizing tren mobile */
+  .header-actions {
+    gap: clamp(6px, 1.8vw, 10px) !important;
+  }
+
+  .mobile-menu-btn,
+  #notification-header-btn,
+  #bookmark-header-btn,
+  #theme-toggle-btn {
+    width: clamp(42px, 10.5vw, 46px) !important;
+    height: clamp(42px, 10.5vw, 46px) !important;
+    min-width: clamp(42px, 10.5vw, 46px) !important;
+    max-width: clamp(42px, 10.5vw, 46px) !important;
+    min-height: clamp(42px, 10.5vw, 46px) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  #notification-header-btn svg,
+  #bookmark-header-btn svg,
+  #theme-toggle-btn svg {
+    width: clamp(20px, 5vw, 22px) !important;
+    height: clamp(20px, 5vw, 22px) !important;
+  }
+
+  .mobile-menu-btn svg {
+    width: clamp(22px, 5.5vw, 24px) !important;
+    height: clamp(22px, 5.5vw, 24px) !important;
+  }
+
+  #bookmark-header-btn .bookmark-count.badge,
+  #notification-header-btn .notification-count.badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 0 4px !important;
   }
 }
