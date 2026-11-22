@@ -835,6 +835,13 @@
   color: var(--badge-q3);
 }
 
+.rank-chip--q4:has(input:checked),
+.rank-chip--q4.is-checked {
+  border-color: var(--badge-q4);
+  background-color: var(--badge-q4-bg);
+  color: var(--badge-q4);
+}
+
 .rank-chip--astar:has(input:checked),
 .rank-chip--astar.is-checked {
   border-color: var(--badge-core-astar);
@@ -854,6 +861,13 @@
   border-color: var(--badge-core-b);
   background-color: var(--badge-core-b-bg);
   color: var(--badge-core-b);
+}
+
+.rank-chip--c:has(input:checked),
+.rank-chip--c.is-checked {
+  border-color: var(--badge-core-c);
+  background-color: var(--badge-core-c-bg);
+  color: var(--badge-core-c);
 }
 .recommender-status {
   text-align: center;

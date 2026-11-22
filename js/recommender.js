@@ -268,9 +268,9 @@ class BM25Engine {
 
     // Tuong thich nguoc neu options truyen minRank
     if (minRank && minRank !== "any" && selectedQuartiles.length === 0 && selectedCore.length === 0) {
-      if (["Q1", "Q2", "Q3"].includes(minRank)) {
+      if (["Q1", "Q2", "Q3", "Q4"].includes(minRank)) {
         selectedQuartiles = [minRank];
-      } else if (["A*", "A", "B"].includes(minRank)) {
+      } else if (["A*", "A", "B", "C"].includes(minRank)) {
         selectedCore = [minRank];
       }
     }
@@ -418,8 +418,10 @@ function runRecommenderTests() {
   const filterCorpus = [
     { id: "j-q1", kind: "journal", scopus_rank: "Q1", scope: "machine learning computer vision" },
     { id: "j-q2", kind: "journal", scopus_rank: "Q2", scope: "machine learning computer vision" },
+    { id: "j-q4", kind: "journal", scopus_rank: "Q4", scope: "machine learning computer vision" },
     { id: "c-astar", kind: "conference", core_rank: "A*", scope: "machine learning computer vision" },
-    { id: "c-b", kind: "conference", core_rank: "B", scope: "machine learning computer vision" }
+    { id: "c-b", kind: "conference", core_rank: "B", scope: "machine learning computer vision" },
+    { id: "c-c", kind: "conference", core_rank: "C", scope: "machine learning computer vision" }
   ];
   const filterEngine = new BM25Engine(filterCorpus);
   const dualRes = filterEngine.search("machine learning", {
@@ -443,6 +445,29 @@ function runRecommenderTests() {
   }).results;
   check(confOnlyRes.length === 1 && confOnlyRes[0].venue.id === "c-b",
     "Bo loc conference voi CORE B giu dung hoi nghi hang B");
+
+  // Kiem thu loc don va kep voi Q4 va CORE C
+  const dualQ4CRes = filterEngine.search("machine learning", {
+    typeFilter: "all",
+    selectedQuartiles: ["Q4"],
+    selectedCore: ["C"]
+  }).results;
+  check(dualQ4CRes.length === 2 && dualQ4CRes.some(r => r.venue.id === "j-q4") && dualQ4CRes.some(r => r.venue.id === "c-c"),
+    "Bo loc chip kep Q4 va CORE C giu dung tap chi Q4 va hoi nghi CORE C");
+
+  const q4OnlyRes = filterEngine.search("machine learning", {
+    typeFilter: "journal",
+    selectedQuartiles: ["Q4"]
+  }).results;
+  check(q4OnlyRes.length === 1 && q4OnlyRes[0].venue.id === "j-q4",
+    "Bo loc journal voi Scopus Q4 giu dung tap chi Q4");
+
+  const coreCOnlyRes = filterEngine.search("machine learning", {
+    typeFilter: "conference",
+    selectedCore: ["C"]
+  }).results;
+  check(coreCOnlyRes.length === 1 && coreCOnlyRes[0].venue.id === "c-c",
+    "Bo loc conference voi CORE C giu dung hoi nghi CORE C");
 
   console.log(`Build index + search (3 scopes): ${elapsedMs.toFixed(3)} ms`);
   check(elapsedMs < 100, "Build index + search dưới 100ms trong lần đo này");
