@@ -71,25 +71,24 @@
     } catch (e) {}
 
     const userLocalTz = getUserLocalTz();
-    const localOffset = getLocalOffsetLabel(userLocalTz);
-    const shortTzName = userLocalTz.split("/").pop().replace(/_/g, " ");
+    const localOffset = getLocalOffsetLabel(userLocalTz).replace(/^UTC/, "GMT");
 
     if (pref === "aoe") {
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
-        stepperLabel: "Giờ hội nghị (AoE)",
-        itemLabel: "Múi giờ hội nghị (AoE)",
+        bannerLabel: "AoE",
+        stepperLabel: "AoE",
+        itemLabel: "AoE",
       };
     }
     // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
-      stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+      bannerLabel: localOffset,
+      stepperLabel: localOffset,
+      itemLabel: localOffset,
     };
   }
 
