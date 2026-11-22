@@ -78,18 +78,18 @@
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
-        stepperLabel: "Giờ hội nghị (AoE)",
-        itemLabel: "Múi giờ hội nghị (AoE)",
+        bannerLabel: "AoE",
+        stepperLabel: "AoE",
+        itemLabel: "AoE",
       };
     }
     // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
-      stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+      bannerLabel: localOffset,
+      stepperLabel: localOffset,
+      itemLabel: localOffset,
     };
   }
 
@@ -518,7 +518,6 @@
           </div>
           <div class="cfp-flow-body">
             <div class="cfp-flow-header-row">
-              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
               <span class="badge ${st.status.className}">${st.status.label}</span>
             </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
@@ -642,9 +641,11 @@
             <div class="timeline-milestones-drawer" id="drawer-${item.id}">
               <div class="timeline-milestones-grid">
                 <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">1</span>
                     <span class="timeline-milestone-name">Abstract Submission</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m1Date}</div>
@@ -652,9 +653,11 @@
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">2</span>
                     <span class="timeline-milestone-name">Full Paper Submission</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m2Date}</div>
@@ -662,9 +665,11 @@
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">3</span>
                     <span class="timeline-milestone-name">Notification</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m3Date}</div>

@@ -310,16 +310,6 @@
   margin-bottom: var(--spacing-xs, 0.5rem);
 }
 
-.cfp-flow-connected-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-accent, #ea580c);
-  background: hsla(15, 90%, 55%, 0.1);
-  border: 1px solid hsla(15, 90%, 55%, 0.25);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill, 9999px);
-}
-
 .cfp-flow-conf-name {
   color: var(--color-primary, #2563eb);
   font-weight: 800;
@@ -878,12 +868,19 @@
   opacity: 0.85;
 }
 
-.timeline-milestone-head {
+.timeline-milestone-title-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 6px;
-  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.timeline-milestone-badge-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .timeline-milestone-number {
@@ -1040,15 +1037,6 @@
   background-color: var(--color-primary-light);
   color: var(--color-primary);
   font-weight: var(--font-weight-bold);
-}
-
-.cfp-flow-badge {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
 }
 
 .cfp-flow-desc {
