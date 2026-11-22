@@ -517,7 +517,6 @@
           </div>
           <div class="cfp-flow-body">
             <div class="cfp-flow-header-row">
-              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
               <span class="badge ${st.status.className}">${st.status.label}</span>
             </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
