@@ -327,8 +327,9 @@
 
 .cfp-flow-header-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100%;
   gap: var(--spacing-xs, 0.5rem);
   margin-bottom: 6px;
   flex-wrap: wrap;
@@ -381,12 +382,6 @@
   padding: var(--spacing-md, 1.25rem);
   flex-grow: 1;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
-  transition: border-color 140ms ease-out, transform 140ms ease-out;
-}
-
-.cfp-flow-step:hover .cfp-flow-body {
-  border-color: var(--color-accent, #2563eb);
-  transform: translateY(-2px);
 }
 
 .cfp-flow-name {
@@ -554,12 +549,6 @@
   border: 3px solid var(--color-accent, #2563eb);
   border-radius: 50%;
   z-index: 2;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.timeline-item:hover .timeline-dot {
-  transform: scale(1.3);
-  background-color: var(--color-accent, #2563eb);
 }
 
 /* Thẻ card mốc thời gian */
@@ -643,10 +632,6 @@
     transform: translate(-50%, -50%);
   }
 
-  .timeline-item:hover .timeline-dot {
-    transform: translate(-50%, -50%) scale(1.3);
-  }
-
   .timeline-item:nth-child(even) {
     margin-left: 50%;
     padding-right: 0;
@@ -662,10 +647,6 @@
     left: 0;
     top: 24px;
     transform: translate(-50%, -50%);
-  }
-
-  .timeline-item:nth-child(even):hover .timeline-dot {
-    transform: translate(-50%, -50%) scale(1.3);
   }
 }
 
