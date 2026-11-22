@@ -642,31 +642,31 @@
             <div class="timeline-milestones-drawer" id="drawer-${item.id}">
               <div class="timeline-milestones-grid">
                 <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">1</span>
                     <span class="timeline-milestone-name">Abstract Submission</span>
-                    <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
+                  <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   <div class="timeline-milestone-date">${m1Date}</div>
                   <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">2</span>
                     <span class="timeline-milestone-name">Full Paper Submission</span>
-                    <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
+                  <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   <div class="timeline-milestone-date">${m2Date}</div>
                   <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">3</span>
                     <span class="timeline-milestone-name">Notification</span>
-                    <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
+                  <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   <div class="timeline-milestone-date">${m3Date}</div>
                   <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
                 </div>
