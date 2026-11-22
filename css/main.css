@@ -2601,6 +2601,9 @@ textarea.form-control {
   width: 14px;
   height: 14px;
   color: var(--color-text-muted);
+  display: block;
+  flex-shrink: 0;
+  margin-top: 0;
 }
 
 .bookmark-trigger-btn {

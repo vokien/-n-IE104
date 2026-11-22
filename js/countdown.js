@@ -211,7 +211,7 @@
     if (diffDays <= 30) {
       return {
         type: "warning",
-        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        label: `Sắp đến hạn (còn ${diffDays} ngày)`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,

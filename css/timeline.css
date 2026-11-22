@@ -37,10 +37,12 @@
   margin-top: var(--spacing-md, 1rem);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-height: 38px;
   gap: var(--spacing-xs, 0.5rem);
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border);
-  padding: 6px 14px;
+  padding: 4px 14px;
   border-radius: var(--radius-pill, 9999px);
   box-shadow: var(--shadow-sm);
   max-width: 100%;
@@ -65,11 +67,19 @@
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
+  line-height: 1;
+  margin: 0;
 }
 
 .timeline-tz-label svg {
+  display: block;
   color: var(--color-primary);
   flex-shrink: 0;
+}
+
+.timeline-tz-label span {
+  display: inline-block;
+  line-height: 1;
 }
 
 .timeline-tz-select {
@@ -81,7 +91,13 @@
   border: none;
   cursor: pointer;
   outline: none;
-  padding: 2px 4px;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 4px;
+  margin: 0;
+  vertical-align: middle;
   max-width: 100%;
   min-width: 0;
   text-overflow: ellipsis;
@@ -149,16 +165,24 @@
   margin-bottom: var(--spacing-xs, 0.5rem);
 }
 
-.countdown-featured-badge {
+.countdown-featured-badge,
+.countdown-featured-badge-row .badge--milestone {
+  min-height: 26px;
+  height: 26px;
+  padding: 0 10px;
+  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+}
+
+.countdown-featured-badge {
   text-align: center;
   background-color: hsla(15, 90%, 55%, 0.15);
   color: var(--color-accent, #ea580c);
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 10px;
   border-radius: var(--radius-sm, 4px);
 }
 
@@ -610,6 +634,12 @@
   gap: 5px;
 }
 
+.timeline-date svg {
+  display: block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 .timeline-title {
   font-size: var(--font-size-lg, 1.125rem);
   color: var(--color-primary, #0f172a);
@@ -718,13 +748,21 @@
   flex-wrap: wrap;
 }
 
-.timeline-badges .badge {
+.timeline-badges .badge,
+.timeline-milestone-head .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  gap: 5px;
+  min-height: 24px;
+  height: 24px;
+  padding: 0 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
   white-space: nowrap;
+  box-sizing: border-box;
+  vertical-align: middle;
+  border-radius: var(--radius-sm, 4px);
 }
 
 .status-dot {
@@ -854,6 +892,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+  align-items: stretch;
 }
 
 @media (max-width: 768px) {
@@ -869,6 +908,11 @@
   padding: 10px 12px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  word-break: break-word;
   gap: 4px;
 }
 
@@ -886,7 +930,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  flex-wrap: wrap;
 }
 
 .timeline-milestone-number {
@@ -901,6 +944,7 @@
   font-size: 10px;
   font-weight: 700;
   flex-shrink: 0;
+  line-height: 1;
 }
 
 .timeline-milestone-name {
@@ -908,6 +952,7 @@
   font-weight: 700;
   color: var(--color-text-main, #1e293b);
   flex: 1;
+  line-height: 1.2;
 }
 
 .timeline-milestone-date {
@@ -923,6 +968,9 @@
   color: var(--color-text-muted, #64748b);
   margin: 0;
   line-height: 1.4;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  flex-grow: 1;
 }
 
 /* Hiệu ứng nổi bật khi điều hướng từ trang Tra cứu (venues.html) sang */
