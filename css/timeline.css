@@ -747,8 +747,7 @@
   flex-wrap: wrap;
 }
 
-.timeline-badges .badge,
-.timeline-milestone-head .badge {
+.timeline-badges .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -760,6 +759,27 @@
   line-height: 1;
   white-space: nowrap;
   box-sizing: border-box;
+  vertical-align: middle;
+  border-radius: var(--radius-sm, 4px);
+}
+
+.timeline-milestone-head .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 112px;
+  min-width: 112px;
+  height: 32px;
+  min-height: 32px;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  line-height: 1.15;
+  font-weight: 600;
+  white-space: normal;
+  word-break: normal;
+  box-sizing: border-box;
+  flex-shrink: 0;
   vertical-align: middle;
   border-radius: var(--radius-sm, 4px);
 }
@@ -877,8 +897,8 @@
 /* Vùng mở rộng 3 mốc deadline CFP của riêng từng hội nghị */
 .timeline-milestones-drawer {
   display: none;
-  margin-top: 12px;
-  padding-top: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
   border-top: 1px dashed var(--color-border, #e2e8f0);
   animation: drawerSlideDown 0.22s ease-out;
 }
@@ -890,7 +910,7 @@
 .timeline-milestones-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
   align-items: stretch;
 }
 
@@ -904,14 +924,14 @@
   background-color: var(--color-bg-subtle, #f8fafc);
   border: 1px solid var(--color-border, #e2e8f0);
   border-radius: var(--radius-md, 8px);
-  padding: 10px 12px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 100%;
+  min-height: 130px;
   box-sizing: border-box;
   word-break: break-word;
-  gap: 4px;
+  gap: 6px;
 }
 
 .timeline-milestone-item.timeline-milestone--active {
