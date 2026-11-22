@@ -545,20 +545,25 @@
 
   /**
    * Định dạng chuỗi ngày giờ theo múi giờ đang kích hoạt (AoE hoặc Thiết bị)
+   * Tách phẳng thành 2 lớp span (.milestone-date-main, .milestone-date-sub)
+   * Giúp hiển thị 2 dòng thanh thoát, không bao giờ bị tràn chiều ngang
    */
   function formatDateWithTz(dateStr, tzConfig, fallbackText = "Chưa công bố") {
-    if (!dateStr) return fallbackText;
+    if (!dateStr) return `<span class="milestone-date-main">${fallbackText}</span>`;
     const ts = parseVietnamDate(dateStr);
-    if (isNaN(ts)) return `${dateStr} (${tzConfig.stepperLabel})`;
+    if (isNaN(ts)) return `<span class="milestone-date-main">${dateStr}</span><span class="milestone-date-sub">${tzConfig.stepperLabel}</span>`;
     try {
-      const formatted = new Intl.DateTimeFormat("vi-VN", {
+      const datePart = new Intl.DateTimeFormat("vi-VN", {
         timeZone: tzConfig.iana,
         day: "2-digit", month: "2-digit", year: "numeric",
+      }).format(new Date(ts));
+      const timePart = new Intl.DateTimeFormat("vi-VN", {
+        timeZone: tzConfig.iana,
         hour: "2-digit", minute: "2-digit",
       }).format(new Date(ts));
-      return `${formatted} (${tzConfig.stepperLabel})`;
+      return `<span class="milestone-date-main">${datePart}</span><span class="milestone-date-sub">${timePart} (${tzConfig.stepperLabel})</span>`;
     } catch (e) {
-      return `${dateStr} (${tzConfig.stepperLabel})`;
+      return `<span class="milestone-date-main">${dateStr}</span><span class="milestone-date-sub">${tzConfig.stepperLabel}</span>`;
     }
   }
 
@@ -599,13 +604,13 @@
       const isExpanded = expandedIds.has(String(item.id));
 
       // Trạng thái và ngày tháng 3 mốc deadline chi tiết (Phân biệt chuẩn ngữ nghĩa học thuật)
-      const m1Date = item.abstractDeadline ? formatDateWithTz(item.abstractDeadline, tzConfig) : "Không có vòng nộp abstract";
+      const m1Date = item.abstractDeadline ? formatDateWithTz(item.abstractDeadline, tzConfig) : `<span class="milestone-date-main">Không có</span><span class="milestone-date-sub">vòng abstract</span>`;
       const m1Status = item.abstractDeadline ? getSmartStatus(item.abstractDeadline, "abstract") : { className: "badge--neutral", label: "Không có", isEnded: true };
 
-      const m2Date = item.deadline ? formatDateWithTz(item.deadline, tzConfig) : "Chưa công bố";
+      const m2Date = item.deadline ? formatDateWithTz(item.deadline, tzConfig) : `<span class="milestone-date-main">Chưa công bố</span>`;
       const m2Status = item.deadline ? getSmartStatus(item.deadline, "paper") : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
 
-      const m3Date = item.decisionDeadline ? formatDateWithTz(item.decisionDeadline, tzConfig) : "Chưa công bố";
+      const m3Date = item.decisionDeadline ? formatDateWithTz(item.decisionDeadline, tzConfig) : `<span class="milestone-date-main">Chưa công bố</span>`;
       const m3Status = item.decisionDeadline ? getNotificationStatus(item.decisionDeadline) : { className: "badge--ended", label: "Chưa công bố", isEnded: true };
 
       return `
