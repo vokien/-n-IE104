@@ -649,7 +649,7 @@
                     <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m1Date}</div>
-                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tóm tắt bản thảo.' : 'Không có vòng nộp abstract.'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -661,7 +661,7 @@
                     <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m2Date}</div>
-                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+                  <p class="timeline-milestone-desc">Nộp bản thảo toàn văn (Full paper).</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -673,7 +673,7 @@
                     <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m3Date}</div>
-                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Thông báo kết quả phản biện.' : 'Chưa công bố kết quả.'}</p>
                 </div>
               </div>
             </div>
