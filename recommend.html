@@ -182,10 +182,10 @@
             </div>
 
             <!-- Bộ lọc bổ sung -->
-            <fieldset class="recommend-filters">
-              <legend class="field-label recommend-filters__legend">
+            <div class="recommend-filters" role="group" aria-labelledby="recommend-filters-title">
+              <div class="field-label recommend-filters__title" id="recommend-filters-title">
                 Bộ lọc bổ sung (tuỳ chọn)
-              </legend>
+              </div>
               <div class="filter-row">
                 <!-- Loại hình -->
                 <div class="field-group field-group--compact">
@@ -197,34 +197,40 @@
                   </select>
                 </div>
 
-                <!-- Xếp hạng tối thiểu -->
+                <!-- Số kết quả -->
                 <div class="field-group field-group--compact">
-                  <label class="field-label" for="filter-rank">Hạng tối thiểu</label>
-                  <select id="filter-rank" name="filter-rank" class="field-select">
-                    <option value="any">Không giới hạn</option>
-                    <optgroup label="Scopus Quartile">
-                      <option value="Q1">Q1 trở lên</option>
-                      <option value="Q2">Q2 trở lên</option>
-                    </optgroup>
-                    <optgroup label="CORE Rank">
-                      <option value="A*">CORE A* trở lên</option>
-                      <option value="A">CORE A trở lên</option>
-                    </optgroup>
+                  <label class="field-label" for="filter-topk">Số kết quả hiển thị</label>
+                  <select id="filter-topk" name="filter-topk" class="field-select">
+                    <option value="5">Top 5</option>
+                    <option value="10" selected>Top 10</option>
+                    <option value="15">Top 15</option>
+                    <option value="20">Top 20</option>
+                    <option value="30">Top 30</option>
+                    <option value="50">Top 50</option>
                   </select>
                 </div>
               </div>
 
-              <!-- Số kết quả -->
-              <div class="field-group">
-                <label class="field-label" for="filter-topk">Số kết quả hiển thị</label>
-                <select id="filter-topk" name="filter-topk" class="field-select">
-                  <option value="5">Top 5</option>
-                  <option value="10" selected>Top 10</option>
-                  <option value="15">Top 15</option>
-                  <option value="20">Top 20</option>
-                </select>
+              <!-- Nhóm Phân vị Scopus (Tạp chí) -->
+              <div class="field-group field-group--rank-group" id="group-quartile-filter">
+                <label class="field-label">Phân vị Scopus (Tạp chí)</label>
+                <div class="rank-choices">
+                  <label class="rank-chip rank-chip--q1"><input type="checkbox" name="recommend-quartile" value="Q1"><span>Q1</span></label>
+                  <label class="rank-chip rank-chip--q2"><input type="checkbox" name="recommend-quartile" value="Q2"><span>Q2</span></label>
+                  <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-quartile" value="Q3"><span>Q3</span></label>
+                </div>
               </div>
-            </fieldset>
+
+              <!-- Nhóm Phân hạng CORE (Hội nghị) -->
+              <div class="field-group field-group--rank-group" id="group-core-filter">
+                <label class="field-label">Phân hạng CORE (Hội nghị)</label>
+                <div class="rank-choices">
+                  <label class="rank-chip rank-chip--astar"><input type="checkbox" name="recommend-core" value="A*"><span>CORE A*</span></label>
+                  <label class="rank-chip rank-chip--a"><input type="checkbox" name="recommend-core" value="A"><span>CORE A</span></label>
+                  <label class="rank-chip rank-chip--b"><input type="checkbox" name="recommend-core" value="B"><span>CORE B</span></label>
+                </div>
+              </div>
+            </div>
 
             <!-- Nút phân tích -->
             <button
