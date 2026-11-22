@@ -78,18 +78,19 @@
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
-        stepperLabel: "Giờ hội nghị (AoE)",
-        itemLabel: "Múi giờ hội nghị (AoE)",
+        bannerLabel: "AoE",
+        stepperLabel: "AoE",
+        itemLabel: "AoE",
       };
     }
     // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
+    const gmtOffset = localOffset.replace("UTC", "GMT");
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
-      stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+      bannerLabel: gmtOffset,
+      stepperLabel: gmtOffset,
+      itemLabel: gmtOffset,
     };
   }
 
@@ -142,7 +143,7 @@
     if (isNaN(targetTime) || remaining <= 0) {
       return {
         type: "announced",
-        label: "Đã công bố kết quả",
+        label: "Đã công bố",
         className: "badge--ended",
         diffDays: 0,
         isEnded: true,
@@ -152,7 +153,7 @@
     if (diffDays <= 7) {
       return {
         type: "announcing-soon",
-        label: `Sắp công bố kết quả (còn ${diffDays} ngày)`,
+        label: `Sắp đến hạn (${diffDays} ngày)`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -162,7 +163,7 @@
     if (diffDays <= 30) {
       return {
         type: "in-review",
-        label: `Đang phản biện (còn ${diffDays} ngày)`,
+        label: `Đang phản biện (${diffDays} ngày)`,
         className: "badge--review",
         diffDays: diffDays,
         isEnded: false,
@@ -171,7 +172,7 @@
 
     return {
       type: "pending",
-      label: "Chờ công bố kết quả",
+      label: "Chờ công bố",
       className: "badge--review",
       diffDays: diffDays,
       isEnded: false,
@@ -194,7 +195,7 @@
     if (isNaN(targetTime) || remaining <= 0) {
       return {
         type: "ended",
-        label: isAbstract ? "Đã đóng nhận abstract" : "Đã kết thúc nhận bài",
+        label: isAbstract ? "Đã hết hạn abstract" : "Đã hết hạn",
         className: "badge--ended",
         diffDays: 0,
         isEnded: true,
@@ -203,7 +204,7 @@
     if (diffDays <= 7) {
       return {
         type: "urgent",
-        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        label: `Khẩn cấp (${diffDays} ngày)`,
         className: "badge--urgent",
         diffDays: diffDays,
         isEnded: false,
@@ -212,7 +213,7 @@
     if (diffDays <= 30) {
       return {
         type: "warning",
-        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        label: `Sắp đến hạn (${diffDays} ngày)`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -518,7 +519,6 @@
           </div>
           <div class="cfp-flow-body">
             <div class="cfp-flow-header-row">
-              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
               <span class="badge ${st.status.className}">${st.status.label}</span>
             </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
@@ -642,33 +642,39 @@
             <div class="timeline-milestones-drawer" id="drawer-${item.id}">
               <div class="timeline-milestones-grid">
                 <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">1</span>
                     <span class="timeline-milestone-name">Abstract Submission</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m1Date}</div>
-                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tóm tắt bản thảo.' : 'Không có vòng abstract.'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">2</span>
                     <span class="timeline-milestone-name">Full Paper Submission</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m2Date}</div>
-                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+                  <p class="timeline-milestone-desc">Nộp bản thảo toàn văn.</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">3</span>
                     <span class="timeline-milestone-name">Notification</span>
+                  </div>
+                  <div class="timeline-milestone-badge-box">
                     <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m3Date}</div>
-                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Thông báo kết quả phản biện.' : 'Chưa công bố kết quả.'}</p>
                 </div>
               </div>
             </div>
