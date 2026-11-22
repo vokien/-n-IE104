@@ -908,7 +908,7 @@
   align-self: flex-start;
   align-items: flex-start;
   gap: 6px;
-  height: 42px;
+  height: auto;
   min-height: 42px;
   width: auto;
   max-width: 100%;
@@ -935,10 +935,12 @@
   font-size: var(--font-size-xs, 0.75rem);
   font-weight: 700;
   color: var(--color-text-main, #1e293b);
-  flex: 1;
-  line-height: 1.25;
+  max-width: 70px;
+  white-space: normal;
   word-break: normal;
-  hyphens: none;
+  overflow-wrap: break-word;
+  line-height: 1.25;
+  height: auto;
   min-width: 0;
 }
 
