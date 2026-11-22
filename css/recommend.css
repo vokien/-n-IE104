@@ -771,24 +771,26 @@
 }
 
 .rank-choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-block: 6px;
 }
 
 .rank-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 34px;
+  padding: 0 4px;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
   position: relative;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 600;
+  border: 1px solid var(--color-border);
   cursor: pointer;
   background-color: var(--color-bg-body);
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   transition: all var(--transition-fast);
   user-select: none;
   -webkit-user-select: none;
@@ -805,7 +807,6 @@
 
 .rank-chip:hover {
   border-color: var(--color-border-focus);
-  color: var(--color-text-main);
 }
 
 .rank-chip:has(input:focus-visible) {
@@ -813,61 +814,13 @@
   outline-offset: 2px;
 }
 
-/* Checked states - ho tro ca :has() va class .is-checked */
-.rank-chip--q1:has(input:checked),
-.rank-chip--q1.is-checked {
-  border-color: var(--badge-q1);
-  background-color: var(--badge-q1-bg);
-  color: var(--badge-q1);
-}
-
-.rank-chip--q2:has(input:checked),
-.rank-chip--q2.is-checked {
-  border-color: var(--badge-q2);
-  background-color: var(--badge-q2-bg);
-  color: var(--badge-q2);
-}
-
-.rank-chip--q3:has(input:checked),
-.rank-chip--q3.is-checked {
-  border-color: var(--badge-q3);
-  background-color: var(--badge-q3-bg);
-  color: var(--badge-q3);
-}
-
-.rank-chip--q4:has(input:checked),
-.rank-chip--q4.is-checked {
-  border-color: var(--badge-q4);
-  background-color: var(--badge-q4-bg);
-  color: var(--badge-q4);
-}
-
-.rank-chip--astar:has(input:checked),
-.rank-chip--astar.is-checked {
-  border-color: var(--badge-core-astar);
-  background-color: var(--badge-core-astar-bg);
-  color: var(--badge-core-astar);
-}
-
-.rank-chip--a:has(input:checked),
-.rank-chip--a.is-checked {
-  border-color: var(--badge-core-a);
-  background-color: var(--badge-core-a-bg);
-  color: var(--badge-core-a);
-}
-
-.rank-chip--b:has(input:checked),
-.rank-chip--b.is-checked {
-  border-color: var(--badge-core-b);
-  background-color: var(--badge-core-b-bg);
-  color: var(--badge-core-b);
-}
-
-.rank-chip--c:has(input:checked),
-.rank-chip--c.is-checked {
-  border-color: var(--badge-core-c);
-  background-color: var(--badge-core-c-bg);
-  color: var(--badge-core-c);
+/* Checked state dong nhat mau chu dao giong venues.html */
+.rank-chip:has(input:checked),
+.rank-chip.is-checked {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
 }
 .recommender-status {
   text-align: center;
