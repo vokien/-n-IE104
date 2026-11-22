@@ -78,18 +78,19 @@
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
-        stepperLabel: "Giờ hội nghị (AoE)",
-        itemLabel: "Múi giờ hội nghị (AoE)",
+        bannerLabel: "AoE",
+        stepperLabel: "AoE",
+        itemLabel: "AoE",
       };
     }
     // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
+    const formattedOffset = localOffset.replace("UTC", "GMT");
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
-      stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+      bannerLabel: formattedOffset,
+      stepperLabel: formattedOffset,
+      itemLabel: formattedOffset,
     };
   }
 
@@ -518,7 +519,6 @@
           </div>
           <div class="cfp-flow-body">
             <div class="cfp-flow-header-row">
-              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
               <span class="badge ${st.status.className}">${st.status.label}</span>
             </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
