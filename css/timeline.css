@@ -855,7 +855,7 @@
   }
 
   .cfp-flow-header-row .badge,
-  .badge--review {
+  .cfp-flow-header-row .badge--review {
     width: 205px;
     min-width: 205px;
     max-width: 90%;
@@ -867,6 +867,36 @@
     text-align: center;
     white-space: nowrap;
     padding: 0 10px;
+  }
+
+  .timeline-milestones-drawer .timeline-milestone-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 6px;
+  }
+
+  .timeline-milestones-drawer .timeline-milestone-title-group {
+    grid-column: 1;
+    grid-row: 1;
+    height: auto;
+    min-height: 28px;
+  }
+
+  .timeline-milestones-drawer .timeline-milestone-item .badge {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .timeline-milestones-drawer .timeline-milestone-date,
+  .timeline-milestones-drawer .timeline-milestone-desc {
+    grid-column: 1 / -1;
   }
 }
 
