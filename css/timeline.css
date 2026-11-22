@@ -337,16 +337,6 @@
   margin-bottom: var(--spacing-xs, 0.5rem);
 }
 
-.cfp-flow-connected-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-accent, #ea580c);
-  background: hsla(15, 90%, 55%, 0.1);
-  border: 1px solid hsla(15, 90%, 55%, 0.25);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill, 9999px);
-}
-
 .cfp-flow-conf-name {
   color: var(--color-primary, #2563eb);
   font-weight: 800;
