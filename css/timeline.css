@@ -927,9 +927,18 @@
 
 .timeline-milestone-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+}
+
+.timeline-milestone-title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .timeline-milestone-number {
@@ -951,7 +960,6 @@
   font-size: var(--font-size-xs, 0.75rem);
   font-weight: 700;
   color: var(--color-text-main, #1e293b);
-  flex: 1;
   line-height: 1.2;
 }
 
@@ -970,6 +978,7 @@
   line-height: 1.4;
   overflow-wrap: break-word;
   word-break: break-word;
+  min-width: 0;
   flex-grow: 1;
 }
 

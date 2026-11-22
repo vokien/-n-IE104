@@ -642,8 +642,10 @@
               <div class="timeline-milestones-grid">
                 <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
                   <div class="timeline-milestone-head">
-                    <span class="timeline-milestone-number">1</span>
-                    <span class="timeline-milestone-name">Abstract Submission</span>
+                    <div class="timeline-milestone-title-group">
+                      <span class="timeline-milestone-number">1</span>
+                      <span class="timeline-milestone-name">Abstract Submission</span>
+                    </div>
                     <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m1Date}</div>
@@ -652,8 +654,10 @@
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
                   <div class="timeline-milestone-head">
-                    <span class="timeline-milestone-number">2</span>
-                    <span class="timeline-milestone-name">Full Paper Submission</span>
+                    <div class="timeline-milestone-title-group">
+                      <span class="timeline-milestone-number">2</span>
+                      <span class="timeline-milestone-name">Full Paper Submission</span>
+                    </div>
                     <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m2Date}</div>
@@ -662,8 +666,10 @@
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
                   <div class="timeline-milestone-head">
-                    <span class="timeline-milestone-number">3</span>
-                    <span class="timeline-milestone-name">Notification</span>
+                    <div class="timeline-milestone-title-group">
+                      <span class="timeline-milestone-number">3</span>
+                      <span class="timeline-milestone-name">Notification</span>
+                    </div>
                     <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
                   <div class="timeline-milestone-date">${m3Date}</div>
