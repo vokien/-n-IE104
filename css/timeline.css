@@ -178,6 +178,8 @@
   background: hsla(217, 91%, 60%, 0.08);
   border: 1px solid hsla(217, 91%, 60%, 0.2);
   border-radius: var(--radius-pill, 9999px);
+  white-space: nowrap;
+  max-width: 100%;
   transition: all 160ms ease-out;
 }
 

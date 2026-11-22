@@ -747,8 +747,81 @@
 
 .field-required { color: var(--color-danger); margin-left: 4px; }
 .recommend-filters { border: none; padding: 0; margin: 0; min-width: 0; }
-.recommend-filters__legend { margin-bottom: var(--spacing-sm); }
+.recommend-filters__title {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+}
 .field-group--compact { margin-bottom: 0; }
+
+.field-group--rank-group {
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  transition: opacity var(--transition-fast), filter var(--transition-fast);
+}
+
+.field-group--rank-group.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  filter: grayscale(0.5);
+}
+
+.rank-choices {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-block: 6px;
+}
+
+.rank-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 34px;
+  padding: 0 4px;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+  position: relative;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  background-color: var(--color-bg-body);
+  color: var(--color-text-main);
+  transition: all var(--transition-fast);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rank-chip input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.rank-chip:hover {
+  border-color: var(--color-border-focus);
+}
+
+.rank-chip:has(input:focus-visible) {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Checked state dong nhat mau chu dao giong venues.html */
+.rank-chip:has(input:checked),
+.rank-chip.is-checked {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
 .recommender-status {
   text-align: center;
   margin-top: var(--spacing-sm);

@@ -1657,7 +1657,7 @@ textarea.form-control {
 .featured-venue-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-sm);
 }
@@ -1667,6 +1667,7 @@ textarea.form-control {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--color-text-muted);
+  line-height: 1;
 }
 
 .featured-venue-name {

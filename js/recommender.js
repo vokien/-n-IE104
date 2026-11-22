@@ -258,47 +258,51 @@ class BM25Engine {
    * matchScore là điểm tương đối trong tập kết quả, không phải xác suất phù hợp.
    */
   search(query, options = {}) {
-    const {
-      topK       = 10,
-      typeFilter = "all",
-      minRank    = "any"
+    let {
+      topK              = 10,
+      typeFilter        = "all",
+      selectedQuartiles = [],
+      selectedCore      = [],
+      minRank           = "any"
     } = options;
 
-    // Bước 1: Tiền xử lý query
-    const queryTokens = [...new Set(preprocessText(query))];
-    if (queryTokens.length === 0) {
-      return { results: [], tokenCount: 0, totalSearched: this.N, error: "Văn bản query quá ngắn hoặc chỉ chứa từ dừng." };
+    // Tuong thich nguoc neu options truyen minRank
+    if (minRank && minRank !== "any" && selectedQuartiles.length === 0 && selectedCore.length === 0) {
+      if (["Q1", "Q2", "Q3", "Q4"].includes(minRank)) {
+        selectedQuartiles = [minRank];
+      } else if (["A*", "A", "B", "C"].includes(minRank)) {
+        selectedCore = [minRank];
+      }
     }
 
-    // Bước 2: Tính điểm BM25 cho từng venue
+    // Buoc 1: Tien xu ly query
+    const queryTokens = [...new Set(preprocessText(query))];
+    if (queryTokens.length === 0) {
+      return { results: [], tokenCount: 0, totalSearched: this.N, error: "Van ban query qua ngan hoac chi chua tu dung." };
+    }
+
+    // Buoc 2: Tinh diem BM25 cho tung venue
     let scored = this.venues.map((venue, idx) => {
       const rawScore = this._bm25Score(queryTokens, idx);
       const matched  = this._getMatchedKeywords(queryTokens, idx);
       return { venue, rawScore, matchedKeywords: matched, docIndex: idx };
     });
 
-    // Bước 3: Áp dụng bộ lọc (loại hình + xếp hạng)
+    // Buoc 3: Ap dung bo loc (loai hinh + xep hang chip giong venues.html)
+    const hasRankSelection = selectedQuartiles.length > 0 || selectedCore.length > 0;
     scored = scored.filter(({ venue, rawScore }) => {
       if (rawScore <= 0) return false;
-      // Lọc theo loại hình
+      // Loc theo loai hinh
       if (typeFilter !== "all" && venue.kind !== typeFilter) return false;
 
-      // Lọc theo xếp hạng tối thiểu
-      if (minRank !== "any") {
-        const rankOrder = { "Q1": 1, "Q2": 2, "Q3": 3, "Q4": 4 };
-        const coreOrder = { "A*": 1, "A": 2, "B": 3, "C": 4 };
-
-        if (["Q1","Q2","Q3","Q4"].includes(minRank)) {
-          const venueRank = rankOrder[venue.scopus_rank] || 99;
-          const reqRank   = rankOrder[minRank];
-          return venueRank <= reqRank;
-        }
-        if (["A*","A","B","C"].includes(minRank)) {
-          const venueRank = coreOrder[normalizeCoreRank(venue.core_rank)] || 99;
-          const reqRank   = coreOrder[minRank];
-          return venueRank <= reqRank;
-        }
+      // Loc theo xep hang chip
+      if (hasRankSelection) {
+        const ranks = venue.kind === "journal" ? selectedQuartiles : selectedCore;
+        const vRank = venue.kind === "journal" ? venue.scopus_rank : normalizeCoreRank(venue.core_rank);
+        if (!ranks.length) return false;
+        return ranks.includes(vRank);
       }
+
       return true;
     });
 
@@ -409,6 +413,62 @@ function runRecommenderTests() {
     "BM25 khớp phép tính tay với k1=1.2, b=0.75");
   const lengths = new BM25Engine([{ id: "short", scope: "neural" }, { id: "long", scope: "neural security privacy storage" }]);
   check(lengths.search("neural").results[0].venue.id === "short", "Chuẩn hóa độ dài tài liệu");
+
+  // Kiem thu bo loc loai hinh va chip xep hang giong venues.html
+  const filterCorpus = [
+    { id: "j-q1", kind: "journal", scopus_rank: "Q1", scope: "machine learning computer vision" },
+    { id: "j-q2", kind: "journal", scopus_rank: "Q2", scope: "machine learning computer vision" },
+    { id: "j-q4", kind: "journal", scopus_rank: "Q4", scope: "machine learning computer vision" },
+    { id: "c-astar", kind: "conference", core_rank: "A*", scope: "machine learning computer vision" },
+    { id: "c-b", kind: "conference", core_rank: "B", scope: "machine learning computer vision" },
+    { id: "c-c", kind: "conference", core_rank: "C", scope: "machine learning computer vision" }
+  ];
+  const filterEngine = new BM25Engine(filterCorpus);
+  const dualRes = filterEngine.search("machine learning", {
+    typeFilter: "all",
+    selectedQuartiles: ["Q1"],
+    selectedCore: ["A*"]
+  }).results;
+  check(dualRes.length === 2 && dualRes.some(r => r.venue.id === "j-q1") && dualRes.some(r => r.venue.id === "c-astar"),
+    "Bo loc chip kep Q1 va A* giu dung ca tap chi Q1 va hoi nghi A*");
+
+  const singleJourRes = filterEngine.search("machine learning", {
+    typeFilter: "all",
+    selectedQuartiles: ["Q1"]
+  }).results;
+  check(singleJourRes.length === 1 && singleJourRes[0].venue.id === "j-q1",
+    "Bo loc all voi chi Q1 loai bo toan bo hoi nghi va tap chi khong phai Q1");
+
+  const confOnlyRes = filterEngine.search("machine learning", {
+    typeFilter: "conference",
+    selectedCore: ["B"]
+  }).results;
+  check(confOnlyRes.length === 1 && confOnlyRes[0].venue.id === "c-b",
+    "Bo loc conference voi CORE B giu dung hoi nghi hang B");
+
+  // Kiem thu loc don va kep voi Q4 va CORE C
+  const dualQ4CRes = filterEngine.search("machine learning", {
+    typeFilter: "all",
+    selectedQuartiles: ["Q4"],
+    selectedCore: ["C"]
+  }).results;
+  check(dualQ4CRes.length === 2 && dualQ4CRes.some(r => r.venue.id === "j-q4") && dualQ4CRes.some(r => r.venue.id === "c-c"),
+    "Bo loc chip kep Q4 va CORE C giu dung tap chi Q4 va hoi nghi CORE C");
+
+  const q4OnlyRes = filterEngine.search("machine learning", {
+    typeFilter: "journal",
+    selectedQuartiles: ["Q4"]
+  }).results;
+  check(q4OnlyRes.length === 1 && q4OnlyRes[0].venue.id === "j-q4",
+    "Bo loc journal voi Scopus Q4 giu dung tap chi Q4");
+
+  const coreCOnlyRes = filterEngine.search("machine learning", {
+    typeFilter: "conference",
+    selectedCore: ["C"]
+  }).results;
+  check(coreCOnlyRes.length === 1 && coreCOnlyRes[0].venue.id === "c-c",
+    "Bo loc conference voi CORE C giu dung hoi nghi CORE C");
+
   console.log(`Build index + search (3 scopes): ${elapsedMs.toFixed(3)} ms`);
   check(elapsedMs < 100, "Build index + search dưới 100ms trong lần đo này");
   console.log(`Hoàn tất: ${passed} kiểm thử đạt.`);
@@ -728,13 +788,59 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
   // Khởi tạo engine (tải dữ liệu JSON)
   initRecommender();
 
-  const form      = document.getElementById("recommend-form");
-  const btnSubmit = document.getElementById("btn-analyze");
-  const selType   = document.getElementById("filter-type");
-  const selRank   = document.getElementById("filter-rank");
-  const selTopK   = document.getElementById("filter-topk");
+  const form          = document.getElementById("recommend-form");
+  const btnSubmit     = document.getElementById("btn-analyze");
+  const selType       = document.getElementById("filter-type");
+  const selTopK       = document.getElementById("filter-topk");
+  const groupQuartile = document.getElementById("group-quartile-filter");
+  const groupCore     = document.getElementById("group-core-filter");
 
   if (!form) return;
+
+  /**
+   * Đồng bộ trạng thái enable/disable của 2 nhóm chip khi đổi loại hình
+   */
+  function syncFilterTypeState() {
+    const val = selType?.value || "all";
+    if (val === "journal") {
+      groupCore?.classList.add("is-disabled");
+      document.querySelectorAll('input[name="recommend-core"]').forEach(cb => {
+        cb.checked = false;
+        cb.closest(".rank-chip")?.classList.remove("is-checked");
+      });
+      groupQuartile?.classList.remove("is-disabled");
+    } else if (val === "conference") {
+      groupQuartile?.classList.add("is-disabled");
+      document.querySelectorAll('input[name="recommend-quartile"]').forEach(cb => {
+        cb.checked = false;
+        cb.closest(".rank-chip")?.classList.remove("is-checked");
+      });
+      groupCore?.classList.remove("is-disabled");
+    } else {
+      groupQuartile?.classList.remove("is-disabled");
+      groupCore?.classList.remove("is-disabled");
+    }
+  }
+
+  /**
+   * Khởi tạo và đồng bộ class .is-checked trên .rank-chip
+   */
+  function initRankChips() {
+    const chips = document.querySelectorAll(".rank-chip");
+    chips.forEach(chip => {
+      const input = chip.querySelector('input[type="checkbox"]');
+      if (!input) return;
+      const updateClass = () => {
+        chip.classList.toggle("is-checked", input.checked);
+      };
+      input.addEventListener("change", updateClass);
+      updateClass();
+    });
+  }
+
+  selType?.addEventListener("change", syncFilterTypeState);
+  initRankChips();
+  syncFilterTypeState();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -757,9 +863,10 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
     }
 
     // Lấy giá trị bộ lọc
-    const typeFilter = selType?.value  || "all";
-    const minRank    = selRank?.value  || "any";
+    const typeFilter = selType?.value || "all";
     const topK       = parseInt(selTopK?.value || "10", 10);
+    const selectedQuartiles = Array.from(document.querySelectorAll('input[name="recommend-quartile"]:checked')).map(cb => cb.value);
+    const selectedCore      = Array.from(document.querySelectorAll('input[name="recommend-core"]:checked')).map(cb => cb.value);
 
     // Hiển thị skeleton và vô hiệu hóa nút
     renderSkeleton();
@@ -772,7 +879,12 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
     await new Promise(resolve => setTimeout(resolve, 100));
 
     try {
-      const searchResult = recommenderEngine.search(queryText, { topK, typeFilter, minRank });
+      const searchResult = recommenderEngine.search(queryText, {
+        topK,
+        typeFilter,
+        selectedQuartiles,
+        selectedCore
+      });
       renderResults(searchResult);
     } catch (err) {
       console.error("[Recommender] Lỗi khi tìm kiếm:", err);
