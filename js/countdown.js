@@ -648,7 +648,7 @@
                   </div>
                   <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   <div class="timeline-milestone-date">${m1Date}</div>
-                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề và tóm tắt.' : 'Không có vòng nộp abstract.'}</p>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, thông tin tác giả và bản tóm tắt bài báo.' : 'Hội nghị không mở vòng tóm tắt; nộp thẳng toàn văn bản thảo.'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -658,7 +658,7 @@
                   </div>
                   <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   <div class="timeline-milestone-date">${m2Date}</div>
-                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo hoàn chỉnh.</p>
+                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh để phản biện kín.</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -668,7 +668,7 @@
                   </div>
                   <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   <div class="timeline-milestone-date">${m3Date}</div>
-                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Thông báo kết quả và phản biện.' : 'Chưa công bố ngày kết quả.'}</p>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng công bố kết quả xét duyệt và gửi phiếu phản biện.' : 'Ban tổ chức chưa ấn định ngày công bố kết quả xét duyệt.'}</p>
                 </div>
               </div>
             </div>
