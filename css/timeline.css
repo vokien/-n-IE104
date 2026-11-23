@@ -862,6 +862,11 @@
     white-space: nowrap;
     padding: 0 10px;
   }
+
+  .timeline-milestones-drawer .timeline-milestone-date {
+    justify-content: flex-start;
+    text-align: left;
+  }
 }
 
 /* Nấc 1: Màn hình siêu nhỏ (<= 360px) */
@@ -1032,6 +1037,8 @@
   .timeline-milestones-drawer .timeline-milestone-date {
     height: 58.5px;
     min-height: 58.5px;
+    justify-content: center;
+    text-align: center;
   }
 
   .timeline-milestone-badge-box .badge,
