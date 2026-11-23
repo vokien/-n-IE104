@@ -1217,12 +1217,13 @@ textarea.form-control {
 }
 
 /* Tablet doc (601px - 991px, gom Surface 10 doc 800px/853px va iPad Mini doc 744px/768px):
-   2 cot x 2 hang vua van tu nhien, sat bien trai phai 0px va dong deu kich thuoc */
+   2 cot x 2 hang can giua gon gang, column-gap hai hoa tranh tach roi ra bien */
 @media (min-width: 601px) and (max-width: 991px) {
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 320px));
-    justify-content: space-between;
-    gap: var(--spacing-xl);
+    justify-content: center;
+    column-gap: clamp(24px, 4vw, 36px);
+    row-gap: var(--spacing-xl);
   }
 }
 
