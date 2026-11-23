@@ -1116,8 +1116,9 @@ textarea.form-control {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: var(--spacing-2xl);
+  grid-template-columns: fit-content(340px) max-content max-content fit-content(320px);
+  justify-content: space-between;
+  gap: var(--spacing-xl);
   margin-bottom: var(--spacing-2xl);
 }
 
@@ -1193,7 +1194,8 @@ textarea.form-control {
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: minmax(0, 1fr) fit-content(340px);
+    justify-content: space-between;
     gap: var(--spacing-xl);
   }
 
@@ -3034,6 +3036,10 @@ textarea.form-control {
    Uu tien mo rong chieu ngang nut bam het phan tu cha de de thao tac
    ============================================================= */
 @media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
   .hero-search-form {
     flex-direction: column;
     align-items: stretch;
