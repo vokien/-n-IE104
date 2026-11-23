@@ -871,7 +871,7 @@
 
   .timeline-milestones-drawer .timeline-milestone-item {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 94px 1fr;
     align-items: center;
     column-gap: 8px;
     row-gap: 6px;
@@ -887,11 +887,16 @@
   .timeline-milestones-drawer .timeline-milestone-item .badge {
     grid-column: 2;
     grid-row: 1;
-    justify-self: end;
-    width: auto;
+    width: 100%;
+    justify-self: stretch;
+    justify-content: center;
+    text-align: center;
     min-width: 0;
     max-width: 100%;
-    white-space: nowrap;
+    white-space: normal;
+    min-height: 32px;
+    line-height: 1.25;
+    box-sizing: border-box;
   }
 
   .timeline-milestones-drawer .timeline-milestone-date,
@@ -974,8 +979,21 @@
   min-width: 0;
 }
 
+.timeline-milestone-badge-box {
+  height: auto;
+  min-height: 52px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.timeline-milestone-badge-box .badge,
 .timeline-milestone-item .badge {
-  align-self: flex-start;
+  align-self: stretch;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   max-width: 100%;
   box-sizing: border-box;
 }
