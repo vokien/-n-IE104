@@ -1192,13 +1192,27 @@ textarea.form-control {
 /* ----------------------------------------------------------------------------
    12. TƯƠNG THÍCH MÀN HÌNH (RESPONSIVENESS)
    -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
+/* Tablet ngang & Laptop nhỏ (992px - 1140px, gom ca iPad Mini ngang 1024px & 1133px):
+   4 cot can doi hai hoa theo ty le noi dung thuc te, tranh chenh lech qua muc */
+@media (min-width: 992px) and (max-width: 1140px) {
   .footer-grid {
-    grid-template-columns: minmax(0, 1fr) fit-content(340px);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr) minmax(0, 0.95fr) minmax(0, 1.15fr);
+    justify-content: stretch;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Tablet doc (601px - 991px, gom Surface 10 doc 800px/853px va iPad Mini doc 744px/768px):
+   2 cot x 2 hang vua van tu nhien, sat bien trai phai 0px va dong deu kich thuoc */
+@media (min-width: 601px) and (max-width: 991px) {
+  .footer-grid {
+    grid-template-columns: fit-content(360px) fit-content(340px);
     justify-content: space-between;
     gap: var(--spacing-xl);
   }
+}
 
+@media (max-width: 1024px) {
   .contact-layout {
     grid-template-columns: 1fr;
   }
@@ -1406,10 +1420,6 @@ textarea.form-control {
   .container {
     padding-left: 12px;
     padding-right: 12px;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
   }
 
   .page-title {
@@ -3038,6 +3048,7 @@ textarea.form-control {
 @media (max-width: 600px) {
   .footer-grid {
     grid-template-columns: 1fr;
+    justify-content: stretch;
   }
 
   .hero-search-form {
