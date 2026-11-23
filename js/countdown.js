@@ -121,8 +121,8 @@
    * TUYỆT ĐỐI KHÔNG dùng các từ ngữ gây hiểu lầm như "Đang mở nhận bài", "Khẩn cấp", "Sắp đến hạn"
    * Sử dụng chuẩn ngữ nghĩa học thuật:
    * - "Chờ công bố kết quả" (khi còn > 30 ngày)
-   * - "Đang phản biện (còn X ngày)" (khi còn <= 30 ngày)
-   * - "Sắp công bố kết quả (còn X ngày)" (khi còn <= 7 ngày)
+   * - "Đang phản biện" (khi còn <= 30 ngày)
+   * - "Sắp công bố (X ngày)" (khi còn <= 7 ngày)
    * - "Đã công bố kết quả" (khi đã đến hoặc qua ngày)
    * - "Chưa công bố" (khi ban tổ chức chưa ấn định ngày)
    */
@@ -153,7 +153,7 @@
     if (diffDays <= 7) {
       return {
         type: "announcing-soon",
-        label: `Sắp công bố kết quả (còn ${diffDays} ngày)`,
+        label: `Sắp công bố (${diffDays} ngày)`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -163,7 +163,7 @@
     if (diffDays <= 30) {
       return {
         type: "in-review",
-        label: `Đang phản biện (còn ${diffDays} ngày)`,
+        label: "Đang phản biện",
         className: "badge--review",
         diffDays: diffDays,
         isEnded: false,
@@ -204,7 +204,7 @@
     if (diffDays <= 7) {
       return {
         type: "urgent",
-        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        label: `Còn ${diffDays} ngày`,
         className: "badge--urgent",
         diffDays: diffDays,
         isEnded: false,
@@ -213,7 +213,7 @@
     if (diffDays <= 30) {
       return {
         type: "warning",
-        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        label: `Còn ${diffDays} ngày`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -648,7 +648,7 @@
                   </div>
                   <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   <div class="timeline-milestone-date">${m1Date}</div>
-                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề và tóm tắt.' : 'Không có vòng nộp abstract.'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -658,7 +658,7 @@
                   </div>
                   <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   <div class="timeline-milestone-date">${m2Date}</div>
-                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo hoàn chỉnh.</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
@@ -668,7 +668,7 @@
                   </div>
                   <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   <div class="timeline-milestone-date">${m3Date}</div>
-                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Thông báo kết quả và phản biện.' : 'Chưa công bố ngày kết quả.'}</p>
                 </div>
               </div>
             </div>
