@@ -109,7 +109,9 @@ jobs:
           base: ${{ github.event.repository.default_branch }}
           branch: automation/update-conferences
           delete-branch: false
-          add-paths: data/conf.json
+          add-paths: |
+            data/conf.json
+            tools/conference_update/seed.json
           commit-message: '[T3.2] Tự động cập nhật và làm sạch dữ liệu hội nghị'
           title: '[T3.2] Cập nhật dữ liệu hội nghị tự động'
           body: |

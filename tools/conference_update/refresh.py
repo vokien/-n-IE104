@@ -346,9 +346,13 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
     if request_client is None:
         print("Fetching curated deadlines and novel conferences from GitHub repositories...", flush=True)
         curated_deadlines, curated_venues = load_all_curated_sources(cutoff.isoformat())
-        records, disc_stats = integrate_curated_into_seed(records, curated_venues, cutoff.isoformat())
+        records, disc_stats = integrate_curated_into_seed(records, curated_venues, cutoff.isoformat(), conf_path=output)
         if disc_stats['new_venues_discovered'] > 0:
             print(f"Discovered {disc_stats['new_venues_discovered']} new conferences for current refresh cycle.", flush=True)
+            seed_data = load(seed_path)
+            seed_data['records'] = records
+            seed_path.write_text(json.dumps(seed_data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            print(f"Synchronized {len(records)} records into {seed_path}.", flush=True)
 
     fingerprint = hashlib.sha256((digest(seed_path) + ''.join(digest(HERE / name) for name in
         ('refresh.py', 'sources.py', 'wiki_extract.py', 'cleaning.py', 'selection.py', 'http_client.py', 'http_worker.py', 'robots.py', 'multi_sources.py'))).encode()).hexdigest()
