@@ -864,11 +864,12 @@
 
 .rank-sub-label {
   display: block;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-  line-height: 1.25;
-  margin: 5px 0 3px;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  margin-top: 6px;
+  margin-bottom: 2px;
+  letter-spacing: 0.01em;
 }
 
 .rank-choices--secondary {
