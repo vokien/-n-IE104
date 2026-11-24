@@ -411,7 +411,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: var(--color-primary);
+  background-color: rgb(48, 125, 232);
   color: var(--color-text-inverse);
   display: flex;
   align-items: center;
@@ -419,10 +419,6 @@
   font-size: var(--font-size-xs);
   font-weight: 800;
 }
-
-.result-item:nth-child(1) .result-rank { background-color: hsl(38, 90%, 50%); }
-.result-item:nth-child(2) .result-rank { background-color: hsl(220, 20%, 65%); }
-.result-item:nth-child(3) .result-rank { background-color: hsl(20, 70%, 55%); }
 
 /* Header cua tung the ket qua */
 .result-header {
