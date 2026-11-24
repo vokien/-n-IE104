@@ -786,6 +786,7 @@
 .recommend-rank-filters-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: var(--spacing-sm);
   margin-top: 4px;
 }
@@ -876,7 +877,6 @@
   margin-block: 2px 0;
 }
 
-.rank-choices--secondary.rank-choices--single,
 .rank-choices--secondary:has(> :only-child) {
   grid-template-columns: 1fr;
 }
