@@ -71,18 +71,12 @@ class ConferenceUpdateTests(unittest.TestCase):
 
     def test_real_seed_covers_all_core_and_preserves_every_public_id(self):
         records = validate_seed(load(HERE / 'seed.json'))
-        self.assertEqual(len(records), 987)
+        self.assertEqual(len(records), 992)
         registry = {r['venue']['id']: r['venue'] for r in records}
         for row in load(ROOT / 'data/conf.json'):
-            if row['id'] in registry:
-                self.assertEqual(row['name'].strip(), registry[row['id']]['name'].strip())
-                self.assertEqual(row['acronym'].strip(), registry[row['id']]['acronym'].strip())
-            else:
-                # Novel discovered conferences allocated with sequential ID > 987
-                num = int(row['id'].split('-')[1])
-                self.assertGreater(num, 987)
-                self.assertTrue(bool(row['name']))
-                self.assertTrue(bool(row['acronym']))
+            self.assertIn(row['id'], registry)
+            self.assertEqual(row['name'].strip(), registry[row['id']]['name'].strip())
+            self.assertEqual(row['acronym'].strip(), registry[row['id']]['acronym'].strip())
             self.assertEqual(set(row), set(FIELDS))
 
     def test_ccf_identity_same_acronym_wrong_dblp_not_joined(self):
@@ -375,7 +369,8 @@ class ConferenceUpdateTests(unittest.TestCase):
         jobs = workflow['jobs']
         self.assertIn('validate', jobs['refresh']['needs'])
         pr = next(s for s in jobs['refresh']['steps'] if s.get('id') == 'pr')
-        self.assertEqual(pr['with']['add-paths'], 'data/conf.json')
+        self.assertIn('data/conf.json', pr['with']['add-paths'])
+        self.assertIn('tools/conference_update/seed.json', pr['with']['add-paths'])
         self.assertEqual(pr['with']['branch'], 'automation/update-conferences')
         self.assertEqual(pr['if'], 'success()')
         self.assertNotIn('branch-suffix', pr['with'])

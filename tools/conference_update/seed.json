@@ -61139,6 +61139,430 @@
         "submission_deadlines": [],
         "homepage_url": "https://www.agilealliance.org/xp2024/ "
       }
+    },
+    {
+      "core": {
+        "id": "2357",
+        "name": "ACM Conference on Data and Application Security and Privacy",
+        "acronym": "CODASPY",
+        "source": "ICORE2026",
+        "rank": "Unranked",
+        "dblp": "No",
+        "primary_for": "4600",
+        "secondary_for": "",
+        "tertiary_for": "",
+        "portal_url": "http://www.codaspy.org/2027/",
+        "note": "Discovered via sec-deadlines",
+        "note_links": [],
+        "note_images": [],
+        "dblp_url": null,
+        "comments_count": 0,
+        "average_rating": null
+      },
+      "venue": {
+        "id": "CONF-990",
+        "name": "ACM Conference on Data and Application Security and Privacy",
+        "acronym": "CODASPY",
+        "issn": null,
+        "eissn": null,
+        "publisher": "ACM",
+        "core_rank": null,
+        "subject_area": [
+          "Computer Security",
+          "Cryptography",
+          "Privacy"
+        ],
+        "scope_keywords": [
+          "ACM Conference on Data and Application Security and Privacy",
+          "CODASPY",
+          "CRYPTO",
+          "SEC",
+          "CONF",
+          "PRIV",
+          "OTHERS",
+          "security",
+          "privacy",
+          "Access control for applications",
+          "Access control for databases",
+          "Application-layer security policies",
+          "Artificial intelligence / machine learning for security",
+          "Data-dissemination controls",
+          "Data forensics",
+          "Data leak detection and prevention",
+          "Enforcement-layer security policies",
+          "Privacy-preserving techniques",
+          "Private information retrieval",
+          "Search on protected/encrypted data",
+          "Secure auditing",
+          "Secure collaboration",
+          "Secure data provenance",
+          "Secure electronic commerce",
+          "Secure information sharing",
+          "Secure knowledge management",
+          "Secure multiparty computation",
+          "Secure software development",
+          "Securing data/apps on untrusted platforms",
+          "Securing the semantic web",
+          "Security and privacy in GIS/spatial data",
+          "Security and privacy in healthcare",
+          "Security and privacy in the Internet of Things",
+          "Security policies for databases",
+          "Social computing security and privacy",
+          "Social networking security and privacy",
+          "Trust metrics for applications, data, and users",
+          "Trustworthy artificial intelligence / machine learning",
+          "Usable security and privacy",
+          "Web application security"
+        ],
+        "submission_deadlines": [
+          {
+            "abstract_deadline": "2026-12-01T11:59:59Z",
+            "deadline": "2026-12-08T11:59:59Z",
+            "rebuttal_deadline": "2027-01-23T11:59:59Z",
+            "decision_deadline": "2027-01-26T11:59:59Z",
+            "year": 2027,
+            "edition_id": "codaspy2027",
+            "timezone": "UTC",
+            "original_timezone": "AoE",
+            "original_deadlines": {
+              "deadline": "2026-12-07 23:59:59",
+              "abstract_deadline": "2026-11-30 23:59:59",
+              "decision_deadline": "2027-01-25 23:59:59",
+              "rebuttal_deadline": "2027-01-22 23:59:59",
+              "camera_ready_deadline": "2027-03-26"
+            },
+            "deadline_dates": {
+              "camera_ready_deadline": "2027-03-26"
+            },
+            "utc_status": {
+              "deadline": "converted",
+              "abstract_deadline": "converted",
+              "decision_deadline": "converted",
+              "rebuttal_deadline": "converted",
+              "camera_ready_deadline": "date_only"
+            },
+            "link": "https://www.codaspy.org/2027/",
+            "date": "June 14-17, 2027",
+            "place": "Fort Collins, Colorado, USA",
+            "camera_ready_deadline": null,
+            "original_timezones": {
+              "camera_ready_deadline": null
+            }
+          }
+        ],
+        "homepage_url": "http://www.codaspy.org/2027/"
+      }
+    },
+    {
+      "core": {
+        "id": "2358",
+        "name": "USENIX Symposium on Vehicle Security and Privacy",
+        "acronym": "VehicleSec",
+        "source": "ICORE2026",
+        "rank": "Unranked",
+        "dblp": "No",
+        "primary_for": "4600",
+        "secondary_for": "",
+        "tertiary_for": "",
+        "portal_url": "https://www.usenix.org/conference/vehiclesec27",
+        "note": "Discovered via sec-deadlines",
+        "note_links": [],
+        "note_images": [],
+        "dblp_url": null,
+        "comments_count": 0,
+        "average_rating": null
+      },
+      "venue": {
+        "id": "CONF-991",
+        "name": "USENIX Symposium on Vehicle Security and Privacy",
+        "acronym": "VehicleSec",
+        "issn": null,
+        "eissn": null,
+        "publisher": "USENIX",
+        "core_rank": null,
+        "subject_area": [
+          "Computer Security",
+          "Cryptography",
+          "Privacy"
+        ],
+        "scope_keywords": [
+          "USENIX Symposium on Vehicle Security and Privacy",
+          "VEHICLESEC",
+          "SEC",
+          "PRIV",
+          "CONF",
+          "OTHERS"
+        ],
+        "submission_deadlines": [
+          {
+            "deadline": "2026-12-15T23:59:59-12:00",
+            "comment": "Round 1 (sec-deadlines)",
+            "year": 2027,
+            "timezone": "UTC",
+            "original_timezone": "AoE",
+            "original_deadlines": {
+              "deadline": "2026-12-15 23:59:59"
+            },
+            "deadline_dates": {
+              "deadline": "2026-12-15"
+            },
+            "utc_status": {
+              "deadline": "converted"
+            },
+            "link": "https://www.usenix.org/conference/vehiclesec27"
+          },
+          {
+            "deadline": "2027-03-11T23:59:59-12:00",
+            "comment": "Round 2 (sec-deadlines)",
+            "year": 2027,
+            "timezone": "UTC",
+            "original_timezone": "AoE",
+            "original_deadlines": {
+              "deadline": "2027-03-11 23:59:59"
+            },
+            "deadline_dates": {
+              "deadline": "2027-03-11"
+            },
+            "utc_status": {
+              "deadline": "converted"
+            },
+            "link": "https://www.usenix.org/conference/vehiclesec27"
+          }
+        ],
+        "homepage_url": "https://www.usenix.org/conference/vehiclesec27"
+      }
+    },
+    {
+      "core": {
+        "id": "2359",
+        "name": "USENIX Conference on Secure Agentic-AI Systems",
+        "acronym": "SAIS",
+        "source": "ICORE2026",
+        "rank": "Unranked",
+        "dblp": "No",
+        "primary_for": "4600",
+        "secondary_for": "",
+        "tertiary_for": "",
+        "portal_url": "https://www.usenix.org/conference/sais27",
+        "note": "Discovered via sec-deadlines",
+        "note_links": [],
+        "note_images": [],
+        "dblp_url": null,
+        "comments_count": 0,
+        "average_rating": null
+      },
+      "venue": {
+        "id": "CONF-992",
+        "name": "USENIX Conference on Secure Agentic-AI Systems",
+        "acronym": "SAIS",
+        "issn": null,
+        "eissn": null,
+        "publisher": "USENIX",
+        "core_rank": null,
+        "subject_area": [
+          "Computer Security",
+          "Cryptography",
+          "Privacy"
+        ],
+        "scope_keywords": [
+          "USENIX Conference on Secure Agentic-AI Systems",
+          "SAIS",
+          "SEC",
+          "PRIV",
+          "CONF",
+          "OTHERS"
+        ],
+        "submission_deadlines": [
+          {
+            "deadline": "2027-02-05T11:59:59Z",
+            "comment": "Paper submission deadline",
+            "year": 2027,
+            "edition_id": "sais27",
+            "timezone": "UTC",
+            "original_timezone": "AoE",
+            "original_deadlines": {
+              "deadline": "2027-02-04 23:59:59"
+            },
+            "deadline_dates": {},
+            "utc_status": {
+              "deadline": "converted"
+            },
+            "link": "https://www.usenix.org/conference/sais27",
+            "date": "June 7-8, 2027",
+            "place": "Santa Clara, CA, USA"
+          }
+        ],
+        "homepage_url": "https://www.usenix.org/conference/sais27"
+      }
+    },
+    {
+      "core": {
+        "id": "2360",
+        "name": "International Symposium on Digital Forensics and Security",
+        "acronym": "ISDFS",
+        "source": "ICORE2026",
+        "rank": "Unranked",
+        "dblp": "No",
+        "primary_for": "4600",
+        "secondary_for": "",
+        "tertiary_for": "",
+        "portal_url": "https://www.isdfs.org/2027/",
+        "note": "Discovered via sec-deadlines",
+        "note_links": [],
+        "note_images": [],
+        "dblp_url": null,
+        "comments_count": 0,
+        "average_rating": null
+      },
+      "venue": {
+        "id": "CONF-993",
+        "name": "International Symposium on Digital Forensics and Security",
+        "acronym": "ISDFS",
+        "issn": null,
+        "eissn": null,
+        "publisher": null,
+        "core_rank": null,
+        "subject_area": [
+          "Computer Security",
+          "Cryptography",
+          "Privacy"
+        ],
+        "scope_keywords": [
+          "International Symposium on Digital Forensics and Security",
+          "ISDFS",
+          "SEC",
+          "PRIV",
+          "CONF",
+          "OTHERS",
+          "cybersecurity",
+          "cyber security",
+          "digital forensics",
+          "computer science",
+          "artificial intelligence"
+        ],
+        "submission_deadlines": [
+          {
+            "deadline": null,
+            "decision_deadline": null,
+            "camera_ready_deadline": null,
+            "comment": "WikiCFP labelled date table",
+            "year": 2027,
+            "edition_id": "wikicfp-201535",
+            "timezone": "UTC",
+            "original_timezone": null,
+            "original_deadlines": {
+              "deadline": "2027-01-31",
+              "decision_deadline": "2027-02-20",
+              "camera_ready_deadline": "2027-02-25"
+            },
+            "deadline_dates": {
+              "deadline": "2027-01-31",
+              "decision_deadline": "2027-02-20",
+              "camera_ready_deadline": "2027-02-25"
+            },
+            "utc_status": {
+              "deadline": "date_only",
+              "decision_deadline": "date_only",
+              "camera_ready_deadline": "date_only"
+            },
+            "link": "https://www.isdfs.org/2027/",
+            "date": "Mar 25, 2027 - Mar 26, 2027",
+            "place": "San Jose, California, USA"
+          }
+        ],
+        "homepage_url": "https://www.isdfs.org/2027/"
+      }
+    },
+    {
+      "core": {
+        "id": "2361",
+        "name": "The International Conference on Attacks and Defenses for Internet-of-Things",
+        "acronym": "ADIoT",
+        "source": "ICORE2026",
+        "rank": "Unranked",
+        "dblp": "No",
+        "primary_for": "4600",
+        "secondary_for": "",
+        "tertiary_for": "",
+        "portal_url": "https://adiot.sptagelab.org/2026/",
+        "note": "Discovered via sec-deadlines",
+        "note_links": [],
+        "note_images": [],
+        "dblp_url": null,
+        "comments_count": 0,
+        "average_rating": null
+      },
+      "venue": {
+        "id": "CONF-1001",
+        "name": "The International Conference on Attacks and Defenses for Internet-of-Things",
+        "acronym": "ADIoT",
+        "issn": null,
+        "eissn": null,
+        "publisher": null,
+        "core_rank": null,
+        "subject_area": [
+          "Computer Security",
+          "Cryptography",
+          "Privacy"
+        ],
+        "scope_keywords": [
+          "The International Conference on Attacks and Defenses for Internet-of-Things",
+          "ADIOT",
+          "SEC",
+          "CONF",
+          "OTHERS",
+          "security",
+          "AI",
+          "privacy",
+          "Malware and unwanted software for IoT",
+          "Vulnerability analysis and reverse engineering for IoT",
+          "IoT security and privacy",
+          "IoT forensic techniques",
+          "Usable security and privacy for IoT",
+          "Intrusion detection and prevention for IoT",
+          "Cyber intelligence techniques for IoT",
+          "IoT infrastructures and mitigation techniques",
+          "IoT Hardware security",
+          "Cyber physical systems security",
+          "Adversarial learning for IoT",
+          "IoT Cyber crime",
+          "Denial-of-Service attacks for IoT",
+          "Security measurement for IoT",
+          "IoT security visualization techniques",
+          "Edge/Fog computing attack and defense"
+        ],
+        "submission_deadlines": [
+          {
+            "deadline": null,
+            "decision_deadline": null,
+            "camera_ready_deadline": null,
+            "comment": "WikiCFP CFP text",
+            "year": 2026,
+            "edition_id": "wikicfp-204240",
+            "timezone": "UTC",
+            "original_timezone": null,
+            "original_deadlines": {
+              "deadline": "2026-11-22",
+              "decision_deadline": "2026-12-07",
+              "camera_ready_deadline": "2026-12-12"
+            },
+            "deadline_dates": {
+              "deadline": "2026-11-22",
+              "decision_deadline": "2026-12-07",
+              "camera_ready_deadline": "2026-12-12"
+            },
+            "utc_status": {
+              "deadline": "date_only",
+              "decision_deadline": "date_only",
+              "camera_ready_deadline": "date_only"
+            },
+            "link": "https://adiot.sptagelab.org/2026/",
+            "date": "Dec 18, 2026 - Dec 20, 2026",
+            "place": "Hangzhou, China"
+          }
+        ],
+        "homepage_url": "https://adiot.sptagelab.org/2026/"
+      }
     }
   ]
 }

@@ -18,8 +18,12 @@ import logging
 import re
 import urllib.request
 from datetime import datetime, timezone
+from pathlib import Path
 from urllib.parse import quote, urlsplit
 import yaml
+
+HERE = Path(__file__).resolve().parent
+DEFAULT_CONF_PATH = HERE.parents[1] / 'data/conf.json'
 
 logger = logging.getLogger(__name__)
 
@@ -243,45 +247,50 @@ def load_all_curated_sources(today_cutoff: str = "2026-01-01") -> tuple[dict[str
             raw_dl = item.get('deadline')
             dl_list = raw_dl if isinstance(raw_dl, list) else [raw_dl]
 
+            all_rounds = []
             valid_rounds = []
             for idx, dl_item in enumerate(dl_list, 1):
                 comment = f"Round {idx} ({source_name})" if len(dl_list) > 1 else f"Submission ({source_name})"
                 entry = parse_deadline_entry(dl_item, year, comment=comment, link=link)
-                if entry and entry['deadline_dates']['deadline'] >= today_cutoff:
-                    valid_rounds.append(entry)
+                if entry:
+                    all_rounds.append(entry)
+                    if entry['deadline_dates']['deadline'] >= today_cutoff:
+                        valid_rounds.append(entry)
 
             # Abstract deadline if available
             raw_abs = item.get('abstract_deadline')
             if raw_abs:
                 abs_entry = parse_deadline_entry(raw_abs, year, comment="Abstract Registration", link=link)
-                if abs_entry and abs_entry['deadline_dates']['deadline'] >= today_cutoff:
-                    valid_rounds.insert(0, abs_entry)
+                if abs_entry:
+                    all_rounds.insert(0, abs_entry)
+                    if abs_entry['deadline_dates']['deadline'] >= today_cutoff:
+                        valid_rounds.insert(0, abs_entry)
 
             if valid_rounds:
                 aggregated_deadlines.setdefault(norm_acronym, []).extend(valid_rounds)
 
-                # Collect keywords from tags and description
-                tags = item.get('tags') or []
-                if isinstance(tags, str):
-                    tags = [tags]
-                keywords = [full_name, norm_acronym] + list(tags)
-                if item.get('sub'):
-                    keywords.append(clean_str(item.get('sub')))
+            # Venue Discovery: Always keep venues from curated repos to maintain identity in seed
+            tags = item.get('tags') or []
+            if isinstance(tags, str):
+                tags = [tags]
+            keywords = [full_name, norm_acronym] + list(tags)
+            if item.get('sub'):
+                keywords.append(clean_str(item.get('sub')))
 
-                venue_info = {
-                    'acronym': clean_str(acronym_cand).replace(' 2025', '').replace(' 2026', '').replace(' 2027', ''),
-                    'norm_acronym': norm_acronym,
-                    'name': full_name,
-                    'homepage_url': link or None,
-                    'subject_area': list(subjects),
-                    'scope_keywords': [k for k in dict.fromkeys(keywords) if k],
-                    'submission_deadlines': valid_rounds,
-                    'source': source_name
-                }
+            venue_info = {
+                'acronym': clean_str(acronym_cand).replace(' 2025', '').replace(' 2026', '').replace(' 2027', ''),
+                'norm_acronym': norm_acronym,
+                'name': full_name,
+                'homepage_url': link or None,
+                'subject_area': list(subjects),
+                'scope_keywords': [k for k in dict.fromkeys(keywords) if k],
+                'submission_deadlines': valid_rounds if valid_rounds else all_rounds,
+                'source': source_name
+            }
 
-                if norm_acronym not in seen_venues:
-                    seen_venues.add(norm_acronym)
-                    curated_venues.append(venue_info)
+            if norm_acronym not in seen_venues:
+                seen_venues.add(norm_acronym)
+                curated_venues.append(venue_info)
 
     logger.info(f"Aggregated curated deadlines for {len(aggregated_deadlines)} acronyms; {len(curated_venues)} venues.")
     return aggregated_deadlines, curated_venues
@@ -290,40 +299,106 @@ def load_all_curated_sources(today_cutoff: str = "2026-01-01") -> tuple[dict[str
 def integrate_curated_into_seed(
     seed_records: list[dict],
     curated_venues: list[dict],
-    today_cutoff: str = "2026-01-01"
+    today_cutoff: str = "2026-01-01",
+    conf_path: Path | str | None = None
 ) -> tuple[list[dict], dict]:
     """
     Reconciles curated venues with existing seed records:
     1. If venue exists in seed, preserves seed CORE metadata.
-    2. If venue is novel and high-quality, auto-allocates new sequential CONF-xxx ID,
-       validates strict schema requirements, and appends to seed records.
+    2. Uses Identity-Locked registry to check both seed records and current conf.json.
+    3. Reuses exact existing ID if known; otherwise allocates lowest available gap ID
+       (or max(used_ids) + 1 if no gaps exist).
     Returns: (updated_seed_records, stats_report)
     """
     updated_records = list(seed_records)
-    existing_acronyms = set()
-    existing_names = set()
-    max_venue_num = 0
-    max_core_num = 0
+
+    seed_venue_ids = set()
+    seed_acronyms = set()
+    seed_names = set()
+
+    existing_identity_map: dict[tuple[str, str], str] = {}
+    acronym_to_id: dict[str, str] = {}
+    name_to_id: dict[str, str] = {}
+
+    all_venues: list[dict] = []
+    used_core_ids: set[int] = set()
 
     for r in seed_records:
         v = r['venue']
         c = r['core']
-        if v.get('acronym'):
-            existing_acronyms.add(normalize_acronym(v['acronym']))
-        if c.get('acronym'):
-            existing_acronyms.add(normalize_acronym(c['acronym']))
-        if v.get('name'):
-            existing_names.add(v['name'].strip().lower())
-        if c.get('name'):
-            existing_names.add(c['name'].strip().lower())
+        all_venues.append(v)
 
-        # Track max IDs
-        v_match = re.search(r'CONF-(\d+)', v.get('id', ''))
-        if v_match:
-            max_venue_num = max(max_venue_num, int(v_match.group(1)))
-        c_match = re.search(r'(\d+)', c.get('id', ''))
-        if c_match:
-            max_core_num = max(max_core_num, int(c_match.group(1)))
+        c_id = c.get('id', '')
+        if str(c_id).isdigit():
+            used_core_ids.add(int(c_id))
+
+        vid = v.get('id')
+        if vid:
+            seed_venue_ids.add(vid)
+
+        v_acr = normalize_acronym(v.get('acronym'))
+        c_acr = normalize_acronym(c.get('acronym'))
+        v_name = clean_str(v.get('name')).lower()
+        c_name = clean_str(c.get('name')).lower()
+
+        if v_acr:
+            seed_acronyms.add(v_acr)
+            if vid:
+                acronym_to_id[v_acr] = vid
+        if c_acr:
+            seed_acronyms.add(c_acr)
+            if vid:
+                acronym_to_id[c_acr] = vid
+        if v_name:
+            seed_names.add(v_name)
+            if vid:
+                name_to_id[v_name] = vid
+        if c_name:
+            seed_names.add(c_name)
+            if vid:
+                name_to_id[c_name] = vid
+
+        if vid:
+            if v_acr and v_name:
+                existing_identity_map[(v_acr, v_name)] = vid
+            if c_acr and c_name:
+                existing_identity_map[(c_acr, c_name)] = vid
+
+    # Inspect current public conf.json if provided
+    if conf_path is not None:
+        cp = Path(conf_path)
+        if cp.exists():
+            try:
+                conf_data = json.loads(cp.read_text(encoding='utf-8'))
+                if isinstance(conf_data, list):
+                    for v in conf_data:
+                        all_venues.append(v)
+                        vid = v.get('id')
+                        acr = normalize_acronym(v.get('acronym'))
+                        nm = clean_str(v.get('name')).lower()
+                        if vid:
+                            if acr:
+                                acronym_to_id.setdefault(acr, vid)
+                            if nm:
+                                name_to_id.setdefault(nm, vid)
+                            if acr and nm:
+                                existing_identity_map.setdefault((acr, nm), vid)
+            except Exception as e:
+                logger.warning(f"Could not load conf file from {conf_path}: {e}")
+
+    # Collect all numeric IDs allocated so far across seed and conf.json
+    used_ids: set[int] = set()
+    for v in all_venues:
+        vid = str(v.get('id', ''))
+        m = re.match(r'^CONF-(\d+)$', vid)
+        if m:
+            used_ids.add(int(m.group(1)))
+
+    # Discover gaps in allocated IDs (e.g. from previously removed/unseeded conferences)
+    gap_ids: list[int] = []
+    if used_ids:
+        max_id = max(used_ids)
+        gap_ids = sorted(set(range(1, max_id + 1)) - used_ids)
 
     stats = {
         'new_venues_discovered': 0,
@@ -333,18 +408,45 @@ def integrate_curated_into_seed(
 
     for cv in curated_venues:
         norm_acr = cv['norm_acronym']
-        norm_name = cv['name'].strip().lower()
+        norm_name = clean_str(cv['name']).lower()
 
-        # Check if already present in seed
-        if norm_acr in existing_acronyms or norm_name in existing_names:
+        # Check if already present in seed_records
+        if (norm_acr, norm_name) in existing_identity_map and existing_identity_map[(norm_acr, norm_name)] in seed_venue_ids:
+            stats['existing_venues_matched'] += 1
+            continue
+        if norm_acr in seed_acronyms or norm_name in seed_names:
             stats['existing_venues_matched'] += 1
             continue
 
-        # Novel conference discovered! Allocate next sequential ID
-        max_venue_num += 1
-        max_core_num += 1
-        new_conf_id = f"CONF-{max_venue_num:03d}"
-        new_core_id = str(max_core_num)
+        # Check if venue exists in public registry (e.g. conf.json) to reuse its invariant ID
+        existing_conf_id = (
+            existing_identity_map.get((norm_acr, norm_name))
+            or acronym_to_id.get(norm_acr)
+            or name_to_id.get(norm_name)
+        )
+
+        if existing_conf_id:
+            new_conf_id = existing_conf_id
+            m = re.match(r'^CONF-(\d+)$', new_conf_id)
+            if m:
+                num = int(m.group(1))
+                used_ids.add(num)
+                if num in gap_ids:
+                    gap_ids.remove(num)
+        else:
+            # Allocate from smallest gap ID if any exist, otherwise extend sequentially
+            if gap_ids:
+                gap_id = gap_ids.pop(0)
+                used_ids.add(gap_id)
+                new_conf_id = f"CONF-{gap_id:03d}"
+            else:
+                next_id = max(used_ids) + 1 if used_ids else 1
+                used_ids.add(next_id)
+                new_conf_id = f"CONF-{next_id:03d}"
+
+        next_core = max(used_core_ids) + 1 if used_core_ids else 1
+        used_core_ids.add(next_core)
+        new_core_id = str(next_core)
 
         # Detect publisher
         detected_pub = detect_publisher_from_metadata(cv['name'], cv.get('homepage_url') or '')
@@ -388,8 +490,16 @@ def integrate_curated_into_seed(
         }
 
         updated_records.append(new_record)
-        existing_acronyms.add(norm_acr)
-        existing_names.add(norm_name)
+        seed_venue_ids.add(new_conf_id)
+        if norm_acr:
+            seed_acronyms.add(norm_acr)
+            acronym_to_id[norm_acr] = new_conf_id
+        if norm_name:
+            seed_names.add(norm_name)
+            name_to_id[norm_name] = new_conf_id
+        if norm_acr and norm_name:
+            existing_identity_map[(norm_acr, norm_name)] = new_conf_id
+
         stats['new_venues_discovered'] += 1
         stats['new_venues_added'].append({
             'id': new_conf_id,

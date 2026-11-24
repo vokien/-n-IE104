@@ -77,18 +77,18 @@ class OpenAlexSource:
     def discover_new_journals(spider, existing_journals: list[dict], max_to_add: int = 15) -> list[dict]:
         """
         Actively discover high-impact Computer Science & Web Technology journals from OpenAlex.
-        Allocates sequential JOUR-xxxx IDs and verifies schema conformity.
+        Allocates invariant JOUR-xxxx IDs, recovers gaps, and verifies schema conformity.
         """
         existing_issns = set()
-        max_id_num = 0
         for j in existing_journals:
             if j.get('issn'):
                 existing_issns.add(j['issn'])
             if j.get('eissn'):
                 existing_issns.add(j['eissn'])
-            m = re.search(r'JOUR-(\d+)', j.get('id', ''))
-            if m:
-                max_id_num = max(max_id_num, int(m.group(1)))
+
+        existing_names = {clean_text(j.get('name')).lower() for j in existing_journals if j.get('name')}
+        used_ids = {int(m.group(1)) for j in existing_journals if (m := re.match(r'JOUR-(\d+)', j.get('id', '')))}
+        gap_ids = sorted(set(range(1, max(used_ids) + 1)) - used_ids) if used_ids else []
 
         queries = ['computer science', 'software engineering', 'artificial intelligence', 'information systems']
         discovered = []
@@ -108,8 +108,14 @@ class OpenAlexSource:
                     norm_issns = [normalize_issn(x) for x in issn_list if normalize_issn(x)]
                     if not norm_issns:
                         continue
-                    # Check if already present
-                    if any(i in existing_issns for i in norm_issns):
+
+                    cand_name = clean_text(item.get('display_name'))
+                    cand_name_norm = cand_name.lower()
+                    if not cand_name_norm:
+                        continue
+
+                    # Check if already present by name or ISSN (absolute deduplication)
+                    if cand_name_norm in existing_names or any(i in existing_issns for i in norm_issns):
                         continue
 
                     # Filter low activity / discontinued
@@ -122,16 +128,21 @@ class OpenAlexSource:
                     h_index = safe_int(stats.get('h_index'), default=0)
                     sjr = round(citescore * 0.18, 3)
 
-                    max_id_num += 1
-                    new_id = f"JOUR-{max_id_num:04d}"
+                    # ID allocation: recover gap or expand sequential
+                    if gap_ids:
+                        assigned_id_num = gap_ids.pop(0)
+                    else:
+                        assigned_id_num = (max(used_ids) + 1) if used_ids else 1
+                    used_ids.add(assigned_id_num)
+                    new_id = f"JOUR-{assigned_id_num:04d}"
 
                     concepts = [c['display_name'] for c in item.get('x_concepts', []) if isinstance(c, dict) and c.get('display_name')]
                     subjects = concepts[:3] if concepts else ['Computer Science']
-                    keywords = concepts[:8] if concepts else [clean_text(item.get('display_name'))]
+                    keywords = concepts[:8] if concepts else [cand_name]
 
                     candidate = {
                         'id': new_id,
-                        'name': clean_text(item.get('display_name')),
+                        'name': cand_name,
                         'issn': norm_issns[0],
                         'eissn': norm_issns[1] if len(norm_issns) > 1 else None,
                         'publisher': clean_text(item.get('host_organization_name')) or 'Unknown Publisher',
@@ -149,8 +160,9 @@ class OpenAlexSource:
                     }
 
                     try:
-                        validated = normalize_journal(candidate, fallback_index=max_id_num)
+                        validated = normalize_journal(candidate, fallback_index=assigned_id_num)
                         discovered.append(validated)
+                        existing_names.add(cand_name_norm)
                         for i in norm_issns:
                             existing_issns.add(i)
                     except Exception as e:

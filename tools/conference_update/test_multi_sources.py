@@ -94,6 +94,80 @@ class TestMultiSources(unittest.TestCase):
         res = safe_fetch("https://invalid-non-existent-domain-123456789.org/test.yml", timeout=1, max_retries=1)
         self.assertIsNone(res)
 
+    def test_integrate_curated_into_seed_gap_recovery(self):
+        seed_records = [
+            {
+                'core': {'id': '1', 'name': 'Conf One', 'acronym': 'C1', 'source': 'ICORE2026', 'rank': 'A'},
+                'venue': {'id': 'CONF-001', 'name': 'Conf One', 'acronym': 'C1', 'submission_deadlines': []}
+            },
+            {
+                'core': {'id': '3', 'name': 'Conf Three', 'acronym': 'C3', 'source': 'ICORE2026', 'rank': 'B'},
+                'venue': {'id': 'CONF-003', 'name': 'Conf Three', 'acronym': 'C3', 'submission_deadlines': []}
+            }
+        ]
+        curated_venues = [
+            {
+                'name': 'Novel Conf Two',
+                'acronym': 'C2',
+                'norm_acronym': 'C2',
+                'homepage_url': 'https://c2.org',
+                'subject_area': ['Computer Science'],
+                'scope_keywords': ['C2'],
+                'submission_deadlines': [],
+                'source': 'test'
+            },
+            {
+                'name': 'Novel Conf Four',
+                'acronym': 'C4',
+                'norm_acronym': 'C4',
+                'homepage_url': 'https://c4.org',
+                'subject_area': ['Computer Science'],
+                'scope_keywords': ['C4'],
+                'submission_deadlines': [],
+                'source': 'test'
+            }
+        ]
+        updated, stats = integrate_curated_into_seed(seed_records, curated_venues, '2026-01-01', conf_path=None)
+        self.assertEqual(stats['new_venues_discovered'], 2)
+        # First novel venue fills gap CONF-002
+        self.assertEqual(updated[2]['venue']['id'], 'CONF-002')
+        # Second novel venue takes next sequential CONF-004
+        self.assertEqual(updated[3]['venue']['id'], 'CONF-004')
+
+    def test_integrate_curated_into_seed_reuse_existing_public_id(self):
+        import json, tempfile
+        seed_records = [
+            {
+                'core': {'id': '1', 'name': 'Existing Conf', 'acronym': 'EX', 'source': 'ICORE2026', 'rank': 'A'},
+                'venue': {'id': 'CONF-001', 'name': 'Existing Conf', 'acronym': 'EX', 'submission_deadlines': []}
+            }
+        ]
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False, encoding='utf-8') as f:
+            json.dump([
+                {'id': 'CONF-990', 'name': 'Public Conf', 'acronym': 'PC', 'submission_deadlines': []}
+            ], f)
+            temp_conf = Path(f.name)
+
+        try:
+            curated_venues = [
+                {
+                    'name': 'Public Conf',
+                    'acronym': 'PC',
+                    'norm_acronym': 'PC',
+                    'homepage_url': 'https://pc.org',
+                    'subject_area': ['Computer Science'],
+                    'scope_keywords': ['PC'],
+                    'submission_deadlines': [],
+                    'source': 'test'
+                }
+            ]
+            updated, stats = integrate_curated_into_seed(seed_records, curated_venues, '2026-01-01', conf_path=temp_conf)
+            self.assertEqual(stats['new_venues_discovered'], 1)
+            # Reuses CONF-990 from public conf.json
+            self.assertEqual(updated[1]['venue']['id'], 'CONF-990')
+        finally:
+            temp_conf.unlink(missing_ok=True)
+
 
 if __name__ == '__main__':
     unittest.main()
