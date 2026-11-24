@@ -938,10 +938,13 @@
     grid-row: 1;
     height: auto;
     min-height: 28px;
+    align-items: center;
   }
 
   .timeline-milestones-drawer .timeline-milestone-name {
     max-width: 64px;
+    align-self: center;
+    margin: 0;
   }
 
   .timeline-milestones-drawer .timeline-milestone-item .badge {
@@ -991,10 +994,13 @@
     grid-row: 1;
     height: auto;
     min-height: 28px;
+    align-items: center;
   }
 
   .timeline-milestones-drawer .timeline-milestone-name {
     max-width: 70px;
+    align-self: center;
+    margin: 0;
   }
 
   .timeline-milestones-drawer .timeline-milestone-item .badge {
@@ -1042,11 +1048,14 @@
     justify-self: start;
     height: auto;
     min-height: 28px;
+    align-items: center;
   }
 
   .timeline-milestones-drawer .timeline-milestone-name {
     max-width: none;
     white-space: normal;
+    align-self: center;
+    margin: 0;
   }
 
   .timeline-milestones-drawer .timeline-milestone-item .badge {
@@ -1091,6 +1100,8 @@
   .timeline-milestones-drawer .timeline-milestone-name {
     max-width: none;
     white-space: normal;
+    align-self: center;
+    margin: 0;
   }
 
   .timeline-milestones-drawer .timeline-milestone-date {
@@ -1191,7 +1202,7 @@
 .timeline-milestone-title-group {
   display: inline-flex;
   align-self: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
   height: auto;
   min-height: 42px;
@@ -1213,7 +1224,9 @@
   font-size: 10px;
   font-weight: 700;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 0;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .timeline-milestone-name {
@@ -1227,6 +1240,9 @@
   line-height: 1.25;
   height: auto;
   min-width: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .timeline-milestone-badge-box {
