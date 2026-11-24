@@ -490,7 +490,7 @@ function runRecommenderTests() {
     selectedCore: ["other"]
   }).results;
   check(confOtherRes.length === 1 && confOtherRes[0].venue.id === "c-other",
-    "Bo loc conference voi CORE other (nhan khac) giu dung hoi nghi nhan khac");
+    "Bo loc conference voi CORE other (chuan khac) giu dung hoi nghi chuan khac");
 
   const confUnrankedRes = filterEngine.search("machine learning", {
     typeFilter: "conference",
