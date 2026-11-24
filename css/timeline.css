@@ -431,7 +431,43 @@
 
   .cfp-flow-body {
     width: 100%;
-    text-align: left;
+    text-align: center;
+  }
+
+  .cfp-flow-body > * {
+    text-align: center;
+  }
+
+  .cfp-flow-header-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .cfp-flow-header-row .badge,
+  .cfp-flow-body .badge {
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cfp-flow-name {
+    text-align: center;
+  }
+
+  .cfp-flow-date {
+    display: block;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .cfp-flow-desc,
+  .cfp-flow-text {
+    text-align: center;
   }
 
   .cfp-flow-step:not(:last-child)::after {
@@ -795,6 +831,7 @@
 .timeline-expand-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -805,6 +842,7 @@
   padding: 5px 10px;
   border-radius: var(--radius-sm, 4px);
   transition: all 160ms ease-out;
+  line-height: 1;
 }
 
 .timeline-expand-btn:hover {
@@ -815,7 +853,15 @@
 
 .timeline-expand-icon {
   flex-shrink: 0;
+  display: block;
+  margin: 0;
   transition: transform 0.25s ease;
+}
+
+.timeline-expand-label {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
 }
 
 .timeline-item.is-expanded .timeline-expand-icon {
@@ -885,6 +931,8 @@
     justify-content: flex-start;
     text-align: left;
     box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
     padding: 4px 10px;
   }
 
@@ -1410,7 +1458,6 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   margin-top: 4px;
-  text-align: left;
 }
 
 @media (max-width: 600px) {
@@ -1433,10 +1480,12 @@
   }
 
   .timeline-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     min-height: 42px;
     padding: 10px 14px;
-    justify-content: center;
     text-align: center;
     box-sizing: border-box;
   }

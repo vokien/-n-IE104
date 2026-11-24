@@ -634,7 +634,7 @@
             <div class="timeline-item-actions">
               <button type="button" class="timeline-expand-btn" data-conf-id="${item.id}" aria-expanded="${isExpanded}" aria-controls="drawer-${item.id}">
                 <svg class="timeline-expand-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <span class="timeline-expand-label">${isExpanded ? "Thu gọn 3 mốc CFP &uarr;" : "Xem chi tiết 3 mốc CFP &darr;"}</span>
+                <span class="timeline-expand-label">${isExpanded ? "Thu gọn 3 mốc CFP" : "Xem chi tiết 3 mốc CFP"}</span>
               </button>
             </div>
 
@@ -694,7 +694,7 @@
         btn.setAttribute("aria-expanded", String(!isExpanded));
         const labelEl = btn.querySelector(".timeline-expand-label");
         if (labelEl) {
-          labelEl.textContent = !isExpanded ? "Thu gọn 3 mốc CFP \u2191" : "Xem chi tiết 3 mốc CFP \u2193";
+          labelEl.textContent = !isExpanded ? "Thu gọn 3 mốc CFP" : "Xem chi tiết 3 mốc CFP";
         }
       }
     };
@@ -768,7 +768,7 @@
         if (btn) {
           btn.setAttribute("aria-expanded", "true");
           const labelEl = btn.querySelector(".timeline-expand-label");
-          if (labelEl) labelEl.textContent = "Thu gọn 3 mốc CFP \u2191";
+          if (labelEl) labelEl.textContent = "Thu gọn 3 mốc CFP";
         }
 
         // Cuộn mượt tới vị trí giữa màn hình
