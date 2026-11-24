@@ -700,6 +700,17 @@
   color: var(--color-text-main);
 }
 
+/* Chú thích Match Score trong cột kết quả: tạo khoảng đệm thoáng phía trên danh sách kết quả */
+.results-card .field-hint {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  .results-card .field-hint {
+    margin-bottom: 12px;
+  }
+}
+
 /* ---------------------------------------------------------------
    9. RESPONSIVE
    --------------------------------------------------------------- */
