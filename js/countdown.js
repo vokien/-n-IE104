@@ -907,6 +907,34 @@
   }
 
   /**
+   * Khởi tạo nút Scroll to Top cho trang CFP
+   */
+  function initBackToTop() {
+    const btn = document.getElementById("back-to-top-btn");
+    if (!btn) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      if (scrollY > 300) {
+        btn.classList.add("is-visible");
+      } else {
+        btn.classList.remove("is-visible");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    btn.addEventListener("click", () => {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+    });
+  }
+
+  /**
    * Tự động nhận diện và khởi tạo tùy vào trang hiện tại đang mở
    */
   function autoInitialize() {
@@ -916,6 +944,7 @@
     if (document.querySelector(".countdown-box")) {
       initVenueCountdowns();
     }
+    initBackToTop();
   }
 
   // Xuất API dùng chung cho cả timeline.html và venues.html
@@ -927,6 +956,7 @@
     loadTimelineData,
     attachCountdown,
     initVenueCountdowns,
+    initBackToTop,
     getAllConferences: () => allConferences,
     getActiveTimezoneConfig,
     setupTimezoneSelector,

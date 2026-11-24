@@ -1384,3 +1384,115 @@
     box-sizing: border-box;
   }
 }
+
+/* ----------------------------------------------------------
+   8. NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP / SCROLL TO TOP)
+   ---------------------------------------------------------- */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: var(--z-fixed, 90);
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill, 50%);
+  background-color: var(--color-bg-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  color: var(--color-primary, #2563eb);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 0.25s ease,
+              transform 0.25s ease,
+              visibility 0.25s,
+              background-color var(--transition-fast, 0.15s ease),
+              border-color var(--transition-fast, 0.15s ease),
+              color var(--transition-fast, 0.15s ease),
+              box-shadow var(--transition-fast, 0.15s ease);
+}
+
+.back-to-top-btn:hover {
+  background-color: var(--color-primary, #2563eb);
+  border-color: var(--color-primary, #2563eb);
+  color: var(--color-primary-contrast, #ffffff);
+  box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+  transform: translateY(-2px);
+}
+
+.back-to-top-btn:focus-visible {
+  outline: 2px solid var(--color-border-focus, #3b82f6);
+  outline-offset: 2px;
+  background-color: var(--color-primary, #2563eb);
+  border-color: var(--color-primary, #2563eb);
+  color: var(--color-primary-contrast, #ffffff);
+  box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+}
+
+.back-to-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top-btn.is-visible:hover {
+  transform: translateY(-2px);
+}
+
+.back-to-top-btn svg {
+  display: block;
+  transition: transform var(--transition-fast, 0.15s ease);
+}
+
+.back-to-top-btn:hover svg {
+  transform: translateY(-1px);
+}
+
+/* Chế độ Dark mode ([data-theme="dark"]) */
+[data-theme="dark"] .back-to-top-btn {
+  background-color: var(--color-bg-surface, #1e293b);
+  border-color: var(--color-border, #334155);
+  color: var(--color-primary, #60a5fa);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .back-to-top-btn:hover,
+[data-theme="dark"] .back-to-top-btn:focus-visible {
+  background-color: var(--color-primary, #2563eb);
+  border-color: var(--color-primary, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Media query mobile (max-width: 600px) */
+@media (max-width: 600px) {
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Hỗ trợ prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top-btn {
+    transition: opacity 0.25s ease, visibility 0.25s;
+    transform: none !important;
+  }
+  .back-to-top-btn:hover,
+  .back-to-top-btn.is-visible,
+  .back-to-top-btn.is-visible:hover,
+  .back-to-top-btn svg,
+  .back-to-top-btn:hover svg {
+    transform: none !important;
+  }
+}
