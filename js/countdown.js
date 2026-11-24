@@ -78,18 +78,19 @@
       return {
         key: "aoe",
         iana: "Etc/GMT+12",
-        bannerLabel: "Múi giờ theo hội nghị - AoE / UTC-12",
-        stepperLabel: "Giờ hội nghị (AoE)",
-        itemLabel: "Múi giờ hội nghị (AoE)",
+        bannerLabel: "AoE",
+        stepperLabel: "AoE",
+        itemLabel: "AoE",
       };
     }
     // Mặc định: local (tự động theo máy tính / thiết bị người dùng)
+    const formattedOffset = localOffset.replace("UTC", "GMT");
     return {
       key: "local",
       iana: userLocalTz,
-      bannerLabel: `Múi giờ thiết bị: ${shortTzName} (${localOffset})`,
-      stepperLabel: `Giờ thiết bị (${localOffset})`,
-      itemLabel: `Múi giờ thiết bị (${localOffset})`,
+      bannerLabel: formattedOffset,
+      stepperLabel: formattedOffset,
+      itemLabel: formattedOffset,
     };
   }
 
@@ -120,8 +121,8 @@
    * TUYỆT ĐỐI KHÔNG dùng các từ ngữ gây hiểu lầm như "Đang mở nhận bài", "Khẩn cấp", "Sắp đến hạn"
    * Sử dụng chuẩn ngữ nghĩa học thuật:
    * - "Chờ công bố kết quả" (khi còn > 30 ngày)
-   * - "Đang phản biện (còn X ngày)" (khi còn <= 30 ngày)
-   * - "Sắp công bố kết quả (còn X ngày)" (khi còn <= 7 ngày)
+   * - "Đang phản biện" (khi còn <= 30 ngày)
+   * - "Sắp công bố (X ngày)" (khi còn <= 7 ngày)
    * - "Đã công bố kết quả" (khi đã đến hoặc qua ngày)
    * - "Chưa công bố" (khi ban tổ chức chưa ấn định ngày)
    */
@@ -152,7 +153,7 @@
     if (diffDays <= 7) {
       return {
         type: "announcing-soon",
-        label: `Sắp công bố kết quả (còn ${diffDays} ngày)`,
+        label: `Sắp công bố (${diffDays} ngày)`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -162,7 +163,7 @@
     if (diffDays <= 30) {
       return {
         type: "in-review",
-        label: `Đang phản biện (còn ${diffDays} ngày)`,
+        label: "Đang phản biện",
         className: "badge--review",
         diffDays: diffDays,
         isEnded: false,
@@ -203,7 +204,7 @@
     if (diffDays <= 7) {
       return {
         type: "urgent",
-        label: `Khẩn cấp (còn ${diffDays} ngày)`,
+        label: `Còn ${diffDays} ngày`,
         className: "badge--urgent",
         diffDays: diffDays,
         isEnded: false,
@@ -212,7 +213,7 @@
     if (diffDays <= 30) {
       return {
         type: "warning",
-        label: isAbstract ? `Sắp hết hạn abstract (${diffDays} ngày)` : `Sắp đến hạn (${diffDays} ngày)`,
+        label: `Còn ${diffDays} ngày`,
         className: "badge--warning",
         diffDays: diffDays,
         isEnded: false,
@@ -518,7 +519,6 @@
           </div>
           <div class="cfp-flow-body">
             <div class="cfp-flow-header-row">
-              <p class="cfp-flow-badge">MỐC ${idx + 1}</p>
               <span class="badge ${st.status.className}">${st.status.label}</span>
             </div>
             <h3 class="cfp-flow-name">${st.title}</h3>
@@ -634,7 +634,7 @@
             <div class="timeline-item-actions">
               <button type="button" class="timeline-expand-btn" data-conf-id="${item.id}" aria-expanded="${isExpanded}" aria-controls="drawer-${item.id}">
                 <svg class="timeline-expand-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                <span class="timeline-expand-label">${isExpanded ? "Thu gọn 3 mốc CFP &uarr;" : "Xem chi tiết 3 mốc CFP &darr;"}</span>
+                <span class="timeline-expand-label">${isExpanded ? "Thu gọn 3 mốc CFP" : "Xem chi tiết 3 mốc CFP"}</span>
               </button>
             </div>
 
@@ -642,33 +642,33 @@
             <div class="timeline-milestones-drawer" id="drawer-${item.id}">
               <div class="timeline-milestones-grid">
                 <div class="timeline-milestone-item ${m1Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">1</span>
                     <span class="timeline-milestone-name">Abstract Submission</span>
-                    <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   </div>
+                  <span class="badge ${m1Status.className}">${m1Status.label}</span>
                   <div class="timeline-milestone-date">${m1Date}</div>
-                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, danh sách tác giả và tóm tắt bản thảo.' : 'Hội nghị không có vòng nộp abstract; nộp thẳng bản thảo toàn văn (Full Paper).'}</p>
+                  <p class="timeline-milestone-desc">${item.abstractDeadline ? 'Đăng ký tiêu đề, thông tin tác giả và bản tóm tắt bài báo.' : 'Hội nghị không mở vòng tóm tắt; nộp thẳng toàn văn bản thảo.'}</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m2Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">2</span>
                     <span class="timeline-milestone-name">Full Paper Submission</span>
-                    <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   </div>
+                  <span class="badge ${m2Status.className}">${m2Status.label}</span>
                   <div class="timeline-milestone-date">${m2Date}</div>
-                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh (Double-blind review).</p>
+                  <p class="timeline-milestone-desc">Nộp toàn văn bản thảo nghiên cứu hoàn chỉnh để phản biện kín.</p>
                 </div>
 
                 <div class="timeline-milestone-item ${m3Status.isEnded ? 'timeline-milestone--ended' : 'timeline-milestone--active'}">
-                  <div class="timeline-milestone-head">
+                  <div class="timeline-milestone-title-group">
                     <span class="timeline-milestone-number">3</span>
                     <span class="timeline-milestone-name">Notification</span>
-                    <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   </div>
+                  <span class="badge ${m3Status.className}">${m3Status.label}</span>
                   <div class="timeline-milestone-date">${m3Date}</div>
-                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng khoa học công bố kết quả chấp nhận bài báo và gửi phản biện.' : 'Hội đồng khoa học chưa công bố ngày thông báo kết quả.'}</p>
+                  <p class="timeline-milestone-desc">${item.decisionDeadline ? 'Hội đồng công bố kết quả xét duyệt và gửi phiếu phản biện.' : 'Ban tổ chức chưa ấn định ngày công bố kết quả xét duyệt.'}</p>
                 </div>
               </div>
             </div>
@@ -694,7 +694,7 @@
         btn.setAttribute("aria-expanded", String(!isExpanded));
         const labelEl = btn.querySelector(".timeline-expand-label");
         if (labelEl) {
-          labelEl.textContent = !isExpanded ? "Thu gọn 3 mốc CFP \u2191" : "Xem chi tiết 3 mốc CFP \u2193";
+          labelEl.textContent = !isExpanded ? "Thu gọn 3 mốc CFP" : "Xem chi tiết 3 mốc CFP";
         }
       }
     };
@@ -768,7 +768,7 @@
         if (btn) {
           btn.setAttribute("aria-expanded", "true");
           const labelEl = btn.querySelector(".timeline-expand-label");
-          if (labelEl) labelEl.textContent = "Thu gọn 3 mốc CFP \u2191";
+          if (labelEl) labelEl.textContent = "Thu gọn 3 mốc CFP";
         }
 
         // Cuộn mượt tới vị trí giữa màn hình
@@ -907,6 +907,34 @@
   }
 
   /**
+   * Khởi tạo nút Scroll to Top cho trang CFP
+   */
+  function initBackToTop() {
+    const btn = document.getElementById("back-to-top-btn");
+    if (!btn) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      if (scrollY > 300) {
+        btn.classList.add("is-visible");
+      } else {
+        btn.classList.remove("is-visible");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    btn.addEventListener("click", () => {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+    });
+  }
+
+  /**
    * Tự động nhận diện và khởi tạo tùy vào trang hiện tại đang mở
    */
   function autoInitialize() {
@@ -916,6 +944,7 @@
     if (document.querySelector(".countdown-box")) {
       initVenueCountdowns();
     }
+    initBackToTop();
   }
 
   // Xuất API dùng chung cho cả timeline.html và venues.html
@@ -927,6 +956,7 @@
     loadTimelineData,
     attachCountdown,
     initVenueCountdowns,
+    initBackToTop,
     getAllConferences: () => allConferences,
     getActiveTimezoneConfig,
     setupTimezoneSelector,

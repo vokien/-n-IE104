@@ -134,6 +134,7 @@
             <div class="field-group">
               <label class="field-label" for="paper-title">
                 Tiêu đề bài báo <abbr title="Title">(Title)</abbr>
+                <span class="field-required" aria-label="Bắt buộc">*</span>
               </label>
               <input
                 type="text"
@@ -143,8 +144,10 @@
                 placeholder="VD: Deep Residual Learning..."
                 autocomplete="off"
                 spellcheck="false"
+                required
               >
-              <p class="field-hint">Không bắt buộc, nhưng cải thiện độ chính xác gợi ý.</p>
+              <p class="field-error" id="paper-title-error" role="alert" hidden></p>
+              <p class="field-hint">Bắt buộc. Nhập tiêu đề tiếng Anh của bài báo để so khớp từ khóa chính xác.</p>
             </div>
 
             <!-- Abstract -->
@@ -157,11 +160,12 @@
                 id="paper-abstract"
                 name="paper-abstract"
                 class="field-textarea"
-                rows="8"
+                rows="4"
                 placeholder="Dán đoạn tóm tắt bài báo (Abstract tiếng Anh) vào đây..."
                 required
                 spellcheck="false"
               ></textarea>
+              <p class="field-error" id="paper-abstract-error" role="alert" hidden></p>
               <p class="field-hint">Tốt nhất 100-300 từ tiếng Anh. BM25 so khớp từ khóa, không suy luận ngữ nghĩa.</p>
             </div>
 
@@ -211,25 +215,33 @@
                 </div>
               </div>
 
-              <!-- Nhóm Hạng Q của tạp chí -->
-              <div class="field-group field-group--rank-group" id="group-quartile-filter">
-                <label class="field-label">Hạng Q của tạp chí</label>
-                <div class="rank-choices">
-                  <label class="rank-chip rank-chip--q1"><input type="checkbox" name="recommend-quartile" value="Q1"><span>Q1</span></label>
-                  <label class="rank-chip rank-chip--q2"><input type="checkbox" name="recommend-quartile" value="Q2"><span>Q2</span></label>
-                  <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-quartile" value="Q3"><span>Q3</span></label>
-                  <label class="rank-chip rank-chip--q4"><input type="checkbox" name="recommend-quartile" value="Q4"><span>Q4</span></label>
+              <!-- Khối bộ lọc hạng Q và CORE 2 cột song song -->
+              <div class="recommend-rank-filters-grid">
+                <!-- Nhóm Hạng Q của tạp chí -->
+                <div class="field-group field-group--rank-group" id="group-quartile-filter">
+                  <label class="field-label">Hạng Q của tạp chí</label>
+                  <div class="rank-choices">
+                    <label class="rank-chip rank-chip--q1"><input type="checkbox" name="recommend-quartile" value="Q1"><span>Q1</span></label>
+                    <label class="rank-chip rank-chip--q2"><input type="checkbox" name="recommend-quartile" value="Q2"><span>Q2</span></label>
+                    <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-quartile" value="Q3"><span>Q3</span></label>
+                    <label class="rank-chip rank-chip--q4"><input type="checkbox" name="recommend-quartile" value="Q4"><span>Q4</span></label>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Nhóm Hạng CORE của hội nghị -->
-              <div class="field-group field-group--rank-group" id="group-core-filter">
-                <label class="field-label">Hạng CORE của hội nghị</label>
-                <div class="rank-choices">
-                  <label class="rank-chip rank-chip--astar"><input type="checkbox" name="recommend-core" value="A*"><span>A*</span></label>
-                  <label class="rank-chip rank-chip--a"><input type="checkbox" name="recommend-core" value="A"><span>A</span></label>
-                  <label class="rank-chip rank-chip--b"><input type="checkbox" name="recommend-core" value="B"><span>B</span></label>
-                  <label class="rank-chip rank-chip--c"><input type="checkbox" name="recommend-core" value="C"><span>C</span></label>
+                <!-- Nhóm Hạng CORE của hội nghị -->
+                <div class="field-group field-group--rank-group" id="group-core-filter">
+                  <label class="field-label">Hạng CORE của hội nghị</label>
+                  <div class="rank-choices">
+                    <label class="rank-chip rank-chip--astar"><input type="checkbox" name="recommend-core" value="A*"><span>A*</span></label>
+                    <label class="rank-chip rank-chip--a"><input type="checkbox" name="recommend-core" value="A"><span>A</span></label>
+                    <label class="rank-chip rank-chip--b"><input type="checkbox" name="recommend-core" value="B"><span>B</span></label>
+                    <label class="rank-chip rank-chip--c"><input type="checkbox" name="recommend-core" value="C"><span>C</span></label>
+                  </div>
+                  <span class="rank-sub-label">Phân loại khác (chỉ hội nghị)</span>
+                  <div class="rank-choices rank-choices--secondary">
+                    <label class="rank-chip rank-chip--q3" title="Hội nghị xếp hạng theo tiêu chí khác chuẩn CORE A*-C (Quốc gia, Khu vực/Australasian, Multiconference)"><input type="checkbox" name="recommend-core" value="other"><span>Chuẩn khác</span></label>
+                    <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-core" value="unranked"><span>Chưa có hạng</span></label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -332,11 +344,6 @@
             <li>Huỳnh Văn Lên (TV3)</li>
             <li>Trần Hồng Lĩnh (TV4)</li>
             <li>Ngô Bảo Lâm (TV5)</li>
-            <li style="margin-top: 4px;">
-              <a href="about.html#team-section" style="color: var(--color-primary); font-weight: var(--font-weight-medium);">
-                Xem chi tiết phân công đồ án &rarr;
-              </a>
-            </li>
           </ul>
         </div>
 

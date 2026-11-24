@@ -18,6 +18,8 @@
   .form-card {
     position: static !important;
     top: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
   }
   /* Trên thiết bị di động, loại bỏ cuộn nội bộ trong thẻ kết quả để người dùng lướt cả trang tự nhiên, tránh bẫy cuộn */
   .results-card {
@@ -113,10 +115,13 @@
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  padding: 16px 20px;
   box-shadow: var(--shadow-md);
   position: sticky;
-  top: calc(var(--header-height) + var(--spacing-md));
+  top: calc(var(--header-height) + 8px);
+  max-height: calc(100vh - var(--header-height) - 16px);
+  overflow-y: auto;
+  scrollbar-width: thin;
   transition: box-shadow var(--transition-normal);
 }
 
@@ -126,20 +131,20 @@
 }
 
 .form-card__title {
-  font-size: var(--font-size-xl);
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-primary);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
   border-bottom: 2px solid var(--color-primary-light);
-  padding-bottom: var(--spacing-md);
+  padding-bottom: 8px;
 }
 
 /* Field Groups */
 .field-group {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 8px;
 }
 
 .field-label {
@@ -147,25 +152,26 @@
   font-weight: 600;
   font-size: var(--font-size-sm);
   color: var(--color-text-main);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: 2px;
   letter-spacing: 0.01em;
 }
 
 .field-hint {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  margin-top: 4px;
+  margin-top: 2px;
+  line-height: 1.35;
 }
 
 /* Input / Textarea styling */
 .field-input,
 .field-textarea {
   width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 6px 10px;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   font-family: var(--font-family-base);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   color: var(--color-text-main);
   background-color: var(--color-bg-body);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
@@ -182,16 +188,37 @@
 
 .field-textarea {
   resize: vertical;
-  min-height: 140px;
+  min-height: 75px;
   line-height: var(--line-height-relaxed);
+}
+
+.field-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
+.field-input.has-error,
+.field-textarea.has-error {
+  border-color: var(--color-danger) !important;
+  box-shadow: 0 0 0 1px var(--color-danger);
 }
 
 /* Bo loc bo sung (Venue type + Min rank) */
 .filter-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 .field-select {
@@ -220,8 +247,8 @@
 /* Nut phan tich */
 .btn-analyze {
   width: 100%;
-  padding: var(--spacing-md);
-  font-size: var(--font-size-md);
+  padding: 10px var(--spacing-md);
+  font-size: var(--font-size-sm);
   font-weight: 700;
   font-family: var(--font-family-base);
   background: linear-gradient(135deg, var(--color-primary), hsl(215, 80%, 40%));
@@ -235,7 +262,7 @@
   gap: var(--spacing-sm);
   transition: opacity var(--transition-fast), transform var(--transition-fast),
               box-shadow var(--transition-fast);
-  margin-top: var(--spacing-lg);
+  margin-top: 10px;
   letter-spacing: 0.02em;
 }
 
@@ -284,18 +311,13 @@
   transition: box-shadow var(--transition-normal);
 }
 
-/* Trên desktop, chiều cao hàng do form quyết định.
-   Nội dung kết quả không làm hàng dài thêm, cuộn riêng bên trong thẻ kết quả. */
+/* Trên desktop, kết quả mở rộng tự nhiên theo nội dung, trang web dài theo tự nhiên, cột form bên trái giữ sticky. */
 @media (min-width: 901px) {
   .results-card {
-    align-self: stretch;
-    contain: size;
-    min-height: 0;
+    min-height: auto;
     max-height: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior-y: contain;
-    scrollbar-gutter: stable;
+    overflow-y: visible;
+    overflow-x: visible;
   }
 }
 
@@ -395,7 +417,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: var(--color-primary);
+  background-color: rgb(48, 125, 232);
   color: var(--color-text-inverse);
   display: flex;
   align-items: center;
@@ -403,10 +425,6 @@
   font-size: var(--font-size-xs);
   font-weight: 800;
 }
-
-.result-item:nth-child(1) .result-rank { background-color: hsl(38, 90%, 50%); }
-.result-item:nth-child(2) .result-rank { background-color: hsl(220, 20%, 65%); }
-.result-item:nth-child(3) .result-rank { background-color: hsl(20, 70%, 55%); }
 
 /* Header cua tung the ket qua */
 .result-header {
@@ -460,6 +478,14 @@
 .rank-badge--a     { background-color: var(--badge-core-a-bg); color: var(--badge-core-a); }
 .rank-badge--b     { background-color: var(--badge-core-b-bg); color: var(--badge-core-b); }
 .rank-badge--c     { background-color: var(--badge-core-c-bg); color: var(--badge-core-c); }
+
+/* Other and Unranked badges */
+.rank-badge--other,
+.rank-badge--unranked {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
 
 /* Type badge */
 .rank-badge--conf {
@@ -674,6 +700,17 @@
   color: var(--color-text-main);
 }
 
+/* Chú thích Match Score trong cột kết quả: tạo khoảng đệm thoáng phía trên danh sách kết quả */
+.results-card .field-hint {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  .results-card .field-hint {
+    margin-bottom: 12px;
+  }
+}
+
 /* ---------------------------------------------------------------
    9. RESPONSIVE
    --------------------------------------------------------------- */
@@ -748,7 +785,7 @@
 .field-required { color: var(--color-danger); margin-left: 4px; }
 .recommend-filters { border: none; padding: 0; margin: 0; min-width: 0; }
 .recommend-filters__title {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -756,11 +793,24 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-main);
 }
+
+.recommend-rank-filters-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--spacing-sm);
+  margin-top: 4px;
+}
+@media (max-width: 480px) {
+  .recommend-rank-filters-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .field-group--compact { margin-bottom: 0; }
 
 .field-group--rank-group {
-  margin-top: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
+  margin-top: 2px;
+  margin-bottom: 2px;
   transition: opacity var(--transition-fast), filter var(--transition-fast);
 }
 
@@ -773,8 +823,8 @@
 .rank-choices {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  margin-block: 6px;
+  gap: 3px;
+  margin-block: 4px;
 }
 
 .rank-chip {
@@ -782,9 +832,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 34px;
-  padding: 0 4px;
-  font-size: var(--font-size-sm);
+  min-height: 28px;
+  padding: 0 2px;
+  font-size: var(--font-size-xs);
   border-radius: var(--radius-sm);
   position: relative;
   border: 1px solid var(--color-border);
@@ -822,9 +872,34 @@
   color: var(--color-primary);
   font-weight: var(--font-weight-bold);
 }
+
+.rank-sub-label {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  margin-top: 6px;
+  margin-bottom: 2px;
+  letter-spacing: 0.01em;
+}
+
+.rank-choices--secondary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin-block: 2px 0;
+}
+
+.rank-choices--secondary:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.rank-choices--secondary .rank-chip {
+  padding: 2px 4px;
+  line-height: 1.2;
+}
 .recommender-status {
   text-align: center;
-  margin-top: var(--spacing-sm);
+  margin-top: 4px;
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }

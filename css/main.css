@@ -1116,9 +1116,25 @@ textarea.form-control {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-  gap: var(--spacing-2xl);
+  grid-template-columns: fit-content(320px) max-content max-content fit-content(320px);
+  justify-content: space-between;
+  gap: var(--spacing-xl);
   margin-bottom: var(--spacing-2xl);
+}
+
+.footer-col {
+  max-width: 320px;
+}
+
+.footer-col .footer-brand-logo,
+.footer-col h4 {
+  height: 30px;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  line-height: 1;
 }
 
 .footer-col h4 {
@@ -1127,7 +1143,6 @@ textarea.form-control {
   color: var(--color-text-main);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: var(--spacing-md);
 }
 
 .footer-links-list {
@@ -1161,7 +1176,7 @@ textarea.form-control {
 .footer-about-text {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-relaxed);
-  margin-top: var(--spacing-sm);
+  margin-top: 0;
   color: var(--color-text-muted);
 }
 
@@ -1191,12 +1206,28 @@ textarea.form-control {
 /* ----------------------------------------------------------------------------
    12. TƯƠNG THÍCH MÀN HÌNH (RESPONSIVENESS)
    -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
+/* Tablet ngang & Laptop nhỏ (992px - 1140px, gom ca iPad Mini ngang 1024px & 1133px):
+   4 cot can doi hai hoa theo ty le noi dung thuc te, tranh chenh lech qua muc */
+@media (min-width: 992px) and (max-width: 1140px) {
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-xl);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr) minmax(0, 0.95fr) minmax(0, 1.15fr);
+    justify-content: stretch;
+    gap: var(--spacing-lg);
   }
+}
 
+/* Tablet doc (601px - 991px, gom Surface 10 doc 800px/853px va iPad Mini doc 744px/768px):
+   2 cot x 2 hang can giua gon gang, column-gap hai hoa tranh tach roi ra bien */
+@media (min-width: 601px) and (max-width: 991px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 320px));
+    justify-content: center;
+    column-gap: clamp(24px, 4vw, 36px);
+    row-gap: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 1024px) {
   .contact-layout {
     grid-template-columns: 1fr;
   }
@@ -1404,10 +1435,6 @@ textarea.form-control {
   .container {
     padding-left: 12px;
     padding-right: 12px;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
   }
 
   .page-title {
@@ -2805,7 +2832,7 @@ textarea.form-control {
 
 /* Footer elements */
 .footer-brand-logo {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
 .brand-icon-box--footer {
@@ -3034,6 +3061,15 @@ textarea.form-control {
    Uu tien mo rong chieu ngang nut bam het phan tu cha de de thao tac
    ============================================================= */
 @media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+
+  .footer-col {
+    max-width: none;
+  }
+
   .hero-search-form {
     flex-direction: column;
     align-items: stretch;
