@@ -846,7 +846,54 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
   const groupQuartile = document.getElementById("group-quartile-filter");
   const groupCore     = document.getElementById("group-core-filter");
 
+  const titleInput    = document.getElementById("paper-title");
+  const abstractInput = document.getElementById("paper-abstract");
+  const titleError    = document.getElementById("paper-title-error");
+  const abstractError = document.getElementById("paper-abstract-error");
+
   if (!form) return;
+
+  function clearFieldErrors() {
+    if (titleError) {
+      titleError.hidden = true;
+      titleError.textContent = "";
+    }
+    if (titleInput) {
+      titleInput.classList.remove("has-error");
+      titleInput.removeAttribute("aria-invalid");
+    }
+
+    if (abstractError) {
+      abstractError.hidden = true;
+      abstractError.textContent = "";
+    }
+    if (abstractInput) {
+      abstractInput.classList.remove("has-error");
+      abstractInput.removeAttribute("aria-invalid");
+    }
+  }
+
+  titleInput?.addEventListener("input", () => {
+    if (titleInput.value.trim().length > 0) {
+      if (titleError) {
+        titleError.hidden = true;
+        titleError.textContent = "";
+      }
+      titleInput.classList.remove("has-error");
+      titleInput.removeAttribute("aria-invalid");
+    }
+  });
+
+  abstractInput?.addEventListener("input", () => {
+    if (abstractInput.value.trim().length > 0) {
+      if (abstractError) {
+        abstractError.hidden = true;
+        abstractError.textContent = "";
+      }
+      abstractInput.classList.remove("has-error");
+      abstractInput.removeAttribute("aria-invalid");
+    }
+  });
 
   /**
    * Đồng bộ trạng thái enable/disable của 2 nhóm chip khi đổi loại hình
@@ -910,15 +957,44 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    clearFieldErrors();
+
+    const title = (titleInput?.value || "").trim();
+    if (!title) {
+      if (titleError) {
+        titleError.textContent = "Vui lòng nhập tiêu đề bài báo.";
+        titleError.hidden = false;
+      }
+      if (titleInput) {
+        titleInput.classList.add("has-error");
+        titleInput.setAttribute("aria-invalid", "true");
+        titleInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        titleInput.focus({ preventScroll: true });
+      }
+      return;
+    }
+
+    const abstract = (abstractInput?.value || "").trim();
+    if (!abstract) {
+      if (abstractError) {
+        abstractError.textContent = "Vui lòng nhập tóm tắt bài báo (Abstract).";
+        abstractError.hidden = false;
+      }
+      if (abstractInput) {
+        abstractInput.classList.add("has-error");
+        abstractInput.setAttribute("aria-invalid", "true");
+        abstractInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        abstractInput.focus({ preventScroll: true });
+      }
+      return;
+    }
+
     // Kiểm tra engine đã sẵn sàng
     if (!recommenderEngine) {
       renderError("Hệ thống chưa tải xong dữ liệu. Vui lòng thử lại sau vài giây.");
       return;
     }
 
-    // Thu thập đầu vào
-    const title    = (document.getElementById("paper-title")?.value || "").trim();
-    const abstract = (document.getElementById("paper-abstract")?.value || "").trim();
     const keywords = (document.getElementById("paper-keywords")?.value || "").trim();
     const queryText = [title, abstract, keywords].join(" ").trim();
 

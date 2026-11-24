@@ -186,6 +186,27 @@
   line-height: var(--line-height-relaxed);
 }
 
+.field-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
+.field-input.has-error,
+.field-textarea.has-error {
+  border-color: var(--color-danger) !important;
+  box-shadow: 0 0 0 1px var(--color-danger);
+}
+
 /* Bo loc bo sung (Venue type + Min rank) */
 .filter-row {
   display: grid;
@@ -284,18 +305,13 @@
   transition: box-shadow var(--transition-normal);
 }
 
-/* Trên desktop, chiều cao hàng do form quyết định.
-   Nội dung kết quả không làm hàng dài thêm, cuộn riêng bên trong thẻ kết quả. */
+/* Trên desktop, kết quả mở rộng tự nhiên theo nội dung, trang web dài theo tự nhiên, cột form bên trái giữ sticky. */
 @media (min-width: 901px) {
   .results-card {
-    align-self: stretch;
-    contain: size;
-    min-height: 0;
+    min-height: auto;
     max-height: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior-y: contain;
-    scrollbar-gutter: stable;
+    overflow-y: visible;
+    overflow-x: visible;
   }
 }
 

@@ -134,6 +134,7 @@
             <div class="field-group">
               <label class="field-label" for="paper-title">
                 Tiêu đề bài báo <abbr title="Title">(Title)</abbr>
+                <span class="field-required" aria-label="Bắt buộc">*</span>
               </label>
               <input
                 type="text"
@@ -143,8 +144,10 @@
                 placeholder="VD: Deep Residual Learning..."
                 autocomplete="off"
                 spellcheck="false"
+                required
               >
-              <p class="field-hint">Không bắt buộc, nhưng cải thiện độ chính xác gợi ý.</p>
+              <p class="field-error" id="paper-title-error" role="alert" hidden></p>
+              <p class="field-hint">Bắt buộc. Nhập tiêu đề tiếng Anh của bài báo để so khớp từ khóa chính xác.</p>
             </div>
 
             <!-- Abstract -->
@@ -162,6 +165,7 @@
                 required
                 spellcheck="false"
               ></textarea>
+              <p class="field-error" id="paper-abstract-error" role="alert" hidden></p>
               <p class="field-hint">Tốt nhất 100-300 từ tiếng Anh. BM25 so khớp từ khóa, không suy luận ngữ nghĩa.</p>
             </div>
 
