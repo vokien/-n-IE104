@@ -461,6 +461,14 @@
 .rank-badge--b     { background-color: var(--badge-core-b-bg); color: var(--badge-core-b); }
 .rank-badge--c     { background-color: var(--badge-core-c-bg); color: var(--badge-core-c); }
 
+/* Other and Unranked badges */
+.rank-badge--other,
+.rank-badge--unranked {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
 /* Type badge */
 .rank-badge--conf {
   background-color: var(--color-primary-light);
@@ -821,6 +829,32 @@
   background-color: var(--color-primary-light);
   color: var(--color-primary);
   font-weight: var(--font-weight-bold);
+}
+
+/* Checkbox options (Nhãn khác, Chưa có hạng) dong bo voi venues.html */
+.filter-choice {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-height: 28px;
+  margin-top: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.filter-choice input[type="checkbox"] {
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.filter-choice span {
+  line-height: 1.4;
 }
 .recommender-status {
   text-align: center;

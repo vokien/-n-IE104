@@ -272,6 +272,11 @@ class BM25Engine {
         selectedQuartiles = [minRank];
       } else if (["A*", "A", "B", "C"].includes(minRank)) {
         selectedCore = [minRank];
+      } else if (minRank === "unranked") {
+        selectedQuartiles = ["unranked"];
+        selectedCore = ["unranked"];
+      } else if (minRank === "other") {
+        selectedCore = ["other"];
       }
     }
 
@@ -288,17 +293,24 @@ class BM25Engine {
       return { venue, rawScore, matchedKeywords: matched, docIndex: idx };
     });
 
-    // Buoc 3: Ap dung bo loc (loai hinh + xep hang chip giong venues.html)
+    // Buoc 3: Ap dung bo loc (loai hinh + xep hang dong bo voi venues.html)
     const hasRankSelection = selectedQuartiles.length > 0 || selectedCore.length > 0;
     scored = scored.filter(({ venue, rawScore }) => {
       if (rawScore <= 0) return false;
       // Loc theo loai hinh
       if (typeFilter !== "all" && venue.kind !== typeFilter) return false;
 
-      // Loc theo xep hang chip
+      // Loc theo xep hang dong bo voi venues.html
       if (hasRankSelection) {
         const ranks = venue.kind === "journal" ? selectedQuartiles : selectedCore;
-        const vRank = venue.kind === "journal" ? venue.scopus_rank : normalizeCoreRank(venue.core_rank);
+        let vRank;
+        if (venue.kind === "journal") {
+          const raw = venue.scopus_rank;
+          vRank = (!raw || raw === "unranked") ? "unranked" : (!["Q1", "Q2", "Q3", "Q4"].includes(raw) ? "other" : raw);
+        } else {
+          const raw = venue.core_rank ? normalizeCoreRank(venue.core_rank) : "unranked";
+          vRank = (!raw || raw === "unranked") ? "unranked" : (!["A*", "A", "B", "C"].includes(raw) ? "other" : raw);
+        }
         if (!ranks.length) return false;
         return ranks.includes(vRank);
       }
@@ -419,9 +431,12 @@ function runRecommenderTests() {
     { id: "j-q1", kind: "journal", scopus_rank: "Q1", scope: "machine learning computer vision" },
     { id: "j-q2", kind: "journal", scopus_rank: "Q2", scope: "machine learning computer vision" },
     { id: "j-q4", kind: "journal", scopus_rank: "Q4", scope: "machine learning computer vision" },
+    { id: "j-unranked", kind: "journal", scopus_rank: null, scope: "machine learning computer vision" },
     { id: "c-astar", kind: "conference", core_rank: "A*", scope: "machine learning computer vision" },
     { id: "c-b", kind: "conference", core_rank: "B", scope: "machine learning computer vision" },
-    { id: "c-c", kind: "conference", core_rank: "C", scope: "machine learning computer vision" }
+    { id: "c-c", kind: "conference", core_rank: "C", scope: "machine learning computer vision" },
+    { id: "c-other", kind: "conference", core_rank: "Australasian B", scope: "machine learning computer vision" },
+    { id: "c-unranked", kind: "conference", core_rank: null, scope: "machine learning computer vision" }
   ];
   const filterEngine = new BM25Engine(filterCorpus);
   const dualRes = filterEngine.search("machine learning", {
@@ -468,6 +483,38 @@ function runRecommenderTests() {
   }).results;
   check(coreCOnlyRes.length === 1 && coreCOnlyRes[0].venue.id === "c-c",
     "Bo loc conference voi CORE C giu dung hoi nghi CORE C");
+
+  // Kiem thu bo loc other va unranked cho ca journal va conference
+  const confOtherRes = filterEngine.search("machine learning", {
+    typeFilter: "conference",
+    selectedCore: ["other"]
+  }).results;
+  check(confOtherRes.length === 1 && confOtherRes[0].venue.id === "c-other",
+    "Bo loc conference voi CORE other (nhan khac) giu dung hoi nghi nhan khac");
+
+  const confUnrankedRes = filterEngine.search("machine learning", {
+    typeFilter: "conference",
+    selectedCore: ["unranked"]
+  }).results;
+  check(confUnrankedRes.length === 1 && confUnrankedRes[0].venue.id === "c-unranked",
+    "Bo loc conference voi CORE unranked (chua co hang) giu dung hoi nghi chua co hang");
+
+  const jourUnrankedRes = filterEngine.search("machine learning", {
+    typeFilter: "journal",
+    selectedQuartiles: ["unranked"]
+  }).results;
+  check(jourUnrankedRes.length === 1 && jourUnrankedRes[0].venue.id === "j-unranked",
+    "Bo loc journal voi Scopus unranked (chua co hang) giu dung tap chi chua co hang");
+
+  const dualAllQ1UnrankedRes = filterEngine.search("machine learning", {
+    typeFilter: "all",
+    selectedQuartiles: ["Q1"],
+    selectedCore: ["unranked"]
+  }).results;
+  check(dualAllQ1UnrankedRes.length === 2 &&
+    dualAllQ1UnrankedRes.some(r => r.venue.id === "j-q1") &&
+    dualAllQ1UnrankedRes.some(r => r.venue.id === "c-unranked"),
+    "Bo loc all ket hop Scopus Q1 va CORE unranked giu dung tap chi Q1 va hoi nghi chua co hang");
 
   console.log(`Build index + search (3 scopes): ${elapsedMs.toFixed(3)} ms`);
   check(elapsedMs < 100, "Build index + search dưới 100ms trong lần đo này");
@@ -553,8 +600,7 @@ async function initRecommender() {
  * cho một venue.
  */
 function normalizeCoreRank(rank) {
-  const value = String(rank ?? "").trim();
-  return value.replace(/^Australasian\s+/i, "");
+  return String(rank ?? "").trim();
 }
 
 function getRecommenderIcon(name) {
@@ -573,15 +619,20 @@ function getBadgeHTML(venue) {
 
   // Scopus Quartile
   if (venue.scopus_rank) {
-    const qClass = `rank-badge--${venue.scopus_rank.toLowerCase()}`;
-    badges.push(`<span class="rank-badge ${qClass}">Scopus ${venue.scopus_rank}</span>`);
+    const rawQ = String(venue.scopus_rank).toUpperCase();
+    const qClass = ["Q1", "Q2", "Q3", "Q4"].includes(rawQ) ? `rank-badge--${rawQ.toLowerCase()}` : "rank-badge--other";
+    badges.push(`<span class="rank-badge ${qClass}">Scopus ${escapeHTML(venue.scopus_rank)}</span>`);
+  } else if (venue.kind === "journal") {
+    badges.push(`<span class="rank-badge rank-badge--unranked">Scopus Chưa có hạng</span>`);
   }
 
   // CORE Rank
   if (venue.core_rank) {
     const rank = normalizeCoreRank(venue.core_rank);
-    const coreClass = { "A*": "rank-badge--astar", A: "rank-badge--a", B: "rank-badge--b", C: "rank-badge--c" }[rank] || "";
+    const coreClass = { "A*": "rank-badge--astar", A: "rank-badge--a", B: "rank-badge--b", C: "rank-badge--c" }[rank] || "rank-badge--other";
     badges.push(`<span class="rank-badge ${coreClass}">CORE ${escapeHTML(venue.core_rank)}</span>`);
+  } else if (venue.kind === "conference") {
+    badges.push(`<span class="rank-badge rank-badge--unranked">CORE Chưa có hạng</span>`);
   }
 
   return badges.join("");
@@ -806,19 +857,33 @@ if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded
       groupCore?.classList.add("is-disabled");
       document.querySelectorAll('input[name="recommend-core"]').forEach(cb => {
         cb.checked = false;
+        cb.disabled = true;
         cb.closest(".rank-chip")?.classList.remove("is-checked");
       });
       groupQuartile?.classList.remove("is-disabled");
+      document.querySelectorAll('input[name="recommend-quartile"]').forEach(cb => {
+        cb.disabled = false;
+      });
     } else if (val === "conference") {
       groupQuartile?.classList.add("is-disabled");
       document.querySelectorAll('input[name="recommend-quartile"]').forEach(cb => {
         cb.checked = false;
+        cb.disabled = true;
         cb.closest(".rank-chip")?.classList.remove("is-checked");
       });
       groupCore?.classList.remove("is-disabled");
+      document.querySelectorAll('input[name="recommend-core"]').forEach(cb => {
+        cb.disabled = false;
+      });
     } else {
       groupQuartile?.classList.remove("is-disabled");
+      document.querySelectorAll('input[name="recommend-quartile"]').forEach(cb => {
+        cb.disabled = false;
+      });
       groupCore?.classList.remove("is-disabled");
+      document.querySelectorAll('input[name="recommend-core"]').forEach(cb => {
+        cb.disabled = false;
+      });
     }
   }
 
