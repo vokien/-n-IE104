@@ -861,37 +861,29 @@
   font-weight: var(--font-weight-bold);
 }
 
-.rank-filter-choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-/* Checkbox options (Nhãn khác, Chưa có hạng) dong bo voi venues.html */
-.filter-choice {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  min-height: 24px;
-  margin-top: 2px;
+.rank-sub-label {
+  display: block;
   font-size: var(--font-size-xs);
-  color: var(--color-text-main);
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  line-height: 1.25;
+  margin: 5px 0 3px;
 }
 
-.filter-choice input[type="checkbox"] {
-  accent-color: var(--color-primary);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  margin: 0;
+.rank-choices--secondary {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin-block: 2px 0;
 }
 
-.filter-choice span {
-  line-height: 1.4;
+.rank-choices--secondary.rank-choices--single,
+.rank-choices--secondary:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.rank-choices--secondary .rank-chip {
+  padding: 2px 4px;
+  line-height: 1.2;
 }
 .recommender-status {
   text-align: center;
