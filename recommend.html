@@ -160,7 +160,7 @@
                 id="paper-abstract"
                 name="paper-abstract"
                 class="field-textarea"
-                rows="8"
+                rows="4"
                 placeholder="Dán đoạn tóm tắt bài báo (Abstract tiếng Anh) vào đây..."
                 required
                 spellcheck="false"
@@ -215,29 +215,34 @@
                 </div>
               </div>
 
-              <!-- Nhóm Hạng Q của tạp chí -->
-              <div class="field-group field-group--rank-group" id="group-quartile-filter">
-                <label class="field-label">Hạng Q của tạp chí</label>
-                <div class="rank-choices">
-                  <label class="rank-chip rank-chip--q1"><input type="checkbox" name="recommend-quartile" value="Q1"><span>Q1</span></label>
-                  <label class="rank-chip rank-chip--q2"><input type="checkbox" name="recommend-quartile" value="Q2"><span>Q2</span></label>
-                  <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-quartile" value="Q3"><span>Q3</span></label>
-                  <label class="rank-chip rank-chip--q4"><input type="checkbox" name="recommend-quartile" value="Q4"><span>Q4</span></label>
+              <!-- Khối bộ lọc hạng Q và CORE 2 cột song song -->
+              <div class="recommend-rank-filters-grid">
+                <!-- Nhóm Hạng Q của tạp chí -->
+                <div class="field-group field-group--rank-group" id="group-quartile-filter">
+                  <label class="field-label">Hạng Q của tạp chí</label>
+                  <div class="rank-choices">
+                    <label class="rank-chip rank-chip--q1"><input type="checkbox" name="recommend-quartile" value="Q1"><span>Q1</span></label>
+                    <label class="rank-chip rank-chip--q2"><input type="checkbox" name="recommend-quartile" value="Q2"><span>Q2</span></label>
+                    <label class="rank-chip rank-chip--q3"><input type="checkbox" name="recommend-quartile" value="Q3"><span>Q3</span></label>
+                    <label class="rank-chip rank-chip--q4"><input type="checkbox" name="recommend-quartile" value="Q4"><span>Q4</span></label>
+                  </div>
+                  <label class="filter-choice"><input type="checkbox" name="recommend-quartile" value="unranked"><span>Chưa có hạng</span></label>
                 </div>
-                <label class="filter-choice"><input type="checkbox" name="recommend-quartile" value="unranked"><span>Chưa có hạng</span></label>
-              </div>
 
-              <!-- Nhóm Hạng CORE của hội nghị -->
-              <div class="field-group field-group--rank-group" id="group-core-filter">
-                <label class="field-label">Hạng CORE của hội nghị</label>
-                <div class="rank-choices">
-                  <label class="rank-chip rank-chip--astar"><input type="checkbox" name="recommend-core" value="A*"><span>A*</span></label>
-                  <label class="rank-chip rank-chip--a"><input type="checkbox" name="recommend-core" value="A"><span>A</span></label>
-                  <label class="rank-chip rank-chip--b"><input type="checkbox" name="recommend-core" value="B"><span>B</span></label>
-                  <label class="rank-chip rank-chip--c"><input type="checkbox" name="recommend-core" value="C"><span>C</span></label>
+                <!-- Nhóm Hạng CORE của hội nghị -->
+                <div class="field-group field-group--rank-group" id="group-core-filter">
+                  <label class="field-label">Hạng CORE của hội nghị</label>
+                  <div class="rank-choices">
+                    <label class="rank-chip rank-chip--astar"><input type="checkbox" name="recommend-core" value="A*"><span>A*</span></label>
+                    <label class="rank-chip rank-chip--a"><input type="checkbox" name="recommend-core" value="A"><span>A</span></label>
+                    <label class="rank-chip rank-chip--b"><input type="checkbox" name="recommend-core" value="B"><span>B</span></label>
+                    <label class="rank-chip rank-chip--c"><input type="checkbox" name="recommend-core" value="C"><span>C</span></label>
+                  </div>
+                  <div class="rank-filter-choices">
+                    <label class="filter-choice"><input type="checkbox" name="recommend-core" value="other"><span>Nhãn khác</span></label>
+                    <label class="filter-choice"><input type="checkbox" name="recommend-core" value="unranked"><span>Chưa có hạng</span></label>
+                  </div>
                 </div>
-                <label class="filter-choice"><input type="checkbox" name="recommend-core" value="other"><span>Nhãn khác</span></label>
-                <label class="filter-choice"><input type="checkbox" name="recommend-core" value="unranked"><span>Chưa có hạng</span></label>
               </div>
             </div>
 
