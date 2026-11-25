@@ -228,19 +228,19 @@ class ConferenceUpdateTests(unittest.TestCase):
             fetch = lambda _: ([ccf(r) for r in records], {'sha': 'test'})
             with self.assertRaises(SourceError):
                 run(seed, folder / 'state', output, date(2026, 11, 6), workers=1,
-                    request_client=FakeWiki('Gamma'), ccf_fetch=fetch)
+                    request_client=FakeWiki('Gamma'), ccf_fetch=fetch, smart_delta=False)
             self.assertEqual(output.read_bytes(), before)
             checkpoint = load(folder / 'state/state.json')
             self.assertEqual(checkpoint['completed_ids'], ['1', '2'])
             resumed = FakeWiki()
             report = run(seed, folder / 'state', output, date(2026, 11, 9), workers=1,
-                         request_client=resumed, ccf_fetch=fetch)
+                         request_client=resumed, ccf_fetch=fetch, smart_delta=False)
             self.assertEqual(report['retained_conferences'], 3)
             self.assertTrue(report['changed'])
             self.assertTrue(all('Gamma' in url for url in resumed.urls))
             self.assertEqual(load(folder / 'state/state.json')['run_status'], 'complete')
             again = run(seed, folder / 'state', output, date(2026, 11, 9), workers=1,
-                        request_client=FakeWiki(), ccf_fetch=fetch)
+                        request_client=FakeWiki(), ccf_fetch=fetch, smart_delta=False)
             self.assertFalse(again['changed'])
 
     def test_lock_refuses_second_coordinator(self):
@@ -296,13 +296,58 @@ class ConferenceUpdateTests(unittest.TestCase):
             output = folder / 'conf.json'
             sources.write_json(output, [r['venue']])
             before = output.read_bytes()
-            with self.assertRaises(CrawlPaused):
-                run(seed, folder / 'state', output, date(2026, 11, 6), workers=1,
-                    request_client=FakeWiki('Alpha', CrawlPaused), ccf_fetch=lambda _: ([ccf(r)], {'sha': 'test'}))
+            gh_out = folder / 'gh_out.txt'
+            report = run(seed, folder / 'state', output, date(2026, 11, 6), workers=1,
+                         request_client=FakeWiki('Alpha', CrawlPaused),
+                         ccf_fetch=lambda _: ([ccf(r)], {'sha': 'test'}),
+                         smart_delta=False, github_output=gh_out)
+            self.assertEqual(report['status'], 'paused')
             self.assertEqual(output.read_bytes(), before)
             state = load(folder / 'state/state.json')
             self.assertEqual(state['run_status'], 'paused')
             self.assertEqual(state['completed_ids'], [])
+            self.assertIn('status=paused', gh_out.read_text())
+
+    def test_smart_delta_bypasses_records_with_active_ccf_or_curated_deadlines(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            r1 = record(1)  # Will have CCF active deadline
+            r2 = record(2)  # No CCF active deadline
+            records = [r1, r2]
+            seed = folder / 'seed.json'
+            sources.write_json(seed, {'schema_version': 1, 'ranking_source': 'ICORE2026', 'records': records})
+            output = folder / 'conf.json'
+            sources.write_json(output, [r['venue'] for r in records])
+
+            # CCF only provides active deadline for r1
+            fetch = lambda _: ([ccf(r1)], {'sha': 'test'})
+            wiki_client = FakeWiki()
+
+            report = run(seed, folder / 'state', output, date(2026, 11, 6), workers=1,
+                         request_client=wiki_client, ccf_fetch=fetch, smart_delta=True)
+
+            self.assertEqual(report['status'], 'complete')
+            state = load(folder / 'state/state.json')
+            self.assertEqual(state['run_status'], 'complete')
+            # r1 should be in completed_ids via smart delta
+            self.assertIn('1', state['completed_ids'])
+            # WikiCFP URLs should only query r2 (Beta), never r1 (Alpha)
+            self.assertTrue(all('Alpha' not in url for url in wiki_client.urls))
+
+    def test_complete_writes_github_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            r = record(1)
+            seed = folder / 'seed.json'
+            sources.write_json(seed, {'schema_version': 1, 'ranking_source': 'ICORE2026', 'records': [r]})
+            output = folder / 'conf.json'
+            sources.write_json(output, [r['venue']])
+            gh_out = folder / 'gh_out.txt'
+            report = run(seed, folder / 'state', output, date(2026, 11, 6), workers=1,
+                         request_client=FakeWiki(), ccf_fetch=lambda _: ([ccf(r)], {'sha': 'test'}),
+                         smart_delta=True, github_output=gh_out)
+            self.assertEqual(report['status'], 'complete')
+            self.assertIn('status=complete', gh_out.read_text())
 
     def test_unowned_directory_is_never_cleaned(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -372,7 +417,8 @@ class ConferenceUpdateTests(unittest.TestCase):
         self.assertIn('data/conf.json', pr['with']['add-paths'])
         self.assertIn('tools/conference_update/seed.json', pr['with']['add-paths'])
         self.assertEqual(pr['with']['branch'], 'automation/update-conferences')
-        self.assertEqual(pr['if'], 'success()')
+        self.assertTrue(pr['if'].startswith('success()'))
+        self.assertIn('complete', pr['if'])
         self.assertNotIn('branch-suffix', pr['with'])
 
 

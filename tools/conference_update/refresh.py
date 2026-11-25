@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import sys
 import tempfile
 import time
 import zipfile
@@ -337,7 +338,55 @@ def publish(rows, output, seed_records):
     return True
 
 
-def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, request_client=None, ccf_fetch=fetch_ccf):
+def write_github_output(status: str, completed_count: int | None = None, total_count: int | None = None, target_path: Path | str | None = None):
+    output_target = target_path or os.environ.get('GITHUB_OUTPUT')
+    if output_target:
+        try:
+            with open(output_target, 'a', encoding='utf-8') as stream:
+                stream.write(f"status={status}\n")
+                if completed_count is not None:
+                    stream.write(f"completed_count={completed_count}\n")
+                if total_count is not None:
+                    stream.write(f"total_count={total_count}\n")
+        except OSError:
+            pass
+
+
+def find_smart_delta_ids(records, ccf_records, curated_deadlines, cutoff):
+    """Identify CORE IDs with active future CFP deadlines (>= cutoff) in priority sources (CCF, Curated)."""
+    active_ids = set()
+    core_list = [r['core'] for r in records]
+    for entry in ccf_records:
+        hit, method, candidates = sources.match_record(entry, core_list)
+        if hit:
+            for conf in entry['data'].get('confs', []):
+                for item in sources.rounds([conf]):
+                    d = deadline_day(item)
+                    if d is not None and d >= cutoff:
+                        active_ids.add(hit['id'])
+                        break
+
+    curated_deadlines = curated_deadlines or {}
+    for record in records:
+        key = record['core']['id']
+        if key in active_ids:
+            continue
+        venue = record.get('venue', {})
+        acr_key = normalize_acronym(venue.get('acronym') or record['core'].get('acronym') or '')
+        for item in curated_deadlines.get(acr_key, []):
+            d = deadline_day(item)
+            if d is None and 'timeline' in item:
+                for r in sources.rounds([item]):
+                    d = deadline_day(r)
+                    if d is not None and d >= cutoff:
+                        break
+            if d is not None and d >= cutoff:
+                active_ids.add(key)
+                break
+    return active_ids
+
+
+def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=45, request_client=None, ccf_fetch=fetch_ccf, smart_delta=True, github_output=None):
     records = validate_seed(load(seed_path))
 
     # Multi-source resilient load: Curated GitHub Deadlines (AI, Sec, SE)
@@ -388,6 +437,21 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
         state['ccf_commit'] = ccf_info
         sources.write_json(state_file, state)
         completed = set(state.get('completed_ids', []))
+
+        # Smart Delta: Skip WikiCFP for venues with active deadlines in CCF or Curated repos
+        if smart_delta:
+            delta_ids = find_smart_delta_ids(records, ccf_entries, curated_deadlines, cutoff)
+            newly_bypassed = 0
+            for key in delta_ids:
+                if key not in completed:
+                    completed.add(key)
+                    state['wiki'].setdefault(key, [])
+                    newly_bypassed += 1
+            if newly_bypassed > 0:
+                state['completed_ids'] = sorted(completed)
+                sources.write_json(state_file, state)
+                print(f"[SMART DELTA] Bypassed WikiCFP for {newly_bypassed} conferences with active CCF/Curated deadlines (total {len(delta_ids)} active).", flush=True)
+
         jobs = iter([record for record in records if record['core']['id'] not in completed])
         print(f'WikiCFP resume {len(completed)}/{len(records)}; cycle={state["cycle_date"]}', flush=True)
         error = None
@@ -417,17 +481,34 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
                     if error is None:
                         for _ in done:
                             submit_one()
+        except CrawlPaused as exc:
+            error = error or exc
         except Exception as exc:
             error = error or exc
 
-        is_network_outage = False
         if error:
+            if isinstance(error, CrawlPaused):
+                state.update(run_status='paused', error=str(error))
+                state['completed_ids'] = sorted(completed)
+                sources.write_json(state_file, state)
+                print(f"[PAUSED] Time slice budget reached ({max_minutes}m). Progress: {len(completed)}/{len(records)}. Checkpoint retained.", flush=True)
+                write_github_output('paused', len(completed), len(records), github_output)
+                return {
+                    'status': 'paused',
+                    'cutoff_date': cutoff.isoformat(),
+                    'completed_count': len(completed),
+                    'total_count': len(records)
+                }
+
+            is_network_outage = False
             err_str = str(error).lower()
             if any(term in err_str for term in ('network error', 'timeout', 'timed out', 'connection refused', 'wikicfp stopped', 'errno')):
                 is_network_outage = True
                 print(f"[RESILIENCE] WikiCFP network outage/timeout detected ({error}). Gracefully falling back to Curated & CCF sources.", flush=True)
             else:
                 raise error
+        else:
+            is_network_outage = False
 
         if not is_network_outage:
             if len(completed) != len(records):
@@ -436,6 +517,7 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
                 raise SourceError('No verified WikiCFP events for the entire catalogue; inspect parser/source before publishing')
 
         report = {
+            'status': 'complete',
             'cutoff_date': cutoff.isoformat(),
             'comparison': 'deadline calendar date > cutoff',
             'calendar_policy': 'UTC for timestamps; published date for date-only values',
@@ -456,10 +538,23 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=240, reque
         sources.write_json(state_dir / 'report.json', report)
         state.update(run_status='complete', error=None)
         sources.write_json(state_file, state)
-        print(json.dumps({k: report[k] for k in ('cutoff_date', 'input_conferences', 'retained_conferences', 'retained_rounds', 'changed')}, indent=2))
+        write_github_output('complete', len(completed), len(records), github_output)
+        print(f"[COMPLETE] Conference refresh completed: {len(completed)}/{len(records)} records processed.", flush=True)
+        print(json.dumps({k: report[k] for k in ('cutoff_date', 'input_conferences', 'retained_conferences', 'retained_rounds', 'changed', 'status')}, indent=2))
         return report
+    except CrawlPaused as exc:
+        state.update(run_status='paused', error=str(exc))
+        sources.write_json(state_file, state)
+        print(f"[PAUSED] Time slice budget reached ({max_minutes}m). Progress: {len(state.get('completed_ids', []))}/{len(records)}. Checkpoint retained.", flush=True)
+        write_github_output('paused', len(state.get('completed_ids', [])), len(records), github_output)
+        return {
+            'status': 'paused',
+            'cutoff_date': cutoff.isoformat(),
+            'completed_count': len(state.get('completed_ids', [])),
+            'total_count': len(records)
+        }
     except Exception as exc:
-        state.update(run_status='paused' if isinstance(exc, CrawlPaused) else 'failed', error=str(exc))
+        state.update(run_status='failed', error=str(exc))
         sources.write_json(state_file, state)
         raise
 
@@ -476,14 +571,20 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, default=ROOT / 'data/conf.json')
     parser.add_argument('--after', type=date.fromisoformat)
     parser.add_argument('--workers', type=int, default=4, choices=range(1, 5))
-    parser.add_argument('--max-minutes', type=int, default=240, choices=range(1, 281))
+    parser.add_argument('--max-minutes', type=int, default=45, choices=range(1, 281))
+    parser.add_argument('--smart-delta', action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument('--github-output', type=Path, default=None)
     args = parser.parse_args()
     if args.output.resolve() != (ROOT / 'data/conf.json').resolve():
         parser.error('Only data/conf.json may be published by this entry point')
     try:
-        run(args.seed.resolve(), args.state_dir.resolve(), args.output.resolve(),
-            args.after or datetime.now(ZoneInfo('Asia/Ho_Chi_Minh')).date(),
-            workers=args.workers, max_minutes=args.max_minutes)
+        report = run(args.seed.resolve(), args.state_dir.resolve(), args.output.resolve(),
+                     args.after or datetime.now(ZoneInfo('Asia/Ho_Chi_Minh')).date(),
+                     workers=args.workers, max_minutes=args.max_minutes,
+                     smart_delta=args.smart_delta, github_output=args.github_output)
+        if report and report.get('status') == 'paused':
+            sys.exit(0)
+        sys.exit(0)
     except Exception as error:
         print(f'Conference update failed; public data kept unless publication completed: {error}', flush=True)
         raise SystemExit(1)

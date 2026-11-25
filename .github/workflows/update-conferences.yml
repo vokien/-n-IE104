@@ -78,17 +78,58 @@ jobs:
           key: conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-
-      - name: Crawl, preprocess and validate
-        id: crawl
-        run: python -u tools/conference_update/refresh.py --workers 4 --max-minutes 240
+      - name: Crawl slice 1 (45 minutes)
+        id: crawl_1
+        run: python -u tools/conference_update/refresh.py --workers 4 --max-minutes 45
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: Keep checkpoints even when a source fails
+      - name: Save checkpoint cache after slice 1
         if: always() && hashFiles('.cache/conference-update/state.json') != ''
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: .cache/conference-update
-          key: conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-${{ github.run_id }}-slice1
+      - name: Cool down between slices (5 minutes)
+        if: steps.crawl_1.outputs.status == 'paused'
+        run: |
+          echo "Cooling down for 5 minutes to respect WikiCFP rate limit..."
+          sleep 300
+      - name: Crawl slice 2 (45 minutes)
+        if: steps.crawl_1.outputs.status == 'paused'
+        id: crawl_2
+        run: python -u tools/conference_update/refresh.py --workers 4 --max-minutes 45
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Save checkpoint cache after slice 2
+        if: always() && steps.crawl_1.outputs.status == 'paused' && hashFiles('.cache/conference-update/state.json') != ''
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .cache/conference-update
+          key: conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-${{ github.run_id }}-slice2
+      - name: Cool down between slices (5 minutes)
+        if: steps.crawl_2.outputs.status == 'paused'
+        run: |
+          echo "Cooling down for 5 minutes to respect WikiCFP rate limit..."
+          sleep 300
+      - name: Crawl slice 3 (45 minutes)
+        if: steps.crawl_2.outputs.status == 'paused'
+        id: crawl_3
+        run: python -u tools/conference_update/refresh.py --workers 4 --max-minutes 45
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Save checkpoint cache after slice 3
+        if: always() && steps.crawl_2.outputs.status == 'paused' && hashFiles('.cache/conference-update/state.json') != ''
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .cache/conference-update
+          key: conferences-v1-${{ hashFiles('tools/conference_update/*.py', 'tools/conference_update/seed.json', 'tools/conference_update/requirements.txt') }}-${{ github.run_id }}-slice3
+      - name: Dispatch next workflow run if still paused
+        if: steps.crawl_3.outputs.status == 'paused'
+        run: |
+          echo "Slices completed for this workflow run. Triggering continuation run..."
+          gh workflow run update-conferences.yml || true
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Retain diagnostic reports outside Git history
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
@@ -101,7 +142,7 @@ jobs:
           if-no-files-found: ignore
           include-hidden-files: true
       - name: Create or update the same data pull request
-        if: success()
+        if: success() && (steps.crawl_1.outputs.status == 'complete' || steps.crawl_2.outputs.status == 'complete' || steps.crawl_3.outputs.status == 'complete')
         id: pr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:

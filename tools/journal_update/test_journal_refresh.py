@@ -168,6 +168,63 @@ class TestJournalUpdateIntegration(unittest.TestCase):
             self.assertEqual(written[0]['citescore'], 3.9)
             self.assertEqual(written[0]['h_index'], 72)
 
+    def test_refresh_journals_time_budget_pause_and_resume(self):
+        dummy_spider = DummySpider()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            sample_file = tmp_path / 'sample_jour.json'
+            sample_data = [
+                {
+                    'id': f'JOUR-{i:04d}',
+                    'name': f'Journal of Testing {i}',
+                    'issn': f'1589-{i:04d}',
+                    'scopus_rank': 'Q2',
+                    'citescore': 2.0,
+                    'sjr': 0.5,
+                    'h_index': 40
+                }
+                for i in range(1, 10)
+            ]
+            sample_file.write_text(json.dumps(sample_data), encoding='utf-8')
+            output_file = tmp_path / 'out_jour.json'
+            gh_out = tmp_path / 'gh_out.txt'
+            cache_dir = tmp_path / 'cache'
+
+            # Slice 1: with max_minutes=0 (force pause)
+            report = refresh_journals(
+                input_file=sample_file,
+                output_file=output_file,
+                state_dir=cache_dir,
+                batch_size=2,
+                max_minutes=0,
+                github_output=gh_out,
+                spider=dummy_spider
+            )
+            self.assertEqual(report['status'], 'paused')
+            self.assertEqual(report['run_status'], 'paused')
+            cp_file = cache_dir / 'checkpoint.json'
+            self.assertTrue(cp_file.exists())
+            cp_data = json.loads(cp_file.read_text(encoding='utf-8'))
+            self.assertEqual(cp_data['run_status'], 'paused')
+            self.assertIn('status=paused', gh_out.read_text())
+
+            # Slice 2: resume and complete
+            report2 = refresh_journals(
+                input_file=sample_file,
+                output_file=output_file,
+                state_dir=cache_dir,
+                batch_size=2,
+                max_minutes=25,
+                github_output=gh_out,
+                spider=dummy_spider
+            )
+            self.assertEqual(report2['status'], 'success')
+            self.assertEqual(report2['run_status'], 'complete')
+            self.assertTrue(output_file.exists())
+            cp_data2 = json.loads(cp_file.read_text(encoding='utf-8'))
+            self.assertEqual(cp_data2['run_status'], 'complete')
+            self.assertIn('status=complete', gh_out.read_text())
+
 
 if __name__ == '__main__':
     unittest.main()
