@@ -417,7 +417,8 @@ class ConferenceUpdateTests(unittest.TestCase):
         self.assertIn('data/conf.json', pr['with']['add-paths'])
         self.assertIn('tools/conference_update/seed.json', pr['with']['add-paths'])
         self.assertEqual(pr['with']['branch'], 'automation/update-conferences')
-        self.assertEqual(pr['if'], 'success()')
+        self.assertTrue(pr['if'].startswith('success()'))
+        self.assertIn('complete', pr['if'])
         self.assertNotIn('branch-suffix', pr['with'])
 
 
