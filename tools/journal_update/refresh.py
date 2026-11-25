@@ -55,6 +55,20 @@ def atomic_write_json(target_path: Path, data: any):
                 pass
 
 
+def write_journal_gh_output(status: str, completed: int | None = None, total: int | None = None, target: Path | str | None = None):
+    output_target = target or os.environ.get('GITHUB_OUTPUT')
+    if output_target:
+        try:
+            with open(output_target, 'a', encoding='utf-8') as stream:
+                stream.write(f"status={status}\n")
+                if completed is not None:
+                    stream.write(f"completed_count={completed}\n")
+                if total is not None:
+                    stream.write(f"total_count={total}\n")
+        except OSError:
+            pass
+
+
 def refresh_journals(
     input_file: Path = DEFAULT_DATA,
     output_file: Path = DEFAULT_DATA,
@@ -66,10 +80,13 @@ def refresh_journals(
     skip_special_issues: bool = False,
     skip_discovery: bool = False,
     discover_limit: int = 15,
-    spider: JournalSpider | None = None
+    spider: JournalSpider | None = None,
+    max_minutes: int = 25,
+    github_output: Path | str | None = None
 ) -> dict:
     """Execute end-to-end journal refresh pipeline."""
     start_time = time.time()
+    deadline = start_time + max_minutes * 60
     input_file = Path(input_file)
     output_file = Path(output_file)
 
@@ -84,6 +101,15 @@ def refresh_journals(
     if not input_file.exists():
         raise FileNotFoundError(f"Input journal file not found: {input_file}")
 
+    checkpoint = {}
+    if checkpoint_file.exists():
+        try:
+            checkpoint = json.loads(checkpoint_file.read_text(encoding='utf-8'))
+        except Exception as e:
+            logger.warning(f"Could not load checkpoint: {e}")
+
+    is_resumed = (checkpoint.get('run_status') == 'paused')
+
     logger.info(f"Loading journals from {input_file}...")
     raw_journals = json.loads(input_file.read_text(encoding='utf-8'))
     total_journals = len(raw_journals)
@@ -95,12 +121,14 @@ def refresh_journals(
     if spider is None:
         spider = JournalSpider(delay=0.5, max_retries=3)
 
-    metrics_updated = 0
+    metrics_updated = checkpoint.get('metrics_updated', 0) if is_resumed else 0
     special_issues_found = 0
     special_issues_matched = 0
 
     # 1. Update Metrics via OpenAlex (Batch mode)
-    all_openalex_metrics = {}
+    all_openalex_metrics = checkpoint.get('all_openalex_metrics', {}) if is_resumed else {}
+    start_batch_idx = checkpoint.get('openalex_batch_idx', 0) if is_resumed else 0
+
     if not skip_openalex:
         logger.info("Starting OpenAlex batch metric update...")
         # Collect ISSNs
@@ -113,9 +141,35 @@ def refresh_journals(
 
         issn_list = list(issn_map.keys())
         chunks = list(chunk_list(issn_list, batch_size))
-        logger.info(f"Querying OpenAlex for {len(issn_list)} ISSNs across {len(chunks)} batches...")
+        logger.info(f"Querying OpenAlex for {len(issn_list)} ISSNs across {len(chunks)} batches (resuming from batch {start_batch_idx})...")
 
         for idx, chunk in enumerate(chunks, 1):
+            if idx <= start_batch_idx:
+                continue
+
+            # Time budget check between batches
+            if time.time() >= deadline:
+                logger.info(f"[PAUSED] Time slice budget reached ({max_minutes}m) at OpenAlex batch {idx-1}/{len(chunks)}.")
+                cp_data = {
+                    'run_status': 'paused',
+                    'phase': 'openalex',
+                    'openalex_batch_idx': idx - 1,
+                    'total_batches': len(chunks),
+                    'all_openalex_metrics': all_openalex_metrics,
+                    'records_to_process': records_to_process,
+                    'metrics_updated': metrics_updated
+                }
+                atomic_write_json(checkpoint_file, cp_data)
+                write_journal_gh_output('paused', completed=idx - 1, total=len(chunks), target=github_output)
+                return {
+                    'status': 'paused',
+                    'run_status': 'paused',
+                    'phase': 'openalex',
+                    'completed_batches': idx - 1,
+                    'total_batches': len(chunks),
+                    'metrics_updated': metrics_updated
+                }
+
             batch_url = OpenAlexSource.build_batch_url(chunk)
             if not batch_url:
                 continue
@@ -153,6 +207,27 @@ def refresh_journals(
             records_to_process.extend(discovered_journals)
             logger.info(f"Appended {len(discovered_journals)} newly discovered journals.")
 
+    # Check time budget before Special Issues
+    if not skip_special_issues and time.time() >= deadline:
+        logger.info(f"[PAUSED] Time slice budget reached ({max_minutes}m) before Special Issues.")
+        cp_data = {
+            'run_status': 'paused',
+            'phase': 'special_issues',
+            'openalex_batch_idx': len(chunks) if 'chunks' in locals() else 0,
+            'total_batches': len(chunks) if 'chunks' in locals() else 0,
+            'all_openalex_metrics': all_openalex_metrics,
+            'records_to_process': records_to_process,
+            'metrics_updated': metrics_updated
+        }
+        atomic_write_json(checkpoint_file, cp_data)
+        write_journal_gh_output('paused', completed=len(records_to_process), total=len(records_to_process), target=github_output)
+        return {
+            'status': 'paused',
+            'run_status': 'paused',
+            'phase': 'special_issues',
+            'metrics_updated': metrics_updated
+        }
+
     # 4. Extract Special Issues (Option B)
     if not skip_special_issues:
         logger.info("Crawling Special Issues Call-for-Papers...")
@@ -175,7 +250,7 @@ def refresh_journals(
     logger.info("Running defensive normalization and schema verification...")
     cleaned_journals, norm_report = normalize_all(records_to_process)
 
-    # 4. Atomic Write
+    # 6. Atomic Write
     if not dry_run:
         logger.info(f"Writing {len(cleaned_journals)} verified journals to {output_file}...")
         atomic_write_json(output_file, cleaned_journals)
@@ -185,6 +260,7 @@ def refresh_journals(
     elapsed = round(time.time() - start_time, 2)
     final_report = {
         'status': 'success',
+        'run_status': 'complete',
         'elapsed_seconds': elapsed,
         'total_input': total_journals,
         'processed': len(records_to_process),
@@ -198,7 +274,9 @@ def refresh_journals(
         'dry_run': dry_run
     }
 
+    atomic_write_json(checkpoint_file, {'run_status': 'complete', 'phase': 'complete', 'updated_at': time.time()})
     atomic_write_json(report_file, final_report)
+    write_journal_gh_output('complete', completed=len(cleaned_journals), total=total_journals, target=github_output)
     logger.info(f"Refresh completed successfully in {elapsed}s.")
     return final_report
 
@@ -215,6 +293,8 @@ def main():
     parser.add_argument('--skip-special-issues', action='store_true', help="Skip Special Issues crawling")
     parser.add_argument('--skip-discovery', action='store_true', help="Skip novel journal discovery")
     parser.add_argument('--discover-limit', type=int, default=15, help="Maximum new journals to discover per run")
+    parser.add_argument('--max-minutes', type=int, default=25, help="Time slice budget in minutes")
+    parser.add_argument('--github-output', type=Path, default=None, help="Path to GITHUB_OUTPUT file")
 
     args = parser.parse_args()
     report = refresh_journals(
@@ -227,9 +307,14 @@ def main():
         skip_openalex=args.skip_openalex,
         skip_special_issues=args.skip_special_issues,
         skip_discovery=args.skip_discovery,
-        discover_limit=args.discover_limit
+        discover_limit=args.discover_limit,
+        max_minutes=args.max_minutes,
+        github_output=args.github_output
     )
     print(json.dumps(report, indent=2))
+    if report.get('status') == 'paused' or report.get('run_status') == 'paused':
+        sys.exit(0)
+    sys.exit(0)
 
 
 if __name__ == '__main__':
