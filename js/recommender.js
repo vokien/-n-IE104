@@ -539,12 +539,14 @@ async function loadVenues(baseDir = "./data") {
     if (!response.ok) throw new Error(`HTTP ${response.status}: Không tìm thấy file dữ liệu ${file}`);
     const rows = await response.json();
     if (!Array.isArray(rows) || rows.some(row => !row || !row.id || !row.name ||
+      (row.scope != null && typeof row.scope !== "string") ||
       (row.subject_area != null && !Array.isArray(row.subject_area)) ||
       (row.scope_keywords != null && !Array.isArray(row.scope_keywords)))) {
       throw new Error(`Invalid directory: ${file}`);
     }
     return rows.map(row => ({ ...row, kind,
       searchText: [row.name, row.acronym, row.publisher,
+        typeof row.scope === "string" ? row.scope : "",
         ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(" ")
         .normalize("NFC").toLowerCase().replace(/[^\p{L}\p{M}0-9\s]/gu, " ").replace(/\s+/g, " ").trim()
     }));
@@ -694,6 +696,12 @@ function renderResults(searchResult) {
         ).join("")
       : `<span class="matched-keywords__empty">Không có từ khóa trực tiếp trùng khớp</span>`;
 
+    // Trích đoạn mô tả phạm vi (scope) nếu có
+    const scopeExcerpt = formatScopeExcerpt(venue.scope, 200);
+    const scopeHTML = scopeExcerpt
+      ? `<p class="result-scope"><strong>Scope:</strong> ${escapeHTML(scopeExcerpt)}</p>`
+      : "";
+
     // Link tới trang chủ venue (chỉ 1 biểu tượng external ở cuối chuỗi)
     const linkHTML = venue.homepage_url
       ? `<a href="${escapeHTML(venue.homepage_url)}" target="_blank" rel="noopener noreferrer" class="result-link result-link--external">
@@ -729,6 +737,7 @@ function renderResults(searchResult) {
 
         <div class="matched-keywords">
           <p class="result-reason">Venue được gợi ý vì có <strong>${matchedKeywords.length}</strong> từ khóa trùng với bản thảo trong tên, lĩnh vực hoặc scope. BM25 ưu tiên từ hiếm, có xét tần suất và độ dài văn bản.</p>
+          ${scopeHTML}
           <span class="matched-keywords__label">${getRecommenderIcon("key")} Từ khóa trùng khớp:</span>
           <div class="keyword-tags">${keywordTagsHTML}</div>
         </div>
@@ -816,6 +825,21 @@ function renderError(message) {
       <span>${escapeHTML(message)}</span>
     </div>
   `;
+}
+
+/**
+ * formatScopeExcerpt(scope, maxLength) -> string
+ * Rút gọn mô tả scope gọn gàng theo ranh giới từ để hiển thị trên thẻ kết quả.
+ */
+function formatScopeExcerpt(scope, maxLength = 200) {
+  if (typeof scope !== "string") return "";
+  const cleaned = scope.replace(/\s+/g, " ").trim();
+  if (!cleaned) return "";
+  if (cleaned.length <= maxLength) return cleaned;
+  const sliced = cleaned.slice(0, maxLength);
+  const lastSpace = sliced.lastIndexOf(" ");
+  const cutoff = lastSpace > Math.floor(maxLength * 0.7) ? sliced.slice(0, lastSpace) : sliced;
+  return `${cutoff.trimEnd()}...`;
 }
 
 /**

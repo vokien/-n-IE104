@@ -417,6 +417,20 @@
   overflow-wrap: anywhere;
 }
 
+.venue-scope {
+  margin-top: var(--spacing-sm);
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .venue-entry details {
   margin-top: var(--spacing-sm);
   font-size: var(--font-size-sm);

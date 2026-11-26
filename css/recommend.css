@@ -578,6 +578,16 @@
   line-height: var(--line-height-relaxed);
 }
 
+.result-scope {
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-left: 2px solid var(--color-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  overflow-wrap: anywhere;
+}
+
 .keyword-tags {
   display: flex;
   flex-wrap: wrap;

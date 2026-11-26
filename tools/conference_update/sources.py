@@ -21,6 +21,82 @@ STOP_WORDS = set('a an and of on the for in international conference symposium w
 STOP = set('the a an of on and for in annual international conference symposium ieee acm ifip proceedings proceeding society computer technical report'.split())
 TIME_FIELDS = ('deadline', 'abstract_deadline', 'decision_deadline', 'camera_ready_deadline', 'rebuttal_deadline')
 
+FOR_MAP: dict[str, str] = {
+    # ANZSRC 2020 Division 46: Information and Computing Sciences
+    '46': 'Computer Science',
+    '4600': 'Computer Science',
+    '4601': 'Applied Computing',
+    '4602': 'Artificial Intelligence',
+    '4603': 'Computer Vision and Multimedia',
+    '4604': 'Cybersecurity and Privacy',
+    '4605': 'Data Management and Data Science',
+    '4606': 'Distributed Computing and Systems Software',
+    '4607': 'Graphics, Augmented Reality and Games',
+    '4608': 'Human-Centred Computing',
+    '4609': 'Information Systems',
+    '4610': 'Machine Learning',
+    '4611': 'Natural Language Processing',
+    '4612': 'Software Engineering',
+    '4613': 'Theory of Computation',
+    '4699': 'Other Information and Computing Sciences',
+    # Legacy ANZSRC 2008 Division 08
+    '08': 'Computer Science',
+    '0800': 'Computer Science',
+    '0801': 'Artificial Intelligence and Image Processing',
+    '0802': 'Computation Theory and Mathematics',
+    '0803': 'Computer Software',
+    '0804': 'Data Format',
+    '0805': 'Distributed Computing',
+    '0806': 'Information Systems',
+    '0807': 'Library and Information Studies',
+    '0899': 'Other Information and Computing Sciences',
+    # Cross-disciplinary / Engineering
+    'CSE': 'Computer Systems Engineering',
+    '40': 'Engineering',
+    '4006': 'Communications Engineering',
+    '4007': 'Control Engineering, Mechatronics and Robotics',
+    '4008': 'Electrical Engineering',
+    '4009': 'Electronics, Sensors and Digital Hardware',
+    # Mathematics & Statistics
+    '49': 'Mathematical Sciences',
+    '4901': 'Applied Mathematics',
+    '4903': 'Numerical and Computational Mathematics',
+    '4905': 'Statistics',
+    # Language & Linguistics
+    '47': 'Linguistics and Language',
+    '4704': 'Linguistics',
+}
+
+
+def map_for_code(code: str) -> str | None:
+    """Map ANZSRC / FoR code to standard subject area name."""
+    cleaned = str(code or '').strip().upper()
+    if not cleaned:
+        return None
+    if cleaned in FOR_MAP:
+        return FOR_MAP[cleaned]
+    if len(cleaned) == 4 and cleaned[:2] in FOR_MAP:
+        return FOR_MAP[cleaned[:2]]
+    return None
+
+
+def subjects_from_core(core: dict) -> list[str]:
+    """Extract and map FoR codes from core record to standard subject area names."""
+    if not isinstance(core, dict):
+        return []
+    subjects: list[str] = []
+    seen: set[str] = set()
+    for field in ('primary_for', 'secondary_for', 'tertiary_for'):
+        val = str(core.get(field) or '').strip()
+        if not val:
+            continue
+        for token in re.split(r'[\s,;]+', val):
+            label = map_for_code(token)
+            if label and label.casefold() not in seen:
+                seen.add(label.casefold())
+                subjects.append(label)
+    return subjects
+
 class SourceLoader(yaml.SafeLoader):
     pass
 
@@ -269,6 +345,7 @@ def wiki_event(html, url):
             'id': 'wikicfp-' + parse_qs(urlparse(url).query)['eventid'][0],
             'link': links[0] if len(set(links)) == 1 else None,
             'timeline': extra['timeline'], 'timezone': None,
+            'scope': extra.get('scope'),
             'scope_keywords': extra['scope_keywords'], 'keyword_evidence': extra['keyword_evidence'],
             'date_evidence': extra['date_evidence'], 'date_conflicts': extra['date_conflicts'],
             'date': fields.get('When'), 'place': fields.get('Where'), 'cfp_url': url,

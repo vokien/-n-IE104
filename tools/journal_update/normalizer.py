@@ -13,11 +13,12 @@ from urllib.parse import urlsplit
 
 ISSN_PATTERN = re.compile(r'^\d{4}-\d{3}[\dX]$', re.IGNORECASE)
 VALID_RANKS = {'Q1', 'Q2', 'Q3', 'Q4'}
+MAX_SCOPE_LENGTH = 1000
 ALLOWED_KEYS = {
     'id', 'name', 'issn', 'eissn', 'publisher', 'scopus_rank',
     'h_index', 'citescore', 'citescore_year', 'sjr', 'sjr_year',
-    'subject_area', 'scope_keywords', 'homepage_url', 'scopus_source_url',
-    'submission_deadlines'
+    'subject_area', 'scope_keywords', 'scope', 'homepage_url',
+    'scopus_source_url', 'submission_deadlines'
 }
 
 
@@ -32,9 +33,26 @@ def clean_text(value: any) -> str:
         return ''
     text = str(value)
     text = unicodedata.normalize('NFC', text)
-    # Replace control characters with space
-    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', ' ', text)
+    # Replace control characters and zero-width markers
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u200b-\u200d\ufeff]', ' ', text)
     return ' '.join(text.split()).strip()
+
+
+def normalize_scope(
+    value: any,
+    max_length: int = MAX_SCOPE_LENGTH
+) -> str | None:
+    """Normalize journal scope text and trim cleanly at word boundaries."""
+    text = clean_text(value)
+    if not text:
+        return None
+    if len(text) <= max_length:
+        return text
+    cutoff = max(1, max_length - 3)
+    trimmed = text[:cutoff].rsplit(' ', 1)[0].rstrip(' ,;:-')
+    if not trimmed:
+        trimmed = text[:cutoff].rstrip()
+    return f"{trimmed}..."
 
 
 def normalize_issn(value: any) -> str | None:
@@ -227,12 +245,13 @@ def normalize_journal(record: dict, fallback_index: int = 1) -> dict:
     # 5. Scopus Rank (Q1 - Q4)
     scopus_rank = normalize_rank(record.get('scopus_rank'), sjr=sjr)
 
-    # 6. Subjects and Keywords
+    # 6. Subjects, Keywords, and Scope
     subject_area = unique_string_list(record.get('subject_area'))
     if not subject_area:
         subject_area = ['General Multidisciplinary']
 
     scope_keywords = unique_string_list(record.get('scope_keywords'))
+    scope = normalize_scope(record.get('scope'))
 
     # 7. URLs
     homepage_url = safe_url(record.get('homepage_url'))
@@ -252,6 +271,7 @@ def normalize_journal(record: dict, fallback_index: int = 1) -> dict:
         'sjr_year': sjr_year,
         'subject_area': subject_area,
         'scope_keywords': scope_keywords,
+        'scope': scope,
         'homepage_url': homepage_url,
         'scopus_source_url': scopus_source_url,
     }

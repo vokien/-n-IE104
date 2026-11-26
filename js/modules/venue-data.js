@@ -1,5 +1,17 @@
 export const normalize = value => String(value ?? '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/đ/g, 'd');
 
+function buildSearchText(row) {
+  return normalize([
+    row.id,
+    row.name,
+    row.acronym,
+    row.publisher,
+    typeof row.scope === 'string' ? row.scope : '',
+    ...(row.subject_area ?? []),
+    ...(row.scope_keywords ?? [])
+  ].join(' '));
+}
+
 export function safeUrl(value) {
   try {
     const url = new URL(value);
@@ -63,7 +75,7 @@ export async function loadVenues(onProgress = null) {
       confRows = rawConf.map(row => ({
         ...row,
         kind: 'conference',
-        searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' '))
+        searchText: buildSearchText(row)
       }));
       if (typeof onProgress === 'function' && confRows.length > 0) {
         onProgress(confRows, { isComplete: false, stage: 'conferences' });
@@ -80,7 +92,7 @@ export async function loadVenues(onProgress = null) {
       jourRows = rawJour.map(row => ({
         ...row,
         kind: 'journal',
-        searchText: normalize([row.id, row.name, row.acronym, row.publisher, ...(row.subject_area ?? []), ...(row.scope_keywords ?? [])].join(' '))
+        searchText: buildSearchText(row)
       }));
     }
   } catch (err) {

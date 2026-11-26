@@ -107,6 +107,10 @@ function makeCard(row) {
   const subjectLabel = row.kind === 'journal' ? 'Lĩnh vực của tạp chí: ' : 'Lĩnh vực của hội nghị: ';
   subjects.append(element('strong', subjectLabel), document.createTextNode(row.subject_area?.length ? row.subject_area.join(' / ') : 'Chưa có thông tin'));
   card.append(subjects);
+  const scopeText = typeof row.scope === 'string' ? row.scope.trim() : '';
+  if (scopeText) {
+    card.append(element('p', scopeText, 'venue-scope'));
+  }
   if (row.scope_keywords?.length) {
     const details = element('details');
     details.append(element('summary', `Chủ đề nghiên cứu (${row.scope_keywords.length})`));

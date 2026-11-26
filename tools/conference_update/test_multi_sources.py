@@ -13,7 +13,11 @@ from multi_sources import (
     parse_deadline_entry,
     detect_publisher_from_metadata,
     integrate_curated_into_seed,
-    safe_fetch
+    safe_fetch,
+    FOR_MAP,
+    map_for_code,
+    subjects_from_core,
+    CCF_TAG_MAP
 )
 
 
@@ -88,6 +92,8 @@ class TestMultiSources(unittest.TestCase):
         self.assertEqual(novel['venue']['id'], 'CONF-002')
         self.assertEqual(novel['venue']['acronym'], 'NOVELAI')
         self.assertIsNone(novel['venue']['core_rank'])  # None is Unranked per cleaning policy
+        self.assertIn('scope', novel['venue'])
+        self.assertIsNone(novel['venue']['scope'])
 
     def test_safe_fetch_graceful_degradation(self):
         # Non-existent domain should gracefully return None without raising exception
@@ -167,6 +173,77 @@ class TestMultiSources(unittest.TestCase):
             self.assertEqual(updated[1]['venue']['id'], 'CONF-990')
         finally:
             temp_conf.unlink(missing_ok=True)
+
+    def test_for_map_and_subjects_from_core(self):
+        self.assertEqual(FOR_MAP['46'], 'Computer Science')
+        self.assertEqual(FOR_MAP['4601'], 'Applied Computing')
+        self.assertEqual(FOR_MAP['4602'], 'Artificial Intelligence')
+        self.assertEqual(FOR_MAP['4603'], 'Computer Vision and Multimedia')
+        self.assertEqual(FOR_MAP['4604'], 'Cybersecurity and Privacy')
+        self.assertEqual(FOR_MAP['4605'], 'Data Management and Data Science')
+        self.assertEqual(FOR_MAP['4606'], 'Distributed Computing and Systems Software')
+        self.assertEqual(FOR_MAP['4607'], 'Graphics, Augmented Reality and Games')
+        self.assertEqual(FOR_MAP['4608'], 'Human-Centred Computing')
+        self.assertEqual(FOR_MAP['4609'], 'Information Systems')
+        self.assertEqual(FOR_MAP['4610'], 'Machine Learning')
+        self.assertEqual(FOR_MAP['4611'], 'Natural Language Processing')
+        self.assertEqual(FOR_MAP['4612'], 'Software Engineering')
+        self.assertEqual(FOR_MAP['4613'], 'Theory of Computation')
+
+        core_rec = {
+            'primary_for': '4602 4604',
+            'secondary_for': '4605',
+            'tertiary_for': ''
+        }
+        subjects = subjects_from_core(core_rec)
+        self.assertEqual(
+            subjects,
+            ['Artificial Intelligence', 'Cybersecurity and Privacy', 'Data Management and Data Science']
+        )
+
+    def test_integrate_curated_enriches_empty_seed_subject_area(self):
+        seed_records = [
+            {
+                'core': {'id': '10', 'name': 'AI Conf', 'acronym': 'AIC', 'source': 'ICORE2026', 'rank': 'A', 'primary_for': '4602'},
+                'venue': {'id': 'CONF-010', 'name': 'AI Conf', 'acronym': 'AIC', 'subject_area': [], 'submission_deadlines': []}
+            }
+        ]
+        curated_venues = [
+            {
+                'name': 'AI Conf',
+                'acronym': 'AIC',
+                'norm_acronym': 'AIC',
+                'homepage_url': 'https://aic.org',
+                'subject_area': ['Artificial Intelligence'],
+                'scope_keywords': ['Deep Learning'],
+                'submission_deadlines': [],
+                'source': 'ai-deadlines'
+            }
+        ]
+        updated, stats = integrate_curated_into_seed(seed_records, curated_venues, '2026-01-01')
+        self.assertEqual(stats['existing_venues_matched'], 1)
+        self.assertEqual(updated[0]['venue']['subject_area'], ['Artificial Intelligence'])
+        self.assertIn('Deep Learning', updated[0]['venue']['scope_keywords'])
+
+    def test_wiki_extract_supplemental_bullet_topics(self):
+        from wiki_extract import extract
+        html = '''<div class="cfp">
+        Call for Papers: Example Systems 2027
+        Important Dates:
+        - Submission Deadline: 2027-02-15
+        - Contact: chair@systems2027.org
+        Research Topics:
+        - Distributed consensus protocols
+        - Fault-tolerant replication
+        - Cloud computing architectures
+        </div>'''
+        res = extract(html, {})
+        self.assertIn('Distributed consensus protocols', res['scope_keywords'])
+        self.assertIn('Fault-tolerant replication', res['scope_keywords'])
+        self.assertIn('Cloud computing architectures', res['scope_keywords'])
+        # Noise must not be in keywords
+        self.assertNotIn('Submission Deadline: 2027-02-15', res['scope_keywords'])
+        self.assertNotIn('Contact: chair@systems2027.org', res['scope_keywords'])
 
 
 if __name__ == '__main__':

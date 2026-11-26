@@ -7,7 +7,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "Australasian B",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "Blockchain technology",
       "Cryptology",
@@ -75,6 +77,7 @@
       "Computer forensics",
       "Mobile agent security"
     ],
+    "scope": "Australasia Conference on Information Security and Privacy (ACISP) is an academic research conference in Cybersecurity and Privacy, covering topics including Blockchain technology, Cryptology, Database security, Digital forensics, Hardware, Side Channels, and Cyber-physical Systems Security.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-01T11:59:59Z",
@@ -126,7 +129,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "security",
       "privacy",
@@ -196,6 +201,7 @@
       "Usability and security",
       "Security and privacy in distributed systems"
     ],
+    "scope": "Applied Cryptography and Network Security (ACNS) is an academic research conference in Cybersecurity and Privacy, covering topics including security, privacy, cryptography, networks, secuirty.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-22T11:59:59Z",
@@ -229,7 +235,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "artificial intelligence",
       "machine learning",
@@ -243,6 +251,7 @@
       "258",
       "97"
     ],
+    "scope": "International Conference on Artificial Intelligence in Medicine (AIME) is an academic research conference in Applied Computing, covering topics including artificial intelligence, machine learning, medicine, biomedical informatics, ai in medicine.",
     "submission_deadlines": [
       {
         "abstract_deadline": null,
@@ -287,7 +296,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "theoretical computer science",
       "logic",
@@ -296,6 +307,7 @@
       "verification",
       "formal methods"
     ],
+    "scope": "The Conference on Automated Deduction (CADE) is an academic research conference in Artificial Intelligence, covering topics including theoretical computer science, logic, automated theorem proving, deduction, verification.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-16T11:59:59Z",
@@ -334,7 +346,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering",
+      "Theory of Computation"
+    ],
     "scope_keywords": [
       "Foundations of verification and synthesis (mathematical, logical, automata, games)",
       "Verification algorithms (model checking, deductive verification)",
@@ -431,6 +446,7 @@
       "Anyone, with the exception of members of the Award Committee, is",
       "Nominations are welcome. Please see the Call for Nominations for the CAV"
     ],
+    "scope": "International Conference on Computer-Aided Verification (CAV) is an academic research conference in Software Engineering, Theory of Computation, covering topics including Foundations of verification and synthesis (mathematical, logical, automata, games), Verification algorithms (model checking, deductive verification), Proof assistants and deductive methods, Specifications and correctness criteria for programs and systems, SAT, SMT, constraint solving, decision procedures.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-21T11:59:59Z",
@@ -466,7 +482,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "compilers",
       "programming",
@@ -490,6 +508,7 @@
       "distributed, embedded or mobile environments;",
       "Albert Cohen"
     ],
+    "scope": "International Conference on Compiler Construction (CC) is an academic research conference in Distributed Computing and Systems Software, covering topics including compilers, programming, Compilation and interpretation techniques, including program representation, analysis, and transformation; code generation, optimization, and synthesis; the verification thereof, Run-time techniques, including memory management, virtual machines, and dynamic and just-in-time compilation.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-04T11:59:59Z",
@@ -526,7 +545,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "cloud",
       "cluster",
@@ -572,6 +593,7 @@
       "Security and Trust: Cloud/Grid security and trust; Access control;",
       "problems in science, engineering, business and society; User studies;"
     ],
+    "scope": "IEEE International Symposium on Cluster, Cloud and Internet Computing (CCGRID) is an academic research conference in Distributed Computing and Systems Software, covering topics including cloud, cluster, grid, Applications and Big Data, Architecture and Networking.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-02T11:59:59Z",
@@ -607,7 +629,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "computational intelligence",
       "artificial neural networks",
@@ -617,6 +641,7 @@
       "agent-based systems",
       "artificial immune systems"
     ],
+    "scope": "IEEE Congress on Evolutionary Computation (IEEE CEC) is an academic research conference in Artificial Intelligence, covering topics including computational intelligence, artificial neural networks, fuzzy systems, evolutionary computation, artificial life.",
     "submission_deadlines": [
       {
         "deadline": "2027-03-01T11:59:59Z",
@@ -649,7 +674,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Graphics, Augmented Reality and Games",
+      "Computer Vision and Multimedia Computation"
+    ],
     "scope_keywords": [
       "Computer Graphics and Visualization Techniques",
       "3D Shape Modeling and Analysis",
@@ -662,6 +690,7 @@
       "Augmented Reality Applications",
       "Computational Geometry and Mesh Generation"
     ],
+    "scope": "Computer Graphics International (CGI) is an academic research conference in Graphics, Augmented Reality and Games, Computer Vision and Multimedia Computation, covering topics including Computer Graphics and Visualization Techniques, 3D Shape Modeling and Analysis, Advanced Vision and Imaging, Human Motion and Animation, Advanced Numerical Analysis Techniques.",
     "submission_deadlines": [
       {
         "deadline": "2027-04-21T11:59:59Z",
@@ -695,13 +724,16 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "embedded systems",
       "security",
       "cryptography",
       "hardware"
     ],
+    "scope": "International Conference on Cryptographic Hardware and Embedded Systems (CHES) is an academic research conference in Cybersecurity and Privacy, covering topics including embedded systems, security, cryptography, hardware.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-16T11:59:59Z",
@@ -750,7 +782,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "National:USA",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "situation awareness",
       "decision support",
@@ -927,6 +961,7 @@
       "Human- centric manufacturing, Operator 4.0/5.0 and industrial human-AI collaboration",
       "Training, simulation, and decision-support environments"
     ],
+    "scope": "IEEE Conference on Cognitive and Computational Aspects of Situation Management (CogSIMA) is an academic research conference in Distributed Computing and Systems Software, covering topics including situation awareness, decision support, artificial intelligence, monitoring and recovery systems, human-robot teams, human-AI teaming, physical and cyber, security situation awareness and cyber warfare systems, intelligent transportation systems,.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -1098,6 +1133,7 @@
       "Evaluation methods and user studies",
       "linguistics"
     ],
+    "scope": "International Conference on Computational Linguistics (COLING) is an academic research conference in Theoretical Computer Science, Computational Theory and Mathematics, Computer Science Applications, covering topics including NLP, artificial intelligence, computational linguistics, Benchmarking and Evaluation, Computational Cognitive Modeling and Psycholinguistics.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-24T11:59:59Z",
@@ -1128,7 +1164,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Machine Learning",
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "Design and analysis of learning algorithms",
       "Statistical and computational complexity of learning",
@@ -1166,6 +1205,7 @@
       "artificial intelligence",
       "computation theory"
     ],
+    "scope": "Annual Conference on Learning Theory (COLT) is an academic research conference in Machine Learning, Artificial Intelligence, covering topics including Design and analysis of learning algorithms, Statistical and computational complexity of learning, Optimization methods for learning, including online and stochastic optimization, Theory of artificial neural networks, including deep learning, Theoretical explanation of empirical phenomena in learning.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-30T11:59:59Z",
@@ -1202,7 +1242,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "computer",
       "software",
@@ -1232,6 +1274,7 @@
       "Paper Guidelines",
       "web systems"
     ],
+    "scope": "International Computer Software and Applications Conference (COMPSAC) is an academic research conference in Applied Computing, covering topics including computer, software, applications, data, Internet Architecture and Applications.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-01T11:59:59Z",
@@ -1264,7 +1307,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "computer networks",
       "wireless",
@@ -1290,6 +1335,7 @@
       "Wireless networking in licensed and unlicensed spectrum",
       "communications"
     ],
+    "scope": "International Conference on Emerging Networking Experiments and Technologies (CoNEXT) is an academic research conference in Distributed Computing and Systems Software, covering topics including computer networks, wireless, networking, Big Data platforms with applications to network management, security, measurements, Content distribution and caching, e.g., CDN, peer-to-peer, overlays.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-11-28T11:59:00Z",
@@ -1344,7 +1390,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "Collaboration theory and methodology",
       "Design of collaboration methods, processes, mechanisms, and protocols",
@@ -1412,6 +1460,7 @@
       "collaboration",
       "Grids, Web services, semantic Web for cooperative design"
     ],
+    "scope": "International Conference on Computer Supported Cooperative Work in Design (CSCWD) is an academic research conference in Human-Centred Computing, covering topics including Collaboration theory and methodology, Design of collaboration methods, processes, mechanisms, and protocols, Collaboration across disciplines (design science, service science and data science), Innovative collaborative approaches (crowdsourcing, social media).",
     "submission_deadlines": [
       {
         "deadline": "2026-12-01T11:59:59Z",
@@ -1480,6 +1529,7 @@
       "Language-based security Network security",
       "computer"
     ],
+    "scope": "IEEE Computer Security Foundations Symposium (CSFW) is an academic research conference in Engineering (all), covering topics including security, privacy, Twitter, security economics, Special Sessions (NEW).",
     "submission_deadlines": [
       {
         "deadline": "2027-01-29T11:59:59Z",
@@ -1510,7 +1560,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "database systems",
       "advanced and domain-specific d",
@@ -1658,6 +1710,7 @@
       "Sensor networks and communications",
       "Original papers on both theoretical and practical database research"
     ],
+    "scope": "Database Systems for Advanced Applications (DASFAA) is an academic research conference in Data Management and Data Science, covering topics including database systems, advanced and domain-specific d, data management for specialize, data science & intelligence an, Query processing and optimization.",
     "submission_deadlines": [
       {
         "deadline": "2026-11-26T11:59:59Z",
@@ -1691,7 +1744,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science",
+      "Machine Learning"
+    ],
     "scope_keywords": [
       "data mining",
       "neural networks and artificial",
@@ -1700,6 +1756,7 @@
       "business analytics",
       "data science"
     ],
+    "scope": "International Conference on Data Science, Technology and Applications is an academic research conference in Data Management and Data Science, Machine Learning, covering topics including data mining, neural networks and artificial, big data, data management, business analytics.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -1740,7 +1797,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "interaction design",
       "design",
@@ -1750,6 +1809,7 @@
       "interaction",
       "systems"
     ],
+    "scope": "ACM Conference on Designing Interactive Systems (DIS) is an academic research conference in Human-Centred Computing, covering topics including interaction design, design, HCI, interactive systems, human-computer interaction.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-12T11:59:59Z",
@@ -1782,7 +1842,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software",
+      "Computer Systems Engineering"
+    ],
     "scope_keywords": [
       "conferences",
       "dependability",
@@ -1804,6 +1867,7 @@
       "Student Forum: For PhD students only -- mid-length presentations about works-in-progress (3 printed pages)",
       "Poster Papers: Present and discuss emerging research results in a highly interactive, individually based manner (4 printed pages)"
     ],
+    "scope": "International Conference on Dependable Systems and Networks (DSN) is an academic research conference in Distributed Computing and Systems Software, Computer Systems Engineering, covering topics including conferences, dependability, systems, networks, workshops.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-11-26T11:59:59Z",
@@ -1842,7 +1906,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "software engineering",
       "evaluation",
@@ -1852,6 +1918,7 @@
       "computing",
       "empirical studies"
     ],
+    "scope": "International Conference on Evaluation and Assessment in Software Engineering (EASE) is an academic research conference in Software Engineering, covering topics including software engineering, evaluation, assessment, computer science, empirical.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-16T11:59:59Z",
@@ -1888,7 +1955,11 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence",
+      "Computer Vision and Multimedia Computation",
+      "Machine Learning"
+    ],
     "scope_keywords": [
       "artificial intelligence",
       "computer vision",
@@ -1898,6 +1969,7 @@
       "computational intelligence",
       "######################################################################"
     ],
+    "scope": "European Conference on Artificial Intelligence (ECAI) is an academic research conference in Artificial Intelligence, Computer Vision and Multimedia Computation, Machine Learning, covering topics including artificial intelligence, computer vision, data mining, machine learning, multi-agent systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-04-15T11:59:59Z",
@@ -1933,7 +2005,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "full papers",
       "workshops",
@@ -1947,6 +2021,7 @@
       "information systems",
       "object-oriented programming"
     ],
+    "scope": "European Conference on Object-Oriented Programming (ECOOP) is an academic research conference in Software Engineering, covering topics including full papers, workshops, demos, doctoral symposium, programming languages.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-12T11:59:59Z",
@@ -1983,7 +2058,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Machine Learning"
+    ],
     "scope_keywords": [
       "artificial intelligence",
       "machine learning",
@@ -1995,6 +2072,7 @@
       "Kernel machines Approximation and identification",
       "Graphical models, EM and Bayesian learning Classification and clustering"
     ],
+    "scope": "European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning (ESANN) is an academic research conference in Machine Learning, covering topics including artificial intelligence, machine learning, neural networks, pattern recognition, THEORY and MODELS INFORMATION PROCESSING and APPLICATIONS.",
     "submission_deadlines": [
       {
         "deadline": "2026-11-26T11:59:59Z",
@@ -2027,7 +2105,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "semantic web",
       "knowledge graphs",
@@ -2043,6 +2123,7 @@
       "big data",
       "semantics"
     ],
+    "scope": "European Semantic Web Conference (ESWC) is an academic research conference in Data Management and Data Science, covering topics including semantic web, knowledge graphs, linked data, natural language processing, knowledge graph.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-11T11:59:59Z",
@@ -2082,7 +2163,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Computer Systems Engineering"
+    ],
     "scope_keywords": [
       "T3 – Methods for Emerging Technologies and Architectures",
       "T6 – DFT, Test Access Standards and Test Application",
@@ -2094,6 +2177,7 @@
       "design",
       "computer"
     ],
+    "scope": "IEEE European Test Symposium (ETS) is an academic research conference in Computer Systems Engineering, covering topics including T3 – Methods for Emerging Technologies and Architectures, T6 – DFT, Test Access Standards and Test Application, T8 – Test Generation, Fault Modeling & Simulation, Diagnosis, test, reliability.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-09T11:59:59Z",
@@ -2130,7 +2214,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "security",
       "privacy",
@@ -2178,6 +2264,7 @@
       "europe",
       "Usable security and privacy"
     ],
+    "scope": "IEEE European Symposium on Security and Privacy (EuroS&P) is an academic research conference in Cybersecurity and Privacy, covering topics including security, privacy, cybersecurity, software engineering, computer security.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-11-26T11:59:59Z",
@@ -2216,12 +2303,16 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Graphics, Augmented Reality and Games",
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "visualization",
       "computer graphics",
       "scientific visualization"
     ],
+    "scope": "Eurographics Conference on Visualization (EuroVis) is an academic research conference in Graphics, Augmented Reality and Games, Human-Centred Computing, covering topics including visualization, computer graphics, scientific visualization.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-11-24T11:59:59Z",
@@ -2258,7 +2349,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "National/Regional",
-    "subject_area": [],
+    "subject_area": [
+      "Computer Systems Engineering",
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "FPGA",
       "computer architecture",
@@ -2275,6 +2369,7 @@
       "computer hardware",
       "computer"
     ],
+    "scope": "IEEE Symposium on Field-Programmable Custom Computing Machines (FCCM) is an academic research conference in Computer Systems Engineering, Distributed Computing and Systems Software, covering topics including FPGA, computer architecture, SOC, reconfigurability, fpgas.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-11T11:59:59Z",
@@ -2313,7 +2408,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "intelligent systems",
       "artificial intelligence",
@@ -2340,6 +2437,7 @@
       "flexible querying",
       "intelligent techniques"
     ],
+    "scope": "Flexible Query-Answering Systems (FQAS) is an academic research conference in Data Management and Data Science, covering topics including intelligent systems, artificial intelligence, NLP, databases, Standing at the intersection of databases, knowledge representation,.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -2380,7 +2478,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "Metaheuristic Optimization Algorithms Research",
       "Evolutionary Algorithms and Applications",
@@ -2393,6 +2493,7 @@
       "Scheduling and Optimization Algorithms",
       "Evolution and Genetic Dynamics"
     ],
+    "scope": "Genetic and Evolutionary Computation Conference (GECCO) is an academic research conference in Artificial Intelligence, covering topics including Metaheuristic Optimization Algorithms Research, Evolutionary Algorithms and Applications, Advanced Multi-Objective Optimization Algorithms, Reinforcement Learning in Robotics, Vehicle Routing Optimization Methods.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-19T11:59:59Z",
@@ -2483,6 +2584,7 @@
       "Usable privacy and security",
       "artificial intelligence"
     ],
+    "scope": "Graphics Interface (GI) is an academic research conference in Computer Graphics and Computer-Aided Design, covering topics including computer graphics, HCI, graphics, interface, human computer interaction.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-06T11:59:59Z",
@@ -2515,7 +2617,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software",
+      "Computer Systems Engineering"
+    ],
     "scope_keywords": [
       "Operating systems, networks, and architectures",
       "High-performance runtime environments",
@@ -2567,6 +2672,7 @@
       "Terabit networks systems and services",
       "Multicore algorithms and software implementations"
     ],
+    "scope": "ACM Symposium on High-Performance Parallel and Distributed Computing (HPDC) is an academic research conference in Distributed Computing and Systems Software, Computer Systems Engineering, covering topics including Operating systems, networks, and architectures, High-performance runtime environments, Massively multicore systems, including heterogeneous systems, Datacenter technology, resource virtualization, Programming languages, APIs, and system inter-operation approaches.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-12T11:59:59Z",
@@ -2602,7 +2708,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "social networks",
       "information technology",
@@ -2664,6 +2772,7 @@
       "Socialization – Ambient work and living",
       "Call for Contributions"
     ],
+    "scope": "International Conference on Innovations for Community Services (was Innovative Internet Computer Systems IICS until 2014) (I4CS) is an academic research conference in Applied Computing, covering topics including social networks, information technology, intelligent systems, computer science, Technology.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -2708,7 +2817,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "National: Poland",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "neural networks",
       "computer vision",
@@ -2720,6 +2831,7 @@
       "soft computing",
       "computational intelligence"
     ],
+    "scope": "International Conference on Artificial Intelligence and Soft Computing (ICAISC) is an academic research conference in Artificial Intelligence, covering topics including neural networks, computer vision, fuzzy logic, evolutionary computation, data mining.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -2760,7 +2872,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Theory of Computation"
+    ],
     "scope_keywords": [
       "theory",
       "complexity",
@@ -2919,6 +3033,7 @@
       "model checking",
       "semantics"
     ],
+    "scope": "EATCS International Colloquium on Automata, Languages, and Programming (ICALP) is an academic research conference in Theory of Computation, covering topics including theory, complexity, algorithms, automata, Track A: Algorithms Complexity and Games.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -3025,6 +3140,7 @@
       "Author and Reviewer Guidelines",
       "arificial intelligence"
     ],
+    "scope": "International Conference on Automated Planning and Scheduling (ICAPS) is an academic research conference in Artificial Intelligence, Computer Science Applications, Information Systems and Management, covering topics including schedule optimization, automated planning, supply chain management, industry 4.0, planning.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-08T11:59:59Z",
@@ -3063,7 +3179,11 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software",
+      "Cybersecurity and Privacy",
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "blockchain",
       "cryptocurrency",
@@ -3074,6 +3194,7 @@
       "cryptocurrencies",
       "distributed ledgers"
     ],
+    "scope": "IEEE International Conference on Blockchain and Cryptocurrency (ICBC) is an academic research conference in Distributed Computing and Systems Software, Cybersecurity and Privacy, Software Engineering, covering topics including blockchain, cryptocurrency, computer science, security, artificial intelligence.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -3160,6 +3281,7 @@
       "(WLCHN)",
       " Wireless Communication (WCOM)"
     ],
+    "scope": "IEEE International Conference on Computer Communications and Networks (ICCCN) is an academic research conference in Computer Networks and Communications, Hardware and Architecture, Software, covering topics including networks, communication, BIGDATA, internet, Cognitive, Cellular and Mobile Networks (CCM).",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-13T11:59:59Z",
@@ -3195,7 +3317,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "Multiconference",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "computational science",
       "modelling",
@@ -3210,6 +3334,7 @@
       "big data",
       "complex systems"
     ],
+    "scope": "International Conference on Computational Science (ICCS) is an academic research conference in Applied Computing, covering topics including computational science, modelling, simulation, HPC, modeling.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -3315,6 +3440,7 @@
       "machine learning",
       "pattern recognition"
     ],
+    "scope": "International Conference on Document Analysis and Recognition (ICDAR) is an academic research conference in Computer Vision and Pattern Recognition, covering topics including document analysis, document image analysis, natural langue processing, document retrieval, Document image processing.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-27T11:59:59Z",
@@ -3401,6 +3527,7 @@
       "privacy",
       "web systems"
     ],
+    "scope": "IEEE International Conference on Distributed Computing Systems (ICDCS) is an academic research conference in Software, Hardware and Architecture, Computer Networks and Communications, covering topics including distributed computing, edge computing, cloud computing, disributed computing, AI/ML and Distributed Systems.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-07T11:59:59Z",
@@ -3454,6 +3581,7 @@
       "knowledge-based systems",
       "big data"
     ],
+    "scope": "IEEE International Conference on Data Mining (ICDM) is an academic research conference in Engineering (all), covering topics including data mining, deep learning, machine learning, data warehousing, Foundations, algorithms, models, and theory of data mining, including big data mining.",
     "submission_deadlines": [
       {
         "deadline": "2027-06-07T11:59:59Z",
@@ -3487,13 +3615,24 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "programming",
       "functional programming",
       "type systems",
-      "programming languages"
+      "programming languages",
+      "Logic, programming, and type systems",
+      "Advanced Database Systems and Queries",
+      "Parallel Computing and Optimization Techniques",
+      "Formal Methods in Verification",
+      "Teaching and Learning Programming",
+      "Security and Verification in Computing",
+      "Syntax, Semantics, Linguistic Variation",
+      "Model-Driven Software Engineering Techniques"
     ],
+    "scope": "International Conference on Function Programming (ICFP) is an academic research conference in Software Engineering, covering topics including programming, functional programming, type systems, programming languages, Logic, programming, and type systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-26T11:59:59Z",
@@ -3574,6 +3713,7 @@
       "image/video storage, retrieval",
       "Image/video coding and transmission: Still image coding, video coding, stereoscopic and 3-D coding, distributed source coding, image/video transmission"
     ],
+    "scope": "The IEEE International Conference on Image Processing (ICIP) is an academic research conference in Software, Computer Vision and Pattern Recognition, Signal Processing, covering topics including image processing, computer graphics, computer vision, video processing, deep learning.",
     "submission_deadlines": [
       {
         "deadline": "2027-04-01T11:59:59Z",
@@ -3609,7 +3749,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "Australasian C",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "information technology",
       "AI",
@@ -3661,6 +3803,7 @@
       "Telemedicine and Biomedical Applications",
       "it applications"
     ],
+    "scope": "International Conference on Information Technology and Applications (ICITA) is an academic research conference in Applied Computing, covering topics including information technology, AI, data science, cyber security, cybersecurity.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -3796,6 +3939,7 @@
       "conjunction with the ICME2009 main conference. Interested organizers please directly",
       "Medical signal processing"
     ],
+    "scope": "The IEEE International Conference on Multimedia & Expo (ICME) is an academic research conference in Computer Networks and Communications, Computer Science Applications, covering topics including multimedia, machine learning, artificial intelligence, deep learning, (but are not limited to).",
     "submission_deadlines": [
       {
         "deadline": "2026-12-31T11:59:59Z",
@@ -3831,7 +3975,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Machine Learning"
+    ],
     "scope_keywords": [
       "machine learning",
       "learning theory",
@@ -3849,6 +3995,7 @@
       "computer science",
       "statistics"
     ],
+    "scope": "International Conference on Machine Learning (ICML) is an academic research conference in Machine Learning, covering topics including machine learning, learning theory, optimization, probabilistic inference, General Machine Learning (active learning, clustering, online learning, ranking, reinforcement learning, supervised, semi- and self-supervised learning, time series analysis, etc.).",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-15T11:59:59Z",
@@ -3884,7 +4031,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Machine Learning"
+    ],
     "scope_keywords": [
       "machine learning",
       "bayesian networks",
@@ -3938,6 +4087,7 @@
       "probabilistic models (e.g. Bayesian networks)",
       "cybernetics"
     ],
+    "scope": "International Conference on Machine Learning and Applications (ICMLA) is an academic research conference in Machine Learning, covering topics including machine learning, bayesian networks, federated learning, neural networks, statistical learning.",
     "submission_deadlines": [
       {
         "deadline": "2027-05-16T06:59:59Z",
@@ -3971,7 +4121,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Computer Vision and Multimedia Computation",
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "artificial intelligence",
       "computer science",
@@ -4087,6 +4240,7 @@
       "Novel multimedia data management systems and applications",
       "Applications in forensic, biomedical image and video collections"
     ],
+    "scope": "ACM SIGMM International Conference on Multimedia Retrieval (ICMR) is an academic research conference in Computer Vision and Multimedia Computation, Data Management and Data Science, covering topics including artificial intelligence, computer science, machine learning, multimedia, Multimedia content-based search and retrieval systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-01T11:59:59Z",
@@ -4141,6 +4295,7 @@
       "classification and clustering",
       "artificial neural networks architectures and models"
     ],
+    "scope": "International Conference on Pattern Recognition (ICPR) is an academic research conference in Computer Vision and Pattern Recognition, covering topics including Artificial Intelligence, Pattern Recognition and Machine Learning, Computer and Robot Vision, Image, Speech, Signal and Video Processing, Biometrics and Human Computer Interaction, Document Analysis and Recognition.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-03-02T11:59:59Z",
@@ -4177,7 +4332,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "software engineering",
       "software maintenance",
@@ -4215,6 +4372,7 @@
       "Maintenance-related testing (e.g., regression testing)",
       "UVic Engineering and Computer Science building — ECS"
     ],
+    "scope": "International Conference on Software Maintenance and Evolution (ICSME) is an academic research conference in Software Engineering, covering topics including software engineering, software maintenance, software evolution, maintenance, evolution.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-20T11:59:59Z",
@@ -4254,7 +4412,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing",
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "social media",
       "computational social science",
@@ -4264,6 +4425,7 @@
       "Analysis of the relationship between social media and mainstream media",
       "Qualitative and quantitative studies of social media"
     ],
+    "scope": "The International AAAI Conference on Web and Social Media (ICWSM) is an academic research conference in Applied Computing, Data Management and Data Science, covering topics including social media, computational social science, web, Studies of digital humanities (culture, history, arts) using social media, Psychological, personality-based and ethnographic studies of social media.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-16T11:59:59Z",
@@ -4294,7 +4456,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "HCI",
       "Design and evaluation methods",
@@ -4313,6 +4477,7 @@
       "Supporting interaction and impact for children in at-risk or under-served populations",
       "Replication studies that provide novel perspectives"
     ],
+    "scope": "ACM Interaction Design and Children Conference (IDC) is an academic research conference in Human-Centred Computing, covering topics including HCI, Design and evaluation methods, Empirically derived guidelines, Quantitative and qualitative evaluation of technologies, Educational aspects in theory and practice.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-19T11:59:59Z",
@@ -4346,7 +4511,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence"
+    ],
     "scope_keywords": [
       "smart cities",
       "intelligent environments",
@@ -4452,6 +4619,7 @@
       "Design and reliability of systems",
       "Sustainable design"
     ],
+    "scope": "The International Conference on Intelligent Environments (IE) is an academic research conference in Artificial Intelligence, covering topics including smart cities, intelligent environments, pervasive computing, internet of things, Smart Spaces & Cities.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -4498,8 +4666,17 @@
     "scope_keywords": [
       "artificial intelligence",
       "computational intelligence",
-      "data science"
+      "data science",
+      "Logic, Reasoning, and Knowledge",
+      "AI-based Problem Solving and Planning",
+      "Topic Modeling",
+      "Advanced Neural Network Applications",
+      "Domain Adaptation and Few-Shot Learning",
+      "Constraint Satisfaction and Optimization",
+      "Reinforcement Learning in Robotics",
+      "Natural Language Processing Techniques"
     ],
+    "scope": "International Joint Conference on Artificial Intelligence (IJCAI) is an academic research conference in Artificial Intelligence, covering topics including artificial intelligence, computational intelligence, data science, Logic, Reasoning, and Knowledge, AI-based Problem Solving and Planning.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-05T11:59:59Z",
@@ -4539,7 +4716,11 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Computer Vision and Multimedia Computation",
+      "Cybersecurity and Privacy",
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "biometrics",
       "computer vision",
@@ -4569,6 +4750,7 @@
       "DNA biometrics",
       "novel sensors"
     ],
+    "scope": "International Joint Conference on Biometrics (IJCB) is an academic research conference in Computer Vision and Multimedia Computation, Cybersecurity and Privacy, Human-Centred Computing, covering topics including biometrics, computer vision, Call for Contributions, fingerprint, iris biometrics.",
     "submission_deadlines": [
       {
         "deadline": "2027-04-11T11:59:59Z",
@@ -4646,6 +4828,7 @@
       "Recurrent neural networks",
       "artificial neural networks"
     ],
+    "scope": "International Joint Conference on Neural Networks (IJCNN) is an academic research conference in Software, Artificial Intelligence, covering topics including artificial intelligence, neural network, » AI for Critical Infrastructures, » AI for Education, » AI for neural Engineering.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-01T11:59:59Z",
@@ -4678,7 +4861,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "networking",
       "mesurements",
@@ -4694,6 +4879,7 @@
       "internet",
       "measurement"
     ],
+    "scope": "ACM Internet Measurement Conference (IMC) is an academic research conference in Distributed Computing and Systems Software, covering topics including networking, mesurements, security, performance, measurements.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-04-01T11:59:59Z",
@@ -4730,13 +4916,24 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "HCI",
       "design",
       "accessibility",
-      "usability"
+      "usability",
+      "Usability and User Interface Design",
+      "Innovative Human-Technology Interaction",
+      "Interactive and Immersive Displays",
+      "Ethics and Social Impacts of AI",
+      "Misinformation and Its Impacts",
+      "Software Engineering Techniques and Practices",
+      "Context-Aware Activity Recognition Systems",
+      "Augmented Reality Applications"
     ],
+    "scope": "IFIP TC13 International Conference on Human-Computer Interaction (INTERACT) is an academic research conference in Human-Centred Computing, covering topics including HCI, design, accessibility, usability, Usability and User Interface Design.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-26T11:59:59Z",
@@ -4791,6 +4988,7 @@
       "Voice and Speech Disorders",
       "Advanced Adaptive Filtering Techniques"
     ],
+    "scope": "Conference of the International Speech Communication Association (InterSpeech) is an academic research conference in Language and Linguistics, Human-Computer Interaction, Signal Processing, covering topics including Speech Recognition and Synthesis, Speech and Audio Processing, Music and Audio Processing, Natural Language Processing Techniques, Speech and dialogue systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-10T11:59:59Z",
@@ -4827,7 +5025,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence",
+      "Computer Systems Engineering"
+    ],
     "scope_keywords": [
       "robotics",
       "artificial intelligence",
@@ -4837,6 +5038,7 @@
       "intelligent robots",
       "industrial electronics"
     ],
+    "scope": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) is an academic research conference in Artificial Intelligence, Computer Systems Engineering, covering topics including robotics, artificial intelligence, autonomous systems, automation, intelligent systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-03-02T11:59:59Z",
@@ -4867,7 +5069,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "National/Regional",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software",
+      "Computer Systems Engineering"
+    ],
     "scope_keywords": [
       "high performance computing",
       "artificial intelligence",
@@ -4875,6 +5080,7 @@
       "quantum computing",
       "sustainability"
     ],
+    "scope": "ISC High Performance (was International Supercomputing Conference) is an academic research conference in Distributed Computing and Systems Software, Computer Systems Engineering, covering topics including high performance computing, artificial intelligence, data alanytics, quantum computing, sustainability.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -4932,6 +5138,7 @@
       "Algorithms and Data Compression",
       "Speech and dialogue systems"
     ],
+    "scope": "International Symposium on Computer Architecture (ISCA) is an academic research conference in Hardware and Architecture, covering topics including Parallel Computing and Optimization Techniques, Interconnection Networks and Systems, Advanced Data Storage Technologies, Distributed systems and fault tolerance, Distributed and Parallel Computing Systems.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-07T11:59:59Z",
@@ -4990,6 +5197,7 @@
       "signal processing",
       "cryptography"
     ],
+    "scope": "IEEE International Symposium on Information Theory (ISIT) is an academic research conference in Applied Mathematics, Modeling and Simulation, Theoretical Computer Science, covering topics including computer science, information theory, mathematics, communications, information science.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-11T11:59:59Z",
@@ -5022,13 +5230,16 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Applied Computing"
+    ],
     "scope_keywords": [
       "molecular biology",
       "intelligent systems",
       "bioinformatics",
       "computational biology"
     ],
+    "scope": "International Conference on Intelligent Systems for Molecular Biology (ISMB) is an academic research conference in Applied Computing, covering topics including molecular biology, intelligent systems, bioinformatics, computational biology.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-15T11:59:00Z",
@@ -5062,7 +5273,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "high-performance computing",
       "performance analysis",
@@ -5078,6 +5291,7 @@
       "modeling",
       "analysis"
     ],
+    "scope": "International Symposium on Performance Analysis of Systems and Software (ISPASS) is an academic research conference in Software Engineering, covering topics including high-performance computing, performance analysis, benchmarks, tools, performance and power evaluati.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-12T11:59:59Z",
@@ -5116,7 +5330,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "distributed systems",
       "parallel systems",
@@ -5209,6 +5425,7 @@
       "cluster",
       "grid"
     ],
+    "scope": "International Symposium on Parallel and Distributed Computing (ISPDC) is an academic research conference in Distributed Computing and Systems Software, covering topics including distributed systems, parallel systems, HPC, parallel computing, computing continuum.",
     "submission_deadlines": [
       {
         "deadline": null,
@@ -5249,7 +5466,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "software testing",
       "software analysis",
@@ -5262,6 +5481,7 @@
       "programming languages",
       "software engineering"
     ],
+    "scope": "ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA) is an academic research conference in Software Engineering, covering topics including software testing, software analysis, software validation, software verification, testing.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-09T11:59:59Z",
@@ -5300,7 +5520,10 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Artificial Intelligence",
+      "Theory of Computation"
+    ],
     "scope_keywords": [
       "knowledge representation",
       "ontology formalisms",
@@ -5404,6 +5627,7 @@
       "Doctoral Consortium: Esra Erdem (Sabanci University), Frank Wolter (U Liverpool)",
       "Publicity: Benjamin Johnston, Mary-Anne Williams (UT Sydney)"
     ],
+    "scope": "International Conference on Principles of Knowledge Representation and Reasoning (KR) is an academic research conference in Artificial Intelligence, Theory of Computation, covering topics including knowledge representation, ontology formalisms, qualitative reasoning, Argumentation, Belief change.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-04-24T11:59:59Z",
@@ -5455,6 +5679,7 @@
       "computer science",
       "computer"
     ],
+    "scope": "IEEE Symposium on Logic in Computer Science (LICS) is an academic research conference in Mathematics (all), Software, covering topics including theoretical computer science, computation theory, formal methods, logic, computer science.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-15T11:59:59Z",
@@ -5609,6 +5834,7 @@
       "Mobile metadata management and exchanges",
       "Mobile Web and Agents for mobile applications"
     ],
+    "scope": "International Conference on Mobile Data Management (MDM) is an academic research conference in Engineering (all), covering topics including data management, databases, data mining, Mobile Cloud Computing and Data Management in the Mobile Cloud, Data Management for Internet of Things (IoT) and Sensor Systems.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-26T11:59:59Z",
@@ -5641,7 +5867,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "HCI",
       "human computer interaction",
@@ -5684,6 +5912,7 @@
       "Trust and privacy",
       "Legal aspects"
     ],
+    "scope": "ACM International Conference on Mobile Human-Computer Interaction (MobileHCI) is an academic research conference in Human-Centred Computing, covering topics including HCI, human computer interaction, mobile computing, mobile, mobility.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-11T11:59:59Z",
@@ -5719,7 +5948,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "models",
       "model-driven engineering",
@@ -5755,6 +5986,7 @@
       "New modeling paradigms and formalisms",
       "Modelling in, and for, the Cloud"
     ],
+    "scope": "International Conference on Model Driven Engineering Languages and Systems (MoDELS) is an academic research conference in Software Engineering, covering topics including model-driven engineering, software engineering, foundations, practice, model driven engineering.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-03-13T11:59:59Z",
@@ -5793,7 +6025,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "multimedia",
       "video",
@@ -5818,6 +6052,7 @@
       "Systems for computer vision applications",
       "Machine learning for multimedia systems"
     ],
+    "scope": "International Workshop on Network and Operating System Support for Digital Audio and Video (NOSSDAV) is an academic research conference in Distributed Computing and Systems Software, covering topics including multimedia, video, audio, operating systems, Applications for social media and networks.",
     "submission_deadlines": [
       {
         "deadline": "2027-01-12T11:59:59Z",
@@ -5862,6 +6097,7 @@
       "applications",
       "software development"
     ],
+    "scope": "Conference on Object-Oriented Programming Systems, Languages, and Applications (OOPSLA) is an academic research conference in Software, covering topics including programming languages, software engineering, object-oriented programming, systems, languages.",
     "submission_deadlines": [
       {
         "deadline": "2027-04-08T11:59:59Z",
@@ -5898,13 +6134,16 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "operating system",
       "systems software",
       "systems design",
       "operating systems"
     ],
+    "scope": "USENIX Symposium on Operating Systems Design and Implementation (OSDI) is an academic research conference in Distributed Computing and Systems Software, covering topics including operating system, systems software, systems design, operating systems.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-01T22:59:59Z",
@@ -5937,7 +6176,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "data mining",
       "machine learning",
@@ -5951,6 +6192,7 @@
       "knowledge discovery",
       "data base"
     ],
+    "scope": "Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD) is an academic research conference in Data Management and Data Science, covering topics including data mining, machine learning, data science, data engineering, big data.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-05T11:59:59Z",
@@ -5983,7 +6225,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "privacy",
       "security",
@@ -6094,6 +6338,7 @@
       "Privacy in Ubiquitous Computing Environments",
       "Privacy vulnerabilities and their impact on phishing and identity theft"
     ],
+    "scope": "Privacy Enhancing Technologies Symposium (PETS) is an academic research conference in Cybersecurity and Privacy, covering topics including privacy, security, blockchain, cloud, Access control and identity management with privacy.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-01T11:59:59Z",
@@ -6148,13 +6393,24 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "databases",
       "data mining",
       "semantic web",
-      "web services"
+      "web services",
+      "Advanced Database Systems and Queries",
+      "Logic, Reasoning, and Knowledge",
+      "Logic, programming, and type systems",
+      "Advanced Graph Theory Research",
+      "Algorithms and Data Compression",
+      "Data Management and Algorithms",
+      "Complexity and Algorithms in Graphs",
+      "Distributed systems and fault tolerance"
     ],
+    "scope": "ACM Symposium on Principles of Database Systems (PODS) is an academic research conference in Data Management and Data Science, covering topics including databases, data mining, semantic web, web services, Advanced Database Systems and Queries.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-04T11:59:59Z",
@@ -6194,7 +6450,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "requirements engineering",
       "software engineering",
@@ -6203,6 +6461,7 @@
       "system engineering",
       "information systems"
     ],
+    "scope": "IEEE International Requirements Engineering Conference (RE) is an academic research conference in Software Engineering, covering topics including requirements engineering, software engineering, requirements, software, system engineering.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-02-23T11:59:59Z",
@@ -6239,7 +6498,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "access control",
       "authentication",
@@ -6329,6 +6590,7 @@
       "o Usage control",
       "o Trust models"
     ],
+    "scope": "ACM Symposium on Access Control Models and Technologies (SACMAT) is an academic research conference in Cybersecurity and Privacy, covering topics including access control, authentication, security, privacy, authorization.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-13T11:59:59Z",
@@ -6362,7 +6624,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "B",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "Wireless and mobile sensing systems in challenging media (e.g., underground, underwater, space)",
       "Cellular communications and data networks, including 5G and beyond",
@@ -6406,6 +6670,7 @@
       "Modeling, algorithms, and performance evaluation",
       "MAC, network, transport, application protocols and cross-layer design"
     ],
+    "scope": "IEEE International Conference on Sensing, Communication, and Networking (SECON) is an academic research conference in Distributed Computing and Systems Software, covering topics including Wireless and mobile sensing systems in challenging media (e.g., underground, underwater, space), Cellular communications and data networks, including 5G and beyond, Software defined and programmable networks, Cognitive radio and dynamic spectrum access.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-01T04:59:59Z",
@@ -6439,7 +6704,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "secure communications",
       "web and systems security",
@@ -6483,6 +6750,7 @@
       "Selected papers will be published at a special issue of IJIS",
       "INSTRUCTIONS FOR AUTHORS"
     ],
+    "scope": "International Conference on Security and Privacy in Communication Networks (SecureComm) is an academic research conference in Cybersecurity and Privacy, covering topics including secure communications, web and systems security, malware analysis, secure routing, TOPIC.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-02T11:59:59Z",
@@ -6537,7 +6805,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "networking",
       "data communication networking",
@@ -6547,6 +6817,7 @@
       "data communication networks",
       "network"
     ],
+    "scope": "ACM International Conference on Applications, Technologies, Architectures, and Protocols for Computer Communication (SIGCOMM) is an academic research conference in Distributed Computing and Systems Software, covering topics including networking, data communication networking, computer networks, conference, including topics in network research, practice, and, education. Topics that represent new research areas and directions are.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-03T11:59:59Z",
@@ -6576,12 +6847,23 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Data Management and Data Science"
+    ],
     "scope_keywords": [
       "information retrieval",
       "information retreaval",
-      "IR"
+      "IR",
+      "Information Retrieval and Search Behavior",
+      "Recommender Systems and Techniques",
+      "Topic Modeling",
+      "Natural Language Processing Techniques",
+      "Algorithms and Data Compression",
+      "Web Data Mining and Analysis",
+      "Advanced Bandit Algorithms Research",
+      "Advanced Text Analysis Techniques"
     ],
+    "scope": "International Conference on Research on Development in Information Retrieval (SIGIR) is an academic research conference in Data Management and Data Science, covering topics including information retrieval, information retreaval, IR, Information Retrieval and Search Behavior, Recommender Systems and Techniques.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-15T11:59:59Z",
@@ -6617,7 +6899,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Software Engineering"
+    ],
     "scope_keywords": [
       "performance",
       "computer systems",
@@ -6627,6 +6911,7 @@
       "network",
       "simulation"
     ],
+    "scope": "ACM Special Interest Group on Measurement and Evaluation (SIGMETRICS) is an academic research conference in Software Engineering, covering topics including performance, computer systems, measurement, modeling, evaluation.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-05T11:59:59Z",
@@ -6660,7 +6945,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Theory of Computation"
+    ],
     "scope_keywords": [
       "design, analysis, and implementation of geometric algorithms and data structures;",
       "computational complexity of geometric problems;",
@@ -6681,6 +6968,7 @@
       "computational topology;",
       "computational geometry"
     ],
+    "scope": "International Symposium on Computational Geometry (SOCG) is an academic research conference in Theory of Computation, covering topics including design, analysis, and implementation of geometric algorithms and data structures;, computational complexity of geometric problems;, implementation and experimental evaluation of geometric algorithms and heuristics, including mathematical, numerical, and algebraic aspects;, discrete and combinatorial geometry;.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-03T11:59:59Z",
@@ -6762,6 +7050,7 @@
       "Robustness, Self-Stabilization and Security",
       "parallel computing"
     ],
+    "scope": "ACM Symposium on Parallelism in Algorithms and Architectures (SPAA) is an academic research conference in Theoretical Computer Science, Software, Hardware and Architecture, covering topics including distributed algorithms, Parallel and Distributed Algorithms, Parallel and Distributed Data Structures, Green Computing & Power-Efficient Architectures, Management of Massive Data Sets.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-23T11:59:59Z",
@@ -6801,7 +7090,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Human-Centred Computing"
+    ],
     "scope_keywords": [
       "computer science",
       "user interface",
@@ -6829,6 +7120,7 @@
       "interaction",
       "technology"
     ],
+    "scope": "ACM Symposium on User Interface Software and Technology (UIST) is an academic research conference in Human-Centred Computing, covering topics including computer science, user interface, human-computer interaction, computer graphics, Significantly novel enabling technologies such as innovative input.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-04-01T11:59:59Z",
@@ -6861,7 +7153,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
+    "subject_area": [
+      "Cybersecurity and Privacy"
+    ],
     "scope_keywords": [
       "Advanced Malware Detection Techniques",
       "Security and Verification in Computing",
@@ -6874,6 +7168,7 @@
       "Digital and Cyber Forensics",
       "Privacy, Security, and Data Protection"
     ],
+    "scope": "USENIX Security Symposium is an academic research conference in Cybersecurity and Privacy, covering topics including Advanced Malware Detection Techniques, Security and Verification in Computing, Network Security and Intrusion Detection, Internet Traffic Analysis and Secure E-voting, User Authentication and Security Systems.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2027-01-20T11:59:59Z",
@@ -6913,10 +7208,21 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "A*",
-    "subject_area": [],
-    "scope_keywords": [
-      "databases"
+    "subject_area": [
+      "Data Management and Data Science"
     ],
+    "scope_keywords": [
+      "databases",
+      "Advanced Database Systems and Queries",
+      "Data Management and Algorithms",
+      "Cloud Computing and Resource Management",
+      "Graph Theory and Algorithms",
+      "Data Mining Algorithms and Applications",
+      "Parallel Computing and Optimization Techniques",
+      "Algorithms and Data Compression",
+      "Distributed systems and fault tolerance"
+    ],
+    "scope": "International Conference on Very Large Data Bases (VLDB) is an academic research conference in Data Management and Data Science, covering topics including databases, Advanced Database Systems and Queries, Data Management and Algorithms, Cloud Computing and Resource Management, Graph Theory and Algorithms.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-11-26T01:00:00Z",
@@ -7009,7 +7315,9 @@
     "eissn": null,
     "publisher": null,
     "core_rank": "C",
-    "subject_area": [],
+    "subject_area": [
+      "Distributed Computing and Systems Software"
+    ],
     "scope_keywords": [
       "wireless networks",
       "mobile computing",
@@ -7075,6 +7383,7 @@
       "Modeling and Performance evaluation",
       "The WoWMoM 2009 technical program will also include two-days workshops"
     ],
+    "scope": "IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks (WoWMoM) is an academic research conference in Distributed Computing and Systems Software, covering topics including wireless networks, mobile computing, internet of things, artificial intelligence, 5g/6g networks.",
     "submission_deadlines": [
       {
         "deadline": "2026-12-02T11:59:59Z",
@@ -7154,6 +7463,7 @@
       "Usable security and privacy",
       "Web application security"
     ],
+    "scope": "ACM Conference on Data and Application Security and Privacy (CODASPY) is an academic research conference in Computer Security, Cryptography, Privacy, covering topics including CRYPTO, SEC, CONF, PRIV, OTHERS.",
     "submission_deadlines": [
       {
         "abstract_deadline": "2026-12-01T11:59:59Z",
@@ -7205,6 +7515,7 @@
       "CONF",
       "OTHERS"
     ],
+    "scope": "USENIX Conference on Secure Agentic-AI Systems (SAIS) is an academic research conference in Computer Security, Cryptography, Privacy, covering topics including SEC, PRIV, CONF, OTHERS.",
     "submission_deadlines": [
       {
         "deadline": "2027-02-05T11:59:59Z",

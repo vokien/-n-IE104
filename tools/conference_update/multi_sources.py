@@ -40,9 +40,25 @@ GITHUB_SOURCES = {
 
 DBLP_SEARCH_API = "https://dblp.org/search/venue/api?q={query}&format=json&h=5"
 
+from sources import FOR_MAP, map_for_code, subjects_from_core
+
+CCF_TAG_MAP: dict[str, list[str]] = {
+    'ai': ['Artificial Intelligence', 'Machine Learning'],
+    'db': ['Data Management and Data Science'],
+    'dm': ['Data Management and Data Science'],
+    'se': ['Software Engineering'],
+    'sec': ['Cybersecurity and Privacy'],
+    'nw': ['Distributed Computing and Systems Software'],
+    'sys': ['Distributed Computing and Systems Software'],
+    'arch': ['Distributed Computing and Systems Software'],
+    'th': ['Theory of Computation'],
+    'cg': ['Graphics, Augmented Reality and Games', 'Computer Vision and Multimedia'],
+    'hci': ['Human-Centred Computing'],
+}
+
 SUBJECT_MAP = {
     'ai-deadlines': ['Artificial Intelligence', 'Machine Learning'],
-    'sec-deadlines': ['Computer Security', 'Cryptography', 'Privacy'],
+    'sec-deadlines': ['Cybersecurity and Privacy', 'Computer Security'],
     'se-deadlines': ['Software Engineering', 'Information Systems']
 }
 
@@ -273,6 +289,15 @@ def load_all_curated_sources(today_cutoff: str = "2026-01-01") -> tuple[dict[str
             tags = item.get('tags') or []
             if isinstance(tags, str):
                 tags = [tags]
+            matched_subjects = list(subjects)
+            sub_val = clean_str(item.get('sub') or '').lower()
+            if sub_val in CCF_TAG_MAP:
+                matched_subjects = list(dict.fromkeys(matched_subjects + CCF_TAG_MAP[sub_val]))
+            for tag in tags:
+                tag_lower = clean_str(tag).lower()
+                if tag_lower in CCF_TAG_MAP:
+                    matched_subjects = list(dict.fromkeys(matched_subjects + CCF_TAG_MAP[tag_lower]))
+
             keywords = [full_name, norm_acronym] + list(tags)
             if item.get('sub'):
                 keywords.append(clean_str(item.get('sub')))
@@ -282,7 +307,7 @@ def load_all_curated_sources(today_cutoff: str = "2026-01-01") -> tuple[dict[str
                 'norm_acronym': norm_acronym,
                 'name': full_name,
                 'homepage_url': link or None,
-                'subject_area': list(subjects),
+                'subject_area': matched_subjects,
                 'scope_keywords': [k for k in dict.fromkeys(keywords) if k],
                 'submission_deadlines': valid_rounds if valid_rounds else all_rounds,
                 'source': source_name
@@ -327,6 +352,12 @@ def integrate_curated_into_seed(
         v = r['venue']
         c = r['core']
         all_venues.append(v)
+
+        # Enrich empty subject_area from core record FoR fields
+        if not v.get('subject_area'):
+            sa = subjects_from_core(c)
+            if sa:
+                v['subject_area'] = sa
 
         c_id = c.get('id', '')
         if str(c_id).isdigit():
@@ -411,11 +442,25 @@ def integrate_curated_into_seed(
         norm_name = clean_str(cv['name']).lower()
 
         # Check if already present in seed_records
-        if (norm_acr, norm_name) in existing_identity_map and existing_identity_map[(norm_acr, norm_name)] in seed_venue_ids:
+        matched_rec = None
+        for r in updated_records:
+            v_acr = normalize_acronym(r['venue'].get('acronym'))
+            c_acr = normalize_acronym(r['core'].get('acronym'))
+            v_name_cand = clean_str(r['venue'].get('name')).lower()
+            c_name_cand = clean_str(r['core'].get('name')).lower()
+            if (norm_acr and (norm_acr == v_acr or norm_acr == c_acr)) or (norm_name and (norm_name == v_name_cand or norm_name == c_name_cand)):
+                matched_rec = r
+                break
+
+        if matched_rec is not None or ((norm_acr, norm_name) in existing_identity_map and existing_identity_map[(norm_acr, norm_name)] in seed_venue_ids) or norm_acr in seed_acronyms or norm_name in seed_names:
             stats['existing_venues_matched'] += 1
-            continue
-        if norm_acr in seed_acronyms or norm_name in seed_names:
-            stats['existing_venues_matched'] += 1
+            if matched_rec is not None:
+                mv = matched_rec.get('venue', {})
+                if not mv.get('subject_area') and cv.get('subject_area'):
+                    mv['subject_area'] = list(cv['subject_area'])
+                if cv.get('scope_keywords'):
+                    existing_kw = mv.get('scope_keywords') or []
+                    mv['scope_keywords'] = list(dict.fromkeys(existing_kw + cv['scope_keywords']))
             continue
 
         # Check if venue exists in public registry (e.g. conf.json) to reuse its invariant ID
@@ -484,6 +529,7 @@ def integrate_curated_into_seed(
                 'core_rank': None,  # None means Unranked per cleaning.py policy
                 'subject_area': cv['subject_area'],
                 'scope_keywords': cv['scope_keywords'],
+                'scope': cv.get('scope'),
                 'submission_deadlines': cv['submission_deadlines'],
                 'homepage_url': cv['homepage_url']
             }

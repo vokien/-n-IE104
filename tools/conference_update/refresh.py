@@ -20,6 +20,7 @@ from zoneinfo import ZoneInfo
 
 from bs4 import BeautifulSoup
 import cleaning as prep
+import enricher
 from http_client import WikiClient, CrawlPaused, SourceError, github_get
 from multi_sources import load_all_curated_sources, integrate_curated_into_seed, normalize_acronym
 import sources
@@ -27,7 +28,7 @@ import sources
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 FIELDS = ('id', 'name', 'acronym', 'issn', 'eissn', 'publisher', 'core_rank',
-          'subject_area', 'scope_keywords', 'submission_deadlines', 'homepage_url')
+          'subject_area', 'scope_keywords', 'scope', 'submission_deadlines', 'homepage_url')
 POLICY_VERSION = 1
 
 
@@ -180,12 +181,22 @@ def build_rows(records, ccf_records, wiki, report, curated_deadlines=None):
     for record in records:
         key, venue = record['core']['id'], copy.deepcopy(record['venue'])
         venue['core_rank'] = sources.core_rank(record['core']['rank'])
+        if not venue.get('subject_area'):
+            venue['subject_area'] = sources.subjects_from_core(record['core']) or enricher.subjects_from_core(record['core'])
+        if not venue.get('subject_area'):
+            venue['subject_area'] = ['Computer Science']
+        venue.setdefault('scope', None)
         events = wiki.get(key, [])
         # Verify detail identity again when consuming restored checkpoint data.
         events = [e for e in events if verified_event(record, e)]
+        sorted_events = sorted(events, key=lambda e: e.get('year') or 0, reverse=True)
         venue['scope_keywords'] = unique_terms(venue['scope_keywords'] +
-            [term for e in sorted(events, key=lambda e: e.get('year') or 0, reverse=True)
-             for term in e.get('scope_keywords', [])])
+            [term for e in sorted_events for term in e.get('scope_keywords', [])])
+        if not venue.get('scope'):
+            for e in sorted_events:
+                if e.get('scope'):
+                    venue['scope'] = e['scope']
+                    break
 
         # Priority 1: CCF Deadlines
         ccf_rounds = [dict(e, _origin='ccf') for e in matched.get(key, [])]
@@ -386,7 +397,7 @@ def find_smart_delta_ids(records, ccf_records, curated_deadlines, cutoff):
     return active_ids
 
 
-def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=45, request_client=None, ccf_fetch=fetch_ccf, smart_delta=True, github_output=None):
+def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=45, request_client=None, ccf_fetch=fetch_ccf, smart_delta=True, github_output=None, enrich=None, enrich_limit=40, enrich_fetcher=None):
     records = validate_seed(load(seed_path))
 
     # Multi-source resilient load: Curated GitHub Deadlines (AI, Sec, SE)
@@ -404,7 +415,7 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=45, reques
             print(f"Synchronized {len(records)} records into {seed_path}.", flush=True)
 
     fingerprint = hashlib.sha256((digest(seed_path) + ''.join(digest(HERE / name) for name in
-        ('refresh.py', 'sources.py', 'wiki_extract.py', 'cleaning.py', 'selection.py', 'http_client.py', 'http_worker.py', 'robots.py', 'multi_sources.py'))).encode()).hexdigest()
+        ('refresh.py', 'sources.py', 'wiki_extract.py', 'cleaning.py', 'selection.py', 'http_client.py', 'http_worker.py', 'robots.py', 'multi_sources.py', 'enricher.py'))).encode()).hexdigest()
     state_dir.mkdir(parents=True, exist_ok=True)
     owner = state_dir / 'owner.json'
     owner_value = {'schema': 'ie104-conference-update-cache-v1'}
@@ -531,7 +542,23 @@ def _run(seed_path, state_dir, output, cutoff, workers=4, max_minutes=45, reques
             'wiki_requests_this_run': client.requests,
             'seed_sha256': digest(seed_path)
         }
-        rows = clean_select(build_rows(records, ccf_entries, state['wiki'], report, curated_deadlines), cutoff, report)
+        rows = build_rows(records, ccf_entries, state['wiki'], report, curated_deadlines)
+        do_enrich = (request_client is None) if enrich is None else bool(enrich)
+        core_by_id = {r['venue']['id']: r['core'] for r in records}
+        priority_ids = {
+            row['id'] for row in rows
+            if any((day := deadline_day(t)) is not None and day > cutoff for t in row.get('submission_deadlines', []))
+        }
+        report['enrichment'] = enricher.enrich_conferences(
+            rows,
+            core_by_id=core_by_id,
+            state_dir=state_dir,
+            enrich_limit=enrich_limit,
+            enable_network=do_enrich,
+            fetcher=enrich_fetcher,
+            priority_ids=priority_ids,
+        )
+        rows = clean_select(rows, cutoff, report)
         # Report must serialize successfully before touching the public dataset.
         sources.write_json(state_dir / 'report.json', report)
         report['changed'] = publish(rows, output, records)
@@ -573,6 +600,8 @@ if __name__ == '__main__':
     parser.add_argument('--workers', type=int, default=4, choices=range(1, 5))
     parser.add_argument('--max-minutes', type=int, default=45, choices=range(1, 281))
     parser.add_argument('--smart-delta', action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument('--enrich', action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument('--enrich-limit', type=int, default=40)
     parser.add_argument('--github-output', type=Path, default=None)
     args = parser.parse_args()
     if args.output.resolve() != (ROOT / 'data/conf.json').resolve():
@@ -581,7 +610,8 @@ if __name__ == '__main__':
         report = run(args.seed.resolve(), args.state_dir.resolve(), args.output.resolve(),
                      args.after or datetime.now(ZoneInfo('Asia/Ho_Chi_Minh')).date(),
                      workers=args.workers, max_minutes=args.max_minutes,
-                     smart_delta=args.smart_delta, github_output=args.github_output)
+                     smart_delta=args.smart_delta, github_output=args.github_output,
+                     enrich=args.enrich, enrich_limit=max(0, args.enrich_limit))
         if report and report.get('status') == 'paused':
             sys.exit(0)
         sys.exit(0)
