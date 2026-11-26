@@ -103,6 +103,31 @@ svg {
   max-width: var(--container-narrow-width);
 }
 
+/* ============================================================
+   VANILLA WEB COMPONENTS (CUSTOM ELEMENTS) - ZERO LAYOUT SHIFT
+   ============================================================ */
+app-header {
+  display: block;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+}
+
+app-header:not(:defined) {
+  min-height: var(--header-height);
+  background-color: var(--color-bg-surface);
+}
+
+app-footer {
+  display: block;
+  width: 100%;
+}
+
+app-footer:not(:defined) {
+  min-height: 380px;
+}
+
 /* ----------------------------------------------------------------------------
    3. HEADER & ĐIỀU HƯỚNG MÔ HÌNH BÁNH XE (HUB-AND-SPOKE NAV)
    -------------------------------------------------------------------------- */

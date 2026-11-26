@@ -51,9 +51,136 @@ def deadline_kind(label):
     return None
 
 
+def _truncate_scope(text_val, limit=480):
+    text_val = re.sub(r'\s+', ' ', text_val).strip()
+    if len(text_val) <= limit:
+        return text_val
+    window = text_val[:limit + 1]
+    sentence_ends = [m.end() for m in re.finditer(r'[.!?](?=\s|$)', window)]
+    best_sentence = max((pos for pos in sentence_ends if 120 <= pos <= limit), default=0)
+    if best_sentence:
+        return text_val[:best_sentence].strip()
+    cut = text_val[:limit - 3].rsplit(' ', 1)[0].rstrip(' ,;:-')
+    return (cut or text_val[:limit - 3]).strip() + '...'
+
+
+def extract_scope(cfp):
+    """Extract 1-2 short intro/aims/scope prose paragraphs from div.cfp without extra HTTP requests."""
+    if not cfp:
+        return None
+    raw_html = str(cfp).replace('\r\n', '\n').replace('\r', '\n')
+    # HTML source newlines around <br/> are formatting whitespace, not extra paragraph breaks.
+    raw_html = re.sub(r'[ \t]*\n[ \t]*', ' ', raw_html)
+    clone = BeautifulSoup(raw_html, 'html.parser')
+    for node in clone.select('s, strike, del, script, style'):
+        node.decompose()
+    for br in clone.find_all('br'):
+        br.replace_with('\n')
+    for block in clone.find_all(['li', 'p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'tr']):
+        block.insert_before('\n\n')
+        block.insert_after('\n\n')
+
+    raw_lines = [re.sub(r'[ \t]+', ' ', line).strip() for line in clone.get_text('', strip=False).splitlines()]
+
+    exclude_heading = re.compile(
+        r'^(?:#+\s*)?(?:important dates|key dates|submission(?:\s+guidelines|\s+instructions)?|'
+        r'paper submission|author guidelines|formatting|camera[- ]?ready|registration|'
+        r'organizing|program(?:me)? committee|steering committee|committees?|chairs?|'
+        r'publication|proceedings|copyright|contact|venue|accommodation|keynotes?|'
+        r'invited speakers|best paper|topics?(?:\s+of\s+interest|\s+include|\s*:)|'
+        r'areas?\s+(?:include|covered))\b',
+        re.I,
+    )
+    scope_heading = re.compile(
+        r'^(?:#+\s*)?(?:[\d.]+\s+)?(?:.*\b(?:aims?\s*(?:&|and)?\s*scope|scope|overview|synopsis|'
+        r'about(?:\s+the\s+(?:conference|symposium|workshop|track))?|background|'
+        r'introduction|motivation)\b|welcome\b|call\s+for\s+papers\b)',
+        re.I,
+    )
+    meta_prefix = re.compile(
+        r'^(?:important dates|submission|abstract|notification|camera[- ]?ready|'
+        r'rebuttal|when|where|date|location|venue|contact|chair|email|website|url)\s*[:\-]',
+        re.I,
+    )
+    noise_phrase = re.compile(
+        r'(?:\bcopyright\b|©|\ball rights reserved\b|^call\s+for\s+papers\b|\bin\s+conjunction\s+with\b)',
+        re.I,
+    )
+
+    paragraphs = []
+    buffer = []
+    skip_section = False
+    in_explicit_scope = False
+
+    def flush_paragraph():
+        if not buffer or skip_section:
+            buffer.clear()
+            return
+        joined = ' '.join(buffer)
+        buffer.clear()
+        joined = re.sub(r'https?://\S+|www\.\S+', ' ', joined)
+        joined = re.sub(r'\b[\w.+-]+@[\w-]+\.[\w.-]+\b', ' ', joined)
+        joined = DATE.sub(' ', joined)
+        joined = re.sub(r'\(\s*\)', ' ', joined)
+        joined = re.sub(r'\s+([,.;:!?])', r'\1', joined)
+        joined = re.sub(r'\s+', ' ', joined).strip(' -:;,*#')
+        if len(joined) < 50 or noise_phrase.search(joined):
+            return
+        words = re.findall(r'[A-Za-z]{2,}', joined)
+        if len(words) < 8:
+            return
+        # Require at least one sentence terminator or normal prose phrasing (avoid bare title banners).
+        if not re.search(r'[.!?](?:\s|$)', joined):
+            return
+        alpha_ratio = sum(c.isalpha() or c.isspace() for c in joined) / max(1, len(joined))
+        if alpha_ratio < 0.7:
+            return
+        paragraphs.append((in_explicit_scope, joined))
+
+    for line in raw_lines:
+        if not line or re.fullmatch(r'[=\-*_~#.:]{3,}', line):
+            flush_paragraph()
+            continue
+        cleaned_heading = re.sub(r'^#+\s*', '', line).strip()
+        if len(cleaned_heading) <= 95 and exclude_heading.match(cleaned_heading):
+            flush_paragraph()
+            skip_section = True
+            in_explicit_scope = False
+            continue
+        if len(cleaned_heading) <= 95 and scope_heading.match(cleaned_heading):
+            flush_paragraph()
+            skip_section = False
+            in_explicit_scope = not re.match(r'^call\s+for\s+papers\b', cleaned_heading, re.I)
+            continue
+        if skip_section:
+            continue
+        if re.match(r'^\s*[-*•▪●]+\s+', line) or meta_prefix.match(line):
+            flush_paragraph()
+            continue
+        if re.fullmatch(r'(?:https?://\S+|www\.\S+|\S+@\S+\.\S+)', line):
+            flush_paragraph()
+            continue
+        if len(line) < 90 and DATE.search(line) and len(DATE.sub('', line).strip(' ,.-:;()')) < 25:
+            flush_paragraph()
+            continue
+        buffer.append(line)
+
+    flush_paragraph()
+    if not paragraphs:
+        return None
+
+    explicit = [p for is_exp, p in paragraphs if is_exp]
+    chosen = (explicit if explicit else [p for _, p in paragraphs])[:2]
+    combined = ' '.join(chosen)
+    if len(combined) < 50:
+        return None
+    return _truncate_scope(combined, limit=480)
+
+
 def extract(html, structured):
     soup = BeautifulSoup(html, 'html.parser')
     cfp = soup.select_one('div.cfp')
+    scope_text = extract_scope(cfp)
     # Superseded dates may be struck out; retain the original page in the HTML cache.
     if cfp:
         for node in cfp.select('s, strike, del, script, style'):
@@ -91,6 +218,25 @@ def extract(html, structured):
             continue
         if not term.endswith(('.', '!', '?')):
             keywords.append(term); evidence.append({'term': term, 'method': 'literal_cfp_topic_list', 'line': line})
+
+    # Supplemental topic extraction from CFP body lines (bullet lists, scope phrases)
+    noise_pattern = re.compile(
+        r'(?:https?://|www\.|\S+@\S+|\b(?:deadline|due|notification|camera[ -]?ready|submission|'
+        r'registration|rebuttal|dates?|when|where|venue|location|hotel|city|campus|convention|'
+        r'contact|chair|committee|organizer|sponsor|editors?|page limit|double[- ]blind|'
+        r'formatting|template|latex|copyright|proceedings|springer|ieee format|all rights reserved)\b)',
+        re.I
+    )
+
+    for line in lines:
+        bullet_match = re.match(r'^\s*[-*•–▪+]\s+(.+)', line)
+        if bullet_match:
+            cand = bullet_match.group(1).strip()
+            if (len(cand) >= 3 and len(cand) <= 120 and len(cand.split()) <= 12
+                    and not DATE.search(cand) and not noise_pattern.search(cand)
+                    and not cand.endswith(':') and not re.search(r'[.!?]$', cand)):
+                keywords.append(cand)
+                evidence.append({'term': cand, 'method': 'bullet_cfp_topic_term', 'line': line})
     unique = {}
     for term in keywords:
         unique.setdefault(term.casefold(), term)
@@ -156,5 +302,5 @@ def extract(html, structured):
         else:
             # Do not fabricate an additional submission cycle from an inconsistent summary.
             conflicts.append({'summary': summary, 'reason': 'summary_not_assigned_to_unique_text_cycle'})
-    return {'timeline': rounds, 'scope_keywords': list(unique.values()), 'keyword_evidence': evidence,
-            'date_evidence': date_evidence, 'date_conflicts': conflicts}
+    return {'timeline': rounds, 'scope': scope_text, 'scope_keywords': list(unique.values()),
+            'keyword_evidence': evidence, 'date_evidence': date_evidence, 'date_conflicts': conflicts}

@@ -23,8 +23,13 @@ DEFAULT_DATA = ROOT / 'data' / 'jour.json'
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from normalizer import normalize_all, normalize_journal, clean_text
-from sources import OpenAlexSource, SpecialIssueSource, WIKICFP_SEARCH_URL
+from normalizer import (
+    normalize_all, normalize_journal, clean_text, unique_string_list
+)
+from sources import (
+    OpenAlexSource, SpecialIssueSource, SCImagoSource,
+    WIKICFP_SEARCH_URL, extract_response_text
+)
 from spider import JournalSpider, SpiderError
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -79,7 +84,9 @@ def refresh_journals(
     skip_openalex: bool = False,
     skip_special_issues: bool = False,
     skip_discovery: bool = False,
+    skip_sjr: bool = False,
     discover_limit: int = 15,
+    sjr_scope_limit: int = 30,
     spider: JournalSpider | None = None,
     max_minutes: int = 25,
     github_output: Path | str | None = None
@@ -189,6 +196,29 @@ def refresh_journals(
                             target_rec['h_index'] = info['h_index']
                         if info.get('homepage_url') and not target_rec.get('homepage_url'):
                             target_rec['homepage_url'] = info['homepage_url']
+                        kw_source = info.get('scope_keywords') or info.get('topics_keywords')
+                        if kw_source:
+                            existing_kw = target_rec.get('scope_keywords') or []
+                            merged_kw = unique_string_list(
+                                existing_kw + kw_source
+                            )
+                            target_rec['scope_keywords'] = merged_kw[:15]
+                        sa_source = info.get('subject_area') or info.get('subject_areas')
+                        if sa_source:
+                            existing_sa = target_rec.get('subject_area') or []
+                            if (
+                                not existing_sa
+                                or existing_sa == ['General Multidisciplinary']
+                            ):
+                                target_rec['subject_area'] = (
+                                    sa_source[:4]
+                                )
+                            else:
+                                target_rec['subject_area'] = unique_string_list(
+                                    existing_sa + sa_source
+                                )[:4]
+                        if info.get('scope') and not target_rec.get('scope'):
+                            target_rec['scope'] = info['scope']
                         metrics_updated += 1
             except Exception as e:
                 logger.warning(f"Batch {idx}/{len(chunks)} failed gracefully: {e}")
@@ -206,6 +236,45 @@ def refresh_journals(
         if discovered_journals:
             records_to_process.extend(discovered_journals)
             logger.info(f"Appended {len(discovered_journals)} newly discovered journals.")
+
+    # 3b. Enrich metrics and Scope via SCImago (CSV catalog + incremental detail pages)
+    sjr_matched = 0
+    sjr_scope_stats = {
+        'cached_applied': 0,
+        'newly_fetched': 0,
+        'blocked': False,
+        'errors': 0,
+    }
+    if not skip_sjr and time.time() < deadline:
+        logger.info("Fetching SCImago SJR catalog and enriching journal scopes...")
+        try:
+            sjr_rows = SCImagoSource.fetch_sjr_catalog(spider)
+            if sjr_rows:
+                sjr_id_map = SCImagoSource.match_sjr_to_journals(
+                    records_to_process, sjr_rows
+                )
+                sjr_matched = len(sjr_id_map)
+                logger.info(
+                    f"Matched {sjr_matched} journals with SCImago catalog "
+                    f"({len(sjr_rows)} entries)."
+                )
+                if sjr_id_map:
+                    sjr_cache_file = state_dir / 'sjr_scope_cache.json'
+                    sjr_scope_stats = SCImagoSource.enrich_sjr_scopes_incremental(
+                        spider,
+                        records_to_process,
+                        sjr_id_map,
+                        sjr_cache_file,
+                        limit=sjr_scope_limit,
+                    )
+                    logger.info(
+                        "SCImago scope enrichment: "
+                        f"cached={sjr_scope_stats['cached_applied']}, "
+                        f"fetched={sjr_scope_stats['newly_fetched']}, "
+                        f"blocked={sjr_scope_stats['blocked']}"
+                    )
+        except Exception as e:
+            logger.warning(f"SCImago SJR enrichment skipped gracefully: {e}")
 
     # Check time budget before Special Issues
     if not skip_special_issues and time.time() >= deadline:
@@ -235,7 +304,7 @@ def refresh_journals(
         search_url = WIKICFP_SEARCH_URL.format(year=current_year)
         try:
             resp = spider.fetch(search_url, timeout=15)
-            html_text = getattr(resp, 'text', '')
+            html_text = extract_response_text(resp)
             issues = SpecialIssueSource.extract_from_html(html_text)
             special_issues_found = len(issues)
             logger.info(f"Extracted {special_issues_found} Special Issue CFP candidates.")
@@ -265,6 +334,10 @@ def refresh_journals(
         'total_input': total_journals,
         'processed': len(records_to_process),
         'metrics_updated': metrics_updated,
+        'sjr_matched': sjr_matched,
+        'sjr_scopes_applied': sjr_scope_stats['cached_applied'],
+        'sjr_scopes_fetched': sjr_scope_stats['newly_fetched'],
+        'sjr_blocked': sjr_scope_stats['blocked'],
         'special_issues_found': special_issues_found,
         'special_issues_matched': special_issues_matched,
         'discovered_count': len(discovered_journals),
@@ -292,7 +365,9 @@ def main():
     parser.add_argument('--skip-openalex', action='store_true', help="Skip OpenAlex metrics update")
     parser.add_argument('--skip-special-issues', action='store_true', help="Skip Special Issues crawling")
     parser.add_argument('--skip-discovery', action='store_true', help="Skip novel journal discovery")
+    parser.add_argument('--skip-sjr', action='store_true', help="Skip SCImago SJR catalog and scope crawl")
     parser.add_argument('--discover-limit', type=int, default=15, help="Maximum new journals to discover per run")
+    parser.add_argument('--sjr-scope-limit', type=int, default=30, help="Maximum SJR detail pages to crawl per run")
     parser.add_argument('--max-minutes', type=int, default=25, help="Time slice budget in minutes")
     parser.add_argument('--github-output', type=Path, default=None, help="Path to GITHUB_OUTPUT file")
 
@@ -307,7 +382,9 @@ def main():
         skip_openalex=args.skip_openalex,
         skip_special_issues=args.skip_special_issues,
         skip_discovery=args.skip_discovery,
+        skip_sjr=args.skip_sjr,
         discover_limit=args.discover_limit,
+        sjr_scope_limit=args.sjr_scope_limit,
         max_minutes=args.max_minutes,
         github_output=args.github_output
     )

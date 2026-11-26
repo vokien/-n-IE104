@@ -15,9 +15,12 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 from normalizer import (
+    ALLOWED_KEYS,
+    MAX_SCOPE_LENGTH,
     clean_text,
     normalize_issn,
     normalize_rank,
+    normalize_scope,
     safe_float,
     safe_int,
     safe_url,
@@ -131,6 +134,28 @@ class TestJournalNormalizer(unittest.TestCase):
         self.assertEqual(normalized['sjr'], 0.95)
         self.assertEqual(normalized['scopus_rank'], 'Q1')
         self.assertEqual(normalized['subject_area'], ['Robotics'])
+        self.assertIsNone(normalized['scope'])
+
+    def test_normalize_journal_scope_and_truncation(self):
+        self.assertIn('scope', ALLOWED_KEYS)
+        rec = {
+            'id': 'JOUR-SCOPE-1',
+            'name': 'Journal of Vietnamese Studies & AI',
+            'issn': '1234-5678',
+            'scope': '  Nghiên   cứu về trí tuệ nhân tạo\tand hệ thống thông tin.  '
+        }
+        normalized = normalize_journal(rec)
+        self.assertEqual(
+            normalized['scope'],
+            'Nghiên cứu về trí tuệ nhân tạo and hệ thống thông tin.'
+        )
+
+        long_words = ' '.join(['science'] * 250)
+        trimmed = normalize_scope(long_words)
+        self.assertIsNotNone(trimmed)
+        self.assertLessEqual(len(trimmed), MAX_SCOPE_LENGTH)
+        self.assertTrue(trimmed.endswith('...'))
+        self.assertIsNone(normalize_scope('   '))
 
     def test_all_real_data_8277_journals(self):
         """Verify that every single journal in data/jour.json passes without error."""

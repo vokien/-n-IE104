@@ -17,7 +17,7 @@ import pandas as pd
 
 COMMON = ['id', 'name', 'issn', 'eissn', 'publisher', 'h_index',
           'citescore', 'citescore_year', 'sjr', 'sjr_year', 'subject_area',
-          'scope_keywords', 'homepage_url', 'scopus_source_url']
+          'scope_keywords', 'scope', 'homepage_url', 'scopus_source_url']
 SCHEMAS = {'journal': set(COMMON + ['scopus_rank']),
            'conference': set(COMMON + ['acronym', 'core_rank', 'submission_deadlines']) -
                          {'h_index', 'citescore', 'citescore_year', 'sjr', 'sjr_year', 'scopus_source_url'}}
@@ -40,8 +40,9 @@ MEANINGS = {
     'citescore_year': 'Năm của CiteScore, dạng số nguyên hoặc null',
     'sjr': 'SJR; ưu tiên SCImago, Scopus là nguồn dự phòng',
     'sjr_year': 'Năm của SJR, dạng số nguyên hoặc null',
-    'subject_area': 'Danh sách ngành theo nhãn ASJC của Scopus',
+    'subject_area': 'Danh sách ngành theo nhãn ASJC của Scopus hoặc FoR của ICORE',
     'scope_keywords': 'Danh sách chủ đề có sẵn trong nguồn thu thập, không tự suy diễn',
+    'scope': 'Mô tả ngắn về phạm vi, mục tiêu và chủ đề nghiên cứu của nguồn xuất bản',
     'submission_deadlines': 'Các kỳ/vòng và mốc thời gian; có timeline chưa chắc có hạn nộp bài',
     'homepage_url': 'Trang chủ tạp chí hoặc trang kỳ hội nghị; chỉ kiểm tra cú pháp URL',
     'scopus_source_url': 'Liên kết hồ sơ nguồn xuất bản trên Scopus',
@@ -124,7 +125,7 @@ def normalize_missing(rows, audit):
 
 def normalize_text(rows, audit):
     for row in rows:
-        for field in ('name', 'acronym', 'publisher'):
+        for field in ('name', 'acronym', 'publisher', 'scope'):
             if field in row and row[field] is not None:
                 if not isinstance(row[field], str):
                     raise ValueError(f"{row['id']}: {field} must be text")
@@ -416,6 +417,8 @@ def validate(rows, kind, original):
             assert isinstance(row[field], list)
             assert all(isinstance(v, str) and text(v) == v and v for v in row[field])
             assert len(row[field]) == len({key(v) for v in row[field]})
+        if 'scope' in row:
+            assert row['scope'] is None or (isinstance(row['scope'], str) and text(row['scope']) == row['scope'] and bool(row['scope']))
         for field in ('issn', 'eissn'):
             assert row[field] is None or (re.fullmatch(r'\d{4}-\d{3}[\dX]', row[field]) and valid_issn(row[field].replace('-', '')))
         for field in ('homepage_url', 'scopus_source_url'):

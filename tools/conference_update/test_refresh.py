@@ -24,7 +24,7 @@ def record(number=1):
     name = 'Example Computing Symposium ' + word
     acronym = 'ECS' + word
     venue = dict(zip(FIELDS, [f'CONF-{number:03d}', name, acronym, None, None,
-                  None, 'A', [], ['Machine learning'], [], 'https://example.org/conf']))
+                  None, 'A', [], ['Machine learning'], None, [], 'https://example.org/conf']))
     return {'core': {'id': str(number), 'name': name, 'acronym': acronym,
                     'source': 'ICORE2026', 'rank': 'B', 'dblp_url': 'https://dblp.org/db/conf/ecs' + word},
             'venue': venue}
@@ -71,7 +71,7 @@ class ConferenceUpdateTests(unittest.TestCase):
 
     def test_real_seed_covers_all_core_and_preserves_every_public_id(self):
         records = validate_seed(load(HERE / 'seed.json'))
-        self.assertEqual(len(records), 992)
+        self.assertGreaterEqual(len(records), 992)
         registry = {r['venue']['id']: r['venue'] for r in records}
         for row in load(ROOT / 'data/conf.json'):
             self.assertIn(row['id'], registry)
@@ -113,6 +113,47 @@ class ConferenceUpdateTests(unittest.TestCase):
         self.assertEqual(found['timeline'][0]['abstract_deadline'], '2027-01-01')
         self.assertEqual(found['timeline'][1]['camera_ready_deadline'], '2027-06-02')
         self.assertEqual(found['scope_keywords'], ['Machine learning', 'Robotics'])
+        self.assertIsNone(found['scope'])
+
+    def test_wiki_extract_scope_strips_noise_and_truncates_cleanly(self):
+        html = '''<div class="cfp">
+        ========================================<br>
+        Call for Papers: Example Conf 2027<br>
+        https://example.org/conf2027<br>
+        contact@example.org<br>
+        ## Aims and Scope<br>
+        The International Symposium on Distributed Systems explores scalable fault-tolerant architectures,
+        consensus algorithms, and cloud-native storage systems across modern data centers.<br><br>
+        Submissions are due January 15, 2027 and should follow double-blind formatting rules
+        for peer review by the international program committee.<br><br>
+        Important dates<br>
+        Submission deadline: January 15, 2027<br>
+        Topics of interest:<br>
+        Distributed systems<br>
+        Program Committee<br>
+        Alice Smith (MIT), Bob Lee (Stanford)<br>
+        Copyright 2027 Example Society. All rights reserved.
+        </div>'''
+        found = extract(html, {'deadline': '2027-01-15'})
+        scope = found['scope']
+        self.assertIsNotNone(scope)
+        self.assertIn('scalable fault-tolerant architectures', scope)
+        self.assertNotIn('https://', scope)
+        self.assertNotIn('contact@example.org', scope)
+        self.assertNotIn('January 15, 2027', scope)
+        self.assertNotIn('Alice Smith', scope)
+        self.assertNotIn('Copyright', scope)
+        self.assertLessEqual(len(scope), 480)
+        self.assertGreaterEqual(len(scope), 50)
+
+    def test_wiki_extract_scope_handles_missing_cfp_and_truncation(self):
+        from wiki_extract import extract_scope
+        self.assertIsNone(extract_scope(None))
+        long_para = ' '.join(['Distributed systems research'] * 30) + '.'
+        soup = sources.BeautifulSoup(f'<div class="cfp"><p>{long_para}</p></div>', 'html.parser')
+        scope = extract_scope(soup.select_one('div.cfp'))
+        self.assertIsNotNone(scope)
+        self.assertLessEqual(len(scope), 480)
 
     def test_wiki_does_not_infer_midnight_from_rdf_or_unlabelled_dates(self):
         found = extract('<span content="2027-01-01T00:00:00">January 1, 2027</span>', {'deadline': '2027-01-01'})

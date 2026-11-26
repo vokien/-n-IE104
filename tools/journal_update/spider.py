@@ -65,7 +65,10 @@ class JournalSpider:
         for attempt in range(1, self.max_retries + 1):
             try:
                 if self.fetcher:
-                    response = self.fetcher.get(url, headers=default_headers, timeout=timeout)
+                    fetch_kwargs = {'timeout': timeout}
+                    if headers:
+                        fetch_kwargs['headers'] = headers
+                    response = self.fetcher.get(url, **fetch_kwargs)
                     status = getattr(response, 'status', getattr(response, 'status_code', 200))
                     if status in (401, 403, 429):
                         raise SpiderError(f"Access denied or rate limited (HTTP {status}) at {url}")
@@ -89,8 +92,10 @@ class JournalSpider:
 
 class MockResponse:
     """Fallback response wrapper mimicking Scrapling response interface."""
+
     def __init__(self, content: bytes, status: int, url: str):
         self.content = content
+        self.body = content
         self.text = content.decode('utf-8', errors='replace')
         self.status = status
         self.url = url
