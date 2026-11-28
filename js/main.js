@@ -12,6 +12,7 @@ import { initBookmarkModal, updateTriggerButtons } from "./modules/bookmark-moda
 import { initNotificationCenter } from "./modules/notification-manager.js";
 import { saveSearchQuery, AppStorage } from "./modules/storage.js";
 import { hydrateVenueStats } from "./modules/venue-data.js";
+import "./modules/i18n.js";
 
 // Đảm bảo tương thích toàn cục cho console DevTools và kiểm thử
 if (typeof window !== "undefined") {

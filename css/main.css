@@ -3342,3 +3342,16 @@ textarea.form-control {
     padding: 0 4px !important;
   }
 }
+
+/* === Nút chuyển đổi song ngữ VI / EN === */
+.lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 54px;
+  padding: 0 10px;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 13px;
+}
